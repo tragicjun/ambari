@@ -420,6 +420,7 @@ function hdp_mon_generate_response( $response_data )
       case "KNOX":
       case "KAFKA":
       case "PUPPET":
+      case "DEMO":
         break;
       default:
         $pieces[0] = "UNKNOWN";

@@ -128,6 +128,7 @@ define("PASSIVE_MODE_STR", "AMBARIPASSIVE=");
       case "MAPREDUCE":
       case "HBASE":
       case "STORM":
+      case "DEMO":
         break;
       default:
         $pieces[0] = "UNKNOWN";
