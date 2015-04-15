@@ -4,7 +4,7 @@
 * distributed with this work for additional information
 * regarding copyright ownership.  The ASF licenses this file
 * to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
+* "License"); you may not use this file except in compliance 
 * with the License.  You may obtain a copy of the License at
 *
 *     http://www.apache.org/licenses/LICENSE-2.0
@@ -19,7 +19,7 @@
 <div class="editable-list-container well" ng-class="{'edit-mode' : editMode, 'disabled' : !editable}" ng-click="enableEditMode($event)">
   <div class="items-box">
     <ul class="items-list">
-      <li class="item" ng-repeat="item in items | orderBy:identity"><span><a href>{{item}}</a><button ng-click="removeFromItems(item)" type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></span></li><li class="item add-item-input" ng-show="editMode">
+      <li class="item" ng-repeat="item in items | orderBy:identity"><span><a href>{{item}}</a><button ng-click="removeFromItems(item)" type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button></span></li><li class="item add-item-input" ng-show="editMode">
         <span contenteditable></span>
         <div class="typeahead-box" ng-show="typeahead.length != 0">
           <ul>
