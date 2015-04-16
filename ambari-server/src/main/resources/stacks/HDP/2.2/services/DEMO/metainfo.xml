@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>DEMO</name>
+            <displayName>DEMO</displayName>
+            <comment>hello world</comment>
+            <version>1.0.0</version>
+            <components>
+                <component>
+                    <name>DEMO_MASTER</name>
+                    <displayName>DEMO_Master</displayName>
+                    <category>MASTER</category>
+                    <cardinality>1</cardinality>
+                    <commandScript>
+                        <script>scripts/master.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>600</timeout>
+                    </commandScript>
+                </component>
+                <component>
+                    <name>DEMO_SLAVE</name>
+                    <displayName>DEMO_SLAVE</displayName>
+                    <category>SLAVE</category>
+                    <cardinality>1+</cardinality>
+                    <commandScript>
+                        <script>scripts/slave.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>600</timeout>
+                    </commandScript>
+                </component>
+                <component>
+                    <name>DEMO_CLIENT</name>
+                    <displayName>DEMO_CLIENT</displayName>
+                    <category>CLIENT</category>
+                    <cardinality>1+</cardinality>
+                    <commandScript>
+                        <script>scripts/client.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>600</timeout>
+                    </commandScript>
+                </component>
+            </components>
+	  
+            <osSpecifics>
+                <osSpecific>
+                    <osFamily>redhat5,redhat6,suse11</osFamily>
+                <packages>
+                    <package>
+                         <name>helloworld</name>
+                    </package>
+                </packages>
+                </osSpecific>
+           </osSpecifics>
+
+
+        </service>
+    </services>
+</metainfo>

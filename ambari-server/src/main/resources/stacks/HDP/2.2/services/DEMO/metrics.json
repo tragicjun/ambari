@@ -1,0 +1,21 @@
+{
+  "DEMO_MASTER": {
+    "Component": [
+      {
+        "type": "ganglia",
+        "metrics": {
+          "metrics/lhotse-db/metrics-file/issued_except_count": {
+            "metric": "lhotse-db.metrics-file.issued_except_count",
+            "pointInTime": true,
+            "temporal": true
+          },
+          "metrics/demo/master/test": {
+            "metric": "demo.master.test",
+            "pointInTime": true,
+            "temporal": true
+          }
+        }
+      }
+    ]
+  }
+}

@@ -86,8 +86,10 @@ nagios_hostgroup_cfg = format("{nagios_obj_dir}/hadoop-hostgroups.cfg")
 nagios_servicegroup_cfg = format("{nagios_obj_dir}/hadoop-servicegroups.cfg")
 nagios_service_cfg = format("{nagios_obj_dir}/hadoop-services.cfg")
 nagios_command_cfg = format("{nagios_obj_dir}/hadoop-commands.cfg")
+nagios_test_cfg = format("{nagios_obj_dir}/test.cfg")
 eventhandlers_dir = "/usr/lib/nagios/eventhandlers"
 nagios_principal_name = default("/configurations/nagios-env/nagios_principal_name", "nagios")
+
 
 oozie_server_port = get_port_from_url(config['configurations']['oozie-site']['oozie.base.url'])
 namenode_host = default("/clusterHostInfo/namenode_host", None)
@@ -333,6 +335,7 @@ _hbase_rs_hosts = default("/clusterHostInfo/hbase_rs_hosts", _slave_hosts)
 _hue_server_host = default("/clusterHostInfo/hue_server_host", None)
 _knox_gateway_host =  default("/clusterHostInfo/knox_gateway_hosts", None)
 _kafka_broker_host =  default("/clusterHostInfo/kafka_broker_hosts", None)
+_demo_master_host = default("/clusterHostInfo/demo_master_hosts", None)
 all_hosts = config['clusterHostInfo']['all_hosts']
 
 if 'namenode_host' in config['clusterHostInfo']:
@@ -369,5 +372,6 @@ hostgroup_defs = {
     'falcon-server' : _falcon_host,
     'ats-servers' : _app_timeline_server_hosts,
     'knox-gateway' : _knox_gateway_host,
-    'kafka-broker' : _kafka_broker_host
+    'kafka-broker' : _kafka_broker_host,
+    'demo-master' : _demo_master_host
 }

@@ -75,6 +75,7 @@ nimbus_server_hosts = set(default("/clusterHostInfo/nimbus_hosts", []))
 supervisor_server_hosts = set(default("/clusterHostInfo/supervisor_hosts", []))
 kafka_broker_hosts =  set(default("/clusterHostInfo/kafka_broker_hosts", []))
 kafka_ganglia_port = default("/configurations/kafka-broker/kafka.ganglia.metrics.port", 8671)
+demo_master_hosts = set(default("/clusterHostInfo/demo_master_hosts", []))
 
 pure_slave = not hostname in (namenode_host | jtnode_host | rm_host | hs_host | \
                               hbase_master_hosts | slave_hosts | tt_hosts | hbase_rs_hosts | \
@@ -109,6 +110,7 @@ has_journalnode = not len(jn_hosts) == 0
 has_nimbus_server = not len(nimbus_server_hosts) == 0
 has_supervisor_server = not len(supervisor_server_hosts) == 0
 has_kafka_broker = not len(kafka_broker_hosts) == 0
+has_demo_master = not len(demo_master_hosts) == 0
 
 ganglia_cluster_names = {
   "jn_hosts": [("HDPJournalNode", 8654)],
@@ -125,7 +127,7 @@ ganglia_cluster_names = {
   "nimbus_hosts": [("HDPNimbus", 8649)],
   "supervisor_hosts": [("HDPSupervisor", 8650)],
   "kafka_broker_hosts": [("HDPKafka", kafka_ganglia_port)],
-  "ReservedPort1": [("ReservedPort1", 8667)],
+  "demo_master_hosts": [("HDPDemoMaster", 8667)],
   "ReservedPort2": [("ReservedPort2", 8668)],
   "ReservedPort3": [("ReservedPort3", 8669)]
 }

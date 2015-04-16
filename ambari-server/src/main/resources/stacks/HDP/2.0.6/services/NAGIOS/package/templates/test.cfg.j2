@@ -1,0 +1,25 @@
+define contact{
+	contact_name				florianfan
+	use					generic-contact
+	alias					Nagios Tester
+	email					florianfan@tencent.com
+}
+define contactgroup {
+	contactgroup_name			tester
+	alias					Nagios test users
+	members					florianfan
+}
+
+{% if hostgroup_defs['demo-master'] %}
+define service {
+	use					generic-service
+	hostgroup_name				demo-master
+	service_description			DEMO::Port 1024 is down
+	check_command				check_tcp_wrapper!1024!-w 1 -c 1
+	contact_groups				tester
+	normal_check_interval			1
+	retry_check_interval			1
+	max_check_attempts			1
+	register				1
+}
+{% endif %}

@@ -232,6 +232,13 @@ class GangliaMonitor(Script):
                       owner = "root",
                       group = params.user_group)
 
+    if params.has_demo_master:
+      generate_daemon("gmond",
+                      name = "HDPDemoMaster",
+                      role = "server",
+                      owner = "root",
+                      group = params.user_group)
+
     generate_daemon("gmond",
                     name = "HDPSlaves",
                     role = "server",

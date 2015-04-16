@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?> 
+<configuration>
+  <property>
+    <name>host</name>
+    <value>127.0.0.1</value>
+    <description>This is a host ip</description>
+ </property>
+   <property>
+    <name>port</name>
+    <value>8080</value>
+    <description>This is the port</description>
+ </property>
+
+   <property>
+    <name>config.path</name>
+    <value>/home/ambari</value>
+    <description>This is the config path</description>
+  </property>
+</configuration>
+

@@ -39,6 +39,7 @@ def nagios_server_config():
   nagios_server_configfile( 'hadoop-services.cfg')
   nagios_server_configfile( 'hadoop-commands.cfg')
   nagios_server_configfile( 'contacts.cfg')
+  nagios_server_configfile( 'test.cfg')
   
   if System.get_instance().os_family != "suse":
     nagios_server_configfile( 'nagios',
