@@ -21,7 +21,7 @@
         <service>
             <name>DEMO</name>
             <displayName>DEMO</displayName>
-            <comment>hello world</comment>
+            <comment>测试服务</comment>
             <version>1.0.0</version>
             <components>
                 <component>

@@ -22,6 +22,7 @@
     <service>
       <name>STORM</name>
       <displayName>Storm</displayName>
+        <comment>分布式流式处理系统</comment>
       <version>0.9.3.2.2.0.0</version>
       <components>
         <component>

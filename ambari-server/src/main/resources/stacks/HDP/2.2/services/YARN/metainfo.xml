@@ -22,6 +22,7 @@
     <service>
       <name>YARN</name>
       <displayName>YARN</displayName>
+        <comment>Hadoop 2.0</comment>
       <version>2.6.0.2.2.0.0</version>
       <components>
         <component>
