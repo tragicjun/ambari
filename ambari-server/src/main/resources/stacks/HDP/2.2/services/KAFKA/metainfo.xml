@@ -21,7 +21,7 @@
     <service>
       <name>KAFKA</name>
       <displayName>Kafka</displayName>
-      <comment>A high-throughput distributed messaging system</comment>
+      <comment>高吞吐高并发分布式消息系统</comment>
       <version>0.8.1.2.2.0.0</version>
       <components>
         <component>

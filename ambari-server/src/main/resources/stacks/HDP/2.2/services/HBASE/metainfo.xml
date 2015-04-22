@@ -21,6 +21,7 @@
     <service>
       <name>HBASE</name>
       <displayName>HBase</displayName>
+        <comment>基于HDFS的分布式列式数据库</comment>
       <version>0.98.4.2.2.0.0</version>
 
       <osSpecifics>

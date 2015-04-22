@@ -21,7 +21,7 @@
     <service>
       <name>GANGLIA</name>
       <displayName>Ganglia</displayName>
-      <comment>Ganglia Metrics Collection system (&lt;a href=&quot;http://oss.oetiker.ch/rrdtool/&quot; target=&quot;_blank&quot;&gt;RRDTool&lt;/a&gt; will be installed too)</comment>
+        <comment>指标收集系统</comment>
       <version>3.5.0</version>
       <components>
         <component>

@@ -21,6 +21,7 @@
     <service>
       <name>TEZ</name>
       <displayName>Tez</displayName>
+        <comment>基于YARN的新一代Hadoop数据处理框架</comment>
       <version>0.5.2.2.2.0.0</version>
 
       <osSpecifics>

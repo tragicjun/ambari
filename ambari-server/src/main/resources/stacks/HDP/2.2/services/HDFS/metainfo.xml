@@ -21,6 +21,7 @@
     <service>
       <name>HDFS</name>
       <displayName>HDFS</displayName>
+        <comment>Hadoop分布式文件系统</comment>
       <version>2.6.0.2.2.0.0</version>
 
       <osSpecifics>

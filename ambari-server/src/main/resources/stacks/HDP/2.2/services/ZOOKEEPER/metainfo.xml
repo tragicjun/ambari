@@ -21,6 +21,7 @@
     <service>
       <name>ZOOKEEPER</name>
       <displayName>ZooKeeper</displayName>
+        <comment>分布式协调服务</comment>
       <version>3.4.6.2.2.0.0</version>
       <osSpecifics>
         <osSpecific>

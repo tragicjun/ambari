@@ -20,6 +20,7 @@
   <services>
     <service>
       <name>OOZIE</name>
+        <comment>工作流引擎服务器,用于调度Hadoop MapReduce和Pig任务</comment>
       <version>4.1.0.2.2.0.0</version>
       <osSpecifics>
         <osSpecific>

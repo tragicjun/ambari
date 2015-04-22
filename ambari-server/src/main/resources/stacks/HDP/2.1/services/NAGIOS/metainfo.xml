@@ -20,6 +20,7 @@
   <services>
     <service>
       <name>NAGIOS</name>
+        <comment>监控告警系统</comment>
       <version>3.5.0</version>
       <components>
         <component>
