@@ -21,7 +21,7 @@
     <service>
       <name>SLIDER</name>
       <displayName>Slider</displayName>
-      <comment>A framework for deploying, managing and monitoring existing distributed applications on YARN.</comment>
+        <comment>基于YARN的应用框架，用于发布已有的分布式应用到YARN</comment>
       <version>0.60.0.2.2.0.0</version>
       <components>
         <component>

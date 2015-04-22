@@ -20,6 +20,7 @@
   <services>
     <service>
       <name>HIVE</name>
+        <comment>基于Hadoop的数据仓库工具</comment>
       <version>0.14.0.2.2.0.0</version>
       <osSpecifics>
         <osSpecific>

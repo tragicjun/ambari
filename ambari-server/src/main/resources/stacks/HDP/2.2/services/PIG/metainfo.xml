@@ -21,6 +21,7 @@
     <service>
       <name>PIG</name>
       <displayName>Pig</displayName>
+        <comment>基于Hadoop的数据分析脚本平台</comment>
       <version>0.14.0.2.2.0.0</version>
       <osSpecifics>
         <osSpecific>

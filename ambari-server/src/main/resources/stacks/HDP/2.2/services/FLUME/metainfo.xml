@@ -21,6 +21,7 @@
     <service>
       <name>FLUME</name>
       <displayName>Flume</displayName>
+        <comment>分布式日志收集系统</comment>
       <version>1.5.2.2.2.0.0</version>
 
       <osSpecifics>
