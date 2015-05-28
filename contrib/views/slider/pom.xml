@@ -1,0 +1,407 @@
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor
+	license agreements. See the NOTICE file distributed with this work for additional
+	information regarding copyright ownership. The ASF licenses this file to
+	You under the Apache License, Version 2.0 (the "License"); you may not use
+	this file except in compliance with the License. You may obtain a copy of
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required
+	by applicable law or agreed to in writing, software distributed under the
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
+	OF ANY KIND, either express or implied. See the License for the specific
+	language governing permissions and limitations under the License. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.ambari.contrib.views</groupId>
+  <artifactId>slider</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Slider</name>
+
+  <parent>
+    <groupId>org.apache.ambari.contrib.views</groupId>
+    <artifactId>ambari-contrib-views</artifactId>
+    <version>2.0.0.0</version>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.slider</groupId>
+      <artifactId>slider-core</artifactId>
+      <version>${slider.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.slider</groupId>
+      <artifactId>slider-agent</artifactId>
+      <version>${slider.version}</version>
+      <type>tar.gz</type>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.easymock</groupId>
+      <artifactId>easymock</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-configuration</groupId>
+      <artifactId>commons-configuration</artifactId>
+      <version>${commons-configuration.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>commons-lang</groupId>
+          <artifactId>commons-lang</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>${commons-lang.version}</version>
+      <exclusions>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>${httpclient.version}</version>
+      <exclusions>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.ambari</groupId>
+      <artifactId>ambari-views</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-compress</artifactId>
+      <version>${commons-compress.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.inject</groupId>
+      <artifactId>guice</artifactId>
+      <version>${guice.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-core</artifactId>
+      <version>${jersey.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-client</artifactId>
+      <version>${jersey.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.jersey.contribs</groupId>
+      <artifactId>jersey-guice</artifactId>
+      <version>${jersey.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-json</artifactId>
+      <version>${jersey.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-server</artifactId>
+      <version>${jersey.version}</version>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <id>ASF Staging</id>
+      <url>https://repository.apache.org/content/groups/staging/</url>
+    </repository>
+    <repository>
+      <id>ASF Snapshots</id>
+      <url>https://repository.apache.org/content/repositories/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </repository>
+  </repositories>
+
+  <properties>
+    <ambari.dir>${project.parent.parent.parent.basedir}</ambari.dir>
+    <nodejs.directory>${basedir}/target/nodejs</nodejs.directory>
+    <npm.version>1.4.3</npm.version>
+    <ui.directory>${basedir}/src/main/resources/ui</ui.directory>
+    <commons-configuration.version>1.6</commons-configuration.version>
+    <commons-lang.version>2.6</commons-lang.version>
+    <commons-compress.version>1.9</commons-compress.version>
+    <httpclient.version>4.2.5</httpclient.version>
+    <slider.version>0.61.0-SNAPSHOT</slider.version>
+    <guice.version>3.0</guice.version>
+    <jackson.version>1.9.13</jackson.version>
+    <jersey.version>1.9</jersey.version>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <id>clean</id>
+            <phase>clean</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target name="slider-ui-clean">
+                <exec dir="${ui.directory}" executable="${executable.rmdir}">
+                  <arg value="${args.rm.clean}"/>
+                  <arg value="public"/>
+                  <arg value="node_modules"/>
+                </exec>
+                <exec dir="${ui.directory}" executable="${executable.mkdir}">
+                  <arg value="${args.mkdir.clean}"/>
+                </exec>
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>compile</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target name="slider-ui-compile">
+                <exec dir="${ui.directory}" executable="${executable.npm}" failonerror="true">
+                  <arg value="${args.npm.install}"/>
+                </exec>
+                <exec dir="${ui.directory}" executable="${executable.brunch}" failonerror="true">
+                  <arg value="${args.brunch.build}"/>
+                </exec>
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target name="slider-ui-test" unless="${skipTests}">
+                <exec dir="${ui.directory}" executable="${executable.npm}" failonerror="true">
+                  <env key="PYTHON" value="${basedir}/../ambari-common/src/main/unix/ambari-python-wrap"/>
+                  <arg value="${args.npm.test}"/>
+                </exec>
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>prepare-package</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target name="slider-ui-prepare-package">
+                <exec dir="${ui.directory}" executable="${executable.gzip}" failonerror="false">
+                  <arg value="-f"/>
+                  <arg value="public/javascripts/app.js"/>
+                  <arg value="public/javascripts/vendor.js"/>
+                  <arg value="public/stylesheets/app.css"/>
+                </exec>
+
+                <!-- <copy toDir="${project.build.directory}/ambari-server-${project.version}-dist/ambari-server-${project.version}/web/">
+                    <fileset dir="${ui.directory}/../ambari-web/public"/> </copy> -->
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+              <includeScope>runtime</includeScope>
+              <excludeArtifactIds>slider-agent</excludeArtifactIds>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-slider-agent-with-rename</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+              <includeScope>runtime</includeScope>
+              <stripVersion>true</stripVersion>
+              <includeArtifactIds>slider-agent</includeArtifactIds>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.vafer</groupId>
+        <artifactId>jdeb</artifactId>
+        <version>1.0.1</version>
+        <executions>
+          <execution>
+            <phase>none</phase>
+            <goals>
+              <goal>jdeb</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <skip>true</skip>
+          <submodules>false</submodules>
+        </configuration>
+      </plugin>
+    </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>slider.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources/</directory>
+        <filtering>false</filtering>
+        <includes>
+          <include>view.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources/ui/public</directory>
+        <filtering>false</filtering>
+      </resource>
+      <resource>
+        <targetPath>WEB-INF/lib</targetPath>
+        <filtering>false</filtering>
+        <directory>target/lib</directory>
+      </resource>
+    </resources>
+    <pluginManagement>
+      <plugins>
+        <!--This plugin's configuration is used to store Eclipse m2e settings
+            only. It has no influence on the Maven build itself. -->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>
+                      org.codehaus.mojo
+                    </groupId>
+                    <artifactId>
+                      exec-maven-plugin
+                    </artifactId>
+                    <versionRange>
+                      [1.2.1,)
+                    </versionRange>
+                    <goals>
+                      <goal>exec</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore></ignore>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  <profiles>
+    <profile>
+      <id>windows</id>
+      <activation>
+        <os>
+          <family>win</family>
+        </os>
+      </activation>
+      <properties>
+        <envClassifier>win</envClassifier>
+        <dirsep>\</dirsep>
+        <executable.brunch>cmd</executable.brunch>
+        <args.brunch.build>/C brunch build</args.brunch.build>
+        <executable.gzip>gzip</executable.gzip>
+        <executable.mkdir>cmd</executable.mkdir>
+        <args.mkdir.clean>/C mkdir public</args.mkdir.clean>
+        <executable.npm>cmd</executable.npm>
+        <args.npm.install>/C npm install</args.npm.install>
+        <args.npm.test>/C npm test</args.npm.test>
+        <executable.rmdir>cmd</executable.rmdir>
+        <args.rm.clean>/C rmdir /S /Q</args.rm.clean>
+        <executable.shell>cmd</executable.shell>
+        <fileextension.shell>cmd</fileextension.shell>
+      </properties>
+    </profile>
+    <profile>
+      <id>linux</id>
+      <activation>
+        <os>
+          <family>unix</family>
+        </os>
+      </activation>
+      <properties>
+        <envClassifier>linux</envClassifier>
+        <dirsep>/</dirsep>
+        <executable.brunch>brunch</executable.brunch>
+        <args.brunch.build>build</args.brunch.build>
+        <executable.gzip>gzip</executable.gzip>
+        <executable.mkdir>mkdir</executable.mkdir>
+        <args.mkdir.clean>public</args.mkdir.clean>
+        <executable.npm>npm</executable.npm>
+        <args.npm.install>install</args.npm.install>
+        <args.npm.test>test</args.npm.test>
+        <executable.rmdir>rm</executable.rmdir>
+        <args.rm.clean>-rf</args.rm.clean>
+        <executable.shell>sh</executable.shell>
+        <fileextension.shell>sh</fileextension.shell>
+      </properties>
+    </profile>
+  </profiles>
+</project>
