@@ -127,6 +127,9 @@ require('views/main/dashboard/widgets/jobtracker_rpc');
 require('views/main/dashboard/widgets/mapreduce_slots');
 require('views/main/dashboard/widgets/metrics_memory');
 require('views/main/dashboard/widgets/metrics_network');
+require('views/main/dashboard/widgets/lhotse1');
+require('views/main/dashboard/widgets/lhotse2');
+require('views/main/dashboard/widgets/lhotse3');
 require('views/main/dashboard/widgets/metrics_cpu');
 require('views/main/dashboard/widgets/metrics_load');
 require('views/main/dashboard/widgets/namenode_uptime');
@@ -227,6 +230,20 @@ require('views/main/service/info/metrics/kafka/controller_status');
 require('views/main/service/info/metrics/kafka/replica_manager');
 require('views/main/service/info/metrics/kafka/replica_fetcher');
 require('views/main/service/info/metrics/kafka/kafka_log_flush');
+
+// ADD NEW METRICS HERE
+require('views/main/service/info/metrics/lhotse/issue_avg_time');
+require('views/main/service/info/metrics/lhotse/base_request_count');
+require('views/main/service/info/metrics/lhotse/issued_instance_count');
+require('views/main/service/info/metrics/lhotse/issued_except_count');
+require('views/main/service/info/metrics/lhotse/running_instance_count');
+require('views/main/service/info/metrics/lhotse/failed_instance_count');
+require('views/main/service/info/metrics/lhotse/waiting_instance_count');
+require('views/main/service/info/metrics/lhotse/ready_instance_count');
+require('views/main/service/info/metrics/lhotse/new_instance_count');
+require('views/main/service/info/metrics/lhotse/succ_instance_count');
+require('views/main/service/info/metrics/lhotse/succ_avg_time');
+require('views/main/service/info/metrics/lhotse/alive_runner_count');
 
 require('views/main/service/add_view');
 require('views/main/service/reassign_view');

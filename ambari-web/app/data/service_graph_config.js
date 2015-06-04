@@ -87,13 +87,30 @@ App.service_graph_config = {
 		'STORM_Tasks'
 	],
 
-  'kafka': [
-    'Kafka_BrokerTopicMetrics',
-    'Kafka_Controller',
-    'Kafka_ControllerStatus',
-    'Kafka_ReplicaManager',
-    'Kafka_LogFlush',
-    'Kafka_ReplicaFetcher'
-  ]
+	'kafka': [
+	  'Kafka_BrokerTopicMetrics',
+	  'Kafka_Controller',
+	  'Kafka_ControllerStatus',
+	  'Kafka_ReplicaManager',
+	  'Kafka_LogFlush',
+	  'Kafka_ReplicaFetcher'
+	],
+	
+	// ADD NEW SERVICE METRIC HERE
+	
+	'lhotse': [
+	  'Lhotse_IssueAvgTime',
+	  'Lhotse_BaseRequestCount',
+	  'Lhotse_IssuedInstanceCount',
+	  'Lhotse_IssuedExceptCount',
+	  'Lhotse_RunningInstanceCount',
+    'Lhotse_FailedInstanceCount',
+    'Lhotse_WaitingInstanceCount',
+    'Lhotse_ReadyInstanceCount',
+    'Lhotse_NewInstanceCount',
+    'Lhotse_SuccInstanceCount',
+    //'Lhotse_SuccAvgTime',
+    'Lhotse_AliveRunnerCount'
+	]
 
 };

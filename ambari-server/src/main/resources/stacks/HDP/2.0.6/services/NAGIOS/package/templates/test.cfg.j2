@@ -20,27 +20,40 @@
 #
 
 define contact{
-	contact_name				florianfan
-	use					generic-contact
-	alias					Nagios Tester
-	email					florianfan@tencent.com
+        contact_name                            florianfan
+        use                                     generic-contact
+        alias                                   Nagios Tester
+        email                                   florianfan@tencent.com
 }
 define contactgroup {
-	contactgroup_name			tester
-	alias					Nagios test users
-	members					florianfan
+        contactgroup_name                       tester
+        alias                                   Nagios test users
+        members                                 florianfan
 }
 
 {% if hostgroup_defs['demo-master'] %}
 define service {
-	use					generic-service
-	hostgroup_name				demo-master
-	service_description			DEMO::Port 1024 is down
-	check_command				check_tcp_wrapper!1024!-w 1 -c 1
-	contact_groups				tester
-	normal_check_interval			1
-	retry_check_interval			1
-	max_check_attempts			1
-	register				1
+        use                                     generic-service
+        hostgroup_name                          demo-master
+        service_description                     DEMO::Port 8080 status
+        check_command                           check_tcp_wrapper!8080!-w 1 -c 1
+        contact_groups                          tester
+        normal_check_interval                   1   
+        retry_check_interval                    1   
+        max_check_attempts                      1   
+        register                                1   
+}
+
+# LHOTSE GANGLIA CLUSTER
+define service {
+        hostgroup_name          ganglia-server
+        use                     generic-service
+        service_description     GANGLIA::Ganglia Monitor process for Demo Master
+        servicegroups           GANGLIA
+        check_command           check_tcp_wrapper!{{ ganglia_collector_demo_master_port }}!-w 1 -c 1
+        _host_component         GANGLIA_SERVER
+        normal_check_interval   0.25
+        retry_check_interval    0.25
+        max_check_attempts      4
 }
 {% endif %}

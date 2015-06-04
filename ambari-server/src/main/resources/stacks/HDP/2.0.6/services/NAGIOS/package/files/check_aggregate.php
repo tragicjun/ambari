@@ -131,7 +131,7 @@ define("PASSIVE_MODE_STR", "AMBARIPASSIVE=");
       case "DEMO":
         break;
       default:
-        $pieces[0] = "UNKNOWN";
+        //$pieces[0] = "UNKNOWN";
     }
     return $pieces[0];
   }

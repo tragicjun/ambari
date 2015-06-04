@@ -20,6 +20,7 @@
   <schemaVersion>2.0</schemaVersion>
   <services>
     <service>
+        <deleted>true</deleted>
       <name>STORM</name>
       <displayName>Storm</displayName>
         <comment>分布式流式处理系统</comment>

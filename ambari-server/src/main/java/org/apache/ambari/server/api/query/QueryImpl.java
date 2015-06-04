@@ -342,7 +342,7 @@ public class QueryImpl implements Query, ResourceInstance {
       SystemException,
       NoSuchResourceException,
       NoSuchParentResourceException {
-
+    
     Set<Resource> providerResourceSet = new HashSet<Resource>();
     Resource.Type resourceType    = getResourceDefinition().getType();
     Predicate     queryPredicate  = createPredicate(getKeyValueMap(), processUserPredicate(userPredicate));
@@ -352,7 +352,6 @@ public class QueryImpl implements Query, ResourceInstance {
 
     Request       request     = createRequest();
     Set<Resource> resourceSet = new LinkedHashSet<Resource>();
-
     Set<Resource> queryResources = doQuery(resourceType, request, queryPredicate);
     // If there is a page request and the predicate does not contain properties
     // that need to be set
@@ -390,7 +389,7 @@ public class QueryImpl implements Query, ResourceInstance {
       SystemException,
       NoSuchResourceException,
       NoSuchParentResourceException {
-
+    
     for (Map.Entry<String, QueryImpl> entry : requestedSubResources.entrySet()) {
       QueryImpl     subResource         = entry.getValue();
       Resource.Type resourceType        = subResource.getResourceDefinition().getType();

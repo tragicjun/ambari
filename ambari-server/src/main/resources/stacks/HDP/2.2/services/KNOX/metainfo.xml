@@ -19,6 +19,7 @@
   <schemaVersion>2.0</schemaVersion>
   <services>
     <service>
+        <deleted>true</deleted>
       <name>KNOX</name>
       <displayName>Knox</displayName>
       <comment>Hadoop集群的认证服务</comment>

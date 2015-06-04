@@ -1,0 +1,105 @@
+#!/bin/bash
+#
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+#
+# Check Whether Lhotse Runner Process Exists
+#
+
+while getopts "k:mc:hH:l:p:d:" opt
+do
+    case $opt in
+      k) key=$OPTARG;;
+      m) multi=true;;
+      c) col=$OPTARG;;
+      h) host=true;;
+      H) addr=$OPTARG;;
+      l) user=$OPTARG;;
+      p) psw=$OPTARG;;
+      d) desc=$OPTARG;;
+      ?) ;;
+    esac
+done
+
+key="lhotse_task_loader.jar"
+multi=true
+col=16
+host=true
+desc=""
+
+if [ "$key" = "" ]; then
+    echo "Keyword should not be empty"; exit 2
+fi
+
+if [ "$addr" = "" ]; then
+    addr=`hostname -i`
+fi
+
+if [ "$user" = "" ]; then
+    user="nagios"
+fi
+
+if [ "$psw" = "" ]; then
+    psw="nagios"
+fi
+
+if [ "$col" = "" ]; then
+    col=2
+fi
+
+if [ "$host" = "true" ]; then
+    host="@"$addr
+else
+    host=""
+fi
+
+if [ "$desc" != "" ]; then
+    desc=$desc" = "
+else
+    desc="pid = "
+fi
+
+#result=`/usr/lib64/nagios/plugins/ssh_cmd $user $psw $addr ps aux | grep $key | grep "grep" -v | grep "check_remote_process" -v | sed 's/^M//g' | awk '{print $'$col'}'`
+result=`/usr/lib64/nagios/plugins/ssh_cmd $user $psw $addr ps aux | grep $key | grep "grep" -v | grep "check_remote_process" -v | awk '{print $'$col'}'`
+ret=`echo $result | sed 's/ /\n/g' | wc -l`
+
+if [ "$result" = "" ]; then
+    echo "No runner runs$host"; exit 2
+else
+    if [ "$multi" != "true" ]; then
+      echo "Too much runners$host"; exit 3
+    else
+      info=`echo $result | sed 's/ /\n/g' | awk '{print $1","}' | xargs | sed 's/.$//g'`
+
+      runnerlist=(66 67 68 92 118 119 120)
+      deadlist=""
+      for var in ${runnerlist[@]}; do
+        if [[ ! "$info" =~ "$var" ]]; then
+          deadlist=${deadlist}"$var, "
+        fi
+      done
+
+      if [ "$deadlist" = "" ]; then
+        echo "All runners are healthy$host"; exit 0
+      else
+        deadlist=`echo "$deadlist" | sed 's/. $//'`
+        echo "Runners [$deadlist] not running$host"; exit 2       
+      fi
+    fi
+fi

@@ -19,6 +19,7 @@
   <schemaVersion>2.0</schemaVersion>
   <services>
     <service>
+        <deleted>true</deleted>
       <name>SLIDER</name>
       <displayName>Slider</displayName>
         <comment>基于YARN的应用框架，用于发布已有的分布式应用到YARN</comment>

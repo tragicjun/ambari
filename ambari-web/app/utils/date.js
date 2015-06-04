@@ -58,7 +58,7 @@ module.exports = {
     if (!validator.isValidInt(timestamp)) {
       return timestamp;
     }
-    format = format || 'ddd, MMM DD, YYYY HH:mm';
+    format = format || 'YYYY-MM-DD HH:mm:ss';
 
     return moment((new Date(timestamp))).format(format);
   },
@@ -74,7 +74,7 @@ module.exports = {
     if (!validator.isValidInt(timestamp)) {
       return timestamp;
     }
-    var format = 'ddd MMM DD YYYY';
+    var format = 'YYYY-MM-DD';
     var date = moment((new Date(timestamp))).format(format);
     var today = moment((new Date())).format(format);
     if (date === today) {

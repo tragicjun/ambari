@@ -866,4 +866,173 @@ define service {
 }
 {% endif %}
 
+# ADD NEW SERVICES HERE
 
+{% if hostgroup_defs['lhotse-base'] %}
+define service {
+    use                                     generic-service
+    hostgroup_name                          lhotse-base
+    service_description                     LHOTSE::Lhotse base status
+    check_command                           check_tcp_wrapper!{{ lhotse_base_port }}!-w 1 -c 1
+    contact_groups                          admins
+    normal_check_interval                   1
+    retry_check_interval                    0.5
+    max_check_attempts                      2
+}
+
+# LHOTSE GANGLIA CLUSTER
+define service {
+        hostgroup_name          ganglia-server
+        use                     generic-service
+        service_description     GANGLIA::Ganglia Monitor process for Lhotse base
+        servicegroups           GANGLIA
+        check_command           check_tcp_wrapper!{{ ganglia_collector_lhotse_base_port }}!-w 1 -c 1
+        _host_component         GANGLIA_SERVER
+        normal_check_interval   0.25
+        retry_check_interval    0.25
+        max_check_attempts      4
+}
+{% endif %}
+
+{% if hostgroup_defs['lhotse-database'] %}
+define service {
+    use                                     generic-service
+    hostgroup_name                          lhotse-database
+    service_description                     LHOTSE::Lhotse database status
+    check_command                           check_tcp_wrapper!{{ lhotse_database_port }}!-w 1 -c 1
+    contact_groups                          admins
+    normal_check_interval                   1
+    retry_check_interval                    0.5
+    max_check_attempts                      2
+}
+{% endif %}
+
+{% if hostgroup_defs['lhotse-runner'] %}
+define service {
+    use                                     generic-service
+    hostgroup_name                          lhotse-runner
+    service_description                     LHOTSE::Lhotse runners status
+    check_command                           check_lz_runner
+    contact_groups                          admins
+    normal_check_interval                   1
+    retry_check_interval                    0.5
+    max_check_attempts                      2
+}
+{% endif %}
+
+{% if hostgroup_defs['lhotse-service'] %}
+define service {
+    use                                     generic-service
+    hostgroup_name                          lhotse-service
+    service_description                     LHOTSE::Lhotse service status
+    check_command                           check_tcp_wrapper!{{ lhotse_service_port }}!-w 1 -c 1
+    contact_groups                          admins
+    normal_check_interval                   1   
+    retry_check_interval                    0.5 
+    max_check_attempts                      2   
+}
+{% endif %}
+
+{% if hostgroup_defs['lhotse-web'] %}
+define service {
+    use                                     generic-service
+    hostgroup_name                          lhotse-web
+    service_description                     LHOTSE::Lhotse web status
+    check_command                           check_tcp_wrapper!{{ lhotse_web_port }}!-w 1 -c 1
+    contact_groups                          admins
+    normal_check_interval                   1   
+    retry_check_interval                    0.5 
+    max_check_attempts                      2   
+}
+{% endif %}
+
+{% if hostgroup_defs['lhotse-ftp'] %}
+define service {
+    use                                     generic-service
+    hostgroup_name                          lhotse-ftp
+    service_description                     LHOTSE::Lhotse ftp status
+    check_command                           check_tcp_wrapper!{{ lhotse_ftp_port }}!-w 1 -c 1
+    contact_groups                          admins
+    normal_check_interval                   1   
+    retry_check_interval                    0.5 
+    max_check_attempts                      2   
+}
+{% endif %}
+
+{% if hostgroup_defs['pgxz-gtm'] %}
+define service {
+    use                                     generic-service
+    hostgroup_name                          pgxz-gtm
+    service_description                     PGXZ::PGXZ GTM status
+    check_command                           check_tcp_wrapper!{{ pgxz_gtm_port }}!-w 1 -c 1
+    contact_groups                          admins
+    normal_check_interval                   1
+    retry_check_interval                    0.5
+    max_check_attempts                      2
+}
+
+# LHOTSE GANGLIA CLUSTER
+define service {
+        hostgroup_name          ganglia-server
+        use                     generic-service
+        service_description     GANGLIA::Ganglia Monitor process for PGXZ GTM
+        servicegroups           GANGLIA
+        check_command           check_tcp_wrapper!{{ ganglia_collector_pgxz_gtm_port }}!-w 1 -c 1
+        _host_component         GANGLIA_SERVER
+        normal_check_interval   0.25
+        retry_check_interval    0.25
+        max_check_attempts      4
+}
+{% endif %}
+
+{% if hostgroup_defs['pgxz-coordinator'] %}
+define service {
+    use                                     generic-service
+    hostgroup_name                          pgxz-coordinator
+    service_description                     PGXZ::PGXZ Coordinator status
+    check_command                           check_tcp_wrapper!{{ pgxz_coordinator_port }}!-w 1 -c 1
+    contact_groups                          admins
+    normal_check_interval                   1
+    retry_check_interval                    0.5
+    max_check_attempts                      2
+}
+{% endif %}
+
+{% if hostgroup_defs['pgxz-datanode'] %}
+define service {
+    use                                     generic-service
+    hostgroup_name                          pgxz-datanode
+    service_description                     PGXZ::PGXZ Datanode status
+    check_command                           check_tcp_wrapper!{{ pgxz_datanode_port }}!-w 1 -c 1
+    contact_groups                          admins
+    normal_check_interval                   1
+    retry_check_interval                    0.5
+    max_check_attempts                      2
+}
+{% endif %}
+
+{% if hostgroup_defs['thive-server'] %}
+define service {
+    use                                     generic-service
+    hostgroup_name                          thive-server
+    service_description                     THIVE::THive Server status
+    check_command                           check_tcp_wrapper!{{ thive_server_port }}!-w 1 -c 1
+    contact_groups                          admins
+    normal_check_interval                   1
+    retry_check_interval                    0.5
+    max_check_attempts                      2
+}
+{% endif %}
+
+{% if hostgroup_defs['thive-metadata-database'] %}
+define service {
+    use                                     generic-service
+    hostgroup_name                          thive-metadata-database
+    service_description                     THIVE::THive Metadata Database status
+    check_command                           check_tcp_wrapper!{{ thive_metadata_database_port }}!-w 1 -c 1
+    contact_groups                          admins
+    normal_check_interval                   1
+    retry_check_interval                    0.5
+    max_check_attempts                      2
+}
+{% endif %}

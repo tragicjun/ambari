@@ -918,3 +918,14 @@ App.ChartLinearTimeView.CreateRateFormatter = function (unitsPrefix, valueFormat
     return value;
   };
 };
+
+/**
+ * The count formatter which format number count for lhotse metrics 
+ * which shows 10个  etc.
+ *
+ * @type {Function}
+ */
+App.ChartLinearTimeView.CountFormatter = function (count) {
+  count = Math.round(count);
+  return count + "个";
+};

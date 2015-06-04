@@ -19,6 +19,7 @@
   <schemaVersion>2.0</schemaVersion>
   <services>
     <service>
+        <deleted>true</deleted>
       <name>FALCON</name>
       <displayName>Falcon</displayName>
         <comment>数据管理与处理平台</comment>

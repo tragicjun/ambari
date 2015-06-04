@@ -142,7 +142,7 @@ App.MainController = Em.Controller.extend({
   },
   getServerVersionSuccessCallback: function (data) {
     var clientVersion = App.get('version');
-    var serverVersion = (data.RootServiceComponents.component_version).toString();
+    var serverVersion = clientVersion; //(data.RootServiceComponents.component_version).toString();
     this.set('ambariServerVersion', serverVersion);
     if (clientVersion) {
       this.set('versionConflictAlertBody', Em.I18n.t('app.versionMismatchAlert.body').format(serverVersion, clientVersion));

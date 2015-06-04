@@ -30,12 +30,12 @@ App.MainDashboardView = Em.View.extend({
         name: 'widgets',
         url: 'dashboard.index',
         label: Em.I18n.t('dashboard.widgets.title')
-      },
+      }/*,
       {
         name: 'charts',
         url: 'dashboard.charts.index',
         label: Em.I18n.t('dashboard.heatmaps.title')
-      }
+      }*/
     ];
     if (App.get('supports.configHistory')) {
       categories.push({

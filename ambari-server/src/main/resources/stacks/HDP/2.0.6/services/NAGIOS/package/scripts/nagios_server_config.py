@@ -74,6 +74,9 @@ def nagios_server_config():
   nagios_server_check( 'check_ambari_alerts.py' )
   nagios_server_check( 'mm_wrapper.py' )
   nagios_server_check( 'check_hive_thrift_port.py' )
+  nagios_server_check( 'ssh_cmd' )
+  nagios_server_check( 'check_remote_process' )
+  nagios_server_check( 'check_lz_runner' )
 
 def nagios_server_configfile(
   name,

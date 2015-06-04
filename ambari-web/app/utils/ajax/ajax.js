@@ -883,6 +883,69 @@ var urls = {
     'real': '/clusters/{clusterName}/services/STORM/components/NIMBUS?fields={metricsTemplate}',
     'mock': ''
   },
+  
+  // ADD NEW METRICS HERE
+  'service.metrics.lhotse.issue_avg_time': {
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_file/metrics_file/issue_avg_time/*[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/services/metrics/lhotse/issue_avg_time.json',
+    'testInProduction': true
+  },
+  'service.metrics.lhotse.base_request_count': {
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_file/metrics_file/base_request_count/*[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/services/metrics/lhotse/base_request_count.json',
+    'testInProduction': true
+  },
+  'service.metrics.lhotse.issued_instance_count': {
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_file/metrics_file/issued_instance_count/*[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/services/metrics/lhotse/issued_instance_count.json',
+    'testInProduction': true
+  },
+  'service.metrics.lhotse.issued_except_count': {
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_file/metrics_file/issued_except_count[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/services/metrics/lhotse/issued_except_count.json',
+    'testInProduction': true
+  },
+  'service.metrics.lhotse.running_instance_count': {
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_db/metrics_db/running_instance_count/*[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/services/metrics/lhotse/running_instance_count.json',
+    'testInProduction': true
+  },
+  'service.metrics.lhotse.failed_instance_count': {
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_db/metrics_db/failed_instance_count/*[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/services/metrics/lhotse/failed_instance_count.json',
+    'testInProduction': true
+  },
+  'service.metrics.lhotse.waiting_instance_count': {
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_db/metrics_db/waiting_instance_count/*[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/services/metrics/lhotse/waiting_instance_count.json',
+    'testInProduction': true
+  },
+  'service.metrics.lhotse.ready_instance_count': {
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_db/metrics_db/ready_instance_count/*[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/services/metrics/lhotse/ready_instance_count.json',
+    'testInProduction': true
+  },
+  'service.metrics.lhotse.new_instance_count': {
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_db/metrics_db/new_instance_count/*[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/services/metrics/lhotse/new_instance_count.json',
+    'testInProduction': true
+  },
+  'service.metrics.lhotse.succ_instance_count': {
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_db/metrics_db/succ_instance_count/*[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/services/metrics/lhotse/succ_instance_count.json',
+    'testInProduction': true
+  },
+  'service.metrics.lhotse.succ_avg_time': {
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_db/metrics_db/succ_avg_time/*[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/services/metrics/lhotse/succ_avg_time.json',
+    'testInProduction': true
+  },
+  'service.metrics.lhotse.alive_runner_count': {
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_db/metrics_db/alive_runner_count/*[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/services/metrics/lhotse/alive_runner_count.json',
+    'testInProduction': true
+  },
+  
   'dashboard.cluster_metrics.cpu': {
     'real': '/clusters/{clusterName}/?fields=metrics/cpu[{fromSeconds},{toSeconds},{stepSeconds}]',
     'mock': '/data/cluster_metrics/cpu_1hr.json',

@@ -232,9 +232,26 @@ class GangliaMonitor(Script):
                       owner = "root",
                       group = params.user_group)
 
+    # ADD NEW GANGLIA CLUSTER HERE
+
     if params.has_demo_master:
       generate_daemon("gmond",
                       name = "HDPDemoMaster",
+                      role = "server",
+                      owner = "root",
+                      group = params.user_group)
+
+    if params.has_lhotse_base:
+      generate_daemon("gmond",
+                      name = "HDPLhotseBase",
+                      role = "server",
+                      owner = "root",
+                      group = params.user_group)
+
+
+    if params.has_pgxz_gtm:
+      generate_daemon("gmond",
+                      name = "HDPPgxzGtm",
                       role = "server",
                       owner = "root",
                       group = params.user_group)

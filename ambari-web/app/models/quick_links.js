@@ -411,5 +411,19 @@ App.QuickLinks.FIXTURES = [
     site: 'falcon-env',
     regex: '^(\\d+)$',
     default_http_port: 15000
+  },
+  {
+    id:33,
+    label:'Lhotse Web',
+    //url:'http://lz.oa.com',
+    //service_id: 'LHOSTSE',
+    //template:'http://lz.oa.com'
+    url:'%@://%@:%@/',
+    service_id: 'LHOTSE_BASE',
+    template:'%@://%@:%@/',
+    http_config: 'lhotse_host',
+    https_config: 'lhotse_host',
+    regex: '^(\\d+)$',
+    default_http_port: 8080
   }
 ];

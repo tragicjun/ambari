@@ -176,6 +176,25 @@ App.MainServiceItemView = Em.View.extend({
   createOption: function(option, fields) {
     return $.extend(true, {}, option, fields);
   },
+  
+  maintenance2: function(){
+    var self = this;
+    var options = [];
+    var service = this.get('controller.content');
+    var allMasters = service.get('hostComponents').filterProperty('isMaster').mapProperty('componentName').uniq();
+    var allSlaves = service.get('hostComponents').filterProperty('isSlave').mapProperty('componentName').uniq();
+    var actionMap = this.actionMap();
+    var serviceCheckSupported = App.get('services.supportsServiceCheck').contains(service.get('serviceName'));
+    var hasConfigTab = this.get('hasConfigTab');
+    var excludedCommands = this.get('mastersExcludedCommands');
+
+    if (!this.get('controller.isClientsOnlyService')) {
+
+      options.push(actionMap.RESTART_ALL);
+    }
+
+    return options;
+  }.property('controller.content', 'controller.isStopDisabled','controller.isClientsOnlyService', 'controller.content.isRestartRequired', 'isPassive'),
 
   maintenance: function(){
     var self = this;
@@ -202,7 +221,7 @@ App.MainServiceItemView = Em.View.extend({
       if (this.get('serviceName') === 'YARN') {
         options.push(actionMap.REFRESH_YARN_QUEUE);
       }
-      options.push(actionMap.RESTART_ALL);
+      //options.push(actionMap.RESTART_ALL);
       allSlaves.filter(function (slave) {
         return App.get('components.rollinRestartAllowed').contains(slave);
       }).forEach(function(slave) {

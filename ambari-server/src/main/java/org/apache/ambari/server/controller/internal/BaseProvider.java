@@ -312,15 +312,24 @@ public abstract class BaseProvider {
       }
     }
     else {
-
-      if (value instanceof Map<?, ?>) {
+    	
+      // add by zhengzeming start
+      // if all of the items of the requestedIds does not begin with propertyId, break;
+      boolean propertyIsBeginWithRequestedIds = false;
+      for(String id : requestedIds){
+    	  if(id.startsWith(propertyId)){
+    		  propertyIsBeginWithRequestedIds = true;
+          break;
+    	  }
+      }
+      // add by zhengzeming end	
+      //if (value instanceof Map<?, ?>) {
+      if (value instanceof Map<?, ?> && propertyIsBeginWithRequestedIds) {
         // This map wasn't requested, but maybe some of its entries were...
         Map<?, ?> mapValue = (Map) value;
-
         for (Map.Entry entry : mapValue.entrySet()) {
           String entryPropertyId = PropertyHelper.getPropertyId(propertyId, entry.getKey().toString());
           Object entryValue      = entry.getValue();
-
           contains = setResourceProperty(resource, entryPropertyId, entryValue, requestedIds) || contains;
         }
       }

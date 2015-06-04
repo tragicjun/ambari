@@ -335,7 +335,6 @@ _hbase_rs_hosts = default("/clusterHostInfo/hbase_rs_hosts", _slave_hosts)
 _hue_server_host = default("/clusterHostInfo/hue_server_host", None)
 _knox_gateway_host =  default("/clusterHostInfo/knox_gateway_hosts", None)
 _kafka_broker_host =  default("/clusterHostInfo/kafka_broker_hosts", None)
-_demo_master_host = default("/clusterHostInfo/demo_master_hosts", None)
 all_hosts = config['clusterHostInfo']['all_hosts']
 
 if 'namenode_host' in config['clusterHostInfo']:
@@ -343,6 +342,45 @@ if 'namenode_host' in config['clusterHostInfo']:
 else:
   nn_hosts_string = " ".join(config['clusterHostInfo']['ambari_server_host'])
 
+# NEW CONFIGS WRITE HERE
+
+# GANGLIA COLLECTOR PORT
+ganglia_collector_demo_master_port = "8667"
+ganglia_collector_lhotse_base_port = "8672"
+ganglia_collector_pgxz_gtm_port = "8673"
+
+#DEMO
+_demo_master_hosts = default("/clusterHostInfo/demo_master_hosts", None)
+
+#LHOTSE
+_lhotse_base_hosts = default("/clusterHostInfo/lhotse_base_hosts", None)
+_lhotse_runner_hosts = default("/clusterHostInfo/lhotse_runner_hosts", None)
+_lhotse_database_hosts = default("/clusterHostInfo/lhotse_database_hosts", None)
+_lhotse_service_hosts = default("/clusterHostInfo/lhotse_service_hosts", None)
+_lhotse_web_hosts = default("/clusterHostInfo/lhotse_web_hosts", None)
+_lhotse_ftp_hosts = default("/clusterHostInfo/lhotse_ftp_hosts", None)
+
+lhotse_base_port = default("/configurations/lhotse-base-runner/base.port", 9930)
+lhotse_database_port = default("/configurations/lhotse-database/port", 3306)
+lhotse_service_port = default("/configurations/lhotse-service/listen.port", 8088)
+lhotse_web_port = default("/configurations/lhotse-web/listen.port", 8088)
+lhotse_ftp_port = default("/configurations/lhotse-ftp/port", 21)
+
+#PGXZ
+_pgxz_gtm_hosts = default("/clusterHostInfo/pgxz_gtm_hosts", None)
+_pgxz_coordinator_hosts = default("/clusterHostInfo/pgxz_coordinator_hosts", None)
+_pgxz_datanode_hosts = default("/clusterHostInfo/pgxz_datanode_hosts", None)
+
+pgxz_gtm_port = default("/configurations/gtm-config/port", 6666)
+pgxz_coordinator_port = default("/configurations/coordinator-config/port", 5434)
+pgxz_datanode_port = default("/configurations/datanode-config/port", 5433)
+
+
+#THIVE
+_thive_server_hosts = default("/clusterHostInfo/thive_server_hosts", None)
+_thive_metadata_database_hosts= default("/clusterHostInfo/thive_metadata_database_hosts", None)
+thive_server_port = default("/configurations/thive-config-env/thive.server.port",10000)
+thive_metadata_database_port = 5432
 
 hostgroup_defs = {
     'namenode' : namenode_host,
@@ -373,5 +411,24 @@ hostgroup_defs = {
     'ats-servers' : _app_timeline_server_hosts,
     'knox-gateway' : _knox_gateway_host,
     'kafka-broker' : _kafka_broker_host,
-    'demo-master' : _demo_master_host
+    
+    # DEMO
+    'demo-master' : _demo_master_hosts,
+    
+    # LHOTSE
+    'lhotse-base' : _lhotse_base_hosts,
+    'lhotse-runner' : _lhotse_runner_hosts,
+    'lhotse-database' : _lhotse_database_hosts,
+    'lhotse-service' : _lhotse_service_hosts,
+    'lhotse-web' : _lhotse_web_hosts,
+    'lhotse-ftp' : _lhotse_ftp_hosts,
+    
+    # PGXZ
+    'pgxz-gtm' : _pgxz_gtm_hosts,
+    'pgxz-coordinator' : _pgxz_coordinator_hosts,
+    'pgxz-datanode' : _pgxz_datanode_hosts,
+
+    # THIVE
+    'thive-server' : _thive_server_hosts,
+    'thive-metadata-database' : _thive_metadata_database_hosts
 }

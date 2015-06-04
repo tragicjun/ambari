@@ -51,6 +51,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -867,7 +868,6 @@ public class AmbariManagementControllerImpl implements AmbariManagementControlle
   private Set<ServiceComponentHostResponse> getHostComponents(
       ServiceComponentHostRequest request) throws AmbariException {
     LOG.debug("Processing request {}", request);
-
     if (request.getClusterName() == null
         || request.getClusterName().isEmpty()) {
       IllegalArgumentException e = new IllegalArgumentException("Invalid arguments, cluster name should not be null");
@@ -951,7 +951,7 @@ public class AmbariManagementControllerImpl implements AmbariManagementControlle
     }
 
     Map<String, Host> hosts = clusters.getHostsForCluster(cluster.getClusterName());
-
+    
     for (Service s : services) {
       // filter on component name if provided
       Set<ServiceComponent> components = new HashSet<ServiceComponent>();
@@ -2683,6 +2683,18 @@ public class AmbariManagementControllerImpl implements AmbariManagementControlle
     }
 
     return responses;
+  }
+
+
+  public Set<DemoResponse> getDemos(Set<DemoRequest> requests)
+    throws AmbariException {
+
+    Set<DemoResponse> response = new HashSet<DemoResponse>();
+
+    DemoResponse demo = new DemoResponse(0L, "Test", "Hello world !");
+    response.add(demo);
+
+    return response;
   }
 
   @Override

@@ -20,6 +20,7 @@ package org.apache.ambari.server.controller.internal;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,6 +29,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.inject.Inject;
+
 import org.apache.ambari.server.AmbariException;
 import org.apache.ambari.server.ClusterNotFoundException;
 import org.apache.ambari.server.DuplicateResourceException;
@@ -463,7 +465,6 @@ public class HostResourceProvider extends AbstractControllerResourceProvider {
 
     //TODO/FIXME host can only belong to a single cluster so get host directly from Cluster
     //TODO/FIXME what is the requirement for filtering on host attributes?
-
     List<Host> hosts;
     Set<HostResponse> response = new HashSet<HostResponse>();
     Cluster           cluster  = null;

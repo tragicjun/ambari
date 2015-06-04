@@ -164,3 +164,10 @@ define command{
         command_name check_ambari
         command_line /var/lib/ambari-agent/ambari-python-wrap $USER1$/mm_wrapper.py legacy_check_wrapper -- /var/lib/ambari-agent/ambari-python-wrap $USER1$/check_ambari_alerts.py -H $HOSTADDRESS$ -f $ARG1$ -n $ARG2$
        }
+
+# ADD NEW COMMAND HERE
+
+define command{
+        command_name check_lz_runner
+        command_line $USER1$/check_lz_runner -H $HOSTADDRESS$ -l ambari -p ambari
+       }

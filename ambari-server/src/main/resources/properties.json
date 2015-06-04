@@ -1,4 +1,10 @@
 {
+    "Demo":[
+        "Demos/demo_id",
+        "Demos/demo_name",
+        "Demos/demo_value",
+        "_"
+    ],
     "Cluster":[
         "Clusters/cluster_id",
         "Clusters/cluster_name",

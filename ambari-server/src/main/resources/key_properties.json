@@ -1,4 +1,7 @@
 {
+  "Demo": {
+    "Demo": "Demos/demo_name"
+  },
   "Cluster": {
     "Cluster": "Clusters/cluster_name"
   },

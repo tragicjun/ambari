@@ -111,6 +111,18 @@ public interface AmbariManagementController {
   // ----- Read -------------------------------------------------------------
 
   /**
+   * Get the demos identified by the given request objects.
+   *
+   * @param requests  the request objects which identify the demos to be returned
+   *
+   * @return a set of cluster responses
+   *
+   * @throws AmbariException thrown if the resource cannot be read
+   */
+  public Set<DemoResponse> getDemos(Set<DemoRequest> requests)
+      throws AmbariException;
+
+  /**
    * Get the clusters identified by the given request objects.
    *
    * @param requests  the request objects which identify the clusters to be returned
@@ -120,7 +132,7 @@ public interface AmbariManagementController {
    * @throws AmbariException thrown if the resource cannot be read
    */
   public Set<ClusterResponse> getClusters(Set<ClusterRequest> requests)
-      throws AmbariException;
+    throws AmbariException;
 
   /**
    * Get the host components identified by the given request objects.

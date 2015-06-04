@@ -499,7 +499,10 @@ App.MainDashboardWidgetsView = Em.View.extend(App.UserPref, App.LocalStorage, {
       '26': App.NodeManagersLiveView,
       '27': App.YARNMemoryPieChartView,
       '28': App.SuperVisorUpView,
-      '29': App.FlumeAgentUpView
+      '29': App.FlumeAgentUpView,
+	  '30': App.Lhotse1View,
+	  '31': App.Lhotse2View,
+	  '32': App.Lhotse3View
     }, id);
   },
 
@@ -517,7 +520,7 @@ App.MainDashboardWidgetsView = Em.View.extend(App.UserPref, App.LocalStorage, {
     hidden: [],
     threshold: {1: [80, 90], 2: [85, 95], 3: [90, 95], 4: [80, 90], 5: [1000, 3000], 6: [70, 90], 7: [90, 95], 8: [50, 75], 9: [30000, 120000],
       10: [], 11: [], 12: [], 13: [], 14: [], 15: [], 16: [], 17: [], 18: [], 19: [], 20: [70, 90], 21: [10, 19.2], 22: [3, 10], 23: [],
-      24: [70, 90], 25: [], 26: [50, 75], 27: [50, 75], 28: [85, 95], 29: [85, 95]} // id:[thresh1, thresh2]
+      24: [70, 90], 25: [], 26: [50, 75], 27: [50, 75], 28: [85, 95], 29: [85, 95],30 :[],31 :[],32 :[]} // id:[thresh1, thresh2]
   }),
 
   /**
@@ -531,6 +534,12 @@ App.MainDashboardWidgetsView = Em.View.extend(App.UserPref, App.LocalStorage, {
   getUserPrefSuccessCallback: function (response, request, data) {
     if (response) {
       console.log('Got persist value from server with key ' + data.key + '. Value is: ' + response);
+	  response.visible.push('30');
+	  response.threshold['30'] = [];
+	  response.visible.push('31');
+	  response.threshold['31'] = [];
+	  response.visible.push('32');
+	  response.threshold['32'] = [];
       this.set('currentPrefObject', response);
     }
   },

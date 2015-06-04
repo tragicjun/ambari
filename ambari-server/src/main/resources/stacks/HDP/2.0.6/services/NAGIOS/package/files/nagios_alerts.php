@@ -423,7 +423,7 @@ function hdp_mon_generate_response( $response_data )
       case "DEMO":
         break;
       default:
-        $pieces[0] = "UNKNOWN";
+        //$pieces[0] = "UNKNOWN";
     }
     return $pieces[0];
   }

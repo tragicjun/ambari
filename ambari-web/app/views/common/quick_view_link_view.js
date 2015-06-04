@@ -147,6 +147,14 @@ App.QuickViewLinks = Em.View.extend({
            */
           if (self.get('content.serviceName') == "MAPREDUCE" && item.get('label') == "JobHistory Server") {
             item.set('url', item.get('template').fmt(protocol, hosts[1], port));
+		  } else if (self.get('content.serviceName') == "LHOTSE") {
+			var loginName = App.router.get('loginName');
+			var hash = 0;
+			for (var i=0;i<loginName.length; i++) {
+				hash += loginName.charCodeAt(i);
+			}
+
+			item.set('url', item.get('template').fmt(protocol, hosts[0], port)+'index.php/user/auto_login?username='+loginName+'&r='+hash);
           } else {
             item.set('url', item.get('template').fmt(protocol, hosts[0], port));
           }
@@ -282,6 +290,9 @@ App.QuickViewLinks = Em.View.extend({
       case "STORM":
         hosts[0] = this.findComponentHost(response.items, "STORM_UI_SERVER");
         break;
+	  case "LHOTSE":
+		hosts[0] = this.findComponentHost(response.items, "LHOTSE_WEB");
+		break;
       default:
         if (App.StackService.find().findProperty('serviceName', serviceName).get('hasMaster')) {
           hosts[0] = this.findComponentHost(response.items, this.get('content.hostComponents') && this.get('content.hostComponents').findProperty('isMaster', true).get('componentName'));
