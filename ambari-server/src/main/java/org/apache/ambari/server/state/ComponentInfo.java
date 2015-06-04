@@ -78,6 +78,10 @@ public class ComponentInfo {
   @XmlElement(name="auto-deploy")
   private AutoDeployInfo autoDeploy;
 
+    @XmlElementWrapper(name="ports")
+    @XmlElements(@XmlElement(name="port"))
+    private List<Integer> usedPort;
+
   public ComponentInfo() {
   }
 
@@ -96,6 +100,7 @@ public class ComponentInfo {
     autoDeploy = prototype.autoDeploy;
     configDependencies = prototype.configDependencies;
     clientConfigFiles = prototype.clientConfigFiles;
+      usedPort = prototype.usedPort;
   }
 
   public String getName() {
@@ -226,4 +231,12 @@ public class ComponentInfo {
   public void setClientsToUpdateConfigs(List<String> clientsToUpdateConfigs) {
     this.clientsToUpdateConfigs = clientsToUpdateConfigs;
   }
+
+    public List<Integer> getUsedPort() {
+        return usedPort;
+    }
+
+    public void setUsedPort(List<Integer> usedPort) {
+        this.usedPort = usedPort;
+    }
 }
