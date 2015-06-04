@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?> 
+<configuration>
+	  <property>
+		 <name>lhotse.base.user</name>
+		 <value>lhotse</value>
+		 <property-type>USER</property-type>
+		 <final>true</final>
+		 <description>Lhotse Base 用户</description>
+	 </property>
+
+	 <property>
+		 <name>lhotse.base.group</name>
+		 <value>lhotse</value>
+		 <property-type>GROUP</property-type>
+		 <final>true</final>
+		 <description>Lhotse Base 用户分组</description>
+	 </property>
+
+	<property>
+		<name>lhotse.base.port</name>
+		<value>9930</value>
+		<description>Lhotse Base 端口号</description>
+	</property>
+
+	<property>
+		<name>debug.mode</name>
+		<value>true</value>
+		<description>日志运行模式</description>
+	</property>
+
+	<property>
+		<name>issuer.logging.level</name>
+		<value>DEBUG</value>
+		<description>下发日志级别</description>
+	</property>
+
+	<property>
+		<name>thrift.server.port</name>
+		<value>8183</value>
+		<description>RPC 服务端口</description>
+	</property>
+
+	<property>
+		<name>content</name>
+		<value>
+log4j.rootLogger=info, fileAppender
+
+log4j.appender.fileAppender=org.apache.log4j.DailyRollingFileAppender 
+log4j.appender.fileAppender.threshold=info
+log4j.appender.fileAppender.file=./log/lhotse_base.log
+log4j.appender.fileAppender.datePattern='.'yyyy-MM-dd
+log4j.appender.fileAppender.layout=org.apache.log4j.PatternLayout 
+log4j.appender.fileAppender.layout.conversionPattern=[%-d{yyyy-MM-dd HH:mm:ss}]-[%p] [%t] %m %n
+		</value>
+		<description>Log4j 配置</description>
+	</property>
+
+</configuration>
+
