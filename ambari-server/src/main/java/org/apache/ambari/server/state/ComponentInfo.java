@@ -90,10 +90,6 @@ public class ComponentInfo {
   @XmlElement(name="auto-deploy")
   private AutoDeployInfo autoDeploy;
 
-    @XmlElementWrapper(name="ports")
-    @XmlElements(@XmlElement(name="port"))
-    private List<Integer> usedPort;
-
   public ComponentInfo() {
   }
 
@@ -113,7 +109,6 @@ public class ComponentInfo {
     autoDeploy = prototype.autoDeploy;
     configDependencies = prototype.configDependencies;
     clientConfigFiles = prototype.clientConfigFiles;
-      usedPort = prototype.usedPort;
   }
 
   public String getName() {
@@ -257,23 +252,13 @@ public class ComponentInfo {
     this.clientsToUpdateConfigs = clientsToUpdateConfigs;
   }
 
-    public List<Integer> getUsedPort() {
-        return usedPort;
-    }
-
-    public void setUsedPort(List<Integer> usedPort) {
-        this.usedPort = usedPort;
-    }
-
-    @Override
+  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
 
     ComponentInfo that = (ComponentInfo) o;
 
-        if (usedPort != null ? !usedPort.equals(that.usedPort) : that.usedPort != null)
-            return false;
     if (deleted != that.deleted) return false;
     if (autoDeploy != null ? !autoDeploy.equals(that.autoDeploy) : that.autoDeploy != null) return false;
     if (cardinality != null ? !cardinality.equals(that.cardinality) : that.cardinality != null) return false;
@@ -310,7 +295,6 @@ public class ComponentInfo {
     result = 31 * result + (autoDeploy != null ? autoDeploy.hashCode() : 0);
     result = 31 * result + (configDependencies != null ? configDependencies.hashCode() : 0);
     result = 31 * result + (clientConfigFiles != null ? clientConfigFiles.hashCode() : 0);
-      result = 31 * result + (usedPort != null ? usedPort.hashCode() : 0);
     return result;
   }
 }

@@ -62,9 +62,6 @@ public class StackServiceComponentResourceProvider extends
   private static final String ADVERTISE_VERSION_ID = PropertyHelper.getPropertyId(
       "StackServiceComponents", "advertise_version");
 
-    private static final String USED_PORTS_ID = PropertyHelper.getPropertyId(
-            "StackServiceComponents", "used_ports");
-
   private static final String CUSTOM_COMMANDS_PROPERTY_ID = PropertyHelper.getPropertyId(
       "StackServiceComponents", "custom_commands");
 
@@ -157,10 +154,6 @@ public class StackServiceComponentResourceProvider extends
               autoDeployInfo.getCoLocate(), requestedIds);
         }
       }
-
-        setResourceProperty(resource, USED_PORTS_ID,
-                response.getUsedPorts(), requestedIds);
-
       resources.add(resource);
     }
 
