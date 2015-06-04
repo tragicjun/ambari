@@ -39,8 +39,19 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
     nameNodeHosts = [component["StackServiceComponents"]["hostnames"] for component in componentsList if component["StackServiceComponents"]["component_name"] == "NAMENODE"]
     secondaryNameNodeHosts = [component["StackServiceComponents"]["hostnames"] for component in componentsList if component["StackServiceComponents"]["component_name"] == "SECONDARY_NAMENODE"]
 
+    hostsPortsForComponent = {}
+
     # Validating cardinality
     for component in componentsList:
+      # Added by junz for validating port conflicts
+      for port in component["StackServiceComponents"]["used_ports"]:
+         for host in component["StackServiceComponents"]["hostnames"]:
+            if host not in hostsPortsForComponent:
+               hostsPortsForComponent[host] = {}
+            if port not in hostsPortsForComponent[host]:
+               hostsPortsForComponent[host][port] = []
+            hostsPortsForComponent[host][port].append(component["StackServiceComponents"]["component_name"])
+
       if component["StackServiceComponents"]["cardinality"] is not None:
          componentName = component["StackServiceComponents"]["component_name"]
          componentDisplayName = component["StackServiceComponents"]["display_name"]
@@ -69,6 +80,14 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
 
          if message is not None:
            items.append({"type": 'host-component', "level": 'ERROR', "message": message, "component-name": componentName})
+
+    # Added by junz for validating port conflicts
+    for host in hostsPortsForComponent.keys():
+      for port in hostsPortsForComponent[host].keys():
+        components = hostsPortsForComponent[host][port]
+        if len(components) > 1:
+          message = "Port {0} on host {1} is required by multiple component: {2}.".format(port, host, ','.join(components))
+          items.append({"type": 'host-component', "level": 'ERROR', "message": message, "host": host})
 
     # Validating host-usage
     usedHostsListList = [component["StackServiceComponents"]["hostnames"] for component in componentsList if not self.isComponentNotValuable(component)]

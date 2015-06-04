@@ -31,6 +31,9 @@
           <category>MASTER</category>
           <cardinality>1-2</cardinality>
           <versionAdvertised>true</versionAdvertised>
+            <ports>
+                <port>50070</port>
+            </ports>
           <commandScript>
             <script>scripts/namenode.py</script>
             <scriptType>PYTHON</scriptType>
@@ -62,6 +65,9 @@
           <category>SLAVE</category>
           <cardinality>1+</cardinality>
           <versionAdvertised>true</versionAdvertised>
+            <ports>
+                <port>50075</port>
+            </ports>
           <commandScript>
             <script>scripts/datanode.py</script>
             <scriptType>PYTHON</scriptType>
@@ -76,6 +82,9 @@
           <cardinality>1</cardinality>
           <versionAdvertised>true</versionAdvertised>
           <category>MASTER</category>
+            <ports>
+                <port>50090</port>
+            </ports>
           <commandScript>
             <script>scripts/snamenode.py</script>
             <scriptType>PYTHON</scriptType>
