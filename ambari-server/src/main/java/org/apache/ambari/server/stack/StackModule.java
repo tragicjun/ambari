@@ -210,6 +210,7 @@ public class StackModule extends BaseModule<StackModule, StackInfo> implements V
     resolveStack(parentStack, allStacks, commonServices);
     mergeConfigurations(parentStack, allStacks, commonServices);
     mergeRoleCommandOrder(parentStack);
+      mergeServicePort(parentStack);
 
     if (stackInfo.getStackHooksFolder() == null) {
       stackInfo.setStackHooksFolder(parentStack.getModuleInfo().getStackHooksFolder());
@@ -411,6 +412,7 @@ public class StackModule extends BaseModule<StackModule, StackInfo> implements V
       stackInfo.setUpgradesFolder(stackDirectory.getUpgradesDir());
       stackInfo.setUpgradePacks(stackDirectory.getUpgradePacks());
       stackInfo.setRoleCommandOrder(stackDirectory.getRoleCommandOrder());
+        stackInfo.setServicePort(stackDirectory.getServicePort());
       populateConfigurationModules();
     }
 
@@ -650,6 +652,10 @@ public class StackModule extends BaseModule<StackModule, StackInfo> implements V
     stackInfo.getRoleCommandOrder().merge(parentStack.stackInfo.getRoleCommandOrder());
 
   }
+
+    private void mergeServicePort(StackModule parentStack) {
+        stackInfo.getServicePort().merge(parentStack.stackInfo.getServicePort());
+    }
 
   @Override
   public boolean isValid() {

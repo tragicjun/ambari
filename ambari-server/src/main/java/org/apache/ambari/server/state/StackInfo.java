@@ -31,6 +31,7 @@ import java.util.Set;
 import org.apache.ambari.server.controller.StackVersionResponse;
 import org.apache.ambari.server.stack.Validable;
 import org.apache.ambari.server.state.stack.StackRoleCommandOrder;
+import org.apache.ambari.server.state.stack.StackServicePort;
 import org.apache.ambari.server.state.stack.UpgradePack;
 
 public class StackInfo implements Comparable<StackInfo>, Validable{
@@ -48,6 +49,7 @@ public class StackInfo implements Comparable<StackInfo>, Validable{
   private Map<String, Map<String, Map<String, String>>> configTypes;
   private Map<String, UpgradePack> upgradePacks;
   private StackRoleCommandOrder roleCommandOrder;
+    private StackServicePort servicePort;
   private boolean valid = true;
 
   /**
@@ -289,7 +291,15 @@ public class StackInfo implements Comparable<StackInfo>, Validable{
     this.roleCommandOrder = roleCommandOrder;
   }
 
-  public String getRcoFileLocation() {
+    public StackServicePort getServicePort() {
+        return servicePort;
+    }
+
+    public void setServicePort(StackServicePort servicePort) {
+        this.servicePort = servicePort;
+    }
+
+    public String getRcoFileLocation() {
     return rcoFileLocation;
   }
 

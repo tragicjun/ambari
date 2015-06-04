@@ -19,6 +19,7 @@
 package org.apache.ambari.server.controller.internal;
 
 import org.apache.ambari.server.AmbariException;
+import org.apache.ambari.server.StackAccessException;
 import org.apache.ambari.server.controller.AmbariManagementController;
 import org.apache.ambari.server.controller.StackServiceComponentRequest;
 import org.apache.ambari.server.controller.StackServiceComponentResponse;
@@ -26,6 +27,7 @@ import org.apache.ambari.server.controller.spi.*;
 import org.apache.ambari.server.controller.spi.Resource.Type;
 import org.apache.ambari.server.controller.utilities.PropertyHelper;
 import org.apache.ambari.server.state.AutoDeployInfo;
+import org.apache.ambari.server.state.StackInfo;
 
 import java.util.*;
 
@@ -70,6 +72,9 @@ public class StackServiceComponentResourceProvider extends
 
   private static final String AUTO_DEPLOY_LOCATION_ID = PropertyHelper.getPropertyId(
       "auto_deploy", "location");
+
+    private static final String USED_PORTS_ID = PropertyHelper.getPropertyId(
+            "StackServiceComponents", "used_ports");
 
   private static Set<String> pkPropertyIds = new HashSet<String>(
       Arrays.asList(new String[] { STACK_NAME_PROPERTY_ID,
@@ -154,6 +159,18 @@ public class StackServiceComponentResourceProvider extends
               autoDeployInfo.getCoLocate(), requestedIds);
         }
       }
+        try {
+            StackInfo stackInfo = getManagementController().getAmbariMetaInfo().getStack(
+                    response.getStackName(), response.getStackVersion());
+            if(stackInfo != null && stackInfo.getServicePort() != null) {
+                List<String> usedPorts = stackInfo.getServicePort().getComponentPort(
+                        response.getServiceName(), response.getComponentName());
+                setResourceProperty(resource, USED_PORTS_ID, usedPorts, requestedIds);
+            }
+        } catch(AmbariException e){
+            throw new SystemException("Stack " + response.getStackName() + " " + response.getStackVersion() + " is not found in Ambari metainfo");
+        }
+
       resources.add(resource);
     }
 

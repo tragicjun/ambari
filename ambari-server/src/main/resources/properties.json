@@ -250,6 +250,7 @@
         "StackServiceComponents/is_master",
         "StackServiceComponents/cardinality",
         "StackServiceComponents/custom_commands",
+        "StackServiceComponents/used_ports",
         "auto_deploy/enabled",
         "auto_deploy/location",
         "_"

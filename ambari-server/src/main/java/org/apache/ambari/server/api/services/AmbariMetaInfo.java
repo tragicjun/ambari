@@ -92,6 +92,7 @@ public class AmbariMetaInfo {
   public static final String SERVICE_CONFIG_FOLDER_NAME = "configuration";
   public static final String SERVICE_CONFIG_FILE_NAME_POSTFIX = ".xml";
   public static final String RCO_FILE_NAME = "role_command_order.json";
+    public static final String SP_FILE_NAME = "service_ports.json";
   public static final String SERVICE_METRIC_FILE_NAME = "metrics.json";
   public static final String SERVICE_ALERT_FILE_NAME = "alerts.json";
 

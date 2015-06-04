@@ -20,10 +20,7 @@ package org.apache.ambari.server.stack;
 
 import org.apache.ambari.server.AmbariException;
 import org.apache.ambari.server.api.services.AmbariMetaInfo;
-import org.apache.ambari.server.state.stack.RepositoryXml;
-import org.apache.ambari.server.state.stack.StackMetainfoXml;
-import org.apache.ambari.server.state.stack.StackRoleCommandOrder;
-import org.apache.ambari.server.state.stack.UpgradePack;
+import org.apache.ambari.server.state.stack.*;
 import org.apache.commons.io.FilenameUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
@@ -34,11 +31,7 @@ import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Encapsulates IO operations on a stack definition stack directory.
@@ -62,6 +55,11 @@ public class StackDirectory extends StackDefinitionDirectory {
    */
   private String rcoFilePath;
 
+    /**
+     * service port file path
+     */
+    private String spFilePath;
+
   /**
    * kerberos descriptor file path
    */
@@ -76,6 +74,8 @@ public class StackDirectory extends StackDefinitionDirectory {
    * role command order
    */
   private StackRoleCommandOrder roleCommandOrder;
+
+    private StackServicePort servicePort;
 
   /**
    * repository directory
@@ -250,6 +250,10 @@ public class StackDirectory extends StackDefinitionDirectory {
     return roleCommandOrder;
   }
 
+    public StackServicePort getServicePort() {
+        return servicePort;
+    }
+
   /**
    * Parse the stack directory.
    *
@@ -271,6 +275,10 @@ public class StackDirectory extends StackDefinitionDirectory {
       rcoFilePath = getAbsolutePath() + File.separator + AmbariMetaInfo.RCO_FILE_NAME;
     }
 
+      if (subDirs.contains(AmbariMetaInfo.SP_FILE_NAME)) {
+          // rcoFile is expected to be absolute
+          spFilePath = getAbsolutePath() + File.separator + AmbariMetaInfo.SP_FILE_NAME;
+      }
 
     if (subDirs.contains(AmbariMetaInfo.KERBEROS_DESCRIPTOR_FILE_NAME)) {
       // kerberosDescriptorFilePath is expected to be absolute
@@ -282,6 +290,7 @@ public class StackDirectory extends StackDefinitionDirectory {
     parseRepoFile(subDirs);
     parseMetaInfoFile();
     parseRoleCommandOrder();
+      parseServicePort();
   }
 
   /**
@@ -438,4 +447,30 @@ public class StackDirectory extends StackDefinitionDirectory {
       LOG.error(String.format("Can not read role command order info %s", rcoFilePath), e);
     }
   }
+
+    private void parseServicePort() {
+        Map<String,Map<String, List<String>>> result = null;
+        ObjectMapper mapper = new ObjectMapper();
+        try{
+            TypeReference<Map<String,Map<String, List<String>>>> spElementTypeReference =
+                    new TypeReference<Map<String,Map<String, List<String>>>>() {
+            };
+            if (spFilePath != null) {
+                File file = new File(spFilePath);
+                result = mapper.readValue(file, spElementTypeReference);
+                LOG.info("Service port info was loaded from file: {}", file.getAbsolutePath());
+            } else {
+                InputStream spInputStream = ClassLoader.getSystemResourceAsStream(AmbariMetaInfo.SP_FILE_NAME);
+                if(spInputStream != null) {
+                    result = mapper.readValue(spInputStream, spElementTypeReference);
+                    LOG.info("Service port info was loaded from classpath: " +
+                            ClassLoader.getSystemResource(AmbariMetaInfo.SP_FILE_NAME));
+                }
+            }
+            servicePort = new StackServicePort(result);
+        } catch (IOException e) {
+            LOG.error(String.format("Can not read service port info %s", spFilePath), e);
+        }
+
+    }
 }
