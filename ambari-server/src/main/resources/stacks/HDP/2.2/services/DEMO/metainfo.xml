@@ -30,9 +30,6 @@
           <category>MASTER</category>
           <cardinality>1</cardinality>
           <versionAdvertised>false</versionAdvertised>
-            <ports>
-                <port>50070</port>
-            </ports>
           <commandScript>
             <script>scripts/demo.py</script>
             <scriptType>PYTHON</scriptType>
