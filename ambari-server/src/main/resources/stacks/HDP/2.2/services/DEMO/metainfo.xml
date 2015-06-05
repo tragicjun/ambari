@@ -29,9 +29,6 @@
                     <displayName>DEMO_Master</displayName>
                     <category>MASTER</category>
                     <cardinality>1</cardinality>
-                    <ports>
-                        <port>50070</port>
-                    </ports>
                     <commandScript>
                         <script>scripts/master.py</script>
                         <scriptType>PYTHON</scriptType>

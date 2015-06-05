@@ -31,10 +31,9 @@ import org.apache.ambari.server.state.PropertyInfo;
 import org.apache.ambari.server.state.ServiceInfo;
 import org.apache.ambari.server.state.ServiceOsSpecific;
 import org.apache.ambari.server.state.StackInfo;
-import org.apache.ambari.server.state.stack.ConfigurationXml;
-import org.apache.ambari.server.state.stack.RepositoryXml;
-import org.apache.ambari.server.state.stack.ServiceMetainfoXml;
-import org.apache.ambari.server.state.stack.StackMetainfoXml;
+import org.apache.ambari.server.state.stack.*;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -53,6 +52,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -762,7 +762,13 @@ public class StackExtensionHelper {
               File.separator + AmbariMetaInfo.RCO_FILE_NAME;
       if (new File(rcoFileLocation).exists())
         stackInfo.setRcoFileLocation(rcoFileLocation);
-      
+
+        String spFileLocation = stackVersionFolder.getAbsolutePath() +
+                File.separator + AmbariMetaInfo.SP_FILE_NAME;
+        if(new File(spFileLocation).exists()){
+            stackInfo.setServicePort(parseServicePort(spFileLocation));
+        }
+
       setStackPropertiesFromConfigs(stackInfo);
     }
 
@@ -776,6 +782,33 @@ public class StackExtensionHelper {
     }
     return stackInfo;
   }
+
+    private StackServicePort parseServicePort(String spFilePath) {
+        Map<String,Map<String, List<String>>> result = null;
+        ObjectMapper mapper = new ObjectMapper();
+        try{
+            TypeReference<Map<String,Map<String, List<String>>>> spElementTypeReference =
+                    new TypeReference<Map<String,Map<String, List<String>>>>() {
+                    };
+            if (spFilePath != null) {
+                File file = new File(spFilePath);
+                result = mapper.readValue(file, spElementTypeReference);
+                LOG.info("Service port info was loaded from file: {}", file.getAbsolutePath());
+            } else {
+                InputStream spInputStream = ClassLoader.getSystemResourceAsStream(AmbariMetaInfo.SP_FILE_NAME);
+                if(spInputStream != null) {
+                    result = mapper.readValue(spInputStream, spElementTypeReference);
+                    LOG.info("Service port info was loaded from classpath: " +
+                            ClassLoader.getSystemResource(AmbariMetaInfo.SP_FILE_NAME));
+                }
+            }
+            return new StackServicePort(result);
+        } catch (IOException e) {
+            LOG.error(String.format("Can not read service port info %s", spFilePath), e);
+            return new StackServicePort();
+        }
+
+    }
   
   private void populateStackProperties(StackInfo stackInfo, File configFile) throws JAXBException {
     ConfigurationXml configuration = unmarshal(ConfigurationXml.class, configFile);

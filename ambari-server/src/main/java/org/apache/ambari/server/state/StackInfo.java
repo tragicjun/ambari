@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ambari.server.controller.StackVersionResponse;
+import org.apache.ambari.server.state.stack.StackServicePort;
 
 public class StackInfo implements Comparable<StackInfo>{
   private String name;
@@ -43,6 +44,8 @@ public class StackInfo implements Comparable<StackInfo>{
    * applied to all commands for services in current stack.
    */
   private String stackHooksFolder;
+
+    private StackServicePort servicePort;
 
   public String getName() {
     return name;
@@ -184,7 +187,15 @@ public class StackInfo implements Comparable<StackInfo>{
     this.stackHooksFolder = stackHooksFolder;
   }
 
-  @Override
+    public StackServicePort getServicePort() {
+        return servicePort;
+    }
+
+    public void setServicePort(StackServicePort servicePort) {
+        this.servicePort = servicePort;
+    }
+
+    @Override
   public int compareTo(StackInfo o) {
     String myId = name + "-" + version;
     String oId = o.name + "-" + o.version;

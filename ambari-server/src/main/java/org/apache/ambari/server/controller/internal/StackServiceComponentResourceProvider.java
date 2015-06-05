@@ -26,6 +26,7 @@ import org.apache.ambari.server.controller.spi.*;
 import org.apache.ambari.server.controller.spi.Resource.Type;
 import org.apache.ambari.server.controller.utilities.PropertyHelper;
 import org.apache.ambari.server.state.AutoDeployInfo;
+import org.apache.ambari.server.state.StackInfo;
 
 import java.util.*;
 
@@ -152,8 +153,17 @@ public class StackServiceComponentResourceProvider extends
         }
       }
 
-        setResourceProperty(resource, USED_PORTS_ID,
-                response.getUsedPorts(), requestedIds);
+        try {
+            StackInfo stackInfo = getManagementController().getAmbariMetaInfo().getStackInfo(
+                    response.getStackName(), response.getStackVersion());
+            if(stackInfo != null && stackInfo.getServicePort() != null) {
+                List<String> usedPorts = stackInfo.getServicePort().getComponentPort(
+                        response.getServiceName(), response.getComponentName());
+                setResourceProperty(resource, USED_PORTS_ID, usedPorts, requestedIds);
+            }
+        } catch(AmbariException e){
+            throw new SystemException("Stack " + response.getStackName() + " " + response.getStackVersion() + " is not found in Ambari metainfo");
+        }
 
       resources.add(resource);
     }

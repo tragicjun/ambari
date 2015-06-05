@@ -85,7 +85,6 @@ public class StackServiceComponentResponse {
    */
   private List<String> customCommands;
 
-    private List<Integer> usedPorts;
 
   /**
    * Constructor.
@@ -101,13 +100,6 @@ public class StackServiceComponentResponse {
     isMaster = component.isMaster();
     cardinality = component.getCardinality();
     autoDeploy = component.getAutoDeploy();
-
-      List<Integer> ports = component.getUsedPort();
-      if(null == ports || ports.size() == 0){
-          usedPorts = Collections.emptyList();
-      }else{
-          usedPorts = new ArrayList<Integer>(ports);
-      }
 
     // the custom command names defined for this component
     List<CustomCommandDefinition> definitions = component.getCustomCommands();
@@ -310,8 +302,4 @@ public class StackServiceComponentResponse {
   public List<String> getCustomCommands() {
     return customCommands;
   }
-
-    public List<Integer> getUsedPorts() {
-        return usedPorts;
-    }
 }
