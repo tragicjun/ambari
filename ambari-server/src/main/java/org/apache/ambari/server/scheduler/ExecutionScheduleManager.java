@@ -671,7 +671,7 @@ public class ExecutionScheduleManager {
   protected BatchRequestResponse performApiRequest(String relativeUri, String body, String method) {
     ClientResponse response;
     try {
-      response = ambariWebResource.path(relativeUri).method(method, ClientResponse.class, body);
+      response = ambariWebResource.path(relativeUri).header("Content-Type","application/x-www-form-urlencoded; charset=UTF-8").method(method, ClientResponse.class, body);
     } catch (UniformInterfaceException e) {
       response = e.getResponse();
     }
