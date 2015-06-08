@@ -43,14 +43,18 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
 
     # Validating cardinality
     for component in componentsList:
-      # Added by junz for validating port conflicts
+      #Added by junz for detecting port conflicts among services
+      #Start Impl
       for port in component["StackServiceComponents"]["used_ports"]:
+         if not port.isdigit():
+            continue
          for host in component["StackServiceComponents"]["hostnames"]:
             if host not in hostsPortsForComponent:
                hostsPortsForComponent[host] = {}
             if port not in hostsPortsForComponent[host]:
                hostsPortsForComponent[host][port] = []
             hostsPortsForComponent[host][port].append(component["StackServiceComponents"]["component_name"])
+      #End Impl
 
       if component["StackServiceComponents"]["cardinality"] is not None:
          componentName = component["StackServiceComponents"]["component_name"]
@@ -81,13 +85,15 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
          if message is not None:
            items.append({"type": 'host-component', "level": 'ERROR', "message": message, "component-name": componentName})
 
-    # Added by junz for validating port conflicts
+    #Added by junz for detecting port conflicts among services
+    #Start Impl
     for host in hostsPortsForComponent.keys():
       for port in hostsPortsForComponent[host].keys():
         components = hostsPortsForComponent[host][port]
         if len(components) > 1:
           message = "Port {0} on host {1} is required by multiple component: {2}.".format(port, host, ','.join(components))
           items.append({"type": 'host-component', "level": 'ERROR', "message": message, "host": host})
+    #End Impl
 
     # Validating host-usage
     usedHostsListList = [component["StackServiceComponents"]["hostnames"] for component in componentsList if not self.isComponentNotValuable(component)]
@@ -280,6 +286,8 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
     recommendations = self.recommendConfigurations(services, hosts)
     recommendedDefaults = recommendations["recommendations"]["blueprint"]["configurations"]
 
+    hostsPortsForComponent = {}
+
     configurations = services["configurations"]
     for service in services["services"]:
       serviceName = service["StackServices"]["service_name"]
@@ -291,6 +299,50 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
             if siteProperties is not None:
               resultItems = method(siteProperties, recommendedDefaults[siteName]["properties"], configurations, services, hosts)
               items.extend(resultItems)
+
+      #Added by junz for detecting port conflicts among services
+      #Start Impl
+      for component in service["components"]:
+        for port in component["StackServiceComponents"]["used_ports"]:
+          if not port.isdigit():
+            m = re.match("(.*)/(.*)", port)
+            if m and len(m.groups()) > 1:
+              configType = m.group(1)
+              propertyKey = m.group(2)
+              propertyValue = configurations.get(configType,{}).get("properties",{})[propertyKey]
+              # Extract port out if propertyValue is of format "host:port"
+              if propertyValue is not None and ":" in propertyValue:
+                i = propertyValue.index(":")
+                usedPort = propertyValue[i+1:]
+          else:
+              configType = "NA"
+              propertyKey = "NA"
+              usedPort = port
+
+          if usedPort is not None:
+            print "configType={0} propertyKey={1} usedPort={2}".format(configType,propertyKey,usedPort)
+            for host in component["StackServiceComponents"]["hostnames"]:
+              if host not in hostsPortsForComponent:
+                hostsPortsForComponent[host] = {}
+              if usedPort not in hostsPortsForComponent[host]:
+                hostsPortsForComponent[host][usedPort] = []
+              citem = {"config-type": configType, "config-name": propertyKey, "component": component["StackServiceComponents"]["component_name"]}
+              hostsPortsForComponent[host][usedPort].append(citem)
+
+    #Added by junz for detecting port conflicts among services
+    for host in hostsPortsForComponent.keys():
+      for port in hostsPortsForComponent[host].keys():
+        citems = hostsPortsForComponent[host][port]
+        if len(citems) > 1:
+            for citem in citems:
+              if citem["config-type"] is not None and citem["config-type"] != "NA":
+                message = "Port {0} on host {1} is required by multiple components: ".format(port, host)
+                for citem in citems:
+                  message += "{0}({1}/{2})".format(citem["component"],citem["config-type"],citem["config-name"])
+                items.append({"config-type": citem["config-type"],"config-name": citem["config-name"],"type": 'configuration', "level": 'ERROR', "message": message})
+                break
+    #End Impl
+
     return items
 
   def getServiceConfigurationValidators(self):

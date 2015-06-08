@@ -1,15 +1,16 @@
 {
   "HDFS":{
     "NAMENODE":[
-      "50070"
+      "hdfs-site/dfs.namenode.http-address",
+      "50888"
     ],
     "DATANODE":[
-      "50075"
+      "hdfs-site/dfs.datanode.http.address"
     ]
   },
   "DEMO":{
     "DSE_SERVER":[
-      "50070"
+      "50888"
     ]
   }
 }
