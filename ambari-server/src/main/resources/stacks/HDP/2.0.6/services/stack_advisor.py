@@ -337,10 +337,9 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
             for citem in citems:
               if citem["config-type"] is not None and citem["config-type"] != "NA":
                 message = "Port {0} on host {1} is required by multiple components: ".format(port, host)
-                for citem in citems:
-                  message += "{0}({1}/{2})".format(citem["component"],citem["config-type"],citem["config-name"])
+                for c in citems:
+                  message += "{0}({1}/{2})".format(c["component"],c["config-type"],c["config-name"])
                 items.append({"config-type": citem["config-type"],"config-name": citem["config-name"],"type": 'configuration', "level": 'ERROR', "message": message})
-                break
     #End Impl
 
     return items
