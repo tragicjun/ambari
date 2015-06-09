@@ -74,6 +74,9 @@ ftp_server_root_path = default("/configurations/lhotse-ftp/root.path", '/shell/'
 #config path
 base_config_path = '/usr/local/lhotse_base/cfg'
 runner_config_path = '/usr/local/lhotse_runners/cfg'
+runner_httpd_conf_path = '/etc/httpd/conf.d'
+runner_root_path = '/usr/local/lhotse_runners'
+lhotse_web_root_path = '/usr/local/lhotse_web'
 
 # Lhotse metadata database used config settings
 if System.get_instance().os_family == "suse" or System.get_instance().os_family == "ubuntu":

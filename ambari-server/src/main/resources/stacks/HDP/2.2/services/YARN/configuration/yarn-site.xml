@@ -327,7 +327,7 @@
   <property>
     <description>NM Webapp address.</description>
     <name>yarn.nodemanager.webapp.address</name>
-    <value>0.0.0.0:8081</value>
+    <value>0.0.0.0:8042</value>
   </property>
   
   

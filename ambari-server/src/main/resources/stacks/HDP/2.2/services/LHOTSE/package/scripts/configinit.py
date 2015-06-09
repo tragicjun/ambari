@@ -60,6 +60,15 @@ class configinit:
       mode=0644,
       content=Template("runner.lhotse_base.properties.j2")
     )
+    
+    print 'create runner.conf'
+    File(os.path.join(params.runner_httpd_conf_path,'runner.conf'),
+      owner='hdfs',
+      group='hdfs',
+      mode=0644,
+      content=Template("runner.httpd.settings.j2")
+    )
+    
 
 
 
@@ -83,4 +92,12 @@ class configinit:
       group='hdfs',
       mode=0644,
       content=Template("web.setting.php.j2")
+    )
+    
+    print 'create lhotse_web.conf'
+    File(os.path.join(params.runner_httpd_conf_path,'lhotse_web.conf'),
+      owner='hdfs',
+      group='hdfs',
+      mode=0644,
+      content=Template("lhotse.web.httpd.settings.j2")
     )

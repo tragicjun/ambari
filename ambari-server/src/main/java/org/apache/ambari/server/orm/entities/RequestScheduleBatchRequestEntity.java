@@ -17,6 +17,8 @@
  */
 package org.apache.ambari.server.orm.entities;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -120,7 +122,12 @@ public class RequestScheduleBatchRequestEntity {
   }
 
   public String getRequestBodyAsString() {
-    return requestBody != null ? new String(requestBody) : null;
+    try {
+		return requestBody != null ? new String(requestBody,"UTF-8") : null;
+	} catch (UnsupportedEncodingException e) {
+		e.printStackTrace();
+		return null;
+	}
   }
 
   public void setRequestBody(byte[] requestBody) {
@@ -129,7 +136,11 @@ public class RequestScheduleBatchRequestEntity {
 
   public void setRequestBody(String requestBodyStr) {
     if (requestBodyStr != null) {
-      requestBody = requestBodyStr.getBytes();
+	    try {
+			requestBody = requestBodyStr.getBytes("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
     }
   }
 

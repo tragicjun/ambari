@@ -12,6 +12,13 @@ DEFAULT_USER_LIST=/etc/vsftpd/user_list
 DEFAULT_VIRTUAL_USER_CONFIG_DIR=/etc/vsftpd/vuser_config
 DEFAULT_PAMD_FILE=/etc/pam.d/vsftpd
 
+# Check whether the cgi listen port already exists
+PORT_EXIST=`netstat -nltp | grep "${FTP_LISTEN_PORT}" | awk '{print $4}' | grep -E "\:${FTP_LISTEN_PORT}\$" | wc -l`
+if [ $PORT_EXIST -ge 1 ]; then
+        echo "$FTP_LISTEN_PORT already be used by other app, please choose another one."
+        exit -1
+fi
+
 # Create the home directory
 if [ -d "$FTP_DATA_DIR" ]; then
    rm -rf $FTP_DATA_DIR
