@@ -209,6 +209,8 @@ public class AmbariManagementControllerImpl implements AmbariManagementControlle
   private AmbariLdapDataPopulator ldapDataPopulator;
   @Inject
   private RepositoryVersionDAO repositoryVersionDAO;
+  @Inject
+  private LicenseManager licenseManager;
 
   private MaintenanceStateHelper maintenanceStateHelper;
 
@@ -3759,5 +3761,10 @@ public class AmbariManagementControllerImpl implements AmbariManagementControlle
     } finally {
       ldapSyncInProgress = false;
     }
+  }
+
+  @Override
+  public LicenseManager getLicenseManager(){
+    return licenseManager;
   }
 }

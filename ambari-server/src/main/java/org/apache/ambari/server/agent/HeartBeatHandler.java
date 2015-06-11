@@ -43,6 +43,8 @@ import org.apache.ambari.server.actionmanager.HostRoleCommand;
 import org.apache.ambari.server.actionmanager.HostRoleStatus;
 import org.apache.ambari.server.api.services.AmbariMetaInfo;
 import org.apache.ambari.server.configuration.Configuration;
+import org.apache.ambari.server.controller.AmbariServer;
+import org.apache.ambari.server.controller.LicenseManager;
 import org.apache.ambari.server.controller.MaintenanceStateHelper;
 import org.apache.ambari.server.events.ActionFinalReportReceivedEvent;
 import org.apache.ambari.server.events.AlertEvent;
@@ -892,6 +894,11 @@ public class HeartBeatHandler {
     try {
       hostObject = clusterFsm.getHost(hostname);
     } catch (HostNotFoundException ex) {
+        //Added by junz for validating license key
+        LicenseManager licenseManager = AmbariServer.getController().getLicenseManager();
+        if(clusterFsm.getHosts().size() >= licenseManager.getClusterLimit()){
+            throw new AmbariException("No license key is detected, only one server is supported!");
+        }
       clusterFsm.addHost(hostname);
       hostObject = clusterFsm.getHost(hostname);
     }

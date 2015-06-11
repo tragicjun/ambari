@@ -316,6 +316,8 @@ public class ControllerModule extends AbstractModule {
     requestStaticInjection(ExecutionCommandWrapper.class);
 
     bindByAnnotation(null);
+
+    bind(LicenseManager.class);
   }
 
 

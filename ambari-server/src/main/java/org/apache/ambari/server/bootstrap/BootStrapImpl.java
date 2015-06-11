@@ -27,6 +27,8 @@ import java.util.List;
 import org.apache.ambari.server.api.services.AmbariMetaInfo;
 import org.apache.ambari.server.bootstrap.BSResponse.BSRunStat;
 import org.apache.ambari.server.configuration.Configuration;
+import org.apache.ambari.server.controller.LicenseManager;
+import org.apache.ambari.server.state.Host;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -113,6 +115,30 @@ public class BootStrapImpl {
       return response;
     }
     requestId++;
+
+      //Added by junz for validating license key
+      List<Host> hosts = AmbariServer.getController().getClusters().getHosts();
+      LicenseManager licenseManager = AmbariServer.getController().getLicenseManager();
+      if(hosts != null && hosts.size() + info.getHosts().size() > licenseManager.getClusterLimit()){
+          BootStrapStatus status = new BootStrapStatus();
+          status.setLog("No license key is detected, only one server is supported!");
+          List<BSHostStatus> bsHostStatuses = new ArrayList<BSHostStatus>();
+          for(String hostName : info.getHosts()){
+              BSHostStatus bsHostStatus = new BSHostStatus();
+              bsHostStatus.setHostName(hostName);
+              bsHostStatus.setStatus("FAILED");
+              bsHostStatus.setStatusCode("1");
+              bsHostStatus.setLog("No license key is detected, only one server is supported!");
+              bsHostStatuses.add(bsHostStatus);
+          }
+          status.setHostsStatus(bsHostStatuses);
+          status.setStatus(BootStrapStatus.BSStat.ERROR);
+          updateStatus(requestId, status);
+
+          response.setStatus(BSRunStat.OK);
+          response.setRequestId(requestId);
+          return response;
+      }
 
     if (info.getHosts() == null || info.getHosts().isEmpty()) {
       BootStrapStatus status = new BootStrapStatus();

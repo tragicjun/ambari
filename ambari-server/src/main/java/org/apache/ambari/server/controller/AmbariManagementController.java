@@ -739,5 +739,7 @@ public interface AmbariManagementController {
    */
   List<ServiceOsSpecific.Package> getPackagesForServiceHost(ServiceInfo serviceInfo,
                                                             Map<String, String> hostParams, String osFamily);
+
+  LicenseManager getLicenseManager();
 }
 
