@@ -119,16 +119,24 @@ public class BootStrapImpl {
       //Added by junz for validating license key
       List<Host> hosts = AmbariServer.getController().getClusters().getHosts();
       LicenseManager licenseManager = AmbariServer.getController().getLicenseManager();
-      if(hosts != null && hosts.size() + info.getHosts().size() > licenseManager.getClusterLimit()){
+      int clusterLimit = licenseManager.getClusterLimit();
+      if(hosts != null && info.getHosts().size() > licenseManager.getClusterLimit()){
           BootStrapStatus status = new BootStrapStatus();
-          status.setLog("No license key is detected, only one server is supported!");
+          String errMsg;
+          if(clusterLimit == 1){
+              errMsg = "No license key is detected, only 1 server is supported!";
+          }else{
+              errMsg = "License allows " + clusterLimit + " hosts at maximum!";
+          }
+
+          status.setLog(errMsg);
           List<BSHostStatus> bsHostStatuses = new ArrayList<BSHostStatus>();
           for(String hostName : info.getHosts()){
               BSHostStatus bsHostStatus = new BSHostStatus();
               bsHostStatus.setHostName(hostName);
               bsHostStatus.setStatus("FAILED");
               bsHostStatus.setStatusCode("1");
-              bsHostStatus.setLog("No license key is detected, only one server is supported!");
+              bsHostStatus.setLog(errMsg);
               bsHostStatuses.add(bsHostStatus);
           }
           status.setHostsStatus(bsHostStatuses);
