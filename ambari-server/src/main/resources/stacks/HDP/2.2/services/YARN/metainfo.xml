@@ -23,6 +23,7 @@
       <name>YARN</name>
       <displayName>YARN</displayName>
       <version>2.6.0.2.2</version>
+      <comment>Hadoop 2.0</comment>
       <components>
         <component>
           <name>APP_TIMELINE_SERVER</name>

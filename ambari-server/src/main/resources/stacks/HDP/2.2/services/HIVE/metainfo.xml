@@ -21,6 +21,7 @@
     <service>
       <name>HIVE</name>
       <version>0.14.0.2.2</version>
+      <comment>基于Hadoop的数据仓库工具</comment>
       <components>
         <component>
             <name>HIVE_METASTORE</name>

@@ -22,6 +22,7 @@
       <name>PIG</name>
       <displayName>Pig</displayName>
       <version>0.14.0.2.2</version>
+      <comment>基于Hadoop的数据分析脚本平台</comment>
       <osSpecifics>
         <osSpecific>
           <osFamily>redhat5,redhat6,suse11</osFamily>
