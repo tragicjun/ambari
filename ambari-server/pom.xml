@@ -213,6 +213,7 @@
           </execution>
         </executions>
       </plugin>
+        <!--
       <plugin>
         <artifactId>eclipselink-staticweave-maven-plugin</artifactId>
         <groupId>au.com.alderaan</groupId>
@@ -237,6 +238,7 @@
           </dependency>
         </dependencies>
       </plugin>
+      -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>rpm-maven-plugin</artifactId>

@@ -23,7 +23,8 @@
   <services>
     <service>
       <name>RANGER</name>
-      <extends>common-services/RANGER/0.4.0</extends>   
+      <extends>common-services/RANGER/0.4.0</extends>
+      <deleted>true</deleted>
     </service>
   </services>
 </metainfo>

@@ -21,6 +21,7 @@
     <service>
       <name>OOZIE</name>
       <version>4.1.0.2.2</version>
+      <deleted>true</deleted>
       <components>
         <component>
             <name>OOZIE_SERVER</name>

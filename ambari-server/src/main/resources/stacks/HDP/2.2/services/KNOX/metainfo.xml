@@ -21,6 +21,7 @@
     <service>
       <name>KNOX</name>
       <extends>common-services/KNOX/0.5.0.2.2</extends>
+      <deleted>true</deleted>
     </service>
   </services>
 </metainfo>
