@@ -21,7 +21,9 @@ package org.apache.ambari.server.api.rest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -35,6 +37,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.apache.ambari.server.bootstrap.BSHostPasser;
 import org.apache.ambari.server.bootstrap.BSHostStatus;
 import org.apache.ambari.server.bootstrap.BSResponse;
 import org.apache.ambari.server.bootstrap.BootStrapImpl;
@@ -68,6 +71,8 @@ public class BootStrapResource {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   public BSResponse bootStrap(SshHostInfo sshInfo, @Context UriInfo uriInfo) {
+	
+	parseHostPassers(sshInfo);
     
     normalizeHosts(sshInfo);
 
@@ -129,6 +134,42 @@ public class BootStrapResource {
       throw new WebApplicationException(Response.Status.NO_CONTENT);
 
     return allStatus;
+  }
+  
+  private void parseHostPassers(SshHostInfo sshHostInfo){
+	  Map<String, BSHostPasser> hostPassers = new HashMap<String, BSHostPasser>();
+	  List<String> hostIps = new ArrayList<String>();
+	  
+	  List<String> hosts = sshHostInfo.getHosts();
+	  if(hosts == null || hosts.size() == 0){
+		  return;
+	  }
+	  for(String host : hosts){
+	      host = host.trim();
+		  if(host.equals("")){
+			  continue;
+		  }
+		  String[] units = host.split("\\s+");
+		  BSHostPasser bsHostPasser = new BSHostPasser();
+		  if(units.length != 1 && units.length != 3){
+			  LOG.error("Failed Format:"+host);
+			  continue;
+		  }
+		  if(units.length == 1){
+			  bsHostPasser.setIp(units[0]);
+			  bsHostPasser.setHostName(units[0]);
+		  }
+		  if(units.length == 3){
+			  bsHostPasser.setIp(units[0]);
+			  bsHostPasser.setHostName(units[0]);
+			  bsHostPasser.setLoginUser(units[1]);
+			  bsHostPasser.setPassword(units[2]);
+		  }
+		  hostIps.add(units[0]);
+		  hostPassers.put(units[0], bsHostPasser);
+	  }
+	  sshHostInfo.setHosts(hostIps);
+	  sshHostInfo.setHostPassers(hostPassers);
   }
   
   

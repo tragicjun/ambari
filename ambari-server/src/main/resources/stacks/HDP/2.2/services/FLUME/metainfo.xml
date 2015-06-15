@@ -19,6 +19,7 @@
   <schemaVersion>2.0</schemaVersion>
   <services>
     <service>
+      <deleted>true</deleted>
       <name>FLUME</name>
       <displayName>Flume</displayName>
         <comment>分布式日志收集系统</comment>

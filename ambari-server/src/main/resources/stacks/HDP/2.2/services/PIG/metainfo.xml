@@ -19,6 +19,7 @@
   <schemaVersion>2.0</schemaVersion>
   <services>
     <service>
+      <deleted>true</deleted>
       <name>PIG</name>
       <displayName>Pig</displayName>
         <comment>基于Hadoop的数据分析脚本平台</comment>

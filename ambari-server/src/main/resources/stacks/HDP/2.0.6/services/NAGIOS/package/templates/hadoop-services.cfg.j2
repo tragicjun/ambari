@@ -879,6 +879,16 @@ define service {
     retry_check_interval                    0.5
     max_check_attempts                      2
 }
+define service {
+    use                                     generic-service
+    hostgroup_name                          lhotse-base
+    service_description                     LHOTSE::Lhotse base RPC status
+    check_command                           check_tcp_wrapper!{{ lhotse_base_thrift_server_port }}!-w 1 -c 1
+    contact_groups                          admins
+    normal_check_interval                   1
+    retry_check_interval                    0.5
+    max_check_attempts                      2
+}
 
 # LHOTSE GANGLIA CLUSTER
 define service {
@@ -913,6 +923,16 @@ define service {
     hostgroup_name                          lhotse-runner
     service_description                     LHOTSE::Lhotse runners status
     check_command                           check_lz_runner
+    contact_groups                          admins
+    normal_check_interval                   1
+    retry_check_interval                    0.5
+    max_check_attempts                      2
+}
+define service {
+    use                                     generic-service
+    hostgroup_name                          lhotse-runner
+    service_description                     LHOTSE::Lhotse runners CGI status
+    check_command                           check_tcp_wrapper!{{ lhotse_runner_cgi_port }}!-w 1 -c 1
     contact_groups                          admins
     normal_check_interval                   1
     retry_check_interval                    0.5

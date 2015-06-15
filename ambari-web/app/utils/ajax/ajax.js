@@ -522,6 +522,14 @@ var urls = {
     'real': '/clusters/{clusterName}/configurations?{params}',
     'mock': '/data/configurations/host_level_overrides_configs.json?{params}'
   },
+  'config.server_info': {
+    'real': '/clusters/{clusterName}/configurations?{params}',
+    'mock': ''
+  },
+  'config.latest_tag_info': {
+    'real': '/clusters/{clusterName}?fields=Clusters/desired_configs/{params}',
+    'mock': ''
+  },
 
   'host.host_component.add_new_component': {
     'real': '/clusters/{clusterName}/hosts?Hosts/host_name={hostName}',

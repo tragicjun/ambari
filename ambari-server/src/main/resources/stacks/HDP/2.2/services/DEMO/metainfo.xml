@@ -19,9 +19,10 @@
     <schemaVersion>2.0</schemaVersion>
     <services>
         <service>
+            <deleted>true</deleted>
             <name>DEMO</name>
             <displayName>DEMO</displayName>
-            <comment>测试服务</comment>
+            <comment>Demo服务</comment>
             <version>1.0.0</version>
             <components>
                 <component>

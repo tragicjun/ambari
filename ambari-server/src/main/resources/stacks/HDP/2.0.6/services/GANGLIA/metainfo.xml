@@ -21,7 +21,7 @@
     <service>
       <name>GANGLIA</name>
       <displayName>Ganglia</displayName>
-        <comment>指标收集系统</comment>
+        <comment>指标收集系统：收集服务上报的指标数据，在图表中动态展示</comment>
       <version>3.5.0</version>
       <components>
         <component>

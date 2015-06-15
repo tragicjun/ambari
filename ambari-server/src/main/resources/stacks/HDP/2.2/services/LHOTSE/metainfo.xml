@@ -5,7 +5,7 @@
         <service>
             <name>LHOTSE</name>
             <displayName>Lhotse</displayName>
-            <comment>Lhotse 调度服务</comment>
+            <comment>Lhotse任务调度系统： 为用户提供一站式的离线数据处理任务调度服务；它支持HDFS与数据库(Mysql,Postgre,Oracle)之间的数据流转，以及MapReduce计算任务的执行，同时集任务配置、运维管理为一体。</comment>
             <version>1.0.0</version>
             <components>
                 <component>
@@ -35,7 +35,7 @@
                  <component>
                     <name>LHOTSE_SERVICE</name>
                     <displayName>Lhotse Service</displayName>
-                    <category>SLAVE</category>
+                    <category>MASTER</category>
                     <cardinality>1</cardinality>
                     <commandScript>
                         <script>scripts/services.py</script>
@@ -47,7 +47,7 @@
                 <component>
                     <name>LHOTSE_WEB</name>
                     <displayName>Lhotse Web</displayName>
-                    <category>SLAVE</category>
+                    <category>MASTER</category>
                     <cardinality>1</cardinality>
                     <commandScript>
                         <script>scripts/web.py</script>
@@ -59,7 +59,7 @@
                 <component>
                     <name>LHOTSE_FTP</name>
                     <displayName>Lhotse FTP</displayName>
-                    <category>SLAVE</category>
+                    <category>MASTER</category>
                     <cardinality>1</cardinality>
                     <commandScript>
                         <script>scripts/ftp.py</script>

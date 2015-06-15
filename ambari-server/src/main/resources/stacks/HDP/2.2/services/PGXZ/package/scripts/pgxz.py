@@ -20,11 +20,12 @@ limitations under the License.
 from resource_management import *
 import sys
 import os
+from resource_management.core.logger import Logger
 class pgxz:
   
   def init_coor(self):
     import params
-    print 'create coor pg_hba.conf'
+    Logger.info("create coor pg_hba.conf")
     File(os.path.join(params.coordinator_path,'pg_hba.conf'),
       owner='root',
       group='root',
@@ -32,7 +33,7 @@ class pgxz:
       content=Template("coor_pghba.j2")
     )
 
-    print 'create coor postgresql.conf'
+    Logger.info("create coor postgresql.conf")
     File(os.path.join(params.coordinator_path,'postgresql.conf'),
       owner='root',
       group='root',
@@ -43,7 +44,7 @@ class pgxz:
 
   def init_datanode(self):
     import params
-    print 'create datanode pg_hba.conf'
+    Logger.info("create datanode pg_hba.conf")
     File(os.path.join(params.datanode_path,'pg_hba.conf'),
       owner='root',
       group='root',
@@ -51,7 +52,7 @@ class pgxz:
       content=Template("datanode_pghba.j2")
     )
 
-    print 'create datanode postgresql.conf'
+    Logger.info("create datanode postgresql.conf")
     File(os.path.join(params.datanode_path,'postgresql.conf'),
       owner='root',
       group='root',
@@ -62,7 +63,7 @@ class pgxz:
 
   def init_gtm(self):
     import params
-    print 'create gtm.conf'
+    Logger.info("create gtm.conf")
     File(os.path.join(params.gtm_path,'gtm.conf'),
       owner='root',
       group='root',

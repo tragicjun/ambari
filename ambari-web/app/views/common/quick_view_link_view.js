@@ -120,10 +120,58 @@ App.QuickViewLinks = Em.View.extend({
     this.loadTags();
   }.observes('App.currentStackVersionNumber', 'App.singleNodeInstall'),
 
+  setLhotseSuccessCallback : function(response) {
+	  var self = this;
+	  var hosts = this.get('lhotseHosts');
+      quickLinks = this.get('content.quickLinks').map(function (item) {
+        var protocol = self.setProtocol(item.get('service_id'), self.get('configProperties'), self.ambariProperties());
+        if (item.get('template')) {
+			var loginName = App.router.get('loginName');
+			var hash = 0;
+			for (var i=0;i<loginName.length; i++) {
+				hash += loginName.charCodeAt(i);
+			}
+			
+			var port = response.items[0].properties['listen.port']
+			item.set('url', item.get('template').fmt(protocol, hosts[0], port)+'/lhotse/index.php/user/auto_login?username='+loginName+'&r='+hash);
+
+        }
+        return item;
+      });
+      this.set('quickLinks', quickLinks);
+      this.set('isLoaded', true);  
+  },
+  
+  getLhotseTag : function(response) {
+	App.ajax.send({
+	  name: 'config.server_info',
+	  sender: this,
+	  data: {
+		clusterName: App.get('clusterName'),
+		params : 'type=lhotse-web&tag='+response.Clusters.desired_configs['lhotse-web'].tag
+	  },
+	  success: 'setLhotseSuccessCallback'
+	});	
+  },
+  
   setQuickLinksSuccessCallback: function (response) {
     var self = this;
     var quickLinks = [];
     var hosts = this.setHost(response, this.get('content.serviceName'));
+	var serviceName = this.get('content.serviceName');
+	if (serviceName == 'LHOTSE') {
+		this.set('lhotseHosts', hosts);
+		App.ajax.send({
+		  name: 'config.latest_tag_info',
+		  sender: this,
+		  data: {
+			clusterName: App.get('clusterName'),
+			params : 'lhotse-web'
+		  },
+		  success: 'getLhotseTag'
+		});	
+		return ; 
+	}
     if (!hosts || !this.get('content.quickLinks')) {
       quickLinks = [{
           label: this.t('quick.links.error.label'),

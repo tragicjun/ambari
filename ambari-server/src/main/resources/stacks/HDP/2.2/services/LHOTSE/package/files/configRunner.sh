@@ -8,7 +8,8 @@ CGI_BIN_LISTEN_PORT=$3
 
 echo $javaHome $RUNNER_HOST $CGI_BIN_LISTEN_PORT
 
-DEFAULT_HTTPD_CONF=/etc/httpd/conf.d/runners.conf
+DEFAULT_HTTPD_CONF=/etc/httpd/conf.d/runner.conf
+DEFAULT_GLOBAL_HTTPD_CONF=/etc/httpd/conf/httpd.conf
 DEFAULT_RUNNER_DIR=/usr/local/lhotse_runners
 
 # Configure the JAVA_HOME variable for runner hadoop client
@@ -18,12 +19,13 @@ rm -rf my.hadoop-env.sh
 
 echo "Configure the java home successfully"
 
+PORT_EXIST=`cat $DEFAULT_GLOBAL_HTTPD_CONF | grep -iE "^Listen $CGI_BIN_LISTEN_PORT\$" | wc -l`
+
 # Check whether the cgi listen port already exists
-#PORT_EXIST=`netstat -nltp | grep "${CGI_BIN_LISTEN_PORT}" | awk '{print $4}' | grep -E "\:${CGI_BIN_LISTEN_PORT}\$" | wc -l`
-#if [ $PORT_EXIST -ge 1 ]; then
-        #echo "$CGI_BIN_LISTEN_PORT already be used by other app, please choose another one."
-        #exit -1
-#fi
+if [ $PORT_EXIST -ge 1 ]; then
+        #shoud not add listen in DEFAULT_HTTPD_CONF
+        sed -i 1d $DEFAULT_HTTPD_CONF
+fi
 
 # Release the cgi-bin codes
 cd $DEFAULT_RUNNER_DIR

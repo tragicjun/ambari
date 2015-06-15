@@ -19,6 +19,7 @@
   <schemaVersion>2.0</schemaVersion>
   <services>
     <service>
+      <deleted>true</deleted>
       <name>KAFKA</name>
       <displayName>Kafka</displayName>
       <comment>高吞吐高并发分布式消息系统</comment>

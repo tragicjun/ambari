@@ -360,11 +360,13 @@ _lhotse_service_hosts = default("/clusterHostInfo/lhotse_service_hosts", None)
 _lhotse_web_hosts = default("/clusterHostInfo/lhotse_web_hosts", None)
 _lhotse_ftp_hosts = default("/clusterHostInfo/lhotse_ftp_hosts", None)
 
-lhotse_base_port = default("/configurations/lhotse-base-runner/base.port", 9930)
-lhotse_database_port = default("/configurations/lhotse-database/port", 3306)
-lhotse_service_port = default("/configurations/lhotse-service/listen.port", 8088)
-lhotse_web_port = default("/configurations/lhotse-web/listen.port", 8088)
-lhotse_ftp_port = default("/configurations/lhotse-ftp/port", 21)
+lhotse_base_port = default("/configurations/lhotse-base-env/lhotse.base.port", 9930)
+lhotse_base_thrift_server_port = default("/configurations/lhotse-base-env/thrift.server.port", 8183)
+lhotse_runner_cgi_port = default("/configurations/lhotse-runner/cgi.port", 80)
+lhotse_database_port = 3306
+lhotse_service_port = default("/configurations/lhotse-service/listen.port", 9010)
+lhotse_web_port = default("/configurations/lhotse-web/listen.port", 80)
+lhotse_ftp_port = default("/configurations/lhotse-ftp/port", 2121)
 
 #PGXZ
 _pgxz_gtm_hosts = default("/clusterHostInfo/pgxz_gtm_hosts", None)

@@ -64,7 +64,7 @@ class init_pg(Script):
 
   def create_pg_user(self,env):
 
-    print 'create new pg user'
+    print 'start pg for create new pg user'
     cmd = format("psql -h {pg_server_hosts} -p {pg_server_port} -U postgres -d global -c \"insert into tdwuser(user_name,passwd,dba_priv) values('{hive_plc_user}','{hive_plc_password}',true);\"")
     self.run(cmd)
 
@@ -76,7 +76,7 @@ class init_pg(Script):
     print ret
     print output
     
-    if ret != 0:
+    if ret != 0 and output.find("already exists")<0 :
       sys.exit(1)
 
 if __name__ == "__main__":

@@ -1,0 +1,22 @@
+#!/usr/bin/expect 
+
+if { [ file isfile "/data/home/ambari/.ssh/id_rsa" ] } {
+  send_user "file exists\n"
+  exit
+}
+
+if { [ file isfile "/home/ambari/.ssh/id_rsa" ] } {
+  send_user "file exists\n"
+  exit
+}
+
+spawn ssh-keygen -t rsa
+expect "*:"
+send "\r"
+expect "*:"
+send "\r"
+expect "*:"
+send "\r"
+expect "*:"
+send "\r"
+exit

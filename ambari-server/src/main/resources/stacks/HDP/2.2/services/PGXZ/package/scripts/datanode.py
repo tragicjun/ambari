@@ -22,47 +22,46 @@ import os
 from resource_management import *
 from pgxz import pgxz
 from utils import utils
+from resource_management.core.logger import Logger
 
 class Datanode(Script):
   def install(self, env):
     import params
     self.install_packages(env)
-    print 'init datanode'
+    Logger.info("init datanode")
     #su pgxz -c '/usr/local/pgxz/bin/initdb -D /usr/local/pgxz/nodes/datanode --nodename datanode'
-    print params.datanode_install
-    val= os.system(params.datanode_install)
-    print val
+    utils().exe(params.datanode_install)
+    utils().check_install(params.datanode_path)
 
   def start(self, env):
     import params
-    print 'create datanode config'
+    Logger.info("create datanode config")
     self.configure(env)
 
-    print 'start datanode'
+    Logger.info("start datanode")
     #su pgxz -c '/usr/local/pgxz/bin/pg_ctl start -D /usr/local/pgxz/nodes/datanode -Z datanode'
-    print params.datanode_start
-    val= os.system(params.datanode_start)
-    print val
+    utils().exe(params.datanode_start)
+    utils().check_start(params.datanode_pid)
 
 
   def configure(self, env):
     import params
-    print 'create the config file by pgxz().init_datanode()';
+    Logger.info("create the config file by pgxz().init_datanode()")
     env.set_params(params)
     pgxz().init_datanode()
 
   def stop(self, env):
     import params
-    print 'Stop the datanode';
+    Logger.info("Stop the datanode")
     #su pgxz -c '/usr/local/pgxz/bin/pg_ctl stop -D /usr/local/pgxz/nodes/datanode -Z datanode'
-    print params.datanode_stop
-    val= os.system(params.datanode_stop)
-    print val
+    utils().exe(params.datanode_stop)
+    utils().check_stop(params.datanode_pid)
      
   def status(self, env):
     import params
-    print 'Status of the datanode';
+    Logger.info("Status of the datanode")
     utils().check_process(params.datanode_pid)
 
 if __name__ == "__main__":
   Datanode().execute()
+

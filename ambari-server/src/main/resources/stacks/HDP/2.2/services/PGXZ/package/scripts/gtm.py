@@ -22,48 +22,44 @@ import os
 from resource_management import *
 from pgxz import pgxz
 from utils import utils
+from resource_management.core.logger import Logger
 
 class Gtm(Script):
   def install(self, env):
     import params
     self.install_packages(env)
-    print 'init gtm'
+    Logger.info("init gtm")
     #su pgxz -c '/usr/local/pgxz/bin/initgtm -Z gtm -D /usr/local/pgxz/nodes/gtm'
-    print params.gtm_install
-    val= os.system(params.gtm_install)
-    print val
+    utils().exe(params.gtm_install)
+    utils().check_install(params.gtm_path)
 
   def start(self, env):
     import params
-    print 'create gtm config'
+    Logger.info("create gtm config")
     self.configure(env)
 
-    print 'start gtm'
+    Logger.info("start gtm")
     #su pgxz -c '/usr/local/pgxz/bin/gtm_ctl -Z gtm -D /usr/local/pgxz/nodes/gtm start'
-    print params.gtm_start
-    val= os.system(params.gtm_start)
-    print val
-
+    utils().exe(params.gtm_start)
+    utils().check_start(params.gtm_pid)
 
   def configure(self, env):
-    print 'create the config file by pgxz().init_gtm()';
+    Logger.info("create the config file by pgxz().init_gtm()")
     import params
     env.set_params(params)
     pgxz().init_gtm()
 
   def stop(self, env):
     import params
-    print 'Stop the gtm';
+    Logger.info("Stop the gtm")
     #su pgxz -c '/usr/local/pgxz/bin/gtm_ctl -Z gtm -D /usr/local/pgxz/nodes/gtm stop'
-    print params.gtm_stop
-    val= os.system(params.gtm_stop)
-    print val
-     
+    utils().exe(params.gtm_stop)
+    utils().check_stop(params.gtm_pid)
+
   def status(self, env):
     import params
-    print 'Status of the gtm';
+    Logger.info("Status of the gtm")
     utils().check_process(params.gtm_pid)
 
 if __name__ == "__main__":
   Gtm().execute()
-

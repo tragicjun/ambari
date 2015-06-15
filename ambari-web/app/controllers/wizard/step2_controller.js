@@ -119,7 +119,7 @@ App.WizardStep2Controller = Em.Controller.extend({
    */
   sshKeyError: function () {
     if (this.get('hasSubmitted') && this.get('manualInstall') === false && Em.isEmpty(this.get('sshKey').trim())) {
-      return Em.I18n.t('installer.step2.sshKey.error.required');
+      //return Em.I18n.t('installer.step2.sshKey.error.required');
     }
     return null;
   }.property('sshKey', 'manualInstall', 'hasSubmitted'),
@@ -160,7 +160,7 @@ App.WizardStep2Controller = Em.Controller.extend({
    * @method updateHostNameArr
    */
   updateHostNameArr: function () {
-    this.set('hostNameArr', this.get('hostNames').trim().split(new RegExp("\\s+", "g")));
+    this.set('hostNameArr', this.get('hostNames').trim().split(new RegExp("\n+", "g")));
     this.parseHostNamesAsPatternExpression();
     this.get('inputtedAgainHostNames').clear();
     var tempArr = [],

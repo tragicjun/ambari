@@ -76,6 +76,7 @@ public abstract class GangliaPropertyProvider extends AbstractPropertyProvider {
     GANGLIA_CLUSTER_NAME_MAP.put("KAFKA_BROKER",         Collections.singletonList("HDPKafka"));
     GANGLIA_CLUSTER_NAME_MAP.put("DEMO_MASTER",         Collections.singletonList("HDPDemoMaster"));
     GANGLIA_CLUSTER_NAME_MAP.put("LHOTSE_BASE",         Collections.singletonList("HDPLhotseBase"));
+    GANGLIA_CLUSTER_NAME_MAP.put("PGXZ_GTM",         Collections.singletonList("HDPPgxzGtm"));
   }
 
   protected final static Logger LOG =

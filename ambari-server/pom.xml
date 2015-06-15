@@ -565,6 +565,29 @@
                 </source>
               </sources>
             </mapping>
+            <mapping>
+              <directory>/var/run/ambari-server/bootstrap</directory>
+              <filemode>755</filemode>
+              <username>root</username>
+              <groupname>root</groupname>
+              <sources>
+                <source>
+                  <location>script/bootstrap_agent_env_script.sh</location>
+                </source>
+                <source>
+                  <location>script/bootstrap_agent_env_setup.sh</location>
+                </source>
+                <source>
+                  <location>script/bootstrap_agent_ssh_keygen.sh</location>
+                </source>
+                <source>
+                  <location>script/bootstrap_agent_ssh_keygen.exp</location>
+                </source>
+                <source>
+                  <location>script/bootstrap_agent_env_setup.exp</location>
+                </source>
+              </sources>
+            </mapping>
           </mappings>
         </configuration>
       </plugin>
@@ -984,6 +1007,17 @@
                 <filemode>755</filemode>
                 <user>root</user>
                 <group>root</group>
+              </mapper>
+            </data>
+            <data>
+              <src>script/*</src>
+              <type>file</type>
+              <mapper>
+                <type>perm</type>
+                <prefix>/var/run/ambari-server/bootstrap</prefix>
+                <user>root</user>
+                <group>root</group>
+                <filemode>755</filemode>
               </mapper>
             </data>
           </dataSet>

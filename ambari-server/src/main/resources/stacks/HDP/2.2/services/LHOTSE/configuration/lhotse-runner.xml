@@ -3,7 +3,7 @@
 <configuration>
   <property>
     <name>cgi.port</name>
-    <value>8081</value>
+    <value>80</value>
     <description>cgi port for log</description>
   </property>
 

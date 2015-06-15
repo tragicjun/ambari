@@ -241,7 +241,7 @@ App.MainServiceItemView = Em.View.extend({
       if (service.get('serviceTypes').contains('HA_MODE')) {
         switch (service.get('serviceName')) {
           case 'HDFS':
-            options.push(actionMap.TOGGLE_NN_HA);
+            // options.push(actionMap.TOGGLE_NN_HA);
             break;
           case 'YARN':
             options.push(actionMap.TOGGLE_RM_HA);

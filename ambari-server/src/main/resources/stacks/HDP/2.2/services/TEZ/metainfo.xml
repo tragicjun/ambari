@@ -19,6 +19,7 @@
   <schemaVersion>2.0</schemaVersion>
   <services>
     <service>
+      <deleted>true</deleted>
       <name>TEZ</name>
       <displayName>Tez</displayName>
         <comment>基于YARN的新一代Hadoop数据处理框架</comment>

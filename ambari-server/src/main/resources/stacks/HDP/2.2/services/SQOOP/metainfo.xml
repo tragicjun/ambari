@@ -19,6 +19,7 @@
   <schemaVersion>2.0</schemaVersion>
   <services>
     <service>
+      <deleted>true</deleted>
       <name>SQOOP</name>
         <comment>在Hadoop和关系数据库间传递数据的工具</comment>
       <version>1.4.5.2.2.0.0</version>

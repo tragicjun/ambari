@@ -295,6 +295,12 @@ public class Configuration {
   private static final String DEFAULT_JDBC_POOL_EXCESS_MAX_IDLE_TIME_SECONDS = "0";
   private static final String DEFAULT_JDBC_POOL_MAX_AGE_SECONDS = "0";
   private static final String DEFAULT_JDBC_POOL_IDLE_TEST_INTERVAL = "7200";
+  
+  //bootstrap init config
+  private static final String BOOTSTRAP_AGENT_DEFAULT_LOGIN_USER_KEY="bootstarp_agent_default_login_user";
+  private static final String BOOTSTRAP_AGENT_DEFAULT_LOGIN_USER_DEFAULT="ambari";
+  private static final String BOOTSTRAP_AGENT_DEFAULT_LOGIN_PASSWROD_KEY="bootstarp_agent_default_login_password";
+  private static final String BOOTSTRAP_AGENT_DEFAULT_LOGIN_PASSWROD_DEFAULT="ambari";
 
   private static final Logger LOG = LoggerFactory.getLogger(
       Configuration.class);
@@ -596,6 +602,14 @@ public class Configuration {
   public String getBootSetupAgentScript() {
     return properties.getProperty(BOOTSTRAP_SETUP_AGENT_SCRIPT,
         "/usr/lib/python2.6/site-packages/ambari_server/setupAgent.py");
+  }
+  
+  public String getAgentDefaultLoginUser(){
+	  return properties.getProperty(BOOTSTRAP_AGENT_DEFAULT_LOGIN_USER_KEY, BOOTSTRAP_AGENT_DEFAULT_LOGIN_USER_DEFAULT);
+  }
+  
+  public String getAgentDefaultLoginPassword(){
+	  return properties.getProperty(BOOTSTRAP_AGENT_DEFAULT_LOGIN_PASSWROD_KEY, BOOTSTRAP_AGENT_DEFAULT_LOGIN_PASSWROD_DEFAULT);
   }
 
   public String getBootSetupAgentPassword() {

@@ -1,4 +1,8 @@
 Listen {{lhotse_web_listen_port}}
-<VirtualHost *:{{lhotse_web_listen_port}}>
-DocumentRoot {{lhotse_web_root_path}}
-</VirtualHost>
+Alias /lhotse "{{lhotse_web_root_path}}"
+<Directory "{{lhotse_web_root_path}}">
+   Options FollowSymLinks
+   AllowOverride None
+   Order allow,deny
+   Allow from all
+</Directory>

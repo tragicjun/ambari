@@ -1,0 +1,34 @@
+#!/usr/bin/expect
+set tarFile       [ lindex $argv 0 ]
+set host_ip       [ lindex $argv 1 ]
+set ssh_user      [ lindex $argv 2 ]
+set ssh_password  [ lindex $argv 3 ]
+set tmp_path "/tmp"
+set agent_env_script "bootstrap_agent_env_script.sh"
+
+spawn scp -P 22 ${tarFile} ${ssh_user}@${host_ip}:${tmp_path}
+expect {
+        "Are you sure you want to continue connecting (yes/no)?" {
+            send "yes\r"
+            expect  "*password:*"
+            send "${ssh_password}\r"
+        }
+        "*password:*" {send "${ssh_password}\r"}
+}
+spawn ssh -A -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no -p 22 $ssh_user@$host_ip
+expect {
+        "*password:*" {send "${ssh_password}\r"}
+}
+expect "#*"
+send "sudo -s\r"
+expect "#*"
+send "cd ${tmp_path}\r"
+expect "#*"
+send "tar -xzvf `basename ${tarFile}`\r"
+expect "#*"
+send "chmod 777 ./${agent_env_script}\r"
+expect "#*"
+send "./${agent_env_script}\r"
+expect "#*"
+send "\r"
+exit

@@ -20,7 +20,7 @@
   <services>
     <service>
       <name>NAGIOS</name>
-        <comment>监控告警系统</comment>
+        <comment>监控告警系统：扫描服务的异常状态，并向负责人发送告警通知 </comment>
       <version>3.5.0</version>
       <components>
         <component>

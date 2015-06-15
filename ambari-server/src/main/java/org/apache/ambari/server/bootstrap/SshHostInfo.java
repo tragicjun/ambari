@@ -20,6 +20,7 @@ package org.apache.ambari.server.bootstrap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -50,6 +51,8 @@ public class SshHostInfo {
 
   @XmlElement
   private String password;
+  
+  private Map<String, BSHostPasser> hostPassers; 
 
   public String getSshKey() {
     return sshKey;
@@ -90,8 +93,16 @@ public class SshHostInfo {
   public void setPassword(String password) {
     this.password = password;
   }
+  
+public Map<String, BSHostPasser> getHostPassers() {
+	return hostPassers;
+}
 
-  public String hostListAsString() {
+public void setHostPassers(Map<String, BSHostPasser> hostPassers) {
+	this.hostPassers = hostPassers;
+}
+
+public String hostListAsString() {
     StringBuilder ret = new StringBuilder();
     if (this.hosts == null) {
       return "";

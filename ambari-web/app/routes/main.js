@@ -616,9 +616,9 @@ module.exports = Em.Route.extend({
 		if ($('#hostListDiv').length > 0) {
 			$('#hostListDiv').show();
 		} else {
-			$('.nav-tabs').next().after('<div id="hostListDiv">loading...</div>');
+			$('.nav-tabs').next().next().after('<div id="hostListDiv">loading...</div>');
 		}
-		$('.nav-tabs').next().hide();
+		$('.nav-tabs').next().next().hide();
 		var prefix = App.get('apiPrefix') + '/clusters/' + App.router.getClusterName();
 		var url = prefix + '/hosts?fields=Hosts/host_name,Hosts/maintenance_state,Hosts/public_host_name,'
 				+ 'Hosts/cpu_count,Hosts/ph_cpu_count,Hosts/host_status,Hosts/last_heartbeat_time,Hosts/ip,host_components/HostRoles/state,'
@@ -649,15 +649,15 @@ module.exports = Em.Route.extend({
 				}
 			}
 			var str = '<div id="hostList" class="host-list">';
-			str += '<div class="hd"><h3 class="modules"><i class="icon-ok-sign health-status-LIVE"></i>'+service_name+'</h3><h3 class="hosts">'+length+'Ö÷»ú</h3></div><div class="bd open">';
+			str += '<div class="hd"><h3 class="modules"><i class="icon-ok-sign health-status-LIVE"></i>'+service_name+'</h3><h3 class="hosts">'+length+'ä¸»æœº</h3></div><div class="bd open">';
 			str +='<table class="host-table">';
-			str += '<tr><th class="modules">°üº¬×é¼ş</th><th class="host">ÔËĞĞµÄÖ÷»ú</th><th class="trigger"></th></tr>';
+			str += '<tr><th class="modules">åŒ…å«ç»„ä»¶</th><th class="host">è¿è¡Œçš„ä¸»æœº</th><th class="trigger"></th></tr>';
 			for (var key in data) {
-				str += '<tr><td class="modules">'+key+'</td><td class="host">'+data[key].length+'Ö÷»ú</td><td class="trigger"><i class="caret"></i></td><div></div></tr>';
+				str += '<tr><td class="modules">'+key+'</td><td class="host">'+data[key].length+'ä¸»æœº</td><td class="trigger"><i class="caret"></i></td><div></div></tr>';
 				str += '<tr class="show-detail">';
 				
 				str += '<td colspan="3"><table class="detail-table">';
-				str += '<tr><th>Ãû×Ö</th><th>IPµØÖ·</th><th>Cores (CPU)</th><th>ÄÚ´æ</th><th>´ÅÅÌÓÃÁ¿</th><th>Æ½¾ù¸ºÔØ</th></tr>';
+				str += '<tr><th>åå­—</th><th>IPåœ°å€</th><th>Cores (CPU)</th><th>å†…å­˜</th><th>ç£ç›˜ç”¨é‡</th><th>å¹³å‡è´Ÿè½½</th></tr>';
 				for (var i=0; i<data[key].length; i++) {
 					str += '<tr>';
 					// host_status
@@ -683,7 +683,7 @@ module.exports = Em.Route.extend({
 			$('#hostListDiv').html(str);
 			$('#hostListDiv').find('.caret').parent().parent().click(function(){
 				var $this = $(this);
-				var target = $this.next();
+				var target = $this.next().next();
 				if (!target.hasClass('open')) {
 					$this.addClass('open');
 					target.addClass('open');
