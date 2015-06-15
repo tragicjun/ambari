@@ -310,8 +310,12 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
               configType = m.group(1)
               propertyKey = m.group(2)
               propertyValue = configurations.get(configType,{}).get("properties",{})[propertyKey]
-              # Extract port out if propertyValue is of format "host:port"
+              # Extract port out if propertyValue is of format "host:port" or "protocol://host:port"
               if propertyValue is not None and ":" in propertyValue:
+                # Remove protocol
+                if "//" in propertyValue:
+                  i = propertyValue.index("//")
+                  propertyValue = propertyValue[i+2:]
                 i = propertyValue.index(":")
                 usedPort = propertyValue[i+1:]
           else:
