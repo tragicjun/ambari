@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property>
+    <name>lhotse.ftp.port</name>
+    <value>2121</value>
+    <description>Lhotse ftp port</description>
+  </property>
+
+  <property>
+    <name>lhotse.ftp.user</name>
+    <value>ftpadmin</value>
+    <description>ftp user</description>
+  </property>
+
+  <property>
+    <name>lhotse.ftp.password</name>
+    <value>ftpadmin</value>
+    <description>ftp password</description>
+  </property>
+ 
+  <property>
+    <name>root.path</name>
+    <value>/data/ftp_data</value>
+    <description>ftp root path</description>
+  </property>
+
+</configuration>

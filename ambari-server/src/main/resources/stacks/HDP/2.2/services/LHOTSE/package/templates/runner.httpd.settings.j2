@@ -1,0 +1,8 @@
+Listen {{lhotse_runner_cgi_port}}
+ScriptAlias /cgi-bin/ {{runner_root_path}}/getlog/
+<Directory "{{runner_root_path}}/getlog/">
+ AllowOverride None
+ Options +ExecCGI
+ Order allow,deny
+ Allow from all
+</Directory>

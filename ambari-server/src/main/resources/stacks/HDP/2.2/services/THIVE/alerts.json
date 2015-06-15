@@ -1,0 +1,61 @@
+{
+  "THIVE": {
+    "THIVE_SERVER": [
+      {
+        "name": "thive_server_process",
+        "label": "THive Server Process",
+        "description": "当Thive Server的端口未开放或连接超时时，触发该告警。",
+        "interval": 1,
+        "scope": "ANY",
+        "enabled": true,
+        "source": {
+          "type": "PORT",
+          "uri": "0.0.0.0:{{thive-config-env/thive.server.port}}",
+          "default_port": "10002",
+          "reporting": {
+            "ok": {
+              "text": "TCP OK - {0:.3f}s response on port {1}"
+            },
+            "warning": {
+              "text": "TCP OK - {0:.3f}s response on port {1}",
+              "value": 1.5
+            },
+            "critical": {
+              "text": "Connection failed: {0} to {1}:{2}",
+              "value": 5.0
+            }
+          }
+        }
+      }
+    ],
+    "THIVE_METADATA_DATABASE": [
+      {
+        "name": "thive_metadata_database_process",
+        "label": "THive Metadata Database Process",
+        "description": "如果Thive Metadata Database的端口未开放或连接超时，则触发该告警。",
+        "interval": 1,
+        "scope": "ANY",
+        "enabled": true,
+        "source": {
+          "type": "PORT",
+          "uri": "0.0.0.0:{{thive-config-env/thive.server.port}}",
+          "default_port": "5432",
+          "reporting": {
+            "ok": {
+              "text": "TCP OK - {0:.3f}s response on port {1}"
+            },
+            "warning": {
+              "text": "TCP OK - {0:.3f}s response on port {1}",
+              "value": 1.5
+            },
+            "critical": {
+              "text": "Connection failed: {0} to {1}:{2}",
+              "value": 5.0
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+

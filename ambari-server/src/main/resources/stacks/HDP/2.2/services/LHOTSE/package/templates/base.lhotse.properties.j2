@@ -1,0 +1,48 @@
+#socket config
+task_server_port=9930
+
+#db config
+primary_db_ip={{lhotse_database_hosts}}
+primary_db_port={{lhotse_database_port}}
+primary_db_database=lhotse_open
+primary_db_username={{lhotse_database_username}}
+primary_db_password={{lhotse_database_password}}
+primaryDBPoolMin=200
+primaryDBPoolMax=500
+primaryDBPoolMaxSize=0
+primaryDBPoolIdleTimeout=1800
+
+#log db_config
+secondary_db_ip={{lhotse_database_hosts}}
+secondary_db_port={{lhotse_database_port}}
+secondary_db_database=lhotse_open
+secondary_db_username={{lhotse_database_username}}
+secondary_db_password={{lhotse_database_password}}
+secondaryDBPoolMin=5
+secondaryDBPoolMax=10
+secondaryDBPoolMaxSize=0
+secondaryDBPoolIdleTimeout=1800
+
+#read db config
+read_db_ip={{lhotse_database_hosts}}
+read_db_port={{lhotse_database_port}}
+read_db_database=lhotse_open
+read_db_username={{lhotse_database_username}}
+read_db_password={{lhotse_database_password}}
+readDBPoolMin=5
+readDBPoolMax=10
+readDBPoolMaxSize=0
+readDBPoolIdleTimeout=1800
+
+
+#debug deploy mode: true/false
+debug_mode={{lhotse_base_debug_mode}}
+issuer_logging_level={{lhotse_base_issuer_logging_level}}
+thrift_server_port={{lhotse_base_thrift_server_port}}
+
+
+#gmond
+lhotse_db.servers={{gmond_host}}:{{gmond_port}}
+lhotse_db.period=10
+lhotse_file.servers={{gmond_host}}:{{gmond_port}}
+lhotse_file.period=10
