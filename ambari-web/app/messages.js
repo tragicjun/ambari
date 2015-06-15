@@ -769,7 +769,7 @@ Em.I18n.translations = {
   'installer.step10.installTime.seconds':'安装启动在{0}秒内完成',
   'installer.step10.installTime.minutes':'安装启动在{0}分{1}秒内完成',
 
-  'addHost.step4.header':'恭喜',
+  'addHost.step4.header':'配置',
   'addHost.step4.title':'选择已添加的主机所属的配置组',
 
 

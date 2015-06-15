@@ -57,6 +57,7 @@ import org.apache.ambari.server.controller.internal.StackDefinedPropertyProvider
 import org.apache.ambari.server.controller.internal.StackDependencyResourceProvider;
 import org.apache.ambari.server.controller.internal.UserPrivilegeResourceProvider;
 import org.apache.ambari.server.controller.internal.ViewPermissionResourceProvider;
+import org.apache.ambari.server.controller.license.LicenseManager;
 import org.apache.ambari.server.orm.GuiceJpaInitializer;
 import org.apache.ambari.server.orm.PersistenceType;
 import org.apache.ambari.server.orm.dao.*;

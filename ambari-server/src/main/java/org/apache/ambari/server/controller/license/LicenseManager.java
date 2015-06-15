@@ -1,4 +1,4 @@
-package org.apache.ambari.server.controller;
+package org.apache.ambari.server.controller.license;
 
 import org.apache.ambari.server.orm.dao.KeyValueDAO;
 import org.apache.ambari.server.orm.entities.KeyValueEntity;
@@ -19,13 +19,14 @@ public class LicenseManager {
         if(keyValueDAO != null){
             KeyValueEntity entity = keyValueDAO.findByKey(LICENSE_KEY);
             if(entity != null){
-                limit = decodeLicenseKey(entity.getValue());
+                LicenseInfo license = decodeLicenseKey(entity.getValue().replace("-", ""));
+                limit = license.getClusterLimit();
             }
         }
         return limit;
     }
 
-    private int decodeLicenseKey(String key){
-        return Integer.valueOf(key);
+    private LicenseInfo decodeLicenseKey(String key) {
+        return new LicenseInfo(LicenseKeyConverter.decrypt(key));
     }
 }
