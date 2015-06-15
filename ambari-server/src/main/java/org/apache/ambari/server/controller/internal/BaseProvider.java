@@ -320,8 +320,16 @@ public abstract class BaseProvider {
       }
     }
     else {
-
-      if (value instanceof Map<?, ?>) {
+      // if all of the items of the requestedIds does not begin with propertyId, break;
+      boolean propertyIsBeginWithRequestedIds = false;
+      for(String id : requestedIds){
+      	 if(id.startsWith(propertyId)){
+      		propertyIsBeginWithRequestedIds = true;
+            break;
+      	 }
+      }
+      //if (value instanceof Map<?, ?>) {
+      if (value instanceof Map<?, ?> && propertyIsBeginWithRequestedIds) {
         // This map wasn't requested, but maybe some of its entries were...
         Map<?, ?> mapValue = (Map) value;
 
