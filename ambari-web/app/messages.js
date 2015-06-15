@@ -36,8 +36,8 @@ Em.I18n.translations = {
     '<br>请务必解决此问题以进行下一步的操作.',
   'app.signout':'注销',
   'app.settings':'设置',
-  'app.manageAmbari': '管理Ambari',
-  'app.aboutAmbari':'关于Ambari',
+  'app.manageAmbari': '管理',
+  'app.aboutAmbari':'关于',
   'app.settings.notshowBgOperationsPopup': '在启动操作时不要显示后台操作对话框',
   'app.settings.notShowBgOperations': '在启动后台操作时不要再显示此对话框',
 
