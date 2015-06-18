@@ -446,7 +446,10 @@ App.MainDashboardWidgetsView = Em.View.extend(App.UserPref, App.LocalStorage, {
       '20': App.YARNMemoryPieChartView,
       '21': App.SuperVisorUpView,
       '22': App.FlumeAgentUpView,
-      '23': App.YARNLinksView
+      '23': App.YARNLinksView,
+	  '24': App.Lhotse1View,
+	  '25': App.Lhotse2View,
+	  '26': App.Lhotse3View
     }, id);
   },
 
@@ -463,7 +466,7 @@ App.MainDashboardWidgetsView = Em.View.extend(App.UserPref, App.LocalStorage, {
     visible: [],
     hidden: [],
     threshold: {1: [80, 90], 2: [85, 95], 3: [90, 95], 4: [80, 90], 5: [1000, 3000], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: [], 13: [70, 90], 14: [150, 250], 15: [3, 10], 16: [],
-      17: [70, 90], 18: [], 19: [50, 75], 20: [50, 75], 21: [85, 95], 22: [85, 95], 23: []} // id:[thresh1, thresh2]
+      17: [70, 90], 18: [], 19: [50, 75], 20: [50, 75], 21: [85, 95], 22: [85, 95], 23: [], 24 :[],25 :[],26 :[]} // id:[thresh1, thresh2]
   }),
 
   /**
@@ -486,6 +489,12 @@ App.MainDashboardWidgetsView = Em.View.extend(App.UserPref, App.LocalStorage, {
           }
         }
       }
+	  response.visible.push('24');
+	  response.threshold['24'] = [];
+	  response.visible.push('25');
+	  response.threshold['25'] = [];
+	  response.visible.push('26');
+	  response.threshold['26'] = [];
       this.set('currentPrefObject', response);
     }
   },

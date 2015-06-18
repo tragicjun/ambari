@@ -43,11 +43,12 @@ class Web(Script):
          content=StaticFile('configWeb.sh')
     )
 
-
+    configinit().update_web_config()
+    
     cmd = format("bash -x {config_web_script} {lhotse_web_hosts} {lhotse_web_listen_port}")
 
     (ret, output) = commands.getstatusoutput(cmd)
-    print "update web httpd------output-------" 
+    print "update web httpd------output-------"
     print output
     print ret
 
@@ -55,7 +56,6 @@ class Web(Script):
         print 'update httpd config fail'
         sys.exit(1)
 
-    configinit().update_web_config()
 
   def start(self, env):
     import params

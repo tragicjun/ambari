@@ -26,6 +26,8 @@ import org.apache.ambari.server.api.services.parsers.JsonRequestBodyParser;
 import org.apache.ambari.server.api.services.parsers.RequestBodyParser;
 import org.apache.ambari.server.api.services.serializers.JsonSerializer;
 import org.apache.ambari.server.api.services.serializers.ResultSerializer;
+import org.apache.ambari.server.audit.Auditor;
+import org.apache.ambari.server.audit.LogAuditor;
 import org.apache.ambari.server.controller.spi.Resource;
 import org.eclipse.jetty.util.ajax.JSON;
 
@@ -51,6 +53,11 @@ public abstract class BaseService {
    * Result serializer.
    */
   private ResultSerializer m_serializer = new JsonSerializer();
+
+  /**
+   * Auditor
+   */
+  private Auditor auditor = new LogAuditor();
 
 
   /**
@@ -90,6 +97,11 @@ public abstract class BaseService {
                                    MediaType mediaType, ResourceInstance resource) {
 
     Result result = new ResultImpl(new ResultStatus(ResultStatus.STATUS.OK));
+    Request request = null;
+
+    //set a mark
+    auditor.mark();
+
     try {
       Set<RequestBody> requestBodySet = getBodyParser().parse(body);
 
@@ -97,7 +109,7 @@ public abstract class BaseService {
       while (iterator.hasNext() && result.getStatus().getStatus().equals(ResultStatus.STATUS.OK)) {
         RequestBody requestBody = iterator.next();
 
-        Request request = getRequestFactory().createRequest(
+        request = getRequestFactory().createRequest(
             headers, requestBody, uriInfo, requestType, resource);
 
         result  = request.process();
@@ -115,7 +127,12 @@ public abstract class BaseService {
       builder.type(mediaType);
     }
 
-    return builder.build();
+    Response response = builder.build();
+
+    //do audit
+    auditor.record(request, response);
+
+    return response;
   }
 
   /**

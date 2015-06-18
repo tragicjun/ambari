@@ -1,5 +1,5 @@
 <!--
-* Licensed to the Apache Software Foundation (ASF) under one
+* Licensed to the Apache Software Foundation (ASF) under one 
 * or more contributor license agreements.  See the NOTICE file
 * distributed with this work for additional information
 * regarding copyright ownership.  The ASF licenses this file
@@ -18,10 +18,10 @@
 <div class="groups-pane">
   <div class="clearfix">
     <ol class="breadcrumb pull-left">
-      <li class="active">Groups</li>
+      <li class="active">组列表</li>
     </ol>
     <div class="pull-right top-margin-4">
-      <link-to route="groups.create" class="btn btn-primary creategroup-btn"><span class="glyphicon glyphicon-plus"></span> Create Local Group</link-to>
+      <link-to route="groups.create" class="btn btn-primary creategroup-btn"><span class="glyphicon glyphicon-plus"></span> 创建Local组</link-to>
     </div>
   </div>
   <hr>
@@ -30,13 +30,13 @@
       <tr>
         <th class="col-sm-8">
           <div class="search-container">
-            <label for="">Group Name</label>
+            <label for="">组名</label>
             <input type="text" class="form-control namefilter" placeholder="Any" ng-model="currentNameFilter" ng-change="resetPagination()">
-            <button type="button" class="close" ng-show="currentNameFilter" ng-click="currentNameFilter=''; resetPagination()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <button type="button" class="close" ng-show="currentNameFilter" ng-click="currentNameFilter=''; resetPagination()"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
           </div>
         </th>
         <th class="col-sm-2">
-          <label for="">Type</label>
+          <label for="">类型</label>
           <select class="form-control typefilter"
             ng-model="currentTypeFilter"
             ng-options="item.label for item in typeFilterOptions"
@@ -44,7 +44,7 @@
           </select>
         </th>
         <th class="col-sm-2 vertical-top">
-          <label for="">Members</label>
+          <label for="">成员</label>
         </th>
       </tr>
     </thead>
@@ -54,14 +54,11 @@
           <link-to route="groups.edit" class="link-to-group" id="{{group.group_name}}">{{group.group_name}}</link-to>
         </td>
         <td class="col-sm-2">{{group.ldap_group ? 'LDAP' : 'Local'}}</td>
-        <td class="col-sm-2">{{group.members ? group.members.length : 0}} {{group.members.length === 1 ? 'member' : 'members'}}</td>
+        <td class="col-sm-2">{{group.members.length}} {{group.members.length === 1 ? 'member' : 'members'}}</td>
       </tr>
     </tbody>
   </table>
-  <div class="alert alert-info col-sm-12" ng-show="!groups.length">
-    No groups to display.
-  </div>
-  <div class="col-sm-12">
+  <div class="alert alert-info col-sm-12" ng-show="!groups.length"> 没有可显示的组。</div> <div class="col-sm-12">
     <div class="pull-right left-margin">
       <pagination class="paginator" total-items="totalGroups" max-size="maxVisiblePages" items-per-page="groupsPerPage" ng-model="currentPage" ng-change="pageChanged()"></pagination>
     </div>

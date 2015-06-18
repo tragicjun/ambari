@@ -15,6 +15,88 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+/*==修改 bootstrap样式==*/
+body{font-family: 'Microsoft Yahei';}
+.btn-group{display: inline-block;*display: inline;*zoom: 1;}
+
+.nav-tabs{border: 1px solid #ddd;border-left: none;background: #f4f5f8;
+  > li{margin: -1px -1px -1px 0;
+    > a{margin-right: 0;padding: 0 10px;min-width: 170px;border: 1px solid #ddd;font-size: 16px;line-height: 44px;color: #707070;text-align: center;
+      &:hover{position: relative;border-color: #0590e0;color: #0590e0;background: none;z-index: 2;}
+    }
+
+    &.active{
+      > a,> a:hover{position: relative;border-color: #0590e0;background: #0590e0;color: #fff;z-index: 2;
+        &:after{content:'';position: absolute;left: 50%;top:100%;margin-left: -11px;width: 0;height: 0;border-style: solid;border-width: 8px 11px 0;border-color: #0590e0 transparent;}
+      }
+    }
+  }
+}
+
+.help-info{margin-bottom: 20px;color: #707070;font-size: 14px;line-height: 1.6;}
+
+.alert{
+  padding: 5px 10px;
+  border-color: #ead0aa;
+  background: #fdedd5;
+  color: #272c34;
+}
+
+.container,
+.navbar-static-top .container,
+.navbar-fixed-top .container,
+.navbar-fixed-bottom .container {
+  width: 1160px;
+}
+.main-container{
+  width: 1200px;
+}
+
+.repositories-table{background: #fff;}
+.table{background: #fff;}
+/*==end==*/
+
+/*==开关按钮==*/
+.gui-on-off {
+  display: inline-block;
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border: 2px solid #48a0dc;
+  background: #48a0dc;
+  border-radius: 15px;
+  font-size: 0;
+  vertical-align: middle;
+  -webkit-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+.gui-on-off i{
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 140, 194, 0.75);
+  -webkit-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+.gui-on-off.off {
+  border-color: #d9d9d9;
+  background: #e6e6e6;
+}
+.gui-on-off.off i{
+  right: 100%;
+  margin-right: -20px;
+  box-shadow: 0 1px 4px #d9d9d9;
+}
+/*==end==*/
+
 
 /************************************************************************
 * Health status(service/host/host component health)icons class names
@@ -28,7 +110,7 @@
 * Health status(service/host/host component health)icon colors
 ***********************************************************************/
 @health-status-red: #ff0000;
-@health-status-green: #5AB400;
+@health-status-green: #5ab400;
 @health-status-yellow: #FFD13D;
 @health-status-orange: #FF8E00;
 @maintenance-black: #000000;
@@ -131,12 +213,12 @@
 @top-nav-bg-color-to: #333333;
 @top-nav-brand-color: #ffffff;
 @top-nav-ops-count-color: #ffffff;
-@top-nav-ops-count-bg-color: #c3c3c3;
-@top-nav-menu-active-text-color: #333333;
-@top-nav-menu-active-bg-color: #ffffff;
-@top-nav-menu-text-color: #c3c3c3;
+@top-nav-ops-count-bg-color: #ff760f;
+@top-nav-menu-active-text-color: #fff;
+@top-nav-menu-active-bg-color: #4b6a8f;
+@top-nav-menu-text-color: #b8c6d6;
 @top-nav-menu-text-hover-color: #ffffff;
-@top-nav-menu-dropdown-border-color: #c3c3c3;
+@top-nav-menu-dropdown-border-color: #c2c7cc;
 @top-nav-menu-dropdown-bg-color: #ffffff;
 @top-nav-menu-dropdown-text-color: #333333;
 @default-font-size: 14px;

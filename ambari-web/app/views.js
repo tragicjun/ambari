@@ -187,6 +187,9 @@ require('views/main/dashboard/widgets/node_managers_live');
 require('views/main/dashboard/widgets/yarn_memory');
 require('views/main/dashboard/widgets/supervisor_live');
 require('views/main/dashboard/widgets/flume_agent_live');
+require('views/main/dashboard/widgets/lhotse1');
+require('views/main/dashboard/widgets/lhotse2');
+require('views/main/dashboard/widgets/lhotse3');
 require('views/main/dashboard/config_history_view');
 
 
@@ -263,6 +266,22 @@ require('views/main/service/info/metrics/kafka/replica_manager');
 require('views/main/service/info/metrics/kafka/replica_fetcher');
 require('views/main/service/info/metrics/kafka/kafka_log_flush');
 
+require('views/main/service/info/metrics/lhotse/issue_avg_time');
+require('views/main/service/info/metrics/lhotse/base_request_count');
+require('views/main/service/info/metrics/lhotse/issued_instance_count');
+require('views/main/service/info/metrics/lhotse/issued_except_count');
+require('views/main/service/info/metrics/lhotse/running_instance_count');
+require('views/main/service/info/metrics/lhotse/failed_instance_count');
+require('views/main/service/info/metrics/lhotse/waiting_instance_count');
+require('views/main/service/info/metrics/lhotse/ready_instance_count');
+require('views/main/service/info/metrics/lhotse/new_instance_count');
+require('views/main/service/info/metrics/lhotse/succ_instance_count');
+require('views/main/service/info/metrics/lhotse/alive_runner_count');
+
+require('views/main/service/info/metrics/pgxz/connection_count');
+require('views/main/service/info/metrics/pgxz/transaction_count');
+require('views/main/service/info/metrics/pgxz/statistic');
+
 require('views/main/service/add_view');
 require('views/main/service/reassign_view');
 require('views/main/service/reassign/step1_view');
@@ -277,6 +296,20 @@ require('views/main/charts/heatmap');
 require('views/main/charts/heatmap/heatmap_rack');
 require('views/main/charts/heatmap/heatmap_host');
 require('views/main/charts/heatmap/heatmap_host_detail');
+
+// ADD NEW METRICS HERE
+require('views/main/service/info/metrics/lhotse/issue_avg_time');
+require('views/main/service/info/metrics/lhotse/base_request_count');
+require('views/main/service/info/metrics/lhotse/issued_instance_count');
+require('views/main/service/info/metrics/lhotse/issued_except_count');
+require('views/main/service/info/metrics/lhotse/running_instance_count');
+require('views/main/service/info/metrics/lhotse/failed_instance_count');
+require('views/main/service/info/metrics/lhotse/waiting_instance_count');
+require('views/main/service/info/metrics/lhotse/ready_instance_count');
+require('views/main/service/info/metrics/lhotse/new_instance_count');
+require('views/main/service/info/metrics/lhotse/succ_instance_count');
+require('views/main/service/info/metrics/lhotse/succ_avg_time');
+require('views/main/service/info/metrics/lhotse/alive_runner_count');
 
 require('views/main/views_view');
 

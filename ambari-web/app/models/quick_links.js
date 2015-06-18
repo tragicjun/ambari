@@ -311,5 +311,16 @@ App.QuickLinks.FIXTURES = [
     site: 'spark-defaults',
     regex: '^(\\d+)$',
     default_http_port: 18080
+  },
+  {
+    id:35,
+    label:'Lhotse Web',
+    url:'%@://%@:%@/',
+    service_id: 'LHOTSE_BASE',
+    template:'%@://%@:%@/',
+    http_config: 'lhotse_host',
+    https_config: 'lhotse_host',
+    regex: '^(\\d+)$',
+    default_http_port: 8081
   }
 ];

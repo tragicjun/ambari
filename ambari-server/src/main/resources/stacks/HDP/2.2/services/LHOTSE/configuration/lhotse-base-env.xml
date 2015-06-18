@@ -41,6 +41,12 @@
 		<description>RPC 服务端口</description>
 	</property>
 
+  <property>
+    <name>metrics.report.period</name>
+    <value>300</value>
+    <description>指标上报周期</description>
+  </property>
+
 	<property>
 		<name>content</name>
 		<value>

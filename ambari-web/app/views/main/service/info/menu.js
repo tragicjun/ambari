@@ -27,6 +27,7 @@ App.MainServiceInfoMenuView = Em.CollectionView.extend({
       //{ label:'Audit', routing:'audit'}
     ];
     if(this.get('configTab')) menuItems.push({ label: Em.I18n.t('services.service.info.menu.configs'), id: 'configs-service-tab', routing:'configs'});
+	menuItems.push({ label: Em.I18n.t('common.hosts'), routing:'hostTab'});
     return menuItems;
   }.property(),
 

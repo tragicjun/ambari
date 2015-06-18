@@ -85,4 +85,24 @@ App.service_graph_config = {
     'Kafka_ReplicaFetcher'
   ]
 
+  'lhotse': [
+  	  'Lhotse_IssueAvgTime',
+  	  'Lhotse_BaseRequestCount',
+  	  'Lhotse_IssuedInstanceCount',
+  	  'Lhotse_IssuedExceptCount',
+  	  'Lhotse_RunningInstanceCount',
+      'Lhotse_FailedInstanceCount',
+      'Lhotse_WaitingInstanceCount',
+      'Lhotse_ReadyInstanceCount',
+      'Lhotse_NewInstanceCount',
+      'Lhotse_SuccInstanceCount',
+      'Lhotse_AliveRunnerCount'
+  	],
+
+  'pgxz': [
+    'PGXZ_ConnectionCount',
+    'PGXZ_TransactionCount',
+    'PGXZ_Statistic'
+  ]
+
 };

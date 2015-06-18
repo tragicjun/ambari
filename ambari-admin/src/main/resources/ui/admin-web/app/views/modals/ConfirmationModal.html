@@ -1,5 +1,5 @@
 <!--
-* Licensed to the Apache Software Foundation (ASF) under one
+* Licensed to the Apache Software Foundation (ASF) under one 
 * or more contributor license agreements.  See the NOTICE file
 * distributed with this work for additional information
 * regarding copyright ownership.  The ASF licenses this file
@@ -19,10 +19,9 @@
     <h3 class="modal-title">{{header}}</h3>
 </div>
 <div class="modal-body">
-  <div class="default-body" ng-show="!isTempalte">{{body}}</div>
-  <div ng-show="isTempalte" ng-include="body.url"></div>
+    {{body}}
 </div>
 <div class="modal-footer">
-    <button class="btn btn-default" ng-click="cancel()">{{cancelText}}</button>
-    <button class="btn btn-primary" ng-click="ok()">{{confirmText}}</button>
+    <button class="btn btn-default" ng-click="cancel()">放弃</button>
+    <button class="btn btn-primary" ng-click="ok()">确认</button>
 </div>

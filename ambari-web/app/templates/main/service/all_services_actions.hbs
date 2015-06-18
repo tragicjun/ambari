@@ -18,17 +18,19 @@
 
 {{#isAccessible ADMIN}}
   <div class="service-button" style="margin-top: 10px;">
-    <div class="btn-group display-inline-block span11 offset1">
-      <a class="btn dropdown-toggle span10" data-toggle="dropdown" href="#">{{t common.actions}}
-        <span class="caret"></span>
+	<h3 class="title">服务列表</h3>
+	<a href="#"
+	  {{bindAttr class=":add-service controller.isAllServicesInstalled:disabled"}}
+	  {{action gotoAddService target="controller"}}>
+	  <i class="icon-plus-sign"></i></a>
+	  <i class="icon-plus icon-white"></i></a>
+	  
+    <div class="btn-group display-inline-block">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <span class="icon-gear"></span>
       </a>
       <ul class="pull-left dropdown-menu">
-          <li {{bindAttr class="controller.isAllServicesInstalled:disabled"}}>
-            <a href="#"
-              {{bindAttr class="controller.isAllServicesInstalled:disabled"}}
-              {{action gotoAddService target="controller"}}>
-              <i class="icon-plus icon-white"></i> {{t services.service.add}}</a>
-          </li>
+
           <li class="divider"></li>
           <li {{bindAttr class="controller.isStartAllDisabled:disabled" }}>
             <a href="#" data-toggle="modal"

@@ -183,6 +183,9 @@ App.StackService = DS.Model.extend({
 App.StackService.FIXTURES = [];
 
 App.StackService.displayOrder = [
+  'LHOTSE',
+  'PGXZ',
+  'THIVE',
   'HDFS',
   'GLUSTERFS',
   'MAPREDUCE2',

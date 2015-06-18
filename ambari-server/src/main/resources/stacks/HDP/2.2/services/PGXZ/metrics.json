@@ -1,0 +1,41 @@
+{
+  "PGXZ_GTM": {
+    "Component": [
+      {
+        "type": "ganglia",
+        "metrics": {
+          "metrics/pgxz/metrics/connection_count": {
+            "metric": "pgxz.metrics.connection_count",
+            "pointInTime": true,
+            "temporal": true
+          },
+          "metrics/pgxz/metrics/transaction_count": {
+            "metric": "pgxz.metrics.transaction_count",
+            "pointInTime": true,
+            "temporal": true
+          },
+          "metrics/pgxz/metrics/statistic/sql_log_count": {
+            "metric": "pgxz.metrics.statistic.sql_log_count",
+            "pointInTime": true,
+            "temporal": true
+          },
+          "metrics/pgxz/metrics/statistic/sql_warning_count": {
+            "metric": "pgxz.metrics.statistic.sql_warning_count",
+            "pointInTime": true,
+            "temporal": true
+          },
+          "metrics/pgxz/metrics/statistic/sql_error_count": {
+            "metric": "pgxz.metrics.statistic.sql_error_count",
+            "pointInTime": true,
+            "temporal": true
+          },
+          "metrics/pgxz/metrics/statistic/sql_fatal_count": {
+            "metric": "pgxz.metrics.statistic.sql_fatal_count",
+            "pointInTime": true,
+            "temporal": true
+          }
+        }
+      }
+    ]
+  }
+}

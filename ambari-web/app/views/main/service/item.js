@@ -193,6 +193,7 @@ App.MainServiceItemView = Em.View.extend({
   },
 
   maintenance: [],
+  maintenance2,[]
 
   observeMaintenance: function() {
     Em.run.once(this, 'observeMaintenanceOnce');
@@ -201,6 +202,7 @@ App.MainServiceItemView = Em.View.extend({
   observeMaintenanceOnce: function() {
     var self = this;
     var options = [];
+	var options2 = [];
     var service = this.get('controller.content');
     var allMasters = service.get('hostComponents').filterProperty('isMaster').mapProperty('componentName').uniq();
     var allSlaves = service.get('slaveComponents').rejectProperty('totalCount', 0).mapProperty('componentName');
@@ -223,7 +225,7 @@ App.MainServiceItemView = Em.View.extend({
       if (this.get('serviceName') === 'YARN') {
         options.push(actionMap.REFRESH_YARN_QUEUE);
       }
-      options.push(actionMap.RESTART_ALL);
+      options2.push(actionMap.RESTART_ALL);
       allSlaves.filter(function (slave) {
         return App.get('components.rollinRestartAllowed').contains(slave);
       }).forEach(function(slave) {
@@ -308,7 +310,11 @@ App.MainServiceItemView = Em.View.extend({
     if (hasConfigTab) {
       options.push(actionMap.DOWNLOAD_CLIENT_CONFIGS);
     }
-
+	
+	f (!this.get('maintenance2').length) {
+      this.set('maintenance2', options2);
+    }
+	
     if (!this.get('maintenance').length) {
       this.set('maintenance', options);
     } else {

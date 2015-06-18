@@ -517,6 +517,9 @@ App.ServiceConfigProperty = Em.Object.extend({
       case 'stormuiserver_host':
         this.set('value', masterComponentHostsInDB.findProperty('component', 'STORM_UI_SERVER').hostName);
         break;
+	  case 'lhotse_host':
+        this.set('value', masterComponentHostsInDB.findProperty('component', 'LHOTSE_WEB_SERVER').hostName);
+		break;
       case 'storm_rest_api_host':
         var stormRresApiHost = masterComponentHostsInDB.findProperty('component', 'STORM_REST_API');
         if(stormRresApiHost) {

@@ -22,36 +22,14 @@
       <div class="navbar-inner">
         <div class="container main-container">
           {{#if isExistingClusterDataLoaded}}
-            <a {{translateAttr href="topnav.logo.href"}} class="logo"><img src="/img/logo-white.png" alt="Apache Ambari"
-                                                                           title="Apache Ambari"></a>
-            <a class="brand" {{translateAttr href="topnav.logo.href"}} title="Apache Ambari">{{t app.name}}</a>
-            <a class="brand cluster-name" href="javascript:void(null);" {{bindAttr title="clusterName"}}>
-              <span {{action "showPopup" target="App.router.backgroundOperationsController"}} >{{clusterDisplayName}} </span>
-              {{#with App.router.backgroundOperationsController}}
-                {{#if allOperationsCount}}
-                  <i class="icon-caret-left ops-count"></i><span id="span-bg-operation-count"
-                                                                 class="label operations-count" {{action "showPopup" target="App.router.backgroundOperationsController"}}>
-                    {{allOperationsCount}} {{pluralize allOperationsCount singular="t:op" plural="t:ops"}}</span>
-                {{else}}
-                  <i class="icon-caret-left"></i><span id="span-bg-operation-count"
-                                                       class="label" {{action "showPopup" target="App.router.backgroundOperationsController"}}>
-                    {{allOperationsCount}} {{pluralize allOperationsCount singular="t:op" plural="t:ops"}}</span>
-                {{/if}}
-              {{/with}}
-              {{#if App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount}}
-                <span {{bindAttr class=":label App.router.mainAlertDefinitionsController.isCriticalAlerts:alert-crit-count:alert-warn-count"}} {{action "showPopup" target="App.router.mainAlertInstancesController"}}>
-                {{App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount}} {{pluralize App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount singular="alert" plural="alerts"}}</span>
-              {{else}}
-                <span rel="tooltip" {{translateAttr title="titlebar.alerts.noAlerts"}}
-                      class="label alerts-none-count" {{action "showPopup" target="App.router.mainAlertInstancesController"}}>
-                {{App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount}} {{pluralize App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount singular="alert" plural="alerts"}}</span>
-              {{/if}}
-            </a>
+            <a {{translateAttr href="topnav.logo.href"}} class="logo"><img src="/img/logo-white.png" alt="腾讯大数据套件"
+                                                                           title="腾讯大数据套件"></a>
+            <a class="brand" {{translateAttr href="topnav.logo.href"}} title="腾讯大数据套件">{{t app.name}}</a>
           {{else}}
-            <a class="logo"><img src="/img/logo-white.png" alt="Apache Ambari" title="Apache Ambari"></a>
-            <a class="brand" title="Apache Ambari">{{t app.name}}</a>
+            <a class="logo"><img src="/img/logo-white.png" alt="腾讯大数据套件" title="腾讯大数据套件"></a>
+            <a class="brand" title="腾讯大数据套件">{{t app.name}}</a>
           {{/if}}
-
+		  
           {{#if App.router.loggedIn}}
             <div class="top-nav-user btn-group">
               <button class="btn dropdown-toggle" data-toggle="dropdown">
@@ -83,6 +61,31 @@
                 <li><a href="" id="sign-out" {{action logoff}}>{{t app.signout}}</a></li>
               </ul>
             </div>
+          {{/if}}
+		    
+  		  {{#if isExistingClusterDataLoaded}}	
+            <a class="brand cluster-name" href="javascript:void(null);" {{bindAttr title="clusterName"}}>
+              <span {{action "showPopup" target="App.router.backgroundOperationsController"}} >{{clusterDisplayName}} </span>
+              {{#with App.router.backgroundOperationsController}}
+                {{#if allOperationsCount}}
+                  <i class="icon-caret-left ops-count"></i><span id="span-bg-operation-count"
+                                                                 class="label operations-count" {{action "showPopup" target="App.router.backgroundOperationsController"}}>
+                    {{allOperationsCount}} {{pluralize allOperationsCount singular="t:op" plural="t:ops"}}</span>
+                {{else}}
+                  <i class="icon-caret-left"></i><span id="span-bg-operation-count"
+                                                       class="label" {{action "showPopup" target="App.router.backgroundOperationsController"}}>
+                    {{allOperationsCount}} {{pluralize allOperationsCount singular="t:op" plural="t:ops"}}</span>
+                {{/if}}
+              {{/with}}
+              {{#if App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount}}
+                <span {{bindAttr class=":label App.router.mainAlertDefinitionsController.isCriticalAlerts:alert-crit-count:alert-warn-count"}} {{action "showPopup" target="App.router.mainAlertInstancesController"}}>
+                {{App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount}} {{pluralize App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount singular="alert" plural="alerts"}}</span>
+              {{else}}
+                <span rel="tooltip" {{translateAttr title="titlebar.alerts.noAlerts"}}
+                      class="label alerts-none-count" {{action "showPopup" target="App.router.mainAlertInstancesController"}}>
+                {{App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount}} {{pluralize App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount singular="alert" plural="alerts"}}</span>
+              {{/if}}
+            </a>
           {{/if}}
 
           {{view App.MainMenuView}}

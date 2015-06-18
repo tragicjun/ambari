@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+
+
+  <property>
+    <name>goldeneye.username</name>
+    <value>root</value>
+    <description>Golden eye 元数据库用户名</description>
+  </property>
+  
+  <property>
+    <name>goldeneye.password</name>
+    <value> </value>
+    <description>Golden eye 元数据库密码</description>
+  </property>
+
+  <property>
+    <name>database.port</name>
+    <value>3306</value>
+    <description>Golden eye 元数据库端口</description>
+  </property>
+  
+  <property>
+    <name>data.dir</name>
+    <value>/data/goldeneye/mysql_data</value>
+    <description>Golden eye 元数据库数据路径</description>
+  </property>
+  
+</configuration>
+
+

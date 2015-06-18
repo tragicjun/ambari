@@ -37,7 +37,7 @@ App.MainMenuView = Em.CollectionView.extend({
       if (App.router.get('clusterController.isLoaded') && App.get('router.clusterInstallCompleted')) {
 
         result.push(
-          { label: Em.I18n.t('menu.item.dashboard'), routing: 'dashboard', active: 'active'},
+          //{ label: Em.I18n.t('menu.item.dashboard'), routing: 'dashboard', active: 'active'},
           { label: Em.I18n.t('menu.item.services'), routing: 'services'},
           { label: Em.I18n.t('menu.item.hosts'), routing: 'hosts', hasAlertsLabel: true},
           { label: Em.I18n.t('menu.item.alerts'), routing: 'alerts'}
@@ -46,7 +46,7 @@ App.MainMenuView = Em.CollectionView.extend({
           result.push({ label: Em.I18n.t('menu.item.admin'), routing: 'admin'});
         }
       }
-      result.push({ label: Em.I18n.t('menu.item.views'), routing: 'views.index', isView: true, views: this.get('views').filterProperty('visible')});
+      // result.push({ label: Em.I18n.t('menu.item.views'), routing: 'views.index', isView: true, views: this.get('views').filterProperty('visible')});
     }
     return result;
   }.property('App.router.loggedIn', 'views.length',

@@ -24,6 +24,7 @@ html {
 
 html, body {
   height: 100%;
+  background: #fcfcfc url('/img/body-bg.png');
 }
 
 wbr {
@@ -47,7 +48,7 @@ ul.typeahead.dropdown-menu {
 #main {
   overflow: visible;
   padding-bottom: @footer-height;
-  min-width: 980px;
+  min-width: 1200px;
 }
 
 footer {
@@ -73,38 +74,41 @@ footer {
   .navbar.navbar-static-top {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     .navbar-inner {
-      background-image: -moz-linear-gradient(top, @top-nav-bg-color-from, @top-nav-bg-color-to);
-      background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@top-nav-bg-color-from), to(@top-nav-bg-color-to));
-      background-image: -webkit-linear-gradient(top, @top-nav-bg-color-from, @top-nav-bg-color-to);
-      background-image: -o-linear-gradient(top, @top-nav-bg-color-from, @top-nav-bg-color-to);
-      background-image: linear-gradient(to bottom, @top-nav-bg-color-from, @top-nav-bg-color-to);
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= @top-nav-bg-color-from, endColorstr=@top-nav-bg-color-to); //for IE9-
+      background: #344c68;
       -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.1);
       -moz-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.1);
       box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1), 0 1px 10px rgba(0, 0, 0, 0.1);
-      max-height: 40px;
+      max-height: 60px;
     }
 
     .logo {
       float: left;
-      padding-top: 2px;
+      padding-top: 10px;
       img {
-        height: 32px;
+        height: 39px;
       }
     }
 
     .brand {
       color: @top-nav-brand-color;
-      font-size: 16px;
-      font-weight: normal;
+      font:normal 18px/39px 'Microsoft Yahei';
       line-height: 32px;
       margin-left: 0;
-      padding: 2px 5px 0 10px;
+      padding: 10px 5px 0 10px;
       text-shadow: 0 1px 0 #555555;
     }
 
     .brand.cluster-name {
-      margin-left: 10px;
+      float: right;
+      margin-right: 13px;
+      font-size: 14px;
+      white-space: nowrap;
+      text-shadow: none;
+      color: #b7c6d9;
+
+      &:hover{
+        color: #fff;
+      }
 
       .label.operations-count {
         background-color: #006DCC;
@@ -128,10 +132,19 @@ footer {
         cursor: default;
       }
       .label {
-         padding: 3px 5px 3px;
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        padding: 0;
+         width: 18px;
+         height: 18px;
+         border-radius: 50%;
+         text-align: center;
          color: @top-nav-ops-count-color;
-         text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
          background-color: @top-nav-ops-count-bg-color;
+         line-height: 16px;
+         font-weight: normal;
+         vertical-align: middle;
        }
       .icon-caret-left {
         color: @top-nav-ops-count-bg-color;
@@ -192,11 +205,15 @@ footer {
     }
     .top-nav-menu.nav {
       display: block;
-      float: right;
-      padding-left: 20px;
+      float: left;
+      padding-left: 130px;
       overflow: visible;
 
       li > a {
+        padding: 0 23px;
+        height: 60px;
+        line-height: 60px;
+        font-size: 15px;
         text-shadow: none;
         color: @top-nav-menu-text-color;
         text-align: center;
@@ -225,6 +242,7 @@ footer {
         cursor: pointer;
       }
       .icon-th {
+		vertical-align: middle;
         font-size: 1.3em;
       }
       //top-nav bar dropdown menu on hover
@@ -246,10 +264,10 @@ footer {
         margin: 2px 0 0;
         list-style: none;
         background-color: @top-nav-menu-dropdown-bg-color;
-        border: 3px solid @top-nav-menu-dropdown-border-color;
-        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        border: 1px solid @top-nav-menu-dropdown-border-color;
+        -webkit-box-shadow: 0 0 1px rgba(56, 61, 73, 0.07);
+        -moz-box-shadow: 0 0 1px rgba(56, 61, 73, 0.07);
+        box-shadow: 0 0 1px rgba(56, 61, 73, 0.07);
         -webkit-background-clip: padding-box;
         -moz-background-clip: padding;
         background-clip: padding-box;
@@ -297,10 +315,10 @@ footer {
         white-space: nowrap;
       }
       .top-nav-dropdown-menu > li.active > a{
-        background-color: #e5e5e5;
+        background-color: #f4f5f8;
       }
       .top-nav-dropdown-menu > li > a:hover {
-        color: #ffffff;
+        color: #0590e0;
         background-color: #666666;
         background-image: linear-gradient(to bottom, #666666, #555555);
         background-repeat: repeat-x;
@@ -328,6 +346,14 @@ footer {
 
   .top-nav-user {
     float: right;
+    margin-top: 0;
+
+    > .dropdown-toggle{padding: 0 10px;height: 60px;border: none;background: none;line-height: 60px;color: #b7c6d9;text-shadow:none;
+      .caret{margin-left: 5px;margin-top: -2px;*margin-top: 0;width: 16px;height: 10px;border: none;background: url('/img/icon-caret.png') no-repeat;vertical-align: middle;}
+
+      &:hover{color: #fff;background: none;}
+      &:active,&:focus{outline: none;}
+    }
   }
   .navbar .nav .top-nav-user .active > a,
   .navbar .nav .top-nav-user .active > a:hover {
@@ -614,6 +640,11 @@ h1 {
   }
   .btn-area {
     margin-top: 20px;
+    text-align: right;
+
+    .btn{margin-left: 10px;min-width: 110px;line-height: 36px;font-size: 16px;}
+    .pull-left{float: none;}
+    .pull-right{float: none;}
     .btn.btn-info {
       margin-right: 10px;
     }
@@ -790,6 +821,13 @@ h1 {
       input {
         margin-right: 5px;
       }
+    }
+  }
+  #step4, #step6{
+    .table{border-top: 4px solid #41a5e2;background: #f4f5f8;font-size: 12px;
+      th,td{padding: 10px 30px;line-height: 24px;}
+      th{font-size: 16px;font-weight: normal;}
+      label{font-size: 12px;}
     }
   }
   #step6 {
@@ -1028,10 +1066,15 @@ h1 {
 #summary-restart-bar {
   margin-top: 20px;
   .alert{
+    line-height: 30px;
+    text-align: center;
     .icon-refresh{
       margin-left:10px;
       color: #fdb82f;
     }
+  }
+  .dropdown-menu{
+    text-align: left;
   }
   .dropdown-menu > li > a:hover {
     text-shadow: none;
@@ -1050,6 +1093,12 @@ h1 {
   }
   .directories {
     min-width: 280px;
+  }
+  .config-tabs{
+    > li{
+      &:nth-child(7n) > a{width: 106px;}
+      > a{min-width: 0;width: 107px;}
+    }
   }
   .accordion-heading {
     background-color: #f0f0f0;
@@ -1247,6 +1296,9 @@ h1 {
   .nav-tabs > li > a {
     padding-left: 8px;
     padding-right: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
     &.new {
       font-weight: 700;
     }
@@ -1305,6 +1357,19 @@ h1 {
 a:focus {
   outline: none;
 }
+/***************
+ * 自定义图标
+ ***************/
+.inline-block(){
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+.ui-i{position: relative;top:-2px;*position: static;.inline-block();width: 22px;height: 16px;background: url('/img/icon-overview.png') no-repeat;vertical-align: middle;
+
+}
+/***************/
 
 @status-live-marker: url("/img/health-status-live.png");
 @status-dead-red-marker: url("/img/health-status-dead.png");
@@ -1324,11 +1389,14 @@ a:focus {
 
 /*****start styles for boxes*****/
 .box {
-  border: 1px solid #D4D4D4;
+  background: #f4f5f8;
   margin-bottom: 20px;
+  border-top: 4px solid #41a5e2;
 
   .box-header {
-    border-bottom: 1px solid #D4D4D4;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    min-height: 36px;
   }
   .box-header,
   .box-footer {
@@ -1343,13 +1411,13 @@ a:focus {
   }
   .box-header {
     .btn-group {
-      float: right;
+      position: absolute;right: 10px;top:7px;
     }
     h4 {
-      float: left;
-      margin: 5px;
-      font-size: 15px;
-      color: #777;
+      margin: 0;
+      text-align: center;
+      font:normal 16px/36px 'Microsoft Yahei';
+      color: #272c34;
     }
   }
   .box-footer {
@@ -1999,9 +2067,9 @@ a:focus {
   margin: 0px;
   overflow-y: auto;
   li {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px dashed #dadbdf;
     list-style: none;
-    padding: 5px 5px 5px 5px;
+    margin: 0 30px;
     background-position: 14px 9px;
     background-repeat: no-repeat;
     .date-time {
@@ -2011,12 +2079,11 @@ a:focus {
       margin-bottom: 2px;
     }
     .container-fluid {
-      padding-left: 10px;
-      padding-right: 10px;
+      padding: 13px 5px;
     }
     .title {
-      font-weight: normal;
-      font-size: 13px;
+      font-size: 12px;
+      line-height: 26px;
     }
     .row-fluid [class*="span"] {
       min-height: 0px;
@@ -2032,6 +2099,7 @@ a:focus {
     }
     .message {
       font-size: 12px;
+      line-height: 26px;
       color: #777;
     }
     .serviceLink {
@@ -2040,6 +2108,10 @@ a:focus {
   }
   .alert {
     margin: 7px;
+  }
+  }
+  .help-info{
+    padding: 20px;
   }
 }
 
@@ -2199,8 +2271,30 @@ a:focus {
 /*****end styles for dashboard page*****/
 
 /*Services*/
+.services-container{
+  background: #f4f5f8;
+  > .span2{width: 200px;}
+  > .span10{
+    margin-left: 0;
+    padding: 20px;
+    width: 1000px;
+    background: #fff;
+  }
+} 
+
 .services-menu {
+  border: none;
+  background: #f4f5f8;
+
+  .boardBtn{margin-top: -8px;padding-top: 8px;height: 65px;border-bottom: 1px solid #d3d4d8;font-size:16px;line-height: 65px;text-align: center;
+    a{color: #313332;}
+    .ui-i{margin-right: 10px;}
+
+    &.current{background: #fff;}
+  }
+
   .nav-list {
+	padding: 0;
     .tab-marker-position {
       list-style: none;
       height: 20px;
@@ -2221,11 +2315,19 @@ a:focus {
       .tab-marker-position;
       color: @health-status-yellow;
     }
+    [class^="icon-"], [class*=" icon-"]{
+      font-size: 16px;
+    }
+    .icon-refresh{font-size: 18px;}
     li {
-      line-height: 24px;
+      line-height: 42px;
       a {
-        padding: 3px 4px;
+        margin: 0;
+        padding: 0 10px 0 20px;
         white-space: nowrap;
+        color: #707070;
+
+        &:hover{background: #fff;box-shadow: none;color: #272c34;}
       }
       .label {
         padding: 0 0 0 3px;
@@ -2255,8 +2357,12 @@ a:focus {
       padding-left: 5px;
     }
     .active {
+      > a, > a:hover{background: #fff;}
       .icon-laptop {
         color: #f0f0f0;
+      }
+      .icon-refresh{
+        background-image: url('img/icon-restart.png');
       }
     }
 
@@ -2275,9 +2381,9 @@ a:focus {
   }
 }
 .quick-links-wrapper {
-  margin-top: -53px;
-  position: relative;
-  left: 278px;
+	top: 70px;
+	position: absolute;
+	left: 750px;
   .nav-pills.move {
     float: right;
     width:135px;
@@ -2311,6 +2417,9 @@ a:focus {
 }
 
 .service-content {
+  padding: 20px 0;
+  height: 390px;
+  overflow-y: auto;
   #summary-info {
     margin-bottom: 0;
   }
@@ -2359,16 +2468,24 @@ a:focus {
 }
 
 .service-button {
-  text-align: right;
-  margin-bottom: 5px;
-  margin-top: -55px;
-  margin-left: 10px;
-  min-height: 30px;
-  ul.dropdown-menu {
+  margin: 20px 0 10px 26px;
+
+  > .title{display: inline-block;*display: inline;*zoom: 1;margin:0 10px 0 0;min-width: 90px;font-size:14px;line-height: 1.5;font-weight: normal;}
+  .add-service{position: relative;top:-2px;*position:static;font-size: 20px;vertical-align: middle;color: #737373;
+    &:hover{text-decoration: none;color: #1095e2;}
+  }
+  > .btn-group{margin-left: 10px;}
+  .dropdown-toggle{position: relative;top:-2px;*position:static;display: inline-block;*display: inline;*zoom: 1;line-height: 28px;font-size: 20px;vertical-align: middle;color: #737373;
+    &:hover{text-decoration: none;color: #1095e2;}
+  }
+  .open > .dropdown-toggle{color: #1095e2;}
+  ul.dropdown-menu {min-width: 134px;padding: 10px 0;left: -60px;margin-top: 5px;
+    &:before,&:after{content: '';position: absolute;left: 50%;top:-8px;margin-left: -8px;width: 0;height: 0;border-style: solid;border-width: 0 8px 8px;border-color: #c2c7cc transparent;}
+    &:after{top:-7px;border-color: #fff transparent;}
     li {
       text-align: left;
     }
-    a {
+    a {padding-left: 26px;line-height: 38px;
       cursor: pointer;
     }
     .icon-play.enabled {
@@ -2377,8 +2494,216 @@ a:focus {
     .icon-stop.enabled{
       color: red;
     }
+	[class^=icon-],[class*= icon-]{font-size: 18px;}
   }
 }
+
+.service-operation{margin-bottom: 20px;*zoom: 1;
+  &:after{content: '';display: block;height: 0;clear: both;overflow: hidden;visibility: hidden;}
+
+  > .btn{margin-right: 10px;width: 110px;font-size: 16px;line-height: 34px;
+    i[class*=icon-]{position: relative;top:-2px;*position: static;margin-right: 5px;font-size: 20px;color: #0b92e4;vertical-align: middle;}
+    i.icon-stop{display: inline-block;*display: inline;*zoom: 1;width: 18px;height: 18px;background: url('/img/icon-stop.png') no-repeat;font-size: 0;}
+
+    &.disabled{
+      i[class*=icon-]{color: #888;}
+      i.icon-stop{background-image: url('/img/icon-stop-disabled.png');}
+    }
+  }
+
+  .btn-group{float: right;margin-top: 7px;
+    .dropdown-toggle{padding: 0;line-height: 30px;border: none;background: none;color: #0b92e4;font-size: 12px;box-shadow: none;
+      .caret{margin-left: 5px;margin-top: -2px;vertical-align: middle;border-color: #0b92e4 transparent;}
+    }
+  }
+
+  .dropdown-menu{padding: 10px 0;
+    a{padding: 6px 25px;color: #707070;cursor: pointer;
+      &:hover{color: #0590e1;}
+    }
+    i[class*=icon-]{display: none;}
+  }
+}
+
+/* 主机列表 start */
+.host-list{
+  margin-bottom: 10px;
+  border-top: 4px solid #41a5e2;
+  background: #f4f5f8;
+
+  .health-status-HEALTHY,
+  .health-status-LIVE {
+    color: @health-status-green;
+  }
+  .health-status-DEAD-RED {
+    color: @health-status-red;
+  }
+  .health-status-DEAD-ORANGE {
+    color: @health-status-orange;
+  }
+  .health-status-DEAD-YELLOW {
+    color: @health-status-yellow;
+  }
+
+  > .hd{
+    height: 44px;
+    border-top: 1px solid #ddd;
+    font:0/44px 'Microsoft Yahei';
+    cursor: pointer;
+
+    &:first-child{
+      border-top: none;
+    }
+    &:hover{
+      color: #0590e0;
+    }
+
+    h3{
+      display: inline-block;
+      *display: inline;
+      *zoom: 1;
+      margin: 0;
+      width: 33.33%;
+      text-align: center;
+      font:normal 16px/44px 'Microsoft Yahei';
+
+      &.modules{
+        padding-left: 80px;
+        width: 240px;
+        text-align: left;
+      }
+    }
+
+    [class^=icon-],[class*= icon-]{
+      margin-right: 5px;
+    }
+  }
+
+  > .bd{
+    display: none;
+    padding: 0 50px;
+    border-top: 1px solid #ddd;
+
+    &.open{
+      display: block;
+    }
+    &:last-child{
+      padding-bottom: 20px;
+    }
+  }
+}
+.host-table{
+  width: 100%;
+  font-size: 12px;
+
+  th{
+    padding: 0 15px;
+    line-height: 70px;
+    border-bottom: 1px solid #e1e2e6;
+    font-weight: normal;
+  }
+  td{
+    padding: 10px 15px;
+    line-height: 26px;
+    border-bottom: 1px solid #e1e2e6;
+
+    .caret{
+      vertical-align: middle;
+      border-style: solid;
+      border-color: #0590e1 transparent;
+      border-width: 6px 5px 0;
+    }
+  }
+  tr:last-child td{
+    border-bottom: none;
+  }
+
+  th.modules,td.modules{
+    padding-left: 70px;
+    width: 40.33%;
+    text-align: left;
+  }
+  th.host,td.host{
+    width: 20%;
+    text-align: center;
+  }
+  td.trigger{
+    padding-right: 50px;
+    text-align: right;
+    cursor: pointer;
+  }
+
+  tr.show-detail{
+    > td{
+      display: none;
+      padding: 10px 15px 20px;
+    }
+  }
+  tr.open{
+    > td{
+      display: table-cell;
+      background: #fff;
+    }
+
+    td.trigger{
+      .caret{
+        border-width: 0 5px 6px;
+      }
+    }
+  }
+
+  .detail-table{
+    width: 100%;
+
+    th{
+      padding: 0 10px 5px;
+      line-height: 30px;
+      color: #707070;
+      border-bottom: none;
+    }
+    td{
+      padding: 5px 10px;
+      line-height: 20px;
+      text-align: center;
+      border-bottom: none;
+    }
+
+    .progress-wrap{
+      white-space: nowrap;
+
+      .progress{
+        position: relative;
+        top:2px;
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        margin-right: 5px;
+        margin-bottom: 0;
+        height: 10px;
+        width: 100px;
+        border: 1px solid #dddddd;
+        background: #fff;
+        box-shadow: none;
+        border-radius: 6px;
+
+        .bar{
+          background: #0590e1;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+
+  .host-name{
+    padding-left: 20px;
+    text-align: left;
+
+    [class^=icon-],[class*= icon-]{
+      margin-right: 5px;
+    }
+  }
+}
+/* 主机列表 end */
 
 .summary-metric-graphs {
   [class*="span"] {
@@ -2430,6 +2755,7 @@ table.graphs {
     margin-bottom: 10px;
   }
   #widgets-options-menu {
+	margin-bottom: 5px;
     .dropdown-submenu {
       &> a:after {
         border-left-color: #333;
@@ -2853,6 +3179,7 @@ table.graphs {
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 13px\9;
+	background: #fff;
 
     .filter-row {
       th {
@@ -3466,8 +3793,8 @@ table.graphs {
 
 .services-menu {
   .icon-refresh {
-    color: @restart-indicator-color;
-    margin-left: 4px;
+    //padding: 0;margin: 0 0 0 10px;display: inline-block;*display: inline;*zoom: 1;width: 18px;height: 18px;background: url('/img/icon-restart.png') no-repeat;font-size:0!important;vertical-align: middle;overflow: hidden;
+    margin-left: 10px;color: #ff784c;font-size: 18px;
   }
 }
 #host-details, #serviceConfig {
@@ -3620,31 +3947,43 @@ table.graphs {
   }
 
   .host-assignments .mapping-box {
-    border: solid 1px #cccccc;
-    padding: 8px;
-    margin-bottom: 10px;
-    background-color: #fafafa;
+    border: solid 1px #ddd;
+    padding: 0 10px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 0;
+
+    &.hide-bd{
+      .trigger{
+        span{visibility: visible;}
+        .caret{
+          border-width: 4px 4px 0;
+        }
+      }
+      .mapping-bd{display: none;}
+    }
   }
 
   .host-assignments .assignedService {
-    padding: 2px 8px;
-    border: solid 1px #cccccc;
-    margin: 2px;
-    background-color: #969696;
-    color: white;
+    padding: 0 10px;
+    margin: 0 5px 10px;
+    background-color: #f4f5f8;
+    border-radius: 0;
     white-space: nowrap;
-    font-size: 0.9em;
+    font-size: 12px;
     display: inline-block;
+    line-height: 36px;
   }
   .host-assignments .newService {
-     padding: 2px 8px;
-     border: solid 1px #cccccc;
-     margin: 2px;
-     background-color: @green;
-     color: white;
-     white-space: nowrap;
-     font-size: 0.9em;
-     display: inline-block;
+    padding: 0 10px;
+    margin: 0 5px 10px;
+    background-color: @green;
+    color: white;
+    border-radius: 0;
+    white-space: nowrap;
+    font-size: 12px;
+    display: inline-block;
+    line-height: 36px;
    }
 
   .host-assignments .grey {
@@ -3676,8 +4015,33 @@ table.graphs {
     display: inline-block;
   }
   .hostString {
-    margin-bottom: 5px;
+    position: relative;
+    line-height: 30px;
+    font-size: 12px;
     word-wrap: break-word;
+
+    .trigger{
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      span{
+        visibility: hidden;
+      }
+
+      .caret{
+        margin-top: -2px;
+        margin-left: 5px;
+        vertical-align: middle;
+        border-style: solid;
+        border-color: #0088cc transparent;
+        border-width: 0 4px 4px;
+      }
+    }
+  }
+  .mapping-bd{
+    padding: 20px 0 10px;
+    border-top: 1px solid #ebeced;
   }
 
   .badge {
@@ -3699,7 +4063,42 @@ table.graphs {
     vertical-align: middle;
   }
 }
+.assign-masters{
+  .select-hosts,.host-assignments{
+    width: 420px !important;
+    background: #f4f5f8;
+    border-top: 4px solid #41a5e2;
 
+    > h3{
+      margin: 0;
+      height: 44px;
+      border-bottom: 1px solid #ddd;
+      font:normal 16px/44px 'Microsoft Yahei';
+      color: #272c34;
+      text-align: center;
+    }
+  }
+
+  .select-hosts{
+    .row-fluid{
+      > .span4{width: 40%;}
+      > .span8{width: 57%;}
+    }
+    > .box-bd{
+      padding-top: 30px;
+      height: 500px;
+      overflow: auto;
+    }
+  }
+
+  .host-assignments{
+    > .box-bd{
+      padding: 30px 30px 10px;
+      height: 490px;
+      overflow: auto;
+    }
+  }
+}
 /*end assign masters*/
 
 .assign-clients {
@@ -4429,7 +4828,7 @@ ul.inline li {
   margin-bottom: 10px;
 }
 
-#step8-content {
+#step8-content {padding: 19px;border: 1px solid #e3e3e3;
   ul {
     li {
       list-style: none;
@@ -4707,11 +5106,11 @@ i.icon-asterisks {
   .navbar-static-top .container,
   .navbar-fixed-top .container,
   .navbar-fixed-bottom .container {
-    width: 1130px;
+    width: 1160px;
   }
 
   .main-container {
-    width: 1170px;
+    width: 1200px;
   }
 
   .span12 {
@@ -5119,6 +5518,15 @@ i.icon-asterisks {
   .row-fluid .thumbnails {
     margin-left: 0;
   }
+  
+  .services-container{
+    > .span2{width: 200px;}
+    > .span10{
+      margin-left: 0;
+      width: 1000px;
+      min-height: 750px;
+    }
+  } 
 
 
 #dashboard-widgets-container{

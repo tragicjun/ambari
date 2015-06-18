@@ -917,3 +917,30 @@ App.ChartLinearTimeView.CreateRateFormatter = function (unitsPrefix, valueFormat
     return value;
   };
 };
+
+/**
+ * The count formatter which format number count
+ * which shows 10个  etc.
+ *
+ * @type {Function}
+ */
+App.ChartLinearTimeView.CountFormatter = function (count) {
+  unit = "个";
+  if (count > 1E20) {
+    count = "无穷多";
+  } else if (count > 1E16) {
+    count = count / 1E16;
+    unit = "亿亿";
+  } else if (count > 1E12) {
+    count = count / 1E12;
+    unit = "万亿";
+  } else if (count > 1E8) {
+    count = count / 1E8;
+    unit = "亿";
+  } else if (count > 1E4) {
+    count = count / 1E4;
+    unit = "万";
+  }
+  count = Math.round(count);
+  return count + unit;
+};

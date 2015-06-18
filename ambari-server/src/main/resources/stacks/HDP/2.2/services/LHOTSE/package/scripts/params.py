@@ -13,6 +13,7 @@ pid_file = '/usr/local/lhotse_base/lhotsebase.pid'
 #gmond
 gmond_host = default("/clusterHostInfo/ganglia_server_host", ["127.0.0.1"])[0]
 gmond_port = 8672
+gmond_period = default("/configurations/lhotse-base-env/metrics.report.period", 300)
 
 #lhotse runner config
 lhotse_runner_hosts = default("/clusterHostInfo/lhotse_runner_hosts", ["127.0.0.1"])[0]

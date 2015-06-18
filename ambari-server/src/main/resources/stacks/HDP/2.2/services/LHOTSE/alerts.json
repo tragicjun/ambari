@@ -1,0 +1,199 @@
+{
+  "LHOTSE": {
+    "LHOTSE_BASE": [
+      {
+        "name": "lhotse_base_process",
+        "label": "Lhotse Base Process",
+        "description": "当Lhotse Base的端口未开放或连接超时时，触发该告警。",
+        "interval": 1,
+        "scope": "ANY",
+        "enabled": true,
+        "source": {
+          "type": "PORT",
+          "uri": "0.0.0.0:{{lhotse-base-env/lhotse.base.port}}",
+          "default_port": "9930",
+          "reporting": {
+            "ok": {
+              "text": "TCP OK - {0:.3f}s response on port {1}"
+            },
+            "warning": {
+              "text": "TCP OK - {0:.3f}s response on port {1}",
+              "value": 1.5
+            },
+            "critical": {
+              "text": "Connection failed: {0} to {1}:{2}",
+              "value": 5.0
+            }
+          }
+        }
+      },
+      {
+        "name": "lhotse_base_rpc_process",
+        "label": "Lhotse Base RPC Process",
+        "description": "当Lhotse Base RPC的端口未开放或连接超时时，触发该告警。",
+        "interval": 1,
+        "scope": "ANY",
+        "enabled": true,
+        "source": {
+          "type": "PORT",
+          "uri": "0.0.0.0:{{lhotse-base-env/thrift.server.port}}",
+          "default_port": "8183",
+          "reporting": {
+            "ok": {
+              "text": "TCP OK - {0:.3f}s response on port {1}"
+            },
+            "warning": {
+              "text": "TCP OK - {0:.3f}s response on port {1}",
+              "value": 1.5
+            },
+            "critical": {
+              "text": "Connection failed: {0} to {1}:{2}",
+              "value": 5.0
+            }
+          }
+        }
+      }
+    ],
+    "LHOTSE_DATABASE": [
+      {
+        "name": "lhotse_database_process",
+        "label": "Lhotse Database Process",
+        "description": "当Lhotse Database的端口未开放或连接超时时，触发该告警。",
+        "interval": 1,
+        "scope": "ANY",
+        "enabled": true,
+        "source": {
+          "type": "PORT",
+          "uri": "0.0.0.0:3306",
+          "default_port": "3306",
+          "reporting": {
+            "ok": {
+              "text": "TCP OK - {0:.3f}s response on port {1}"
+            },
+            "warning": {
+              "text": "TCP OK - {0:.3f}s response on port {1}",
+              "value": 1.5
+            },
+            "critical": {
+              "text": "Connection failed: {0} to {1}:{2}",
+              "value": 5.0
+            }
+          }
+        }
+      }
+    ],
+    "LHOTSE_SERVICE": [
+      {
+        "name": "lhotse_service_process",
+        "label": "Lhotse Service Process",
+        "description": "当Lhotse Database的端口未开放或连接超时时，触发该告警。",
+        "interval": 1,
+        "scope": "ANY",
+        "enabled": true,
+        "source": {
+          "type": "PORT",
+          "uri": "0.0.0.0:{{lhotse-service/listen.port}}",
+          "default_port": "9010",
+          "reporting": {
+            "ok": {
+              "text": "TCP OK - {0:.3f}s response on port {1}"
+            },
+            "warning": {
+              "text": "TCP OK - {0:.3f}s response on port {1}",
+              "value": 1.5
+            },
+            "critical": {
+              "text": "Connection failed: {0} to {1}:{2}",
+              "value": 5.0
+            }
+          }
+        }
+      }
+    ],
+    "LHOTSE_WEB": [
+      {
+        "name": "lhotse_web_process",
+        "label": "Lhotse Web Process",
+        "description": "当Lhotse Web的端口未开放或连接超时时，触发该告警。",
+        "interval": 1,
+        "scope": "ANY",
+        "enabled": true,
+        "source": {
+          "type": "PORT",
+          "uri": "0.0.0.0:{{lhotse-web/listen.port}}",
+          "default_port": "80",
+          "reporting": {
+            "ok": {
+              "text": "TCP OK - {0:.3f}s response on port {1}"
+            },
+            "warning": {
+              "text": "TCP OK - {0:.3f}s response on port {1}",
+              "value": 1.5
+            },
+            "critical": {
+              "text": "Connection failed: {0} to {1}:{2}",
+              "value": 5.0
+            }
+          }
+        }
+      }
+    ],
+    "LHOTSE_FTP": [
+      {
+        "name": "lhotse_ftp_process",
+        "label": "Lhotse FTP Process",
+        "description": "当Lhotse FTP的端口未开放或连接超时时，触发该告警。",
+        "interval": 1,
+        "scope": "ANY",
+        "enabled": true,
+        "source": {
+          "type": "PORT",
+          "uri": "0.0.0.0:{{lhotse-ftp/lhotse.ftp.port}}",
+          "default_port": "2121",
+          "reporting": {
+            "ok": {
+              "text": "TCP OK - {0:.3f}s response on port {1}"
+            },
+            "warning": {
+              "text": "TCP OK - {0:.3f}s response on port {1}",
+              "value": 1.5
+            },
+            "critical": {
+              "text": "Connection failed: {0} to {1}:{2}",
+              "value": 5.0
+            }
+          }
+        }
+      }
+    ],
+    "LHOTSE_RUNNER": [
+      {
+        "name": "lhotse_runner_cgi_process",
+        "label": "Lhotse Runner CGI Process",
+        "description": "当Lhotse Runner CGI的端口未开放或连接超时时，触发该告警。",
+        "interval": 1,
+        "scope": "ANY",
+        "enabled": true,
+        "source": {
+          "type": "PORT",
+          "uri": "0.0.0.0:{{lhotse-runner/cgi.port}}",
+          "default_port": "80",
+          "reporting": {
+            "ok": {
+              "text": "TCP OK - {0:.3f}s response on port {1}"
+            },
+            "warning": {
+              "text": "TCP OK - {0:.3f}s response on port {1}",
+              "value": 1.5
+            },
+            "critical": {
+              "text": "Connection failed: {0} to {1}:{2}",
+              "value": 5.0
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+

@@ -17,9 +17,11 @@
  */
 package org.apache.ambari.server.state.alert;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.HashSet;
@@ -95,8 +97,10 @@ public class AlertDefinitionFactory {
   public Set<AlertDefinition> getAlertDefinitions(File alertDefinitionFile,
       String serviceName) throws AmbariException {
     try {
-      FileReader fileReader = new FileReader(alertDefinitionFile);
-      return getAlertDefinitions(fileReader, serviceName);
+      InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(alertDefinitionFile),"UTF-8");
+	  BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+//      FileReader fileReader = new FileReader(alertDefinitionFile);
+      return getAlertDefinitions(bufferedReader, serviceName);
     } catch (IOException ioe) {
       String message = "Could not read the alert definition file";
       LOG.error(message, ioe);

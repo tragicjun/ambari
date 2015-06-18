@@ -18,10 +18,10 @@
 
 
 window.App = require('app');
-
+require('messages');
 require('config');
 
-require('messages');
+
 require('utils/base64');
 require('utils/db');
 require('utils/helper');

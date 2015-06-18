@@ -20,7 +20,7 @@
     <services>
         <service>
             <name>THIVE</name>
-            <displayName>Thive</displayName>
+            <displayName>HIVE(tencent版)</displayName>
             <comment>Tencent Hive：在社区版本的HIVE基础上实现了一套兼容商业数据仓库Oracle功能的SQL语法和功能，同时做了很多稳定性和性能上的优化。 </comment>
             <version>1.0.0</version>
             <components>
