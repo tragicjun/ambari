@@ -27,7 +27,7 @@ import java.util.List;
 import org.apache.ambari.server.api.services.AmbariMetaInfo;
 import org.apache.ambari.server.bootstrap.BSResponse.BSRunStat;
 import org.apache.ambari.server.configuration.Configuration;
-import org.apache.ambari.server.controller.LicenseManager;
+import org.apache.ambari.server.controller.license.LicenseManager;
 import org.apache.ambari.server.state.Host;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -120,7 +120,7 @@ public class BootStrapImpl {
       List<Host> hosts = AmbariServer.getController().getClusters().getHosts();
       LicenseManager licenseManager = AmbariServer.getController().getLicenseManager();
       int clusterLimit = licenseManager.getClusterLimit();
-      if(hosts != null && info.getHosts().size() > licenseManager.getClusterLimit()){
+      if(hosts != null && info.getHosts().size() > clusterLimit){
           BootStrapStatus status = new BootStrapStatus();
           String errMsg;
           if(clusterLimit == 1){
