@@ -29,20 +29,20 @@ class MysqlServer(Script):
   def install(self, env):
     import params
     print 'install goldeneye'
-	excludePackage = ['goldeneye-web']
+    excludePackage = ['goldeneye-web']
     self.install_packages(env,excludePackage)
 	
-	print 'init scripts'
-	configinit().init_mysql_scripts()
+    print 'init scripts'
+    configinit().init_mysql_scripts()
 	
-	print 'update configs'
+    print 'update configs'
     self.configure(env)
 
   def configure(self, env):
     import params
     env.set_params(params)
 
-    cmd = format("bash -x {start_mysql_script} {goldeneye_database_host} {goldeneye_web_listen_port} {goldeneye_data_dir} {goldeneye_database_username} {goldeneye_database_password} {gri_ge_script} {gri_monitor_script}")
+    cmd = format("bash -x {start_mysql_script} {goldeneye_database_host} {goldeneye_database_port} {goldeneye_data_dir} {goldeneye_database_username} {goldeneye_database_password} {gri_ge_script} {gri_monitor_script}")
 
     val= os.system(cmd)
     print val
