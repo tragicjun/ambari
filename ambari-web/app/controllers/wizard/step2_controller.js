@@ -65,7 +65,7 @@ App.WizardStep2Controller = Em.Controller.extend({
    * @type {string}
    */
   hostNames: function () {
-    return this.get('content.installOptions.hostNames').toLowerCase();
+    return this.get('content.installOptions.hostNames');
   }.property('content.installOptions.hostNames'),
 
   /**
@@ -131,7 +131,7 @@ App.WizardStep2Controller = Em.Controller.extend({
    */
   sshKeyError: function () {
     if (this.get('hasSubmitted') && this.get('manualInstall') === false && Em.isEmpty(this.get('sshKey').trim())) {
-      return Em.I18n.t('installer.step2.sshKey.error.required');
+      //return Em.I18n.t('installer.step2.sshKey.error.required');
     }
     return null;
   }.property('sshKey', 'manualInstall', 'hasSubmitted'),
@@ -183,7 +183,7 @@ App.WizardStep2Controller = Em.Controller.extend({
    * @method updateHostNameArr
    */
   updateHostNameArr: function () {
-    this.set('hostNameArr', this.get('hostNames').trim().split(new RegExp("\\s+", "g")));
+    this.set('hostNameArr', this.get('hostNames').trim().split(new RegExp("\n+", "g")));
     this.parseHostNamesAsPatternExpression();
     this.get('inputtedAgainHostNames').clear();
     var tempArr = [],
@@ -248,10 +248,12 @@ App.WizardStep2Controller = Em.Controller.extend({
   getHostInfo: function () {
 
     var hostNameArr = this.get('hostNameArr');
+    
     var hostInfo = {};
     for (var i = 0; i < hostNameArr.length; i++) {
-      hostInfo[hostNameArr[i]] = {
-        name: hostNameArr[i],
+      var simpleHost = hostNameArr[i].trim().split(/\s+/)[0];
+      hostInfo[simpleHost] = {
+        name: simpleHost,
         installType: this.get('installType'),
         bootStatus: 'PENDING',
         isInstalled: false

@@ -431,6 +431,26 @@
             </mapping>
             <mapping>
               <directory>/var/run/ambari-server/bootstrap</directory>
+              <filemode>755</filemode>
+              <username>root</username>
+              <groupname>root</groupname>
+              <sources>
+                <source>
+                  <location>script/bootstrap_agent_env_script.sh</location>
+                </source>
+                <source>
+                  <location>script/bootstrap_agent_env_setup.sh</location>
+                </source>
+                <source>
+                  <location>script/bootstrap_agent_ssh_keygen.sh</location>
+                </source>
+                <source>
+                  <location>script/bootstrap_agent_ssh_keygen.exp</location>
+                </source>
+                <source>
+                  <location>script/bootstrap_agent_env_setup.exp</location>
+                </source>
+              </sources>
             </mapping>
             <mapping>
               <directory>/var/run/ambari-server/stack-recommendations</directory>

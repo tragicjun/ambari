@@ -24,6 +24,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Logs OpenSsl command exit code with description
@@ -33,6 +35,37 @@ public class ShellCommandUtil {
   private static final Object WindowsProcessLaunchLock = new Object();
   private static final String PASS_TOKEN = "pass:";
   private static final String KEY_TOKEN = "-key ";
+  
+  public static Result runCommand(String shellPath, String... params) throws IOException, InterruptedException {	
+    String[] cmds = merge(shellPath, params);
+    LOG.info("execute shell: " + shellPath + " params:" + params);
+	Process process = Runtime.getRuntime().exec(cmds);
+	process.waitFor();
+    String stdout = streamToString(process.getInputStream());
+    String stderr = streamToString(process.getErrorStream());
+    int exitCode = process.exitValue();
+    if(LOG.isDebugEnabled()){
+    	LOG.debug("exitCode:"+exitCode);
+    	LOG.debug("stdout:"+stdout);
+    }
+    LOG.error("stderr:"+stderr);
+    return new Result(exitCode, stdout, stderr);
+  }
+  
+  private static String[] merge(String shellPath, String[] params) {
+	List<String> cmds = new ArrayList<String>();
+	cmds.add(shellPath);
+    for(String param : params) {
+	  if(param.equals("")) {
+		continue;
+	  }
+	  cmds.add(param);
+    }
+	String[] strings = new String[cmds.size()];
+	cmds.toArray(strings);
+	return strings;
+  }
+
   /*
   public static String LogAndReturnOpenSslExitCode(String command, int exitCode) {
     logOpenSslExitCode(command, exitCode);

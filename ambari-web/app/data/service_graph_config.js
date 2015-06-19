@@ -83,7 +83,7 @@ App.service_graph_config = {
     'Kafka_ReplicaManager',
     'Kafka_LogFlush',
     'Kafka_ReplicaFetcher'
-  ]
+  ],
 
   'lhotse': [
   	  'Lhotse_IssueAvgTime',

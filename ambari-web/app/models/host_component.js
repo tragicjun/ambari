@@ -187,27 +187,27 @@ App.HostComponentStatus = {
   getTextStatus: function (value) {
     switch (value) {
       case this.installing:
-        return '°²×°ÖĞ...';
+        return 'å®‰è£…ä¸­...';
       case this.install_failed:
-        return '°²×°Ê§°Ü';
+        return 'å®‰è£…å¤±è´¥';
       case this.stopped:
-        return 'ÒÑÍ£Ö¹';
+        return 'å·²åœæ­¢';
       case this.started:
-        return 'ÒÑÆô¶¯';
+        return 'å·²å¯åŠ¨';
       case this.starting:
-        return 'Æô¶¯ÖĞ';
+        return 'å¯åŠ¨ä¸­';
       case this.stopping:
-        return 'Í£Ö¹ÖĞ';
+        return 'åœæ­¢ä¸­';
       case this.unknown:
-        return 'ĞÄÌø¶ªÊ§';
+        return 'å¿ƒè·³ä¸¢å¤±';
       case this.upgrade_failed:
-        return 'Éı¼¶Ê§°Ü';
+        return 'å‡çº§å¤±è´¥';
       case this.disabled:
-        return 'ÒÑ½ûÓÃ';
+        return 'å·²ç¦ç”¨';
       case this.init:
-        return 'µÈ´ı°²×°ÖĞ...';
+        return 'ç­‰å¾…å®‰è£…ä¸­...';
     }
-    return 'Î´Öª×´Ì¬';
+    return 'æœªçŸ¥çŠ¶æ€';
   },
 
   /**

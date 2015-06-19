@@ -193,7 +193,7 @@ App.MainServiceItemView = Em.View.extend({
   },
 
   maintenance: [],
-  maintenance2,[]
+  maintenance2: [],
 
   observeMaintenance: function() {
     Em.run.once(this, 'observeMaintenanceOnce');
@@ -311,7 +311,7 @@ App.MainServiceItemView = Em.View.extend({
       options.push(actionMap.DOWNLOAD_CLIENT_CONFIGS);
     }
 	
-	f (!this.get('maintenance2').length) {
+	if (!this.get('maintenance2').length) {
       this.set('maintenance2', options2);
     }
 	

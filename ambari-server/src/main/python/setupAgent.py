@@ -24,6 +24,7 @@ import sys
 import logging
 import os
 import subprocess
+import commands
 
 from ambari_commons import OSCheck
 
@@ -211,6 +212,47 @@ def parseArguments(argv=None):
   parsed_args = (expected_hostname, passPhrase, hostname, user_run_as, projectVersion, server_port)
   return {"exitstatus": 0, "log": "", "parsed_args": parsed_args}
 
+def configureHostname(hostName):
+  if(hostName == None or hostName.strip() == ""):
+    print "hostName can not be none or blank"
+    return False
+  #set the /etc/hosts
+  try:
+    wHostFile=None
+    hostFile=None
+    try:
+      hostsFile=file("/etc/hosts")
+      isFirstLine = True
+      firstLine = ""
+      lines = []
+      for line in hostsFile:
+        if(isFirstLine):
+          isFirstLine = False
+          firstLine = line.strip()
+        lines.append(line.strip())
+      insertLine = "127.0.0.1 "+hostName.strip()
+      newContent=""
+      if(firstLine != insertLine):
+        lines.insert(0, insertLine+"\n"+hostName.strip()+" "+hostName.strip())
+        newContent = '\n'.join(lines)
+
+        wHostFile=file('/etc/hosts', 'w')
+        wHostFile.write(newContent)
+    finally:
+      if(hostFile != None):
+        hostsFile.close()
+      if(wHostFile != None):
+        wHostFile.close()
+  except Exception:
+    print "errro to set /etc/hosts"
+    traceback.print_exc()
+    return False
+  #valid the hostname
+  (status, output) = commands.getstatusoutput('sudo hostname '+hostName)
+  if (status != 0):
+      print output
+      return False
+  return True
 
 def run_setup(argv=None):
   # Parse passed arguments
@@ -219,7 +261,11 @@ def run_setup(argv=None):
     return retcode
 
   (expected_hostname, passPhrase, hostname, user_run_as, projectVersion, server_port) = retcode["parsed_args"]
-
+  
+  # configureHostname
+  if(configureHostname(expected_hostname) == False):
+    print "[ERROR]configure hostname failed"
+  
   retcode = checkServerReachability(hostname, server_port)
   if (retcode["exitstatus"] != 0):
     return retcode

@@ -45,6 +45,8 @@ public class BootStrapImpl {
   private String bootSetupAgentPassword;
   private BSRunner bsRunner;
   private String masterHostname;
+  private String agentDefaultLoginUser;
+  private String agentDefaultLoginPassword;
   long timeout;
 
   private static Log LOG = LogFactory.getLog(BootStrapImpl.class);
@@ -71,6 +73,8 @@ public class BootStrapImpl {
     this.projectVersion = ambariMetaInfo.getServerVersion();
     this.projectVersion = (this.projectVersion.equals(DEV_VERSION)) ? DEV_VERSION.replace("$", "") : this.projectVersion;
     this.serverPort = (conf.getApiSSLAuthentication())? conf.getClientSSLApiPort() : conf.getClientApiPort();
+    this.agentDefaultLoginUser = conf.getAgentDefaultLoginUser();
+    this.agentDefaultLoginPassword = conf.getAgentDefaultLoginPassword();
   }
 
   /**
@@ -203,5 +207,15 @@ public class BootStrapImpl {
   public synchronized void reset() {
     bsRunner = null;
   }
+  
+  public String getAgentDefaultLoginUser() {
+	return this.agentDefaultLoginUser;
+  }
+
+
+  public String getAgentDefaultLoginPassword() {
+	return this.agentDefaultLoginPassword;
+  }
+
 
 }

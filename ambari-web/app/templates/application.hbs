@@ -70,20 +70,20 @@
                 {{#if allOperationsCount}}
                   <i class="icon-caret-left ops-count"></i><span id="span-bg-operation-count"
                                                                  class="label operations-count" {{action "showPopup" target="App.router.backgroundOperationsController"}}>
-                    {{allOperationsCount}} {{pluralize allOperationsCount singular="t:op" plural="t:ops"}}</span>
+                    {{allOperationsCount}} </span>
                 {{else}}
                   <i class="icon-caret-left"></i><span id="span-bg-operation-count"
                                                        class="label" {{action "showPopup" target="App.router.backgroundOperationsController"}}>
-                    {{allOperationsCount}} {{pluralize allOperationsCount singular="t:op" plural="t:ops"}}</span>
+                    {{allOperationsCount}} </span>
                 {{/if}}
               {{/with}}
               {{#if App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount}}
                 <span {{bindAttr class=":label App.router.mainAlertDefinitionsController.isCriticalAlerts:alert-crit-count:alert-warn-count"}} {{action "showPopup" target="App.router.mainAlertInstancesController"}}>
-                {{App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount}} {{pluralize App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount singular="alert" plural="alerts"}}</span>
+                {{App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount}} </span>
               {{else}}
                 <span rel="tooltip" {{translateAttr title="titlebar.alerts.noAlerts"}}
                       class="label alerts-none-count" {{action "showPopup" target="App.router.mainAlertInstancesController"}}>
-                {{App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount}} {{pluralize App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount singular="alert" plural="alerts"}}</span>
+                {{App.router.mainAlertDefinitionsController.unhealthyAlertInstancesCount}} </span>
               {{/if}}
             </a>
           {{/if}}

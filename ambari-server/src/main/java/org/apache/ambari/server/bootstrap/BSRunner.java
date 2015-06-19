@@ -22,12 +22,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.ambari.server.bootstrap.BootStrapStatus.BSStat;
+import org.apache.ambari.server.utils.FileUtil;
+import org.apache.ambari.server.utils.ShellCommandUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -41,6 +44,9 @@ class BSRunner extends Thread {
   private static Log LOG = LogFactory.getLog(BSRunner.class);
 
   private static final String DEFAULT_USER = "root";
+  
+  private static String DEFAULT_SSH_IDRSA = "/data/home/ambari/.ssh/id_rsa";
+  private static String DEFAULT_SSH_USER = "ambari";
 
   private  boolean finished = false;
   private SshHostInfo sshHostInfo;
@@ -148,9 +154,46 @@ class BSRunner extends Thread {
   public synchronized void finished() {
     this.finished = true;
   }
+  
+  public void beforeBootStrap(SshHostInfo sshHostInfo){
+	  String bootDirPath = this.bootDir.getAbsolutePath();
+	  //check the ssh_keygen
+	  String sshKeygenShellPath = bootDirPath+"/bootstrap_agent_ssh_keygen.sh";
+	  try {
+		  ShellCommandUtil.runCommand(sshKeygenShellPath);
+		  //set the private key 
+		  sshHostInfo.setSshKey(FileUtil.read(DEFAULT_SSH_IDRSA));
+		  sshHostInfo.setUser(DEFAULT_SSH_USER);
+		  //set the agent environment: create ambari user and copy the public key to agent
+		  List<String> hosts = sshHostInfo.getHosts();
+		  String agentEnvSetupShellPath = bootDirPath+"/bootstrap_agent_env_setup.sh";
+		  Map<String, BSHostPasser> hostPassers = sshHostInfo.getHostPassers();
+		  for(String host : hosts){
+			  String agentUser = this.bsImpl.getAgentDefaultLoginUser();
+			  String agentPass = this.bsImpl.getAgentDefaultLoginPassword();
+			  BSHostPasser bsHostPasser = hostPassers.get(host);
+			  if(bsHostPasser!=null && (bsHostPasser.getLoginUser()!=null)){
+				  agentUser = bsHostPasser.getLoginUser();
+				  agentPass = bsHostPasser.getPassword();
+			  }
+			  ShellCommandUtil.runCommand(agentEnvSetupShellPath, host, agentUser, agentPass);
+		  }
+	  } catch (IOException e) {
+		  LOG.error(e.getMessage());
+		  e.printStackTrace();
+	  } catch (InterruptedException e) {
+		  LOG.error(e.getMessage());
+		  e.printStackTrace();
+	  }
+  }
 
   @Override
   public void run() {
+	
+	if(sshHostInfo.getSshKey()==null || sshHostInfo.getSshKey().equals("")){
+	  beforeBootStrap(sshHostInfo);  
+    }
+	
     String hostString = createHostString(sshHostInfo.getHosts());
     String user = sshHostInfo.getUser();
     String userRunAs = sshHostInfo.getUserRunAs();

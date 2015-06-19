@@ -651,7 +651,94 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
           router.get('mainServiceItemController').connectOutlet('mainServiceInfoAudit', item);
         }
       }),
+	  showHost : function () {
+		
+		var numberUtils = require('utils/number_utils');
+		if ($('#hostListDiv').length > 0) {
+			$('#hostListDiv').show();
+		} else {
+			$('.nav-tabs').next().next().after('<div id="hostListDiv">loading...</div>');
+		}
+		$('.nav-tabs').next().next().hide();
+		var prefix = App.get('apiPrefix') + '/clusters/' + App.router.getClusterName();
+		var url = prefix + '/hosts?fields=Hosts/host_name,Hosts/maintenance_state,Hosts/public_host_name,'
+				+ 'Hosts/cpu_count,Hosts/ph_cpu_count,Hosts/host_status,Hosts/last_heartbeat_time,Hosts/ip,host_components/HostRoles/state,'
+				+ 'host_components/HostRoles/maintenance_state,host_components/HostRoles/stale_configs,host_components/HostRoles/service_name,'
+				+ 'metrics/disk,metrics/load/load_one,Hosts/total_mem,alerts/summary&minimal_response=true&sortBy=Hosts/public_host_name.asc';
+		var hash = window.location.hash;
+
+		var service_name = hash.split('/')[3];
+		$.getJSON(url, function(json){
+			var list = json.items;
+			var data = {};
+			var length = 0;
+			for (var i=0; i<list.length; i++) {
+				var flag = 0;
+				var d = list[i]['host_components'];
+				for (var j=0; j<d.length; j++) {
+					if (d[j]['HostRoles']['service_name'] == service_name) {
+						flag = 1;
+						if (typeof (data[d[j]['HostRoles']['component_name']]) == 'undefined') {
+							data[d[j]['HostRoles']['component_name']] = [list[i]];
+						} else {
+							data[d[j]['HostRoles']['component_name']].push(list[i]);
+						}
+					}
+				}
+				if (flag == 1) {
+					length ++;
+				}
+			}
+			var str = '<div id="hostList" class="host-list">';
+			str += '<div class="hd"><h3 class="modules"><i class="icon-ok-sign health-status-LIVE"></i>'+service_name+'</h3><h3 class="hosts">'+length+'主机</h3></div><div class="bd open">';
+			str +='<table class="host-table">';
+			str += '<tr><th class="modules">包含组件</th><th class="host">运行的主机</th><th class="trigger"></th></tr>';
+			for (var key in data) {
+				str += '<tr><td class="modules">'+key+'</td><td class="host">'+data[key].length+'主机</td><td class="trigger"><i class="caret"></i></td><div></div></tr>';
+				str += '<tr class="show-detail">';
+				
+				str += '<td colspan="3"><table class="detail-table">';
+				str += '<tr><th>名字</th><th>IP地址</th><th>Cores (CPU)</th><th>内存</th><th>磁盘用量</th><th>平均负载</th></tr>';
+				for (var i=0; i<data[key].length; i++) {
+					str += '<tr>';
+					// host_status
+					str += '<td><div class="host-name"><i class="icon-ok-sign health-status-LIVE"></i>'+data[key][i].Hosts.host_name+'</div></td>';
+					str += '<td><div class="host-ip">'+data[key][i].Hosts.ip+'</div></td>';
+					str += '<td>'+data[key][i].Hosts.cpu_count+'('+data[key][i].Hosts.ph_cpu_count+')</td>';
+					str += '<td>'+numberUtils.bytesToSize(data[key][i].Hosts.total_mem, 2, 'parseFloat', 1024)+'</td>'; 
+					
+					var process = Math.round(((data[key][i].metrics.disk.disk_total-data[key][i].metrics.disk.disk_free)/data[key][i].metrics.disk.disk_total) * Math.pow(10, 4)) / Math.pow(10, 2);
+					
+					str += '<td><div class="progress-wrap"><div class="progress progress-info"><div style="width:'+process+'%" class="bar"></div></div><span>'+process+'%</span></div></td>';
+					// metrics/load/load_one
+					str += '<td>'+(data[key][i].metrics.load.load_one * Math.pow(10, 4)) / Math.pow(10, 2)+'</td>';
+					str += '</tr>';
+					// loadAvg
+				}
+				str += '</table></td>';
+				
+				str += '</tr>';
+			}
+			str += '</table>';
+			str += '</div>';
+			$('#hostListDiv').html(str);
+			$('#hostListDiv').find('.caret').parent().parent().click(function(){
+				var $this = $(this);
+				var target = $this.next();
+				if (!target.hasClass('open')) {
+					$this.addClass('open');
+					target.addClass('open');
+				} else {
+					target.removeClass('open');
+					$this.removeClass('open');
+				}
+			});
+		});
+	
+
+	  },
       showInfo: function (router, event) {
+		var self = this;
         var mainServiceInfoConfigsController = App.router.get('mainServiceInfoConfigsController');
         if (event.context === 'summary' && mainServiceInfoConfigsController.hasUnsavedChanges()) {
           mainServiceInfoConfigsController.showSavePopup(router.get('location.lastSetURL').replace('configs', 'summary'));
@@ -660,6 +747,13 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
         var parent = event.view.get('_parentView');
         parent.deactivateChildViews();
         event.view.set('active', "active");
+		if (event.context == 'hostTab') {
+			self.showHost();
+			return;
+		} else {
+			$('.nav-tabs').next().next().show();
+			$('#hostListDiv').hide();
+		}
         router.transitionTo(event.context);
       }
     }),
