@@ -41,6 +41,7 @@ thive_config_path = "/usr/local/thive/dist/conf"
 
 #pg config
 pg_server_hosts = default("/clusterHostInfo/thive_metadata_database_hosts", ["127.0.0.1"])[0]
+pg_server_hosts_hba = default("/clusterHostInfo/thive_metadata_database_hosts", ["127.0.0.1"])[0]
 pg_server_port = '5432'
 pg_server_user = default("/configurations/pg-config-env/pg.user","pgmeta")
 pg_server_password = default("/configurations/pg-config-env/pg.password","pgmeta")

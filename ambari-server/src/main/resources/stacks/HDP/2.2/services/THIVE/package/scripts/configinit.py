@@ -1,6 +1,7 @@
 from resource_management import *
 import sys
 import os
+import re
 class configinit:
 
   def init_checkstatus_script(self):
@@ -94,6 +95,11 @@ class configinit:
 
 
     print 'create pg_hba.conf'
+    print 'create pg_hba.conf'
+    print params.pg_server_hosts
+    print 'reg ip'
+    params.pg_server_hosts_hba = self.reg_ip(params.pg_server_hosts)
+    env.set_params(params)
     File(os.path.join(params.pg_config_path,'pg_hba.conf'),
       owner='hdfs',
       group='hdfs',
@@ -101,6 +107,13 @@ class configinit:
       content=Template("pg.pg_hba.j2")
     )
 
+  def reg_ip(self,ip):
+    pat= re.compile("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
+    res = pat.match(ip)
+    if res :
+      return ip + "/32"
+    else:
+      return ip
 
   def update_service_config(self):
     import params

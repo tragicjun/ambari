@@ -34,4 +34,10 @@
     <description>The path where the JournalNode daemon will store its local state. </description>
   </property>
 
+  <property>
+    <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
+    <value>false</value>
+    <description>If true (the default), then the namenode requires that a connecting datanode's address must be resolved to a hostname.</description>
+  </property>
+
 </configuration>

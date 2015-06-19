@@ -33,13 +33,14 @@ start_mysql_script = format("{tmp_dir}/startMySql.sh")
 
 
 #golden eye web
+goldeneye_web_host = default("/clusterHostInfo/goldeneye_web_hosts", ["localhost"])[0]
 goldeneye_web_listen_port = default("/configurations/goldeneye-web/listen.port", 80)
 web_config_path = '/usr/local/goldeneye/goldeneye-web/config'
 service_daemon = 'httpd'
 goldeneye_web_root_path = '/usr/local/goldeneye/goldeneye-web'
 web_http_path = '/etc/httpd/conf.d'
 #golden eye db
-goldeneye_database_host = default("/clusterHostInfo/goldeneye-database_hosts", ["localhost"])[0]
+goldeneye_database_host = default("/clusterHostInfo/goldeneye_metadata_database_hosts", ["localhost"])[0]
 
 goldeneye_data_dir = default("/configurations/goldeneye-database/data.dir", "/data/goldeneye/mysql_data")
 goldeneye_database_port = default("/configurations/goldeneye-database/database.port", 3306)

@@ -20,7 +20,7 @@
     <services>
         <service>
             <name>GOLDENEYE</name>
-            <displayName>»Æ½ðÑÛ</displayName>
+            <displayName>GOLDENEYE</displayName>
             <comment>golden eye</comment>
             <version>1.0.0</version>
             <components>

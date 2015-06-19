@@ -42,7 +42,7 @@ class MysqlServer(Script):
     import params
     env.set_params(params)
 
-    cmd = format("bash -x {start_mysql_script} {goldeneye_database_host} {goldeneye_database_port} {goldeneye_data_dir} {goldeneye_database_username} {goldeneye_database_password} {gri_ge_script} {gri_monitor_script}")
+    cmd = format("bash -x {start_mysql_script} {goldeneye_database_host} {goldeneye_database_port} {goldeneye_data_dir} {goldeneye_database_username} {goldeneye_database_password} {gri_ge_script} {gri_monitor_script} {goldeneye_web_host}")
 
     val= os.system(cmd)
     print val
@@ -51,6 +51,14 @@ class MysqlServer(Script):
   def start(self, env):
     import params
     env.set_params(params)
+
+    #test
+    print 'init scripts'
+    configinit().init_mysql_scripts()
+	
+    print 'update configs'
+    self.configure(env)
+    #test
 
     mysql_service(daemon_name=params.daemon_name, action = 'start')
     print "ok"
