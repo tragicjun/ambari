@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ambari.server.api.services.AmbariMetaInfo;
@@ -123,16 +124,25 @@ public class BootStrapImpl {
       //Added by junz for validating license key
       List<Host> hosts = AmbariServer.getController().getClusters().getHosts();
       LicenseManager licenseManager = AmbariServer.getController().getLicenseManager();
+      String errMsg = null;
+
       int clusterLimit = licenseManager.getClusterLimit();
-      if(hosts != null && info.getHosts().size() > clusterLimit){
-          BootStrapStatus status = new BootStrapStatus();
-          String errMsg;
-          if(clusterLimit == 1){
+      if(hosts != null && info.getHosts().size() > clusterLimit) {
+          if (clusterLimit == 1) {
               errMsg = "No license key is detected, only 1 server is supported!";
-          }else{
+          } else {
               errMsg = "License allows " + clusterLimit + " hosts at maximum!";
           }
+      }
 
+      Date expirationDate = licenseManager.getExpirationDate();
+      Date currentDate = new Date();
+      if(expirationDate != null && currentDate.after(expirationDate)) {
+          errMsg = "License expires with expiration date " + expirationDate;
+      }
+
+      if(errMsg != null){
+          BootStrapStatus status = new BootStrapStatus();
           status.setLog(errMsg);
           List<BSHostStatus> bsHostStatuses = new ArrayList<BSHostStatus>();
           for(String hostName : info.getHosts()){

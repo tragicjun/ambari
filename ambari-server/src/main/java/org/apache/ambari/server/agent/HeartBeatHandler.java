@@ -21,13 +21,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
@@ -898,6 +892,12 @@ public class HeartBeatHandler {
         LicenseManager licenseManager = AmbariServer.getController().getLicenseManager();
         if(clusterFsm.getHosts().size() >= licenseManager.getClusterLimit()){
             throw new AmbariException("License allows " + licenseManager.getClusterLimit() + " hosts at maximum!");
+        }
+
+        Date currentDate = new Date();
+        Date expirationDate = licenseManager.getExpirationDate();
+        if(expirationDate != null && currentDate.after(expirationDate)){
+            throw new AmbariException("License expires with expiration date " + expirationDate);
         }
       clusterFsm.addHost(hostname);
       hostObject = clusterFsm.getHost(hostname);

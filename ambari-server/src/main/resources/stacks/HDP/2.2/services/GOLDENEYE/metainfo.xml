@@ -20,13 +20,13 @@
     <services>
         <service>
             <name>GOLDENEYE</name>
-            <displayName>GOLDENEYE</displayName>
+            <displayName>GoldenEye</displayName>
             <comment>golden eye</comment>
             <version>1.0.0</version>
             <components>
                 <component>
                     <name>GOLDENEYE_WEB</name>
-                    <displayName>GOLDEN WEB</displayName>
+                    <displayName>Golden Web</displayName>
                     <category>MASTER</category>
                     <cardinality>1</cardinality>
                     <commandScript>

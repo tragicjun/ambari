@@ -3,6 +3,8 @@ package org.apache.ambari.server.controller.license;
 import org.apache.ambari.server.orm.dao.KeyValueDAO;
 import org.apache.ambari.server.orm.entities.KeyValueEntity;
 
+import java.util.Date;
+
 /**
  * Created by jerryjzhang on 15-6-11.
  */
@@ -24,6 +26,19 @@ public class LicenseManager {
             }
         }
         return limit;
+    }
+
+    public Date getExpirationDate(){
+        Date date = new Date();
+        date.setYear(date.getYear() + 1);
+        if(keyValueDAO != null){
+            KeyValueEntity entity = keyValueDAO.findByKey(LICENSE_KEY);
+            if(entity != null){
+                LicenseInfo license = decodeLicenseKey(entity.getValue().replace("-", ""));
+                date = license.getExpirationDate();
+            }
+        }
+        return date;
     }
 
     private LicenseInfo decodeLicenseKey(String key) {

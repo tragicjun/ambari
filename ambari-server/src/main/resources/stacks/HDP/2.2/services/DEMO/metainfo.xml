@@ -23,6 +23,7 @@
       <displayName>DEMO</displayName>
       <version>0.1.0</version>
       <comment>演示2.0的测试服务</comment>
+      <deleted>true</deleted>
       <components>
         <component>
           <name>DSE_SERVER</name>

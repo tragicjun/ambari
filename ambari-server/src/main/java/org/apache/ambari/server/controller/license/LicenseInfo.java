@@ -1,26 +1,34 @@
 package org.apache.ambari.server.controller.license;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by jerryjzhang on 15-6-15.
  */
 public class LicenseInfo {
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+
     private String customerName;
     private int clusterLimit;
+    private Date expirationDate;
 
     public LicenseInfo(){
     }
 
-    public LicenseInfo(String customerName, int clusterLimit) {
+    public LicenseInfo(String customerName, int clusterLimit, String expirationDate) {
         this.customerName = customerName;
         this.clusterLimit = clusterLimit;
+        this.expirationDate = new Date(expirationDate);
     }
 
     public LicenseInfo(String objStr){
         if(objStr != null && objStr.contains("-")){
             String [] items = objStr.split("-");
-            if(items.length == 2){
+            if(items.length == 3){
                 this.customerName = items[0];
                 this.clusterLimit = Integer.valueOf(items[1]);
+                this.expirationDate = new Date(items[2]);
             }
         }
     }
@@ -41,8 +49,16 @@ public class LicenseInfo {
         this.clusterLimit = clusterLimit;
     }
 
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
     @Override
     public String toString() {
-        return customerName + "-" + clusterLimit;
+        return customerName + "-" + clusterLimit + "-" + dateFormat.format(expirationDate);
     }
 }
