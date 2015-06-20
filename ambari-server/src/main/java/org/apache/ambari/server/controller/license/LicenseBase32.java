@@ -90,4 +90,18 @@ public class LicenseBase32 {
 
         return data;
     }
+
+    public static void main(String[] args) {
+        String input = "jerryjzhang-2-2015/06/21";
+        byte[] inputBuf = input.getBytes();
+        String encoded = LicenseBase32.encode(inputBuf);
+        System.err.println("encoded: " + encoded);
+        try {
+            byte[] outputBuf = LicenseBase32.decode(encoded);
+            String s = new String(outputBuf, "utf-8");
+            System.out.println("decode: " + s);
+        } catch (Exception e) {
+            System.out.println("Illegal character");
+        }
+    }
 }

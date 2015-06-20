@@ -661,10 +661,13 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
 		}
 		$('.nav-tabs').next().next().hide();
 		var prefix = App.get('apiPrefix') + '/clusters/' + App.router.getClusterName();
-		var url = prefix + '/hosts?fields=Hosts/host_name,Hosts/maintenance_state,Hosts/public_host_name,'
-				+ 'Hosts/cpu_count,Hosts/ph_cpu_count,Hosts/host_status,Hosts/last_heartbeat_time,Hosts/ip,host_components/HostRoles/state,'
-				+ 'host_components/HostRoles/maintenance_state,host_components/HostRoles/stale_configs,host_components/HostRoles/service_name,'
-				+ 'metrics/disk,metrics/load/load_one,Hosts/total_mem,alerts/summary&minimal_response=true&sortBy=Hosts/public_host_name.asc';
+
+		var url = prefix + '/hosts?fields=Hosts/host_name,Hosts/maintenance_state,Hosts/public_host_name,Hosts/cpu_count,Hosts/ph_cpu_count,alerts_summary,'
+				+ 'Hosts/host_status,Hosts/last_heartbeat_time,Hosts/ip,host_components/HostRoles/state,host_components/HostRoles/maintenance_state,'
+				+ 'host_components/HostRoles/stale_configs,host_components/HostRoles/service_name,host_components/HostRoles/desired_admin_state,'
+				+ 'metrics/disk,metrics/load/load_one,Hosts/total_mem,stack_versions/HostStackVersions,stack_versions/repository_versions/RepositoryVersions/repository_version,'
+				+ 'stack_versions/repository_versions/RepositoryVersions/id,stack_versions/repository_versions/RepositoryVersions/display_name&minimal_response=true&sortBy=Hosts/host_name.asc';
+				
 		var hash = window.location.hash;
 
 		var service_name = hash.split('/')[3];

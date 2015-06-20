@@ -1,5 +1,6 @@
 package org.apache.ambari.server.controller.license;
 
+import org.apache.ambari.server.AmbariException;
 import org.apache.ambari.server.orm.dao.KeyValueDAO;
 import org.apache.ambari.server.orm.entities.KeyValueEntity;
 
@@ -39,6 +40,41 @@ public class LicenseManager {
             }
         }
         return date;
+    }
+
+    public LicenseInfo getLicense(){
+        LicenseInfo license = null;
+        try{
+            if(keyValueDAO != null){
+                KeyValueEntity entity = keyValueDAO.findByKey(LICENSE_KEY);
+                if(entity != null){
+                    license = decodeLicenseKey(entity.getValue().replace("-", ""));
+                }
+            }
+        }catch(Exception e){
+            license = null;
+        }
+
+        return license;
+    }
+
+    public void saveLicenseKey(String licenseKey)throws AmbariException{
+        try{
+            decodeLicenseKey(licenseKey.replace("-", ""));
+        }catch(Exception e){
+            throw new AmbariException("Invalid license key!");
+        }
+
+        KeyValueEntity keyValueEntity = keyValueDAO.findByKey(LICENSE_KEY);
+        if (keyValueEntity != null) {
+            keyValueEntity.setValue(licenseKey);
+            keyValueDAO.merge(keyValueEntity);
+        } else {
+            keyValueEntity = new KeyValueEntity();
+            keyValueEntity.setKey(LICENSE_KEY);
+            keyValueEntity.setValue(licenseKey);
+            keyValueDAO.create(keyValueEntity);
+        }
     }
 
     private LicenseInfo decodeLicenseKey(String key) {
