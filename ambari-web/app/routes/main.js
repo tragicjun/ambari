@@ -691,7 +691,7 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
 				if (flag == 1) {
 					length ++;
 				}
-			}
+			} 
 			var str = '<div id="hostList" class="host-list">';
 			str += '<div class="hd"><h3 class="modules"><i class="icon-ok-sign health-status-LIVE"></i>'+service_name+'</h3><h3 class="hosts">'+length+'主机</h3></div><div class="bd open">';
 			str +='<table class="host-table">';
@@ -710,11 +710,15 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
 					str += '<td>'+data[key][i].Hosts.cpu_count+'('+data[key][i].Hosts.ph_cpu_count+')</td>';
 					str += '<td>'+numberUtils.bytesToSize(data[key][i].Hosts.total_mem, 2, 'parseFloat', 1024)+'</td>'; 
 					
-					var process = Math.round(((data[key][i].metrics.disk.disk_total-data[key][i].metrics.disk.disk_free)/data[key][i].metrics.disk.disk_total) * Math.pow(10, 4)) / Math.pow(10, 2);
-					
-					str += '<td><div class="progress-wrap"><div class="progress progress-info"><div style="width:'+process+'%" class="bar"></div></div><span>'+process+'%</span></div></td>';
-					// metrics/load/load_one
-					str += '<td>'+(data[key][i].metrics.load.load_one * Math.pow(10, 4)) / Math.pow(10, 2)+'</td>';
+					if (typeof(data[key][i].metrics) == 'undefined') {
+						str += '<td></td><td></td>';
+					} else {
+						var process = Math.round(((data[key][i].metrics.disk.disk_total-data[key][i].metrics.disk.disk_free)/data[key][i].metrics.disk.disk_total) * Math.pow(10, 4)) / Math.pow(10, 2);
+						
+						str += '<td><div class="progress-wrap"><div class="progress progress-info"><div style="width:'+process+'%" class="bar"></div></div><span>'+process+'%</span></div></td>';
+						// metrics/load/load_one
+						str += '<td>'+(data[key][i].metrics.load.load_one * Math.pow(10, 4)) / Math.pow(10, 2)+'</td>';
+					}
 					str += '</tr>';
 					// loadAvg
 				}

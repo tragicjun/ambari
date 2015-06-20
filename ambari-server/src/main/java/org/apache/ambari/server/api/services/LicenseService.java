@@ -37,7 +37,20 @@ public class LicenseService {
         try {
             licenseManager.saveLicenseKey(key);
         }catch(AmbariException e){
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            final String errMsg = e.getMessage();
+            return Response.status(new Response.StatusType(){
+                public int getStatusCode(){
+                    return 400;
+                }
+
+                public Response.Status.Family getFamily(){
+                    return Response.Status.Family.CLIENT_ERROR;
+                }
+
+                public String getReasonPhrase(){
+                    return errMsg;
+                }
+            }).build();
         }
 
         return Response.status(Response.Status.CREATED).build();

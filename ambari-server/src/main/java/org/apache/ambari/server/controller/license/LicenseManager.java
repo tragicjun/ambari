@@ -60,18 +60,22 @@ public class LicenseManager {
     }
 
     public void saveLicenseKey(String licenseKey)throws AmbariException{
-        boolean valid = false;
+        LicenseInfo license = null;
         try{
-            LicenseInfo license = decodeLicenseKey(licenseKey.replace("-", ""));
-            if(license != null && license.getCustomerName() != null){
-                valid = true;
-            }
+            license = decodeLicenseKey(licenseKey.replace("-", ""));
         }catch(Exception e){
-            valid = false;
+            license = null;
         }
 
-        if(!valid){
+        if(license == null || license.getCustomerName() == null
+                || license.getExpirationDate() == null
+                || license.getClusterLimit() == 0){
             throw new AmbariException("Invalid license key!");
+        }
+
+        Date now = new Date();
+        if(now.after(license.getExpirationDate())){
+            throw new AmbariException("License has expired!");
         }
 
         KeyValueEntity keyValueEntity = keyValueDAO.findByKey(LICENSE_KEY);

@@ -18,6 +18,7 @@
 
 
 var App = require('app');
+var date = require('utils/date');
 
 App.ApplicationController = Em.Controller.extend(App.UserPref, {
 
@@ -156,18 +157,38 @@ App.ApplicationController = Em.Controller.extend(App.UserPref, {
   showLicense: function() {
 
     var self = this;
-    App.ModalPopup.show({
-      header: '许可信息',
-      secondary: false,
-      bodyClass: Em.View.extend({
-        templateName: require('templates/common/about'),
-        ambariVersion: this.get('ambariVersion')
-      }),
-	  primary : Em.I18n.t('common.save'),
-        onPrimary: function() {
-			alert('do');
-        }
-    });    
+	var url = App.get('apiPrefix') + '/license/';
+
+	$.getJSON(url, function(json){
+		if (typeof(json.key) == 'undefined') {
+			var str = '<div><lable>license key:</lable><input id="licenseId" type="text" value="'+json.key+'" /></div>';
+			App.ModalPopup.show({
+			  header: '璁稿彲淇℃伅',
+			  bodyClass: Em.View.extend({
+				templateName: require('templates/common/license'),
+				content: str
+			  }),
+			  primary : Em.I18n.t('common.save'),
+			  onPrimary: function() {
+				var data = $('#licenseId').val();
+				$.post(url, data, function(){
+				});
+			  }
+			}); 
+		
+		} else {
+			var str = '<div><lable>杩囨湡鏃堕棿 :</lable>'+date.dateFormat(json.expirationDate)+'</div>'
+					+ '<div><lable>license key:</lable>'+json.key+'</div>';
+			App.ModalPopup.show({
+			  header: '璁稿彲淇℃伅',
+			  secondary: false,
+			  bodyClass: Em.View.extend({
+				templateName: require('templates/common/license'),
+				content: str
+			  })
+			}); 
+		}
+	});
   }
 
 });
