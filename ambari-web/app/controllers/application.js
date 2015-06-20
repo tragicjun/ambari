@@ -151,6 +151,23 @@ App.ApplicationController = Em.Controller.extend(App.UserPref, {
         ambariVersion: this.get('ambariVersion')
       })
     });    
+  },
+  
+  showLicense: function() {
+
+    var self = this;
+    App.ModalPopup.show({
+      header: '许可信息',
+      secondary: false,
+      bodyClass: Em.View.extend({
+        templateName: require('templates/common/about'),
+        ambariVersion: this.get('ambariVersion')
+      }),
+	  primary : Em.I18n.t('common.save'),
+        onPrimary: function() {
+			alert('do');
+        }
+    });    
   }
 
 });

@@ -37,6 +37,7 @@
               </button>
               <ul class="dropdown-menu">
                 <li><a href="" id="about" {{action showAboutPopup target="controller"}}>{{t app.aboutAmbari}}</a></li>
+				<li><a href="" id="about" {{action showLicense target="controller"}}>许可</a></li>
                 {{#if App.router.clusterInstallCompleted}}
                   {{#if isClusterDataLoaded}}
                     {{#isAccessible upgrade_ONLY_ADMIN}}

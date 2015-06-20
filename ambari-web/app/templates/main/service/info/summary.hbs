@@ -52,7 +52,7 @@
         {{#if view.hasAlertDefinitions}}
           {{#if view.alertsCount}}
             <span {{action "showServiceAlertsPopup" controller.content target="controller"}}
-              {{bindAttr class=":label :pull-right view.hasCriticalAlerts:alerts-crit-count:alerts-warn-count"}}>
+              {{bindAttr class=":label :pull-right :btn-group view.hasCriticalAlerts:alerts-crit-count:alerts-warn-count"}}>
               {{view.alertsCount}} {{pluralize view.alertsCount singular="alert" plural="alerts"}}</span>
           {{else}}
             <span {{action "showServiceAlertsPopup" controller.content target="controller"}}
