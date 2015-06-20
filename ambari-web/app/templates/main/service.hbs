@@ -16,10 +16,11 @@
 * limitations under the License.
 }}
 
-<div class="row-fluid">
+<div class="row-fluid services-container ">
   <div class="services-menu well span2 service-menu-width" style="padding: 8px 0">
+	<div class="boardBtn"><a href="#/main/dashboard/metrics"><i class="ui-i"></i>指标面板</a></div>
+	{{view App.AllServicesActionView}}
     {{view App.MainServiceMenuView}}
-    {{view App.AllServicesActionView}}
   </div>
   <div class="span10 summary-width">
     {{outlet}}

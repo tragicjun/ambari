@@ -100,9 +100,9 @@ App.service_graph_config = {
   	],
 
   'pgxz': [
-    'PGXZ_ConnectionCount',
-    'PGXZ_TransactionCount',
-    'PGXZ_Statistic'
+//    'PGXZ_ConnectionCount',
+//    'PGXZ_TransactionCount',
+//    'PGXZ_Statistic'
   ]
 
 };

@@ -56,7 +56,7 @@
               {{view.alertsCount}} {{pluralize view.alertsCount singular="alert" plural="alerts"}}</span>
           {{else}}
             <span {{action "showServiceAlertsPopup" controller.content target="controller"}}
-              class="label pull-right no-alerts-label">{{t services.service.summary.alerts.noAlerts}}</span>
+              class="label pull-right no-alerts-label btn-group">{{t services.service.summary.alerts.noAlerts}}</span>
           {{/if}}
         {{/if}}
       </div>

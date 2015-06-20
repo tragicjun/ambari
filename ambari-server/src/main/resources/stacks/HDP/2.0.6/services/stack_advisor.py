@@ -304,12 +304,15 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
       #Start Impl
       for component in service["components"]:
         for port in component["StackServiceComponents"]["used_ports"]:
+          usedPort = None
+
           if not port.isdigit():
             m = re.match("(.*)/(.*)", port)
             if m and len(m.groups()) > 1:
               configType = m.group(1)
               propertyKey = m.group(2)
-              propertyValue = configurations.get(configType,{}).get("properties",{})[propertyKey]
+              configurations.get(configType,{}).get("properties",{})
+              propertyValue = configurations.get(configType,{}).get("properties",{}).get(propertyKey)
               # Extract port out if propertyValue is of format "host:port" or "protocol://host:port"
               if propertyValue is not None and ":" in propertyValue:
                 # Remove protocol
