@@ -59,9 +59,17 @@ public class LicenseManager {
     }
 
     public void saveLicenseKey(String licenseKey)throws AmbariException{
+        boolean valid = false;
         try{
-            decodeLicenseKey(licenseKey.replace("-", ""));
+            LicenseInfo license = decodeLicenseKey(licenseKey.replace("-", ""));
+            if(license != null && license.getCustomerName() != null){
+                valid = true;
+            }
         }catch(Exception e){
+            valid = false;
+        }
+
+        if(!valid){
             throw new AmbariException("Invalid license key!");
         }
 
