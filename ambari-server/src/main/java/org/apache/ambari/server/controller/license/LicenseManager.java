@@ -49,6 +49,7 @@ public class LicenseManager {
                 KeyValueEntity entity = keyValueDAO.findByKey(LICENSE_KEY);
                 if(entity != null){
                     license = decodeLicenseKey(entity.getValue().replace("-", ""));
+                    license.setKey(entity.getValue());
                 }
             }
         }catch(Exception e){

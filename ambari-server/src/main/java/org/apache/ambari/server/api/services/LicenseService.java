@@ -19,14 +19,19 @@ public class LicenseService {
     @SuppressWarnings("unchecked")
     @GET
     @Produces("application/json")
-    public LicenseInfo getLicense(){
+    public Response getLicense(){
         LicenseManager licenseManager = AmbariServer.getController().getLicenseManager();
-        return licenseManager.getLicense();
+        LicenseInfo license = licenseManager.getLicense();
+        if(license != null){
+            return Response.ok(license).build();
+        }else{
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 
     @SuppressWarnings("unchecked")
     @POST
-    @Produces("text/plain")
+    @Produces("application/json")
     public Response saveLicenseKey(String key){
         LicenseManager licenseManager = AmbariServer.getController().getLicenseManager();
         try {

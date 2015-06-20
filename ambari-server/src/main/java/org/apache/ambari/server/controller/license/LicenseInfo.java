@@ -12,6 +12,7 @@ public class LicenseInfo {
     private String customerName;
     private int clusterLimit;
     private Date expirationDate;
+    private String key;
 
     public LicenseInfo(){
     }
@@ -55,6 +56,14 @@ public class LicenseInfo {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     @Override
