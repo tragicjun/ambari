@@ -45,7 +45,7 @@ class BSRunner extends Thread {
 
   private static final String DEFAULT_USER = "root";
   
-  private static String DEFAULT_SSH_IDRSA = "/data/home/ambari/.ssh/id_rsa";
+  private static String DEFAULT_SSH_IDRSA = "/home/ambari/.ssh/id_rsa";
   private static String DEFAULT_SSH_USER = "ambari";
 
   private  boolean finished = false;
@@ -176,6 +176,7 @@ class BSRunner extends Thread {
 				  agentUser = bsHostPasser.getLoginUser();
 				  agentPass = bsHostPasser.getPassword();
 			  }
+			  agentPass = "\""+agentPass+"\"";
 			  ShellCommandUtil.runCommand(agentEnvSetupShellPath, host, agentUser, agentPass);
 		  }
 	  } catch (IOException e) {

@@ -32,17 +32,17 @@ App.HostInfo = Ember.Object.extend({
   bootStatusForDisplay:function () {
     switch (this.get('bootStatus')) {
       case 'PENDING':
-        return 'Preparing';
+        return '准备安装';
       case 'REGISTERED':
-        return 'Success';
+        return '成功';
       case 'FAILED':
-        return 'Failed';
+        return '失败';
       case 'RUNNING':
-        return 'Installing';
+        return '正在安装';
       case 'DONE':
       case 'REGISTERING':
       default:
-        return 'Registering';
+        return '正在注册';
     }
   }.property('bootStatus'),
 

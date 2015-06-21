@@ -1,0 +1,8 @@
+listen {{goldeneye_web_listen_port}}
+Alias /ge "{{goldeneye_web_root_path}}"
+<Directory "{{goldeneye_web_root_path}}">
+   Options FollowSymLinks
+   AllowOverride None
+   Order allow,deny
+   Allow from all
+</Directory>

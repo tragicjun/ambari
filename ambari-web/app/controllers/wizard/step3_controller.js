@@ -229,7 +229,7 @@ App.WizardStep3Controller = Em.Controller.extend({
     var bootStrapData = JSON.stringify({
         'verbose': true,
         'sshKey': this.get('content.installOptions.sshKey'),
-        'hosts': Em.keys(this.get('content.hosts')),
+        'hosts': Em.keys(this.get('content.originalHosts')),
         'user': this.get('content.installOptions.sshUser'),
         'userRunAs': App.get('supports.customizeAgentUserAccount') ? this.get('content.installOptions.agentUser') : 'root'
     });

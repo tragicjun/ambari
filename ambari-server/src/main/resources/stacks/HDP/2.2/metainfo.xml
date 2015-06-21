@@ -18,6 +18,7 @@
 <metainfo>
     <versions>
 	  <active>true</active>
+      <name>TDP</name>
     </versions>
     <extends>2.1</extends>
 </metainfo>

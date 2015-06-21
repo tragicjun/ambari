@@ -161,12 +161,10 @@ App.ApplicationController = Em.Controller.extend(App.UserPref, {
 
 	$.getJSON(url, function(json){
 		if (typeof(json.key) == 'undefined') {
-			var str = '<div><lable>license key:</lable><input id="licenseId" type="text" value="'+json.key+'" /></div>';
 			App.ModalPopup.show({
 			  header: '许可信息',
 			  bodyClass: Em.View.extend({
-				templateName: require('templates/common/license'),
-				content: str
+				templateName: require('templates/common/edit_license')
 			  }),
 			  primary : Em.I18n.t('common.save'),
 			  onPrimary: function() {
@@ -177,14 +175,13 @@ App.ApplicationController = Em.Controller.extend(App.UserPref, {
 			}); 
 		
 		} else {
-			var str = '<div><lable>过期时间 :</lable>'+date.dateFormat(json.expirationDate)+'</div>'
-					+ '<div><lable>license key:</lable>'+json.key+'</div>';
 			App.ModalPopup.show({
 			  header: '许可信息',
 			  secondary: false,
 			  bodyClass: Em.View.extend({
 				templateName: require('templates/common/license'),
-				content: str
+				expirationDate: date.dateFormat(json.expirationDate),
+				key : json.key
 			  })
 			}); 
 		}

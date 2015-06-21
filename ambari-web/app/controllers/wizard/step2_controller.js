@@ -262,6 +262,24 @@ App.WizardStep2Controller = Em.Controller.extend({
 
     return hostInfo;
   },
+  
+  getOriginalHostInfo: function () {
+
+    var hostNameArr = this.get('hostNameArr');
+    
+    var hostInfo = {};
+    for (var i = 0; i < hostNameArr.length; i++) {
+      var originalHost = hostNameArr[i].trim();
+      hostInfo[originalHost] = {
+        name: originalHost,
+        installType: this.get('installType'),
+        bootStatus: 'PENDING',
+        isInstalled: false
+      };
+    }
+
+    return hostInfo;
+  },
 
   /**
    * Used to set sshKey from FileUploader
@@ -527,6 +545,7 @@ App.WizardStep2Controller = Em.Controller.extend({
       }
     }
 
+    this.set('content.originalHosts', this.getOriginalHostInfo());
     this.set('content.hosts', $.extend(hosts, this.getHostInfo()));
     this.setAmbariJavaHome();
   }

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+
+  <property>
+    <name>goldeneye.username</name>
+    <value>goldeneye</value>
+    <description>Golden eye ???????</description>ion>   
+  </property>
+  
+  <property>
+    <name>goldeneye.password</name>
+    <value>goldeneye</value>
+    <description>Golden eye ??????</description>ion>  
+  </property>
+
+  <property>
+    <name>database.port</name>
+    <value>3306</value>
+    <description>Golden eye ??????</description>ion>  
+  </property>
+  
+  <property>
+    <name>data.dir</name>
+    <value>/data/goldeneye/mysql_data</value>
+    <description>Golden eye ????????</description>ion>    
+  </property>
+  
+</configuration>

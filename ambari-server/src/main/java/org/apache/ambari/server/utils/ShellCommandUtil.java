@@ -38,7 +38,7 @@ public class ShellCommandUtil {
   
   public static Result runCommand(String shellPath, String... params) throws IOException, InterruptedException {	
     String[] cmds = merge(shellPath, params);
-    LOG.info("execute shell: " + shellPath + " params:" + params);
+    LOG.info("execute shell: " + shellPath + " params:" + arrayToString(params));
 	Process process = Runtime.getRuntime().exec(cmds);
 	process.waitFor();
     String stdout = streamToString(process.getInputStream());
@@ -64,6 +64,17 @@ public class ShellCommandUtil {
 	String[] strings = new String[cmds.size()];
 	cmds.toArray(strings);
 	return strings;
+  }
+  
+  private static String arrayToString(String... params){
+	  String result = "";
+	  if(params == null || params.length == 0){
+		  return result;
+	  }
+	  for(String param : params){
+		  result += " "+param; 
+	  }
+	  return result;
   }
 
   /*
