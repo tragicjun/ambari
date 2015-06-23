@@ -17,10 +17,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 '''
-import sys
 # For compatibility with different OSes
 # Edit PYTHONPATH to be able to import common_functions
+import sys
 sys.path.append("/usr/lib/python2.6/site-packages/")
+########################################################
+
 import os
 import string
 import subprocess
@@ -33,8 +35,9 @@ import optparse
 import shlex
 import datetime
 from AmbariConfig import AmbariConfig
-from pwd import getpwnam
-from ambari_commons import OSCheck
+from ambari_commons import OSCheck, OSConst
+from ambari_commons.constants import AMBARI_SUDO_BINARY
+from ambari_commons.os_family_impl import OsFamilyImpl, OsFamilyFuncImpl
 
 logger = logging.getLogger()
 
@@ -53,7 +56,9 @@ ALT_ERASE_CMD = "alternatives --remove {0} {1}"
 REPO_PATH_RHEL = "/etc/yum.repos.d"
 REPO_PATH_SUSE = "/etc/zypp/repos.d/"
 SKIP_LIST = []
+TMP_HOST_CHECK_FILE_NAME = "tmp_hostcheck.result"
 HOST_CHECK_FILE_NAME = "hostcheck.result"
+HOST_CHECK_CUSTOM_ACTIONS_FILE = "hostcheck_custom_actions.result"
 OUTPUT_FILE_NAME = "hostcleanup.result"
 
 PACKAGE_SECTION = "packages"
@@ -85,13 +90,15 @@ DIRNAME_PATTERNS = [
 REPOSITORY_BLACK_LIST = ["ambari.repo"]
 PACKAGES_BLACK_LIST = ["ambari-server", "ambari-agent"]
 
+class HostCleanupManually:
 
-class HostCleanup:
+  SELECT_ALL_PERFORMED_MARKER = "/var/lib/ambari-agent/data/hdp-select-set-all.performed"
+
   def resolve_ambari_config(self):
     try:
       config = AmbariConfig()
-      if os.path.exists(AmbariConfig.CONFIG_FILE):
-        config.read(AmbariConfig.CONFIG_FILE)
+      if os.path.exists(AmbariConfig.getConfigFile()):
+        config.read(AmbariConfig.getConfigFile())
       else:
         raise Exception("No config found, use default")
 
@@ -133,7 +140,8 @@ class HostCleanup:
         logger.info("Deleting packages: " + str(packageList) + "\n")
        # self.do_erase_packages(packageList)
         self.do_erase_packages_onebyeone(packageList)
-
+        # Removing packages means that we have to rerun hdp-select
+        self.do_remove_hdp_select_marker()
       if userList and not USER_SECTION in SKIP_LIST:
         logger.info("\n" + "Deleting users: " + str(userList))
         self.do_delete_users(userList)
@@ -260,6 +268,13 @@ class HostCleanup:
       self.do_erase_files_silent(remList)
 
 
+  def do_remove_hdp_select_marker(self):
+    """
+    Remove marker file for 'hdp-select set all' invocation
+    """
+    if os.path.isfile(self.SELECT_ALL_PERFORMED_MARKER):
+      os.unlink(self.SELECT_ALL_PERFORMED_MARKER)
+
 
   # Alternatives exist as a stack of symlinks under /var/lib/alternatives/$name
   # Script expects names of the alternatives as input
@@ -356,6 +371,22 @@ class HostCleanup:
 
     return repoFiles
 
+  def do_erase_packages_onebyeone(self, packageList):
+    os_name = OSCheck.get_os_family()
+    for package in packageList:
+      if package != '':
+        command = PACKAGE_ERASE_CMD[os_name].format(package)
+        logger.info('erase command: ' + command)
+        (returncode, stdoutdata, stderrdata) = self.run_os_command(command)
+        logger.info(returncode)
+        logger.info(stdoutdata)
+        logger.info(stderrdata)
+        if returncode != 0:
+          logger.warn("Erasing packages failed: " + stderrdata)
+        else:
+          logger.info("Erased packages successfully.\n" + stdoutdata)
+    return 0
+
   def do_erase_packages(self, packageList):
     packageStr = None
     if packageList:
@@ -371,25 +402,7 @@ class HostCleanup:
 
       if command != '':
         logger.debug('Executing: ' + str(command))
-
         (returncode, stdoutdata, stderrdata) = self.run_os_command(command)
-
-        if returncode != 0:
-          logger.warn("Erasing packages failed: " + stderrdata)
-        else:
-          logger.info("Erased packages successfully.\n" + stdoutdata)
-    return 0
-  
-  def do_erase_packages_onebyeone(self, packageList):
-    os_name = OSCheck.get_os_family()
-    for package in packageList:
-      if package != '':
-        command = PACKAGE_ERASE_CMD[os_name].format(package)
-        logger.info('erase command: ' + command)
-        (returncode, stdoutdata, stderrdata) = self.run_os_command(command)
-        logger.info(returncode)
-        logger.info(stdoutdata)
-        logger.info(stderrdata)
         if returncode != 0:
           logger.warn("Erasing packages failed: " + stderrdata)
         else:
@@ -441,7 +454,17 @@ class HostCleanup:
           self.do_erase_dir_silent([fileToCheck])
           logger.info("Deleting file/folder: " + fileToCheck)
 
+  @OsFamilyFuncImpl(os_family=OSConst.WINSRV_FAMILY)
   def get_user_ids(self, userList):
+
+    userIds = []
+    # No user ids to check in Windows for now
+    return userIds
+
+  @OsFamilyFuncImpl(os_family=OsFamilyImpl.DEFAULT)
+  def get_user_ids(self, userList):
+    from pwd import getpwnam
+
     userIds = []
     if userList:
       for user in userList:
@@ -471,7 +494,7 @@ class HostCleanup:
   # Run command as sudoer by default, if root no issues
   def run_os_command(self, cmd, runWithSudo=True):
     if runWithSudo:
-      cmd = 'sudo ' + cmd
+      cmd = "/var/lib/ambari-agent/"+AMBARI_SUDO_BINARY + " " + cmd
     logger.info('Executing command: ' + str(cmd))
     if type(cmd) == str:
       cmd = shlex.split(cmd)
@@ -482,14 +505,6 @@ class HostCleanup:
     )
     (stdoutdata, stderrdata) = process.communicate()
     return process.returncode, stdoutdata, stderrdata
-
-
-  def search_file(self, filename, search_path, pathsep=os.pathsep):
-    """ Given a search path, find file with requested name """
-    for path in string.split(search_path, pathsep):
-      candidate = os.path.join(path, filename)
-      if os.path.exists(candidate): return os.path.abspath(candidate)
-    return None
 
 # Copy file and save with file.# (timestamp)
 def backup_file(filePath):
@@ -524,17 +539,19 @@ def get_choice_string_input(prompt, default, firstChoice, secondChoice):
 
 
 def main():
-  h = HostCleanup()
+  h = HostCleanupManually()
   config = h.resolve_ambari_config()
   hostCheckFileDir = config.get('agent', 'prefix')
   hostCheckFilePath = os.path.join(hostCheckFileDir, HOST_CHECK_FILE_NAME)
+  hostCheckCustomActionsFilePath = os.path.join(hostCheckFileDir, HOST_CHECK_CUSTOM_ACTIONS_FILE)
+  hostCheckFilesPaths = hostCheckFilePath + "," + hostCheckCustomActionsFilePath
   hostCheckResultPath = os.path.join(hostCheckFileDir, OUTPUT_FILE_NAME)
 
   parser = optparse.OptionParser()
   parser.add_option("-v", "--verbose", dest="verbose", action="store_false",
                     default=False, help="output verbosity.")
-  parser.add_option("-f", "--file", dest="inputfile",
-                    default=hostCheckFilePath,
+  parser.add_option("-f", "--file", dest="inputfiles",
+                    default=hostCheckFilesPaths,
                     help="host check result file to read.", metavar="FILE")
   parser.add_option("-o", "--out", dest="outputfile",
                     default=hostCheckResultPath,
@@ -580,8 +597,15 @@ def main():
         print 'Exiting. Use option --skip="users" to skip deleting users'
         sys.exit(1)
 
-  hostcheckfile = options.inputfile
-  propMap = h.read_host_check_file(hostcheckfile)
+  hostcheckfile, hostcheckfileca  = options.inputfiles.split(",")
+  
+  with open(TMP_HOST_CHECK_FILE_NAME, "wb") as tmp_f:
+    with open(hostcheckfile, "rb") as f1:
+      with open(hostcheckfileca, "rb") as f2:
+        tmp_f.write(f1.read())
+        tmp_f.write(f2.read())
+  
+  propMap = h.read_host_check_file(TMP_HOST_CHECK_FILE_NAME)
 
   if propMap:
     h.do_cleanup(propMap)

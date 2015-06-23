@@ -44,10 +44,8 @@ class BSRunner extends Thread {
   private static Log LOG = LogFactory.getLog(BSRunner.class);
 
   private static final String DEFAULT_USER = "root";
+  private static final String SCRIPTS_DIR = "/var/lib/ambari-server/resources/scripts";
   
-  private static String DEFAULT_SSH_IDRSA = "/home/ambari/.ssh/id_rsa";
-  private static String DEFAULT_SSH_USER = "ambari";
-
   private  boolean finished = false;
   private SshHostInfo sshHostInfo;
   private File bootDir;
@@ -156,17 +154,16 @@ class BSRunner extends Thread {
   }
   
   public void beforeBootStrap(SshHostInfo sshHostInfo){
-	  String bootDirPath = this.bootDir.getAbsolutePath();
 	  //check the ssh_keygen
-	  String sshKeygenShellPath = bootDirPath+"/bootstrap_agent_ssh_keygen.sh";
+	  String sshKeygenShellPath = SCRIPTS_DIR+"/bootstrap_agent_ssh_keygen.sh";
 	  try {
 		  ShellCommandUtil.runCommand(sshKeygenShellPath);
 		  //set the private key 
-		  sshHostInfo.setSshKey(FileUtil.read(DEFAULT_SSH_IDRSA));
-		  sshHostInfo.setUser(DEFAULT_SSH_USER);
+		  sshHostInfo.setSshKey(FileUtil.read(this.bsImpl.getBootstrapIdRsaLocation()));
+		  sshHostInfo.setUser(this.bsImpl.getBootstrapSSHUser());
 		  //set the agent environment: create ambari user and copy the public key to agent
 		  List<String> hosts = sshHostInfo.getHosts();
-		  String agentEnvSetupShellPath = bootDirPath+"/bootstrap_agent_env_setup.sh";
+		  String agentEnvSetupShellPath = SCRIPTS_DIR+"/bootstrap_agent_env_setup.sh";
 		  Map<String, BSHostPasser> hostPassers = sshHostInfo.getHostPassers();
 		  for(String host : hosts){
 			  String agentUser = this.bsImpl.getAgentDefaultLoginUser();
@@ -176,7 +173,6 @@ class BSRunner extends Thread {
 				  agentUser = bsHostPasser.getLoginUser();
 				  agentPass = bsHostPasser.getPassword();
 			  }
-			  agentPass = "\""+agentPass+"\"";
 			  ShellCommandUtil.runCommand(agentEnvSetupShellPath, host, agentUser, agentPass);
 		  }
 	  } catch (IOException e) {

@@ -17,28 +17,12 @@ expect {
 }
 expect {
         "$*" {
-        	send "sudo python /usr/lib/python2.6/site-packages/ambari_agent/HostInfoManually.py\r"
-            expect "$*"
-            send "sudo python /usr/lib/python2.6/site-packages/ambari_agent/HostCleanupManually.py -v -s --skip=users\r"
-            expect "$*"
-            send "sudo ambari-agent stop\r"
-            expect "$*"
-            send "sudo yum remove -y ambari-agent*\r"
-            expect "$*"
-            send "sudo yum clean all\r"
+        	send "python /usr/lib/python2.6/site-packages/ambari_agent/ambari_cleaner.py\r"
             expect "$*"
             send "\r"
         }
         "#*" {
-        	send "sudo python /usr/lib/python2.6/site-packages/ambari_agent/HostInfoManually.py\r"
-            expect "#*"
-            send "sudo python /usr/lib/python2.6/site-packages/ambari_agent/HostCleanupManually.py -v -s --skip=users\r"
-            expect "#*"
-            send "sudo ambari-agent stop\r"
-            expect "#*"
-            send "sudo yum remove -y ambari-agent*\r"
-            expect "#*"
-            send "sudo yum clean all\r"
+        	send "python /usr/lib/python2.6/site-packages/ambari_agent/ambari_cleaner.py\r"
             expect "#*"
             send "\r"
         }

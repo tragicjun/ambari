@@ -245,6 +245,16 @@ App.serviceMetricsMapper = App.QuickDataMapper.create({
           this.mapQuickLinks(finalJson, item);
           result.push(finalJson);
           App.store.load(App.StormService, finalJson);
+        } else if (item && item.ServiceInfo && item.ServiceInfo.service_name == "LHOTSE") {
+          finalJson = this.lhotseMapper(item);
+          finalJson.rand = Math.random();
+          this.mapQuickLinks(finalJson, item);
+          result.push(finalJson);
+	    } else if (item && item.ServiceInfo && item.ServiceInfo.service_name == "GOLDENEYE") {
+          finalJson = this.geMapper(item);
+          finalJson.rand = Math.random();
+          this.mapQuickLinks(finalJson, item);
+          result.push(finalJson);
         } else {
           finalJson = this.parseIt(item, this.config);
           finalJson.rand = Math.random();
@@ -496,6 +506,30 @@ App.serviceMetricsMapper = App.QuickDataMapper.create({
     // Map
     var finalJson = this.parseIt(item, finalConfig);
     finalJson.quick_links = [ 23, 24, 25, 26 ];
+    return finalJson;
+  },
+  
+  lhotseMapper: function (item) {
+    var result = [];
+    var self = this;
+    var finalConfig = jQuery.extend({}, this.config);
+    // Change the JSON so that it is easy to map
+    var lhotseConfig = this.lhotseConfig;
+    // Map
+    var finalJson = this.parseIt(item, finalConfig);
+    finalJson.quick_links = [ 35 ];
+    return finalJson;
+  },
+
+  geMapper: function (item) {
+    var result = [];
+    var self = this;
+    var finalConfig = jQuery.extend({}, this.config);
+    // Change the JSON so that it is easy to map
+    var lhotseConfig = this.lhotseConfig;
+    // Map
+    var finalJson = this.parseIt(item, finalConfig);
+    finalJson.quick_links = [ 36 ];
     return finalJson;
   },
 

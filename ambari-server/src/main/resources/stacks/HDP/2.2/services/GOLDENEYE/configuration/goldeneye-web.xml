@@ -4,7 +4,7 @@
   <property>
     <name>listen.port</name>
     <value>80</value>
-    <description>Golden eye Web 服务端口</description>
+    <description>Golden Eye Web 服务端口</description>
   </property>
   
 </configuration>

@@ -58,27 +58,13 @@
       {
         "name": "lhotse_database_process",
         "label": "Lhotse Database Process",
-        "description": "当Lhotse Database的端口未开放或连接超时时，触发该告警。",
+        "description": "当Lhotse Database不能正常服务时，触发该告警。",
         "interval": 1,
         "scope": "ANY",
         "enabled": true,
         "source": {
-          "type": "PORT",
-          "uri": "0.0.0.0:3306",
-          "default_port": "3306",
-          "reporting": {
-            "ok": {
-              "text": "TCP OK - {0:.3f}s response on port {1}"
-            },
-            "warning": {
-              "text": "TCP OK - {0:.3f}s response on port {1}",
-              "value": 1.5
-            },
-            "critical": {
-              "text": "Connection failed: {0} to {1}:{2}",
-              "value": 5.0
-            }
-          }
+          "type": "SCRIPT",
+          "path": "HDP/2.2/services/LHOTSE/package/alerts/check_lhotse_database.py"
         }
       }
     ],

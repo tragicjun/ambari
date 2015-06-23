@@ -77,7 +77,7 @@ class CheckHost(Script):
   # Additional packages to look for (search packages that start with these)
   ADDITIONAL_PACKAGES = [
     "rrdtool", "rrdtool-python", "ganglia", "gmond", "gweb", "libconfuse",
-    "ambari-log4j", "hadoop", "zookeeper", "oozie", "webhcat"
+    "ambari-log4j", "hadoop", "zookeeper", "oozie", "webhcat","thive","pgxz","lhotse","plclient"
   ]
   
   # ignore repos from the list of repos to be cleaned

@@ -76,6 +76,19 @@
       "hbase-site/hbase.regionserver.info.port"
     ]
   },
+  "AMBARI_METRICS": {
+    "METRICS_COLLECTOR": [
+      "ams-site/timeline.metrics.service.webapp.address",
+      "ams-site/timeline.metrics.service.rpc.address",
+      "ams-hbase-site/hbase.regionserver.port",
+      "ams-hbase-site/hbase.regionserver.info.port",
+      "ams-hbase-site/hbase.master.info.port",
+      "ams-hbase-site/hbase.master.port",
+      "ams-hbase-site/hbase.zookeeper.leaderport",
+      "ams-hbase-site/hbase.zookeeper.property.clientPort",
+      "ams-hbase-site/hbase.zookeeper.peerport"
+    ]
+  },
   "LHOTSE":{
     "LHOTSE_BASE":[
       "lhotse-base-env/lhotse.base.port",
@@ -117,20 +130,12 @@
       "5432"
     ]
   },
-  "AMBARI_METRICS":{
-    "METRICS_COLLECTOR":[
-      "ams-site/timeline.metrics.service.webapp.address",
-      "ams-site/timeline.metrics.service.rpc.address",
-      "ams-hbase-site/hbase.regionserver.port",
-      "ams-hbase-site/hbase.regionserver.info.port",
-      "ams-hbase-site/hbase.master.info.port",
-      "ams-hbase-site/hbase.master.port",
-      "ams-hbase-site/hbase.zookeeper.leaderport",
-      "ams-hbase-site/hbase.zookeeper.property.clientPort",
-      "ams-hbase-site/hbase.zookeeper.peerport"
+  "GOLDENEYE":{
+    "GOLDENEYE_WEB":[
+      "goldeneye-web/listen.port"
     ],
-    "THIVE_METADATA_DATABASE":[
-      "5432"
+    "GOLDENEYE_METADATA_DATABASE":[
+      "goldeneye-database/database.port"
     ]
   }
 }

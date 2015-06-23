@@ -322,5 +322,16 @@ App.QuickLinks.FIXTURES = [
     https_config: 'lhotse_host',
     regex: '^(\\d+)$',
     default_http_port: 8081
+  },
+{
+    id:36,
+    label:'GoldenEye Web',
+    url:'%@://%@:%@/',
+    service_id: 'GOLDENEYE',
+    template:'%@://%@:%@/',
+    http_config: 'ge_host',
+    https_config: 'ge_host',
+    regex: '^(\\d+)$',
+    default_http_port: 8081
   }
 ];

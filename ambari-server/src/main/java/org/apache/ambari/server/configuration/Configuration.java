@@ -336,6 +336,10 @@ public class Configuration {
   private static final String BOOTSTRAP_AGENT_DEFAULT_LOGIN_USER_DEFAULT="ambari";
   private static final String BOOTSTRAP_AGENT_DEFAULT_LOGIN_PASSWROD_KEY="bootstarp_agent_default_login_password";
   private static final String BOOTSTRAP_AGENT_DEFAULT_LOGIN_PASSWROD_DEFAULT="ambari";
+  private static final String BOOTSTRAP_ID_RSA_KEY="bootstarp_id_rsa_location";
+  private static final String BOOTSTRAP_ID_RSA_DEFAULT="/home/ambari/.ssh/id_rsa";
+  private static final String BOOTSTRAP_SSH_USER_KEY="bootstarp_ssh_user";
+  private static final String BOOTSTRAP_SSH_USER_DEFAULT="ambari";
 
   /**
    * The full path to the XML file that describes the different alert templates.
@@ -683,6 +687,14 @@ public class Configuration {
   
   public String getAgentDefaultLoginPassword(){
 	  return properties.getProperty(BOOTSTRAP_AGENT_DEFAULT_LOGIN_PASSWROD_KEY, BOOTSTRAP_AGENT_DEFAULT_LOGIN_PASSWROD_DEFAULT);
+  }
+  
+  public String getBootstrapIdRsaLocation(){
+	  return properties.getProperty(BOOTSTRAP_ID_RSA_KEY, BOOTSTRAP_ID_RSA_DEFAULT);
+  }
+  
+  public String getBootstrapSSHUser(){
+	  return properties.getProperty(BOOTSTRAP_SSH_USER_KEY, BOOTSTRAP_SSH_USER_DEFAULT);
   }
 
   public String getBootSetupAgentPassword() {

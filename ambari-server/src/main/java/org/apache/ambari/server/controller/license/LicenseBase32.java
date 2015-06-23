@@ -92,7 +92,7 @@ public class LicenseBase32 {
     }
 
     public static void main(String[] args) {
-        String input = "jerryjzhang-3-2016/06/21";
+        String input = "jerryjzhang-2-2015/06/21";
         byte[] inputBuf = input.getBytes();
         String encoded = LicenseBase32.encode(inputBuf);
         System.err.println("encoded: " + encoded);

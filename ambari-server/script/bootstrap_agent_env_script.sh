@@ -15,6 +15,7 @@ if [ ! -d ${home_root} ]; then
 fi
 if cat /etc/passwd | awk -F : '{print $1}' | grep "^${name}$" >/dev/null 2>&1
   then
+    home_root=`cat /etc/passwd | grep ${name}: | awk -F':' '{print $6}' | xargs dirname`
     echo "the ${name} user has always exist"
   else
     pass=$(perl -e 'print crypt($ARGV[0], "wtf")' ${password})
@@ -41,4 +42,4 @@ chmod 700 ${sshPath}
 chown ${name}:${name} ${sshPath}
 
 chmod 440 /etc/sudoers
-echo "ambari ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+echo "${name} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers

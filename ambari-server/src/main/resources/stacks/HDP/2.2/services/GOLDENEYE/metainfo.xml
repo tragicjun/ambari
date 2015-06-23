@@ -21,12 +21,12 @@
         <service>
             <name>GOLDENEYE</name>
             <displayName>GoldenEye</displayName>
-            <comment>golden eye</comment>
+            <comment>黄金眼：可视化运营报表工具。自助创建报表门户，无需coding基础; 可视化数据源配置,支持mysql,postgre,oracle等多种数据库; 标准报表页面模块，灵活拖拽布局。</comment>
             <version>1.0.0</version>
             <components>
                 <component>
                     <name>GOLDENEYE_WEB</name>
-                    <displayName>Golden Web</displayName>
+                    <displayName>GoldenEye Web</displayName>
                     <category>MASTER</category>
                     <cardinality>1</cardinality>
                     <commandScript>
@@ -39,7 +39,7 @@
 
                 <component>
                     <name>GOLDENEYE_METADATA_DATABASE</name>
-                    <displayName>Golden Eye Metadata Database</displayName>
+                    <displayName>GoldenEye MetaDB</displayName>
                     <category>MASTER</category>
                     <cardinality>1</cardinality>
                     <commandScript>

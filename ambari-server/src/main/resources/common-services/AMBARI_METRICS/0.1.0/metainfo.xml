@@ -20,7 +20,7 @@
   <services>
     <service>
       <name>AMBARI_METRICS</name>
-      <displayName>Ambari Metrics</displayName>
+      <displayName>Metrics</displayName>
       <version>0.1.0</version>
       <comment>A system for metrics collection that provides storage and retrieval capability for metrics collected from the cluster
       </comment>

@@ -57,7 +57,7 @@ cat /etc/my.cnf | awk -v var=$MYSQL_DB_DATA_DIR '{if($MYSQL_DB_DATA_DIR~/^datadi
 cat my.cnf.tmp | awk -v var=$MYSQL_DB_PORT '{if($MYSQL_DB_PORT~/^port=/){print "port="var}else print $0}' > my.cnf.tmp.tmp
 
 # Check whether the mysql listen port already exists
-PORT_EXIST=`cat my.cnf.tmp.tmp | grep -iE "^port==$MYSQL_DB_PORT\$" | wc -l`
+PORT_EXIST=`cat my.cnf.tmp.tmp | grep -iE "^port=$MYSQL_DB_PORT\$" | wc -l`
 if [ $PORT_EXIST -le 0 ]; then
         #shoud not add listen in DEFAULT_HTTPD_CONF
        echo "port=$MYSQL_DB_PORT" >> my.cnf.tmp.tmp    

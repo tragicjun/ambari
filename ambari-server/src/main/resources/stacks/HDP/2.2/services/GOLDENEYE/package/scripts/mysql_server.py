@@ -51,15 +51,6 @@ class MysqlServer(Script):
   def start(self, env):
     import params
     env.set_params(params)
-
-    #test
-    print 'init scripts'
-    configinit().init_mysql_scripts()
-	
-    print 'update configs'
-    self.configure(env)
-    #test
-
     mysql_service(daemon_name=params.daemon_name, action = 'start')
     print "ok"
 

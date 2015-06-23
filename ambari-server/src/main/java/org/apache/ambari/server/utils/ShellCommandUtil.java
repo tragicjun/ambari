@@ -39,17 +39,20 @@ public class ShellCommandUtil {
   public static Result runCommand(String shellPath, String... params) throws IOException, InterruptedException {	
     String[] cmds = merge(shellPath, params);
     LOG.info("execute shell: " + shellPath + " params:" + arrayToString(params));
-	Process process = Runtime.getRuntime().exec(cmds);
-	process.waitFor();
-    String stdout = streamToString(process.getInputStream());
-    String stderr = streamToString(process.getErrorStream());
-    int exitCode = process.exitValue();
-    if(LOG.isDebugEnabled()){
-    	LOG.debug("exitCode:"+exitCode);
-    	LOG.debug("stdout:"+stdout);
-    }
-    LOG.error("stderr:"+stderr);
-    return new Result(exitCode, stdout, stderr);
+//	Process process = Runtime.getRuntime().exec(cmds);
+//	process.waitFor();
+//    String stdout = streamToString(process.getInputStream());
+//    String stderr = streamToString(process.getErrorStream());
+//    int exitCode = process.exitValue();
+//    LOG.info("exitCode:"+exitCode);
+//    LOG.info("stdout:"+stdout);
+//    LOG.error("stderr:"+stderr);
+//    return new Result(exitCode, stdout, stderr);
+    Result runCommand = ShellCommandUtil.runCommand(cmds);
+    LOG.info("exitCode:"+runCommand.getExitCode());
+    LOG.info("stdout:"+runCommand.getStdout());
+    LOG.error("stderr:"+runCommand.getStderr());
+    return runCommand;
   }
   
   private static String[] merge(String shellPath, String[] params) {

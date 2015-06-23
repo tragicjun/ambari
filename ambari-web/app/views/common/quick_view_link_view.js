@@ -123,6 +123,7 @@ App.QuickViewLinks = Em.View.extend({
   setLhotseSuccessCallback : function(response) {
 	  var self = this;
 	  var hosts = this.get('lhotseHosts');
+	  var serviceName = this.get('curService');
       quickLinks = this.get('content.quickLinks').map(function (item) {
         var protocol = self.setProtocol(item.get('service_id'), self.get('configProperties'), self.ambariProperties());
         if (item.get('template')) {
@@ -133,7 +134,11 @@ App.QuickViewLinks = Em.View.extend({
 			}
 			
 			var port = response.items[0].properties['listen.port']
-			item.set('url', item.get('template').fmt(protocol, hosts[0], port)+'lhotse/index.php/user/auto_login?username='+loginName+'&r='+hash);
+			if (serviceName == 'LHOTSE') {
+				item.set('url', item.get('template').fmt(protocol, hosts[0], port)+'lhotse/index.php/user/auto_login?username='+loginName+'&r='+hash);
+			} else {
+				item.set('url', item.get('template').fmt(protocol, hosts[0], port)+'goldeneye/';
+			}
 
         }
         return item;
@@ -143,12 +148,13 @@ App.QuickViewLinks = Em.View.extend({
   },
   
   getLhotseTag : function(response) {
+	var type = this.get('webType');
 	App.ajax.send({
 	  name: 'config.server_info',
 	  sender: this,
 	  data: {
 		clusterName: App.get('clusterName'),
-		params : 'type=lhotse-web&tag='+response.Clusters.desired_configs['lhotse-web'].tag
+		params : 'type='+type+'&tag='+response.Clusters.desired_configs[type].tag
 	  },
 	  success: 'setLhotseSuccessCallback'
 	});	
@@ -159,14 +165,17 @@ App.QuickViewLinks = Em.View.extend({
     var quickLinks = [];
     var hosts = this.setHost(response, this.get('content.serviceName'));
 	var serviceName = this.get('content.serviceName');
-	if (serviceName == 'LHOTSE') {
+	if (serviceName == 'LHOTSE' || serviceName == 'GOLDENEYE') {
 		this.set('lhotseHosts', hosts);
+		this.set('curService', serviceName);
+		var type = serviceName == 'LHOTSE' ? 'lhotse-web' : 'goldeneye-web';
+		this.set('webType', type);
 		App.ajax.send({
 		  name: 'config.latest_tag_info',
 		  sender: this,
 		  data: {
 			clusterName: App.get('clusterName'),
-			params : 'lhotse-web'
+			params : type
 		  },
 		  success: 'getLhotseTag'
 		});	
@@ -322,7 +331,7 @@ App.QuickViewLinks = Em.View.extend({
         break;
 	  case "LHOTSE":
 		hosts[0] = this.findComponentHost(response.items, "LHOTSE_WEB");
-		break;
+		break;  
       default:
         var service = App.StackService.find().findProperty('serviceName', serviceName);
         if (service && service.get('hasMaster')) {
