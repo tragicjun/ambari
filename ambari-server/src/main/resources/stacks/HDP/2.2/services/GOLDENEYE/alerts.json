@@ -3,8 +3,8 @@
     "GOLDENEYE_WEB": [
       {
         "name": "goldeneye_web_process",
-        "label": "Golden Eye Web Process",
-        "description": "当Golden Eye Web的端口未开放或连接超时时，触发该告警。",
+        "label": "GoldenEye Web Process",
+        "description": "当GoldenEye Web的端口未开放或连接超时时，触发该告警。",
         "interval": 1,
         "scope": "ANY",
         "enabled": true,
@@ -30,29 +30,15 @@
     ],
     "GOLDENEYE_METADATA_DATABASE": [
       {
-        "name": "goldeneye_metadata_database_process",
-        "label": "Golden Eye Metadata Database Process",
-        "description": "当Golden Eye Metadata Database的端口未开放或连接超时时，触发该告警。",
+        "name": "goldeneye_metadb_process",
+        "label": "GoldenEye MetaDB Process",
+        "description": "当GoldenEye MetaDB的端口未开放或连接超时时，触发该告警。",
         "interval": 1,
         "scope": "ANY",
         "enabled": true,
         "source": {
-          "type": "PORT",
-          "uri": "0.0.0.0:{{goldeneye-database/database.port}}",
-          "default_port": "3306",
-          "reporting": {
-            "ok": {
-              "text": "TCP OK - {0:.3f}s response on port {1}"
-            },
-            "warning": {
-              "text": "TCP OK - {0:.3f}s response on port {1}",
-              "value": 1.5
-            },
-            "critical": {
-              "text": "Connection failed: {0} to {1}:{2}",
-              "value": 5.0
-            }
-          }
+          "type": "SCRIPT",
+          "path": "HDP/2.2/services/GOLDENEYE/package/alerts/check_goldeneye_database.py"
         }
       }
     ]

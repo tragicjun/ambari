@@ -83,7 +83,12 @@ App.WizardStep0Controller = Em.Controller.extend({
    */
   submit: function () {
     this.set('hasSubmitted', true);
-    if ((!this.get('invalidClusterName')) && (!this.get('invalidLicenseKey'))) {
+	var val = $.trim($('#StepLicenseKey').val());
+	var flag = $.trim($('#StepLicenseKey').val()) == '' ? false : true;
+	if (!flag) {
+		this.set('licenseError', '许可证不能为空');
+	}
+    if ((!this.get('invalidClusterName')) && flag) {
 	
 	  sendLicenseKey();
       App.clusterStatus.set('clusterName', this.get('content.cluster.name'));
