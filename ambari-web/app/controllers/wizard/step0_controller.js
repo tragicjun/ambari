@@ -54,10 +54,27 @@ App.WizardStep0Controller = Em.Controller.extend({
    * todo: mix this and previous variables in one
    */
   clusterNameError: '',
+  licenseError : '',
 
   loadStep: function () {
     this.set('hasSubmitted', false);
     this.set('clusterNameError', '');
+  },
+  
+  sendLicenseKey: function() {
+	var url = App.get('apiPrefix') + '/license/';
+	var data = $('#StepLicenseKey').val();
+	$.post(url, data, function(){
+	});
+  },
+  
+  invalidLicenseKey : function() {
+	var val = $.trim($('#StepLicenseKey').val());
+	if (val == '') {
+		return false;
+	} else {
+		return true;
+	}
   },
 
   /**
@@ -66,7 +83,9 @@ App.WizardStep0Controller = Em.Controller.extend({
    */
   submit: function () {
     this.set('hasSubmitted', true);
-    if (!this.get('invalidClusterName')) {
+    if ((!this.get('invalidClusterName')) && (!this.get('invalidLicenseKey'))) {
+	
+	  sendLicenseKey();
       App.clusterStatus.set('clusterName', this.get('content.cluster.name'));
       this.set('content.cluster.status', 'PENDING');
       this.set('content.cluster.isCompleted', false);

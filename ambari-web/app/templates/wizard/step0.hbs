@@ -29,9 +29,13 @@
     </label>
 
     <div class="controls">
-      {{view App.WizardStep0ViewClusterNameInput id="cluster-name" valueBinding="content.cluster.name" placeholder="cluster name" target="controller"}}
+      {{view App.WizardStep0ViewClusterNameInput id="cluster-name" valueBinding="content.cluster.name" placeholder="集群名称" target="controller"}}
       <p class="help-inline">{{clusterNameError}}</p>
     </div>
+	
+	<div class="controls">
+		<input type="text" id="StepLicenseKey" placeholder="License" /><p class="help-inline">{{licenseError}}</p>
+	</div>
   </div>
 
   <div class="btn-area">
