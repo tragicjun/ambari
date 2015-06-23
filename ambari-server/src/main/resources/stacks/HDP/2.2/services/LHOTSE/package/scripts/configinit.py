@@ -23,12 +23,12 @@ class configinit:
       content=Template("base.lhotse.properties.j2")
     )
 
-    print 'create hadoop-metrics.properties file'
-    File(os.path.join(params.base_config_path,'hadoop-metrics.properties'),
+    print 'create hadoop-metrics2.properties file'
+    File(os.path.join(params.base_config_path,'hadoop-metrics2.properties'),
       owner='lhotse',
       group='lhotse',
       mode=0644,
-      content=Template("base.hadoop-metrics.properties.j2")
+      content=Template("base.hadoop-metrics2.properties.j2")
     )
 
   def update_runner_config(self,env):

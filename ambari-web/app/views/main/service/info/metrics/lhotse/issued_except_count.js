@@ -35,8 +35,8 @@ App.ChartServiceMetricsLhotse_IssuedExceptCount= App.ChartLinearTimeView.extend(
 
   transformToSeries: function (jsonData) {
     var seriesArray = [];
-    if (jsonData && jsonData.metrics && jsonData.metrics.lhotse_file && jsonData.metrics.lhotse_file.metrics_file && jsonData.metrics.lhotse_file.metrics_file.issued_except_count) {
-      var seriesData = jsonData.metrics.lhotse_file.metrics_file.issued_except_count;
+    if (jsonData && jsonData.metrics && jsonData.metrics.lhotse_db && jsonData.metrics.lhotse_db.metrics_db && jsonData.metrics.lhotse_db.metrics_db.issued_except_count) {
+      var seriesData = jsonData.metrics.lhotse_db.metrics_db.issued_except_count;
       if (seriesData) {
         var s = this.transformData(seriesData, Em.I18n.t('services.service.info.metrics.lhotse.issuedExceptCount.displayName.totalNum'));
         seriesArray.push(s);

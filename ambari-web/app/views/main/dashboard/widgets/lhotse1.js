@@ -37,9 +37,9 @@ App.Lhotse1View = App.DashboardWidgetView.extend({
 	
   transformToSeries: function (jsonData) {
     var seriesArray = [];
-    if (jsonData && jsonData.metrics && jsonData.metrics.lhotse_db && jsonData.metrics.lhotse_db.metrics_file && jsonData.metrics.lhotse_db.metrics_file.issue_avg_time) {
-      for ( var name in jsonData.metrics.lhotse_db.metrics_file.issue_avg_time) {
-        var seriesData = jsonData.metrics.lhotse_db.metrics_file.issue_avg_time[name];
+    if (jsonData && jsonData.metrics && jsonData.metrics.lhotse_db && jsonData.metrics.lhotse_db.metrics_db && jsonData.metrics.lhotse_db.metrics_db.issue_avg_time) {
+      for ( var name in jsonData.metrics.lhotse_db.metrics_db.issue_avg_time) {
+        var seriesData = jsonData.metrics.lhotse_db.metrics_db.issue_avg_time[name];
         var displayName = App.lhotse_task_type[name];
         if (seriesData) {
           var s = this.transformData(seriesData, displayName);

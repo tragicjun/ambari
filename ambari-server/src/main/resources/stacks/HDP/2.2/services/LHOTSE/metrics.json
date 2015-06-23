@@ -4,113 +4,113 @@
       {
         "type": "ganglia",
         "metrics": {
-          "metrics/lhotse_file/metrics_file/issued_except_count": {
-            "metric": "lhotse_file.metrics_file.issued_except_count",
+          "metrics/lhotse_db/metrics_db/issued_except_count": {
+            "metric": "lhotse_db.metrics_db.issued_except_count",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/issued_instance_count/66": {
-            "metric": "lhotse_file.metrics_file.issued_instance_count.66",
+          "metrics/lhotse_db/metrics_db/issued_instance_count/66": {
+            "metric": "lhotse_db.metrics_db.issued_instance_count.66",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/issued_instance_count/67": {
-            "metric": "lhotse_file.metrics_file.issued_instance_count.67",
+          "metrics/lhotse_db/metrics_db/issued_instance_count/67": {
+            "metric": "lhotse_db.metrics_db.issued_instance_count.67",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/issued_instance_count/68": {
-            "metric": "lhotse_file.metrics_file.issued_instance_count.68",
+          "metrics/lhotse_db/metrics_db/issued_instance_count/68": {
+            "metric": "lhotse_db.metrics_db.issued_instance_count.68",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/issued_instance_count/92": {
-            "metric": "lhotse_file.metrics_file.issued_instance_count.92",
+          "metrics/lhotse_db/metrics_db/issued_instance_count/92": {
+            "metric": "lhotse_db.metrics_db.issued_instance_count.92",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/issued_instance_count/118": {
-            "metric": "lhotse_file.metrics_file.issued_instance_count.118",
+          "metrics/lhotse_db/metrics_db/issued_instance_count/118": {
+            "metric": "lhotse_db.metrics_db.issued_instance_count.118",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/issued_instance_count/119": {
-            "metric": "lhotse_file.metrics_file.issued_instance_count.119",
+          "metrics/lhotse_db/metrics_db/issued_instance_count/119": {
+            "metric": "lhotse_db.metrics_db.issued_instance_count.119",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/issued_instance_count/120": {
-            "metric": "lhotse_file.metrics_file.issued_instance_count.120",
+          "metrics/lhotse_db/metrics_db/issued_instance_count/120": {
+            "metric": "lhotse_db.metrics_db.issued_instance_count.120",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/issue_avg_time/66": {
-            "metric": "lhotse_file.metrics_file.issue_avg_time.66",
+          "metrics/lhotse_db/metrics_db/issue_avg_time/66": {
+            "metric": "lhotse_db.metrics_db.issue_avg_time.66",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/issue_avg_time/67": {
-            "metric": "lhotse_file.metrics_file.issue_avg_time.67",
+          "metrics/lhotse_db/metrics_db/issue_avg_time/67": {
+            "metric": "lhotse_db.metrics_db.issue_avg_time.67",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/issue_avg_time/68": {
-            "metric": "lhotse_file.metrics_file.issue_avg_time.68",
+          "metrics/lhotse_db/metrics_db/issue_avg_time/68": {
+            "metric": "lhotse_db.metrics_db.issue_avg_time.68",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/issue_avg_time/92": {
-            "metric": "lhotse_file.metrics_file.issue_avg_time.92",
+          "metrics/lhotse_db/metrics_db/issue_avg_time/92": {
+            "metric": "lhotse_db.metrics_db.issue_avg_time.92",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/issue_avg_time/118": {
-            "metric": "lhotse_file.metrics_file.issue_avg_time.118",
+          "metrics/lhotse_db/metrics_db/issue_avg_time/118": {
+            "metric": "lhotse_db.metrics_db.issue_avg_time.118",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/issue_avg_time/119": {
-            "metric": "lhotse_file.metrics_file.issue_avg_time.119",
+          "metrics/lhotse_db/metrics_db/issue_avg_time/119": {
+            "metric": "lhotse_db.metrics_db.issue_avg_time.119",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/issue_avg_time/120": {
-            "metric": "lhotse_file.metrics_file.issue_avg_time.120",
+          "metrics/lhotse_db/metrics_db/issue_avg_time/120": {
+            "metric": "lhotse_db.metrics_db.issue_avg_time.120",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/base_request_count/66": {
-            "metric": "lhotse_file.metrics_file.base_request_count.66",
+          "metrics/lhotse_db/metrics_db/base_request_count/66": {
+            "metric": "lhotse_db.metrics_db.base_request_count.66",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/base_request_count/67": {
-            "metric": "lhotse_file.metrics_file.base_request_count.67",
+          "metrics/lhotse_db/metrics_db/base_request_count/67": {
+            "metric": "lhotse_db.metrics_db.base_request_count.67",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/base_request_count/68": {
-            "metric": "lhotse_file.metrics_file.base_request_count.68",
+          "metrics/lhotse_db/metrics_db/base_request_count/68": {
+            "metric": "lhotse_db.metrics_db.base_request_count.68",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/base_request_count/92": {
-            "metric": "lhotse_file.metrics_file.base_request_count.92",
+          "metrics/lhotse_db/metrics_db/base_request_count/92": {
+            "metric": "lhotse_db.metrics_db.base_request_count.92",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/base_request_count/118": {
-            "metric": "lhotse_file.metrics_file.base_request_count.118",
+          "metrics/lhotse_db/metrics_db/base_request_count/118": {
+            "metric": "lhotse_db.metrics_db.base_request_count.118",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/base_request_count/119": {
-            "metric": "lhotse_file.metrics_file.base_request_count.119",
+          "metrics/lhotse_db/metrics_db/base_request_count/119": {
+            "metric": "lhotse_db.metrics_db.base_request_count.119",
             "pointInTime": true,
             "temporal": true
           },
-          "metrics/lhotse_file/metrics_file/base_request_count/120": {
-            "metric": "lhotse_file.metrics_file.base_request_count.120",
+          "metrics/lhotse_db/metrics_db/base_request_count/120": {
+            "metric": "lhotse_db.metrics_db.base_request_count.120",
             "pointInTime": true,
             "temporal": true
           },

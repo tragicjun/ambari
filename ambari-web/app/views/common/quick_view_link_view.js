@@ -137,7 +137,7 @@ App.QuickViewLinks = Em.View.extend({
 			if (serviceName == 'LHOTSE') {
 				item.set('url', item.get('template').fmt(protocol, hosts[0], port)+'lhotse/index.php/user/auto_login?username='+loginName+'&r='+hash);
 			} else {
-				item.set('url', item.get('template').fmt(protocol, hosts[0], port)+'goldeneye/';
+				item.set('url', item.get('template').fmt(protocol, hosts[0], port)+'goldeneye/');
 			}
 
         }

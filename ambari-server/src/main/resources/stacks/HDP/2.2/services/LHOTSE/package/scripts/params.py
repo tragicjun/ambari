@@ -10,10 +10,11 @@ hadoop_conf_dir = "/etc/hadoop/conf"
 
 pid_file = '/usr/local/lhotse_base/lhotsebase.pid'
 
-#gmond
-gmond_host = default("/clusterHostInfo/ganglia_server_host", ["127.0.0.1"])[0]
-gmond_port = 8672
-gmond_period = default("/configurations/lhotse-base-env/metrics.report.period", 300)
+#metric
+host_name = default("/hostname", "127.0.0.1")
+collector_host = default("/clusterHostInfo/metrics_collector_hosts", ["127.0.0.1"])[0]
+collector_port = default("/configurations/ams-site/timeline.metrics.service.webapp.address", "127.0.0.1:6188").split(":")[-1]
+sink_period = default("/configurations/lhotse-base-env/metrics.report.period", 300)
 
 #lhotse runner config
 lhotse_runner_hosts = default("/clusterHostInfo/lhotse_runner_hosts", ["127.0.0.1"])[0]

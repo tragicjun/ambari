@@ -717,7 +717,7 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
 						
 						str += '<td><div class="progress-wrap"><div class="progress progress-info"><div style="width:'+process+'%" class="bar"></div></div><span>'+process+'%</span></div></td>';
 						// metrics/load/load_one
-						str += '<td>'+(data[key][i].metrics.load.load_one * Math.pow(10, 4)) / Math.pow(10, 2)+'</td>';
+						str += '<td>'+(data[key][i].metrics.load.load_one * Math.pow(10, 2)) / Math.pow(10, 4)+'</td>';
 					}
 					str += '</tr>';
 					// loadAvg

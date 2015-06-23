@@ -1027,22 +1027,22 @@ var urls = {
   },
 
   'service.metrics.lhotse.issue_avg_time': {
-    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_file/metrics_file/issue_avg_time/*[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_db/metrics_db/issue_avg_time/*[{fromSeconds},{toSeconds},{stepSeconds}]',
     'mock': '/data/services/metrics/lhotse/issue_avg_time.json',
     'testInProduction': true
   },
   'service.metrics.lhotse.base_request_count': {
-    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_file/metrics_file/base_request_count/*[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_db/metrics_db/base_request_count/*[{fromSeconds},{toSeconds},{stepSeconds}]',
     'mock': '/data/services/metrics/lhotse/base_request_count.json',
     'testInProduction': true
   },
   'service.metrics.lhotse.issued_instance_count': {
-    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_file/metrics_file/issued_instance_count/*[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_db/metrics_db/issued_instance_count/*[{fromSeconds},{toSeconds},{stepSeconds}]',
     'mock': '/data/services/metrics/lhotse/issued_instance_count.json',
     'testInProduction': true
   },
   'service.metrics.lhotse.issued_except_count': {
-    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_file/metrics_file/issued_except_count[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'real': '/clusters/{clusterName}/services/LHOTSE/components/LHOTSE_BASE?fields=metrics/lhotse_db/metrics_db/issued_except_count[{fromSeconds},{toSeconds},{stepSeconds}]',
     'mock': '/data/services/metrics/lhotse/issued_except_count.json',
     'testInProduction': true
   },

@@ -1,0 +1,9 @@
+*.period=10
+*.serviceName=lhotse_base
+*.sink.demo.plugin.urls=file:///usr/lib/ambari-metrics-hadoop-sink/ambari-metrics-hadoop-sink.jar
+*.sink.demo.class=org.apache.hadoop.metrics2.sink.timeline.HadoopTimelineMetricsSink
+*.sink.demo.period=10
+*.sink.demo.slave.host.name={{host_name}}
+
+lhotse_db.sink.demo.collector={{collector_host}}:{{collector_port}}
+lhotse_db.sink.demo.period={{sink_period}}

@@ -35,9 +35,9 @@ App.ChartServiceMetricsLhotse_IssuedInstanceCount = App.ChartLinearTimeView.exte
 
   transformToSeries: function (jsonData) {
     var seriesArray = [];
-    if (jsonData && jsonData.metrics && jsonData.metrics.lhotse_file && jsonData.metrics.lhotse_file.metrics_file && jsonData.metrics.lhotse_file.metrics_file.issued_instance_count) {
-      for ( var name in jsonData.metrics.lhotse_file.metrics_file.issued_instance_count) {
-        var seriesData = jsonData.metrics.lhotse_file.metrics_file.issued_instance_count[name];
+    if (jsonData && jsonData.metrics && jsonData.metrics.lhotse_db && jsonData.metrics.lhotse_db.metrics_db && jsonData.metrics.lhotse_db.metrics_db.issued_instance_count) {
+      for ( var name in jsonData.metrics.lhotse_db.metrics_db.issued_instance_count) {
+        var seriesData = jsonData.metrics.lhotse_db.metrics_db.issued_instance_count[name];
         var displayName = App.lhotse_task_type[name];
         if (seriesData) {
           var s = this.transformData(seriesData, displayName);
