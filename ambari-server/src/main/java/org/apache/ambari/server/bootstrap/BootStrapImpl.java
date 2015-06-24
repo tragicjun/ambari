@@ -59,7 +59,6 @@ public class BootStrapImpl {
   private final String clusterOsFamily;
   private String projectVersion;
   private int serverPort;
-  private String bootstrapIdRsaLocation;
   private String bootstrapSSHUser;
 
   @Inject
@@ -78,7 +77,6 @@ public class BootStrapImpl {
     this.serverPort = (conf.getApiSSLAuthentication())? conf.getClientSSLApiPort() : conf.getClientApiPort();
     this.agentDefaultLoginUser = conf.getAgentDefaultLoginUser();
     this.agentDefaultLoginPassword = conf.getAgentDefaultLoginPassword();
-    this.bootstrapIdRsaLocation = conf.getBootstrapIdRsaLocation();
     this.bootstrapSSHUser = conf.getBootstrapSSHUser();
   }
 
@@ -230,10 +228,6 @@ public class BootStrapImpl {
   public String getAgentDefaultLoginPassword() {
 	return this.agentDefaultLoginPassword;
   }
-
-public String getBootstrapIdRsaLocation() {
-	return bootstrapIdRsaLocation;
-}
 
 public String getBootstrapSSHUser() {
 	return bootstrapSSHUser;

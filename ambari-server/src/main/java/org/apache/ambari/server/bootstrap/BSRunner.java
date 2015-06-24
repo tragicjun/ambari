@@ -29,8 +29,8 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.ambari.server.bootstrap.BootStrapStatus.BSStat;
-import org.apache.ambari.server.utils.FileUtil;
 import org.apache.ambari.server.utils.ShellCommandUtil;
+import org.apache.ambari.server.utils.ShellCommandUtil.Result;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -157,9 +157,11 @@ class BSRunner extends Thread {
 	  //check the ssh_keygen
 	  String sshKeygenShellPath = SCRIPTS_DIR+"/bootstrap_agent_ssh_keygen.sh";
 	  try {
-		  ShellCommandUtil.runCommand(sshKeygenShellPath);
+		  ShellCommandUtil.runCommand(sshKeygenShellPath, this.bsImpl.getBootstrapSSHUser());
 		  //set the private key 
-		  sshHostInfo.setSshKey(FileUtil.read(this.bsImpl.getBootstrapIdRsaLocation()));
+		  String privateKeyContentPath = SCRIPTS_DIR+"/bootstrap_get_private_key_content.sh";
+		  Result runCommand = ShellCommandUtil.runCommand(privateKeyContentPath, this.bsImpl.getBootstrapSSHUser());
+		  sshHostInfo.setSshKey(runCommand.getStdout());
 		  sshHostInfo.setUser(this.bsImpl.getBootstrapSSHUser());
 		  //set the agent environment: create ambari user and copy the public key to agent
 		  List<String> hosts = sshHostInfo.getHosts();

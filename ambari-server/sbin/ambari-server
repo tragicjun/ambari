@@ -143,6 +143,10 @@ case "$1" in
         echo -e "Restoring Ambari File System state"
         $PYTHON /usr/sbin/ambari-server.py $@
         ;;
+  clean)
+        echo -e "Clean Ambari cluster includes Agent"
+        /var/lib/ambari-server/resources/scripts/clean/service_cleaner.sh
+        ;;
   *)
         echo "Usage: /usr/sbin/ambari-server
         {start|stop|restart|setup|setup-jce|upgrade|status|upgradestack|setup-ldap|sync-ldap|set-current|setup-security|refresh-stack-hash|backup|restore} [options]

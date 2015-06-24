@@ -14,12 +14,13 @@
     <description>Golden Eye 数据库密码</description>
   </property>
 
+<!--
   <property>
     <name>database.port</name>
     <value>3306</value>
     <description>Golden Eye 数据库端口号</description>
   </property>
-  
+-->
   <property>
     <name>data.dir</name>
     <value>/data/goldeneye/mysql_data</value>

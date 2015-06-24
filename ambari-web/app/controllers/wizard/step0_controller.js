@@ -86,11 +86,11 @@ App.WizardStep0Controller = Em.Controller.extend({
 	var val = $.trim($('#StepLicenseKey').val());
 	var flag = $.trim($('#StepLicenseKey').val()) == '' ? false : true;
 	if (!flag) {
-		this.set('licenseError', 'Ğí¿ÉÖ¤²»ÄÜÎª¿Õ');
+		this.set('licenseError', 'è®¸å¯è¯ä¸èƒ½ä¸ºç©º');
 	}
     if ((!this.get('invalidClusterName')) && flag) {
 	
-	  sendLicenseKey();
+	    this.sendLicenseKey();
       App.clusterStatus.set('clusterName', this.get('content.cluster.name'));
       this.set('content.cluster.status', 'PENDING');
       this.set('content.cluster.isCompleted', false);

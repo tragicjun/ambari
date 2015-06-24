@@ -32,7 +32,7 @@ class AmbariCleaner(Script):
     cmd = "sudo yum erase -y ambari-agent*"
     self.run_cmd(cmd)
     
-
+  def remove_dir(self):
     cmd = "suro rm -rf /var/lib/ambari*"
     self.run_cmd(cmd)
 
@@ -51,7 +51,13 @@ class AmbariCleaner(Script):
     cmd = "rm -rf /usb/sbin/ambari*"
     self.run_cmd(cmd)
 
-  
+    cmd = "sudo rm -rf /usb/lib/python2.6/site-packages/ambari*"
+    self.run_cmd(cmd)
+
+    cmd = "sudo rm -R /usr/lib/python2.6/site-packages/resource_management"
+    self.run_cmd(cmd)
+
+
   def yum_clean(self):
     print "yum clean all"
     cmd = "sudo yum clean all"
@@ -68,9 +74,11 @@ class AmbariCleaner(Script):
   def main(self):
     self.cleaner_services()
     
-   # self.eraseagent()
+    self.eraseagent()
 
     self.yum_clean()
+
+    self.remove_dir()
 
 if __name__ == '__main__':
    obj = AmbariCleaner()
