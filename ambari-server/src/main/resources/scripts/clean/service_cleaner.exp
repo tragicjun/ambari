@@ -7,7 +7,7 @@ set timeout -1
 
 spawn ssh -A -o StrictHostKeyChecking=no -o GSSAPIAuthentication=no ${user}@${host}
 expect {
-        "*password:*" {send "${ssh_password}\r"}
+        "*password:*" {send "${password}\r"}
         "$*" {send "\r"}
         "#*" {send "\r"}
 }

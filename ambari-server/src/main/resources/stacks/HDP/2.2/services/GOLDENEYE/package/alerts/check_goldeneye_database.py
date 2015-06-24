@@ -24,14 +24,13 @@ LABEL = 'Last Checkpoint: [{h} hours, {m} minutes, {tx} transactions]'
 
 GOLDENEYE_DATABASE_USER = '{{goldeneye-database/goldeneye.db.username}}'
 GOLDENEYE_DATABASE_PASSWORD = '{{goldeneye-database/goldeneye.db.password}}'
-GOLDENEYE_DATABASE_PORT = '{{goldeneye-database/database.port}}'
 
 def get_tokens():
   """
   Returns a tuple of tokens in the format {{site/property}} that will be used
   to build the dictionary passed into execute
   """
-  return (GOLDENEYE_DATABASE_USER, GOLDENEYE_DATABASE_PASSWORD, GOLDENEYE_DATABASE_PORT)
+  return (GOLDENEYE_DATABASE_USER, GOLDENEYE_DATABASE_PASSWORD)
   
 
 def execute(parameters=None, host_name=None):
@@ -55,8 +54,6 @@ def execute(parameters=None, host_name=None):
     user = parameters[GOLDENEYE_DATABASE_USER]
   if GOLDENEYE_DATABASE_PASSWORD in parameters:
     psw = parameters[GOLDENEYE_DATABASE_PASSWORD]
-  if GOLDENEYE_DATABASE_PORT in parameters:
-    psw = parameters[GOLDENEYE_DATABASE_PORT]
 
   cmd = 'mysql -h"' + host + '" -P"' + port + '" -u"' + user + '" -p"' + psw + '" -e"show databases"'
   (ret, out) = commands.getstatusoutput(cmd)

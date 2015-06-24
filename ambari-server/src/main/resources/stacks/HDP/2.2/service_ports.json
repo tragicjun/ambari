@@ -135,7 +135,7 @@
       "goldeneye-web/listen.port"
     ],
     "GOLDENEYE_METADATA_DATABASE":[
-      "goldeneye-database/database.port"
+      "3306"
     ]
   }
 }
