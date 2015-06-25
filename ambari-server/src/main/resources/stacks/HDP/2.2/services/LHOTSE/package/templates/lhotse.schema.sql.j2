@@ -1,0 +1,1069 @@
+-- MySQL dump 10.13  Distrib 5.1.73, for redhat-linux-gnu (x86_64)
+--
+-- Host: 10.151.135.211    Database: lhotse_open
+-- ------------------------------------------------------
+-- Server version	5.1.73
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `lb_error_desc`
+--
+
+DROP TABLE IF EXISTS `lb_error_desc`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_error_desc` (
+  `key_words` varchar(255) NOT NULL DEFAULT '',
+  `example` text,
+  `type` int(11) DEFAULT NULL,
+  `system` varchar(20) DEFAULT NULL,
+  `modId` int(5) DEFAULT NULL,
+  `oper` varchar(255) NOT NULL DEFAULT '',
+  `update_time` datetime DEFAULT NULL,
+  `operation` varchar(4000) DEFAULT '',
+  `creater` varchar(20) DEFAULT NULL,
+  `create_time` date DEFAULT NULL,
+  PRIMARY KEY (`key_words`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_error_desc`
+--
+
+LOCK TABLES `lb_error_desc` WRITE;
+/*!40000 ALTER TABLE `lb_error_desc` DISABLE KEYS */;
+INSERT INTO `lb_error_desc` VALUES ('TDW-00105%INSERT TABLE',NULL,0,'gaia',NULL,'libbyli','2013-05-14 08:49:23','任务配置字段与目标表字段不一致，或字段存在类型不匹配等问题',NULL,NULL),('Mr run failed','Mr run failed',2,'bgp',NULL,'lhotse任务责任人','2014-09-28 18:05:13','1、登录hadoop doctor： http://hadoopdoctor.tdw.oa.com/hadoopdoctor/gaia/jobdetailshistory.php?； 2、输入对应mr job_id查询，具体使用参考： http://km.oa.com/group/2430/articles/show/194176?kmref=search','libbyli',NULL),('Load to postgre failed because no data exported from TDW',NULL,0,'gaia',NULL,'libbyli','2013-05-14 08:51:00','加载DB数据为空',NULL,NULL),('Oracle target table name should contain the schema name',NULL,0,'gaia',NULL,'libbyli','2013-05-14 08:50:07','表名前需要增加DB schema',NULL,NULL),('ORA-',NULL,0,'gaia',NULL,'libbyli','2013-05-14 08:50:32','O库相关异常请联系结果库DBA',NULL,NULL),('TDW-00105%gz maybe is empty',NULL,0,'gaia',NULL,'libbyli','2013-05-14 08:48:38','业务上报压缩数据存在异常，请根据异常日志检查上报数据',NULL,NULL),('Load to Oracle failed because no data exported from TDW',NULL,0,'gaia',NULL,'libbyli','2013-05-14 08:51:06','加载DB数据为空',NULL,NULL),('TDW-00105%Parse Error',NULL,0,'gaia',NULL,'libbyli','2013-05-02 16:24:39','脚本语法错误',NULL,NULL),('TDW-00105%Error in semantic analysis',NULL,0,'gaia',NULL,'libbyli','2013-05-02 16:24:34','脚本语法错误',NULL,NULL),('chk: No such file or directory',NULL,0,'gaia',NULL,'libbyli','2013-05-14 08:51:14','业务数据未上报对账文件，请检查上报信息',NULL,NULL),('src check file is not exists',NULL,0,'gaia',NULL,'libbyli','2013-05-14 08:49:33','业务数据未上报对账文件，请检查上报信息',NULL,NULL),('java.lang.NullPointerException',NULL,1,'gaia',NULL,'libbyli','2013-04-28 16:09:46','联系管理员解决',NULL,NULL),('Check file path%doesn\'t exist',NULL,0,'gaia',NULL,'libbyli','2013-05-14 08:51:19','业务数据未上报对账文件，请检查上报信息',NULL,NULL),('Check file path%doesn\\\'t exist',NULL,0,'gaia',NULL,'libbyli','2013-05-14 08:45:26','业务数据未上报对账文件，请检查上报信息',NULL,NULL),('Network communication',NULL,1,'gaia',NULL,'libbyli','2013-06-26 18:12:14','重跑',NULL,NULL),('java.util.NoSuchElementException',NULL,1,'gaia',NULL,'libbyli','2013-06-26 18:14:35','nn升级时产生-重跑',NULL,NULL),('TDWServer run SQL error',NULL,1,'gaia',NULL,'libbyli','2013-06-26 18:14:58','hive重启-重跑',NULL,NULL),('java.net.ConnectException',NULL,1,'gaia',NULL,'libbyli','2013-06-26 18:29:33','nn重启-重跑',NULL,NULL),('cannot recognize input \'NULLset\'',NULL,0,'gaia',NULL,'libbyli','2013-08-29 09:24:28','语法错误，查询结果集未对NULL值进行异常处理',NULL,NULL),('EXPLAIN SELECT * FROM',NULL,0,'gaia',NULL,'libbyli','2013-08-29 09:34:11','外部表异常，入库任务字段映射存在乱码或不可见字符，请检查配置',NULL,NULL),('Condition check failed',NULL,0,'gaia',NULL,'libbyli','2013-08-29 10:22:12','脚本语法错误',NULL,NULL),('TDW-00105%pb',NULL,0,'gaia',NULL,'libbyli','2013-08-29 10:22:12','脚本语法错误',NULL,NULL),('TDW-00003',NULL,0,'gaia',NULL,'libbyli','2013-08-29 10:22:36','脚本语法错误',NULL,NULL),('TDW-00105%HiveRecordReader',NULL,0,'gaia',NULL,'libbyli','2013-08-29 10:22:36','脚本语法错误',NULL,NULL),('TDW-00105%set hive.exec.reducers.bytes.per.reducer',NULL,0,'gaia',NULL,'libbyli','2013-08-29 10:22:36','脚本语法错误',NULL,NULL),('TDW-00105 FAILED%table is not a partition table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('view can not replace',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('view can not rename a column',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('view can not add cloumns',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('user/role does not exist or user does not play this role',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('unvalid parameters, tbl is null',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Unable to rename',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Unable to move results to destination directory',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Unable to make directory',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Unable to fetch table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Unable to create destination directory',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Unable to alter table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Unable to access old location',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Unable to access new location',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('the dbname is not exist',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Table not found',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('table name is not right',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('table info can not be found',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('table can not be found',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('subparttition is not exist',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('subparttition is hash partition, can not show',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('storage descriptor of table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('sorry, can not replace columns for a pb table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('SHOW CREATE TABLE can not show protobuf Table DDL',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Should not use Show TableSize with View',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Should not use Show RowCount with View',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('should be type of',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('serde lib for the table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('run external SQL error message',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('row count only support format table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('replaceFiles: error while moving files',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('replace columns is not supported rightnow',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Replace columns is not supported for this table. SerDe may be incompatible.',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Renaming table is not supported for protobuf table. SerDe may be incompatible',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('priv out of date, you should renewal you privlage; the detail information is',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('pripartition is hash partition',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('partition table can not be repalce columns',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('partition key can not be altered',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('only manage table can rename',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('No FileSystem for scheme',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('new column name is not valid object',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('new add columns name is not valid object',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('may have finished or stopped',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('is on a different file system than the old location  + newFs + . This operation is not supported',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('is not sun-partitioned',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('is not sub-partitioned',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('is not pri-partitioned',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('is not a valid object name',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('is not a sub partition name',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('is not a pri partition name',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('is not a partitioned table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('is not a directory or unable to create one',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('have already contain a sub partition contain value',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('have already contain a sub parititon named',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('have already contain a pri partition contain value',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('have already contain a pri parititon named',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Hash Partition Number should be Positive Integer',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('has no sub partition',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('has no right to kill this query',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('has no right to clear query history',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('get size failed for sub partition',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('get size failed for pri partition',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('get size failed for partition',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('get row count failed for pri partition',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('get partition names error, db',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('get databases meta error',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('format file or column file not support boolean type rightnow',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('filesystem error in check phase',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('failed to get the table size of +table_name',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('failed to get the row count of +tbname',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Fail to set index status',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Fail to set index location',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Fail to get index type',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Fail to get index num',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Fail to get index location',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Fail to get index info',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Fail to get index field',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Fail to get columns in sys',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Fail to get all index info in sys',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Fail to get all index in table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Fail to drop the index',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Fail to create the index',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('exteranl table do not allow partitioned and table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('error while moving files',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('error while checking/creating destination directory',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Error in getting fields from serde',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('empty table creation',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Could not use Show Create Table with VIEW',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('columns not specified for table  + tableName',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('column name conflict, conflict column name is',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('clear action failed',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('cause by jdo JDOObjectNotFoundException as commit fetch',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Cannot validate serde',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Cannot use ALTER TABLE on a view',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Cannot execute delete Operation, may be the table is being used',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Cannot drop a view with DROP TABLE',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('Cannot drop a base table with DROP VIEW',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not support alter partition',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not replace columns for a text format table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not replace columns for a extenal table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not rename columns for a text format table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not rename columns for a pb table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not rename columns for a extenal table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not get this info',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not find user',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not find table/view',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not find table/column',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not find table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not find partition of level',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not find partition key information',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not find column',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not convert to',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not be found in the database',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not add columns for a text format table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not add columns for a pb table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('can not add columns for a extenal table',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('alter table tblname add default subpartition',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('do not have alter privilege on TABLE',NULL,0,'gaia',NULL,'libbyli','2013-05-12 00:00:00','脚本语法错误',NULL,NULL),('INSERT OVERWRITE TABLE tdw_inter_db',NULL,1,'gaia',NULL,'libbyli','2013-09-09 09:21:46','平台硬盘只读异常，请重试或联系管理员',NULL,NULL),('Updated%.check.tmp',NULL,0,'gaia',NULL,'libbyli','2013-09-26 09:50:25','业务对账数据延迟，请检查上报情况',NULL,NULL),('mr',NULL,0,'gaia',NULL,'libbyli','2013-10-18 15:34:25','',NULL,NULL),('arrayindex',NULL,0,'gaia',NULL,'libbyli','2013-10-29 19:14:56','',NULL,NULL),('Create new directory on target HDFS cluster for saving results failed','Create new directory on target HDFS cluster for saving results failed',2,'ifnn',NULL,'libbyli','2014-08-27 21:15:27','1、check hdfs目录权是否对用户开放','libbyli','2014-08-27'),('exit_code%9%failed_writed%success_writed','exit_code\":\"9\",\"failed_writed\":\"100194\",\"success_writed\":\"77792\"',2,'bgd',NULL,'libbyli','2014-08-27 22:03:42','原因：tdw出库数据，在入库只目标mysql（tpg）时，出现数据约束造成数据reject 解决：查看‘系统日志’最下--Bad日志查询，点击后，出现类似： java.sql.SQLException: Column \'userAmount\' cannot be null Query 可尝试（1）修改MYSQL表结构确保数据入库 或（2）修改TDW查询数据，规避异常数据','libbyli','2014-08-27'),('NegativeArraySizeException','sec_onion_interface.db/sec_t_app_config/p_20140825/attempt_1407229860715_18718321_m_000002_0.1408923137167 2014-08-26 17:31:26,522 WARN [main] org.apache.hadoop.mapred.YarnChild: Exception running child : java.lang.NegativeArraySizeException',2,'bgd',NULL,'bg','2014-08-27 22:49:47','表中有超过32k的数据 解决方案（以下任意一种）： 1、数据重新入库，并增加reject参数：set hive.errordata.process.level=1 2、重新定义表为rcfile，支持4M数据，同样需要重新入库','libbyli','2014-08-27'),('数据写入MYSQL慢','运行时间长',2,'bgc',NULL,'业务','2014-09-25 15:58:13','1、查看日志最底下，是否存在reject数据，业务自行规避 2、可能表有索引，插入慢，业务侧考虑如何优化下 3、可能存在网络传输问题，tdw资源都在深圳-同乐idc，跨IDC可能会有这种情况','libbyli','2014-09-25'),('Timed out after 600 secs','AttemptID:attempt_1407229860715_78106635_m_000132_0 Timed out after 600 secs',1,'hadoop',NULL,'业务责任人','2014-10-22 11:30:22','增加参数：set mapreduce.task.timeout=1200000','libbyli',NULL),('virtual memory used. Killing container','Container [pid=10427,containerID=container_1407229860715_78154216_01_000279] is running beyond physical memory limits. Current usage: 2.1 GB of 2 GB physical memory used; 9.5 GB of 4.2 GB virtual memory used. Killing container.',2,'hadoop',NULL,'业务','2014-10-22 12:07:34','heap over limit错误或者因内存问题被nmkill了，增加参数：set mapred.child.java.opts=-Xmx1024m','libbyli','2014-10-22'),('mr执行慢','对比map或者reduce信息，任务在部分机器上执行明显变慢',1,'hadoop',NULL,'业务责任人','2014-10-24 11:28:49','增加推测参数：set mapred.map.tasks.speculative.execution true;   set mapred.reduce.tasks.speculative.execution true;','libbyli','2014-10-24'),('Task failed because no files in the source path','',0,'tdbank',NULL,'libbyli','2015-03-17 17:25:19','check file on hdfs',NULL,'2015-03-17');
+/*!40000 ALTER TABLE `lb_error_desc` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_mr_script`
+--
+
+DROP TABLE IF EXISTS `lb_mr_script`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_mr_script` (
+  `task_id` char(17) NOT NULL,
+  `script_name` varchar(200) NOT NULL COMMENT '脚本名称',
+  `script_url` varchar(200) DEFAULT NULL COMMENT '脚本路径',
+  `upload_time` datetime DEFAULT NULL COMMENT '上传时间',
+  `upload_user` varchar(50) DEFAULT NULL COMMENT '上传者',
+  PRIMARY KEY (`task_id`,`script_name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_mr_script`
+--
+
+LOCK TABLES `lb_mr_script` WRITE;
+/*!40000 ALTER TABLE `lb_mr_script` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lb_mr_script` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_parameter`
+--
+
+DROP TABLE IF EXISTS `lb_parameter`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_parameter` (
+  `param_name` varchar(100) NOT NULL COMMENT '参数名',
+  `param_desc` varchar(500) DEFAULT NULL COMMENT '参数描述',
+  `param_owner` varchar(30) NOT NULL COMMENT '参数所有者(BASE/RUNNER)',
+  `param_value` varchar(200) NOT NULL COMMENT '参数值',
+  `value_type` varchar(10) NOT NULL COMMENT '值类型',
+  `in_charge` varchar(100) NOT NULL COMMENT '所有者',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`param_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统参数表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_parameter`
+--
+
+LOCK TABLES `lb_parameter` WRITE;
+/*!40000 ALTER TABLE `lb_parameter` DISABLE KEYS */;
+INSERT INTO `lb_parameter` VALUES ('abnormal_information_filter_flags','used to filter out the unused abnormal informaiton updates to lb_task_run tables','BASE','0000000001,O;0000000002,O;0000000003,O;0000000004,O;0000000005,O;0000000006,O;0000000007,O;0000000008,O;0000000009,O;0000000010,O;0000000011,O;0000000012,O;0000000013,O;0000000014,O;0000000015,O;00000','string','deacoliu','2014-11-14 18:16:37'),('abnormal_information_filter_flags_docker','abnormal_information_filter_flags_docker','BASE','0000000001,O;0000000002,O;0000000003,O;0000000004,O;0000000005,O;0000000006,O;0000000007,O;0000000008,O;0000000009,O;0000000010,O;0000000011,O;0000000012,O;0000000013,O;0000000014,O;0000000015,O;00000','string','deacoliu','2015-03-10 15:16:14'),('cache_refresh_interval','ç¼“å­˜åˆ·æ–°é—´éš”','BASE','60000','integer','wensonsong','2013-08-27 10:44:09'),('cdh3_hadoop','CDH3 Hadoopå‘½ä»¤','RUNNER','/data/tdwgaia_client/bin/hadoop','string','taoxzhang','2012-12-06 00:00:00'),('cgiHost','CGIåœ°å€','RUNNER','http://lhotse-yh-appCgi.tencent-distribute.com:8081','string','taoxzhang','2012-11-28 18:34:00'),('cgiURL','CGI URL','RUNNER','/op/redo.php?','string','taoxzhang','2012-11-28 18:34:00'),('checkFileTmpDir','TDWå‡ºåº“ç”Ÿæˆå¯¹è´¦æ–‡ä»¶ä¸´æ—¶è·¯å¾„','RUNNER','/data/lhotse/runners/check_file_tmp_dir','string','taoxzhang','2012-12-01 10:55:00'),('command_check_interval','å‘½ä»¤è¿›ç¨‹æ‰§è¡Œå®Œæ¯•åŽé—´éš”æ—¶é•¿','BASE','30','integer','wensonsong','2013-09-27 15:47:29'),('command_do_max_parallel','max do command count to execute at one turn','deacoliu','100','inteter','deacoliu','2015-01-30 15:19:55'),('command_reserve_days','å‘½ä»¤ä¿ç•™å¤©æ•°','BASE','3','integer','cpwang','2012-08-09 08:16:00'),('command_split_threshold','å‘½ä»¤æ˜¯å¦å¤šçº¿ç¨‹æ‰§è¡Œçš„é˜ˆå€¼','BASE','100000','integer','wensonsong','2013-09-27 15:47:29'),('dependence_check_interval','ä¾èµ–å…³ç³»è¿›ç¨‹åˆ·æ–°é—´éš”','BASE','60000','integer','wensonsong','2013-08-27 10:44:09'),('deploy_district','éƒ¨ç½²åŒºåŸŸ','BASE','SHENZHEN','string','cpwang','2012-08-24 03:04:04'),('do_instance_parallelism','é‡è·‘ä»»åŠ¡ç¼“å­˜ä¸Šé™','BASE','200','integer','wensonsong','2013-08-27 10:44:09'),('dx_home','DXéƒ¨ç½²è·¯å¾„','DX','/data/DX/','string','dennyliu','2012-08-30 06:52:30'),('dx_template_hdfs_to_oracle','DXçš„HDFSå…¥åº“Oracleæ¨¡æ¿è·¯å¾„','DX','/data/DX/jobs/HDFS2OracleTemplate.xml','string','dennyliu','2012-08-30 07:04:37'),('dx_template_linux_to_oracle','DXçš„Linuxå…¥åº“Oracleæ¨¡æ¿è·¯å¾„','DX','/data/DX/jobs/Linux2OracleTemplate.xml','string','dennyliu','2012-09-05 03:27:09'),('dx_temp_path','DXä¸´æ—¶ç›®å½•è·¯å¾„','DX','/data/DX/tmp/','string','dennyliu','2012-09-05 03:27:09'),('error_message_cache_clear_interval','error_message_cache_clear_interval','BASE','20','integer','deacoliu','2015-04-08 15:52:29'),('error_message_cache_size','error_message_cache_size','BASE','100000','integer','deacoliu','2015-04-08 16:40:08'),('externalTableDb','åˆ›å»ºå¤–è¡¨æ‰€åœ¨çš„æ•°æ®åº“','RUNNER','tdw_inter_db','string','taoxzhang','2012-11-08 10:31:00'),('filter_flag_parse_interval','unit seconds;used to filter out the unused abnormal informaiton updates to lb_task_run tables','BASE','300','integer','deacoliu','2014-11-17 17:29:03'),('hadoopCommand','hadoopå‘½ä»¤è¡Œ','RUNNER','/data/tdwgaia_client/bin/hadoop','string','taoxzhang','2012-12-21 00:00:00'),('HAFlag','jobtrackeré«˜çƒ­å¤‡æ ‡å¿—','RUNNER','HA','string','taoxzhang','2012-11-14 14:33:00'),('imHadoopProtocol','å³é€šhadoopå®¢æˆ·ç«¯åè®®','RUNNER','hftp','string','taoxzhang','2012-12-01 14:00:00'),('listener_sleep_interval','ç›‘å¬ç›‘å¬ä¼‘çœ é—´éš”(æ¯«ç§’)','BASE','5','integer','cpwang','2012-08-09 08:16:00'),('log_reserve_days','æ—¥å¿—ä¿ç•™å¤©æ•°','BASE','100','integer','cpwang','2012-08-09 08:16:00'),('max_parallel_tasks','æ¯ç±»ä»»åŠ¡æœ€å¤§å¹¶å‘çº¿ç¨‹æ•°','BASE','50','integer','cpwang','2012-08-09 08:16:00'),('max_socket_connections','æœ€å¤§è¿žæŽ¥æ•°','BASE','30','integer','cpwang','2012-08-09 08:16:00'),('max_thread_count','å¤šçº¿ç¨‹ä¸ªæ•°','BASE','20','integer','wensonsong','2013-09-27 15:47:29'),('nameNodeTmpPath','TDW name nodeå¤–è¡¨ä¸´æ—¶è·¯å¾„','RUNNER','/user/ddc/tmp_path','string','taoxzhang','2012-08-30 19:36:19'),('oneoff_reserved_days','ä¸€æ¬¡æ€§ä»»åŠ¡å®žä¾‹ä¿å­˜æ—¶é•¿','BASE','7','integer','wensonsong','2013-08-27 10:43:38'),('plcProgram','Broker PLCå‘½ä»¤','RUNNER','/data/PLClient/PLC','string','taoxzhang','2012-08-30 19:36:19'),('put_abnormalinformation_bundle_size','put_abnormalinformation_bundle_size','BASE','2000','integer','deacoliu','2015-04-08 15:52:58'),('put_abnormalinformation_interval','put_abnormalinformation_interval','BASE','10','integer','deacoliu','2015-04-08 15:52:40'),('put_abnormalinformation_limit','put_abnormalinformation_limit','BASE','20000','integer','deacoliu','2015-04-08 15:52:49'),('put_abnormalinformation_sllep','unit seconds ;;used to filter out the unused abnormal informaiton updates to lb_task_run tables','BASE','12','integer','deacoliu','2014-11-12 14:40:15'),('put_list_interval','','base','60','integer','wensonsong','2014-07-09 15:39:59'),('put_list_size','','base','2000','integer','wensonsong','2014-07-09 15:39:59'),('put_retry_times','hbaseÐ´','base','5','integer','wensonsong','2014-07-09 15:40:01'),('removeDataFileRetry','åˆ é™¤æ•°æ®æ–‡ä»¶é‡è¯•æ¬¡æ•°','RUNNER','10','integer','taoxzhang','2012-11-28 21:02:00'),('resource_check_times','ç¼“å­˜åˆ·æ–°Næ¬¡åŽï¼Œç»Ÿä¸€è¾“å‡ºåœ¨æ­¤æœŸé—´èµ„æºä¸è¶³çš„æƒ…å†µ','BASE','5','integer','amandalin','2014-02-19 11:19:11'),('task_enable_rtx','ä»»åŠ¡çš„RTXå‘Šè­¦å¼€å…³ï¼ˆY/Nï¼‰','BASE','N','string','dennyliu','2012-11-14 14:33:00'),('task_enable_sms','ä»»åŠ¡çš„çŸ­ä¿¡å‘Šè­¦å¼€å…³ï¼ˆY/Nï¼‰','BASE','N','string','dennyliu','2012-11-14 14:33:00'),('task_instances_threshold','ä»»åŠ¡æœªå®Œæˆå®žä¾‹ä¸ªæ•°å‘Šè­¦é˜ˆå€¼','BASE','9999','integer','cpwang','2012-08-09 08:16:00'),('task_issue_interval','ä»»åŠ¡ä¸‹å‘é—´éš”','BASE','500','integer','wensonsong','2013-08-27 10:44:09'),('task_link_cache_refresh_interval','ç¼“å­˜åˆ·æ–°é—´éš”','BASE','480','integer','deacoliu','2014-11-25 09:59:23'),('task_threshold','æœªå®Œæˆä»»åŠ¡æ•°å‘Šè­¦é˜ˆå€¼','BASE','9999','integer','cpwang','2012-08-09 08:16:00'),('task_tries_threshold','ä»»åŠ¡å°è¯•æ¬¡æ•°å‘Šè­¦é˜ˆå€¼','BASE','9999','integer','cpwang','2012-08-09 08:16:00'),('warn_receivers','å‘Šè­¦æŽ¥å—äºº','BASE','jasonluo;dennyliu;taoxzhang;wensonsong;amandalin;libbyli;jessicajin','string','cpwang','2012-08-24 03:04:04');
+/*!40000 ALTER TABLE `lb_parameter` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_pig_script`
+--
+
+DROP TABLE IF EXISTS `lb_pig_script`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_pig_script` (
+  `tdw_user` varchar(100) NOT NULL DEFAULT '',
+  `script_name` varchar(200) NOT NULL DEFAULT '',
+  `script_url` text,
+  `upload_time` datetime DEFAULT NULL,
+  `upload_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`tdw_user`,`script_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_pig_script`
+--
+
+LOCK TABLES `lb_pig_script` WRITE;
+/*!40000 ALTER TABLE `lb_pig_script` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lb_pig_script` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_py_script`
+--
+
+DROP TABLE IF EXISTS `lb_py_script`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_py_script` (
+  `tdw_user` varchar(100) NOT NULL DEFAULT '',
+  `script_name` varchar(200) NOT NULL DEFAULT '',
+  `script_url` text,
+  `upload_time` datetime DEFAULT NULL,
+  `upload_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`tdw_user`,`script_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_py_script`
+--
+
+LOCK TABLES `lb_py_script` WRITE;
+/*!40000 ALTER TABLE `lb_py_script` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lb_py_script` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_role_server`
+--
+
+DROP TABLE IF EXISTS `lb_role_server`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_role_server` (
+  `role_name` varchar(50) NOT NULL COMMENT '角色名',
+  `server_tag` varchar(200) NOT NULL COMMENT '服务器标识',
+  `in_charge` varchar(50) NOT NULL COMMENT '负责人',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`role_name`,`server_tag`),
+  KEY `fk_role_serv_ref_serv` (`server_tag`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色与server对照关系表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_role_server`
+--
+
+LOCK TABLES `lb_role_server` WRITE;
+/*!40000 ALTER TABLE `lb_role_server` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lb_role_server` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_run_stat`
+--
+
+DROP TABLE IF EXISTS `lb_run_stat`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_run_stat` (
+  `task_id` char(17) NOT NULL COMMENT '任务ID',
+  `task_type` smallint(6) NOT NULL COMMENT '任务类型',
+  `cur_run_date` datetime NOT NULL COMMENT '统计日期',
+  `order_id` smallint(6) NOT NULL COMMENT '排序ID',
+  `cycle_unit` char(1) DEFAULT NULL COMMENT '任务周期',
+  `in_charge` varchar(300) DEFAULT NULL,
+  `task_name` varchar(200) DEFAULT NULL COMMENT '任务名',
+  `duration_range_id` smallint(6) DEFAULT NULL COMMENT '运行时长范围ID',
+  `duration_range` varchar(100) NOT NULL COMMENT '运行时长范围描述',
+  `flutter_range_id` smallint(6) NOT NULL COMMENT '波动率范围ID',
+  `flutter_range` varchar(100) NOT NULL COMMENT '波动率范围描述',
+  `duration` float NOT NULL COMMENT '运行时长(分钟)',
+  `flutter` float NOT NULL COMMENT '波动率(百分比)',
+  `last_update` datetime NOT NULL COMMENT '数据更新时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='运行统计明细'
+/*!50100 PARTITION BY RANGE (order_id)
+(PARTITION p_1 VALUES LESS THAN (2) ENGINE = InnoDB,
+ PARTITION p_max VALUES LESS THAN MAXVALUE ENGINE = InnoDB) */;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_run_stat`
+--
+
+LOCK TABLES `lb_run_stat` WRITE;
+/*!40000 ALTER TABLE `lb_run_stat` DISABLE KEYS */;
+INSERT INTO `lb_run_stat` VALUES ('20150504211454467',67,'2015-06-03 00:00:00',1,'D','deacoliu;deacoliu;deacoliu','test_hdfs2oracle_deacoooo',1,'0~10分钟',-2,'-50%~-20%',0.566667,-32,'2015-06-12 10:54:27'),('20150602142023792',68,'2015-06-02 00:00:00',1,'D','wensonsong;deacoliu','【全流程】HDFS导出至Mysql',1,'0~10分钟',4,'100%以上',0.466667,250,'2015-06-12 10:54:27'),('20150504211454468',68,'2015-06-02 00:00:00',1,'D','deacoliu;deacoliu;deacoliu','test_mysql',1,'0~10分钟',-3,'-100%~-50%',0.233333,-65,'2015-06-12 10:54:27'),('20150602143223566',119,'2015-06-11 00:00:00',1,'D','wensonsong;deacoliu','【全流程】Postgre导入至HDFS',1,'0~10分钟',-2,'-50%~-20%',0.283333,-26.087,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-06-11 00:00:00',1,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',1,'0~20%',0.2,9.09091,'2015-06-12 10:54:27'),('20150602143023086',118,'2015-06-11 00:00:00',1,'D','wensonsong;deacoliu','【全流程】Mysql导入至HDFS',1,'0~10分钟',-3,'-100%~-50%',0.183333,-63.3333,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-06-11 00:00:00',1,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',1,'0~20%',0.2,20,'2015-06-12 10:54:27'),('20150505201856335',92,'2015-05-14 00:00:00',1,'D','wensonsong','wenson-test-mr-cmd',1,'0~10分钟',1,'0~20%',1.38333,0,'2015-06-12 10:54:27'),('20150602142215202',92,'2015-06-01 00:00:00',1,'D','wensonsong;deacoliu','【全流程】MR_CMD',1,'0~10分钟',1,'0~20%',0,0,'2015-06-12 10:54:27'),('20150602142826561',120,'2015-06-11 00:00:00',1,'D','wensonsong;deacoliu','【全流程】Oracle导入至HDFS',1,'0~10分钟',-3,'-100%~-50%',0.2,-57.1429,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-06-11 00:00:00',1,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',-1,'-20%~0',0.166667,-9.09091,'2015-06-12 10:54:27'),('20150602141433038',66,'2015-06-02 00:00:00',1,'D','wensonsong;deacoliu','【全流程】HDFS导出至Postgre',1,'0~10分钟',2,'20%~50%',0.166667,25,'2015-06-12 10:54:27'),('20150504211454467',67,'2015-06-02 00:00:00',2,'D','deacoliu;deacoliu;deacoliu','test_hdfs2oracle_deacoooo',1,'0~10分钟',-2,'-50%~-20%',0.833333,-23.0769,'2015-06-12 10:54:27'),('20150504211454467',67,'2015-05-19 00:00:00',3,'D','deacoliu;deacoliu;deacoliu','test_hdfs2oracle_deacoooo',1,'0~10分钟',3,'50%~100%',1.08333,58.5366,'2015-06-12 10:54:27'),('20150504211454467',67,'2015-05-18 00:00:00',4,'D','deacoliu;deacoliu;deacoliu','test_hdfs2oracle_deacoooo',1,'0~10分钟',3,'50%~100%',0.683333,78.2609,'2015-06-12 10:54:27'),('20150504211454467',67,'2015-05-17 00:00:00',5,'D','deacoliu;deacoliu;deacoliu','test_hdfs2oracle_deacoooo',1,'0~10分钟',3,'50%~100%',0.383333,64.2857,'2015-06-12 10:54:27'),('20150504211454467',67,'2015-05-16 00:00:00',6,'D','deacoliu;deacoliu;deacoliu','test_hdfs2oracle_deacoooo',1,'0~10分钟',-3,'-100%~-50%',0.233333,-79.7101,'2015-06-12 10:54:27'),('20150504211454467',67,'2015-05-15 00:00:00',7,'D','deacoliu;deacoliu;deacoliu','test_hdfs2oracle_deacoooo',1,'0~10分钟',4,'100%以上',1.15,109.091,'2015-06-12 10:54:27'),('20150504211454467',67,'2015-05-14 00:00:00',8,'D','deacoliu;deacoliu;deacoliu','test_hdfs2oracle_deacoooo',1,'0~10分钟',-1,'-20%~0',0.55,-17.5,'2015-06-12 10:54:27'),('20150504211454467',67,'2015-05-13 00:00:00',9,'D','deacoliu;deacoliu;deacoliu','test_hdfs2oracle_deacoooo',1,'0~10分钟',1,'0~20%',0.666667,0,'2015-06-12 10:54:27'),('20150602142023792',68,'2015-06-01 00:00:00',2,'D','wensonsong;deacoliu','【全流程】HDFS导出至Mysql',1,'0~10分钟',1,'0~20%',0.133333,0,'2015-06-12 10:54:27'),('20150504211454468',68,'2015-05-19 00:00:00',2,'D','deacoliu;deacoliu;deacoliu','test_mysql',1,'0~10分钟',-1,'-20%~0',0.666667,-16.6667,'2015-06-12 10:54:27'),('20150504211454468',68,'2015-05-18 00:00:00',3,'D','deacoliu;deacoliu;deacoliu','test_mysql',1,'0~10分钟',4,'100%以上',0.8,118.182,'2015-06-12 10:54:27'),('20150504211454468',68,'2015-05-17 00:00:00',4,'D','deacoliu;deacoliu;deacoliu','test_mysql',1,'0~10分钟',-2,'-50%~-20%',0.366667,-21.4286,'2015-06-12 10:54:27'),('20150504211454468',68,'2015-05-16 00:00:00',5,'D','deacoliu;deacoliu;deacoliu','test_mysql',1,'0~10分钟',-2,'-50%~-20%',0.466667,-40.4255,'2015-06-12 10:54:27'),('20150504211454468',68,'2015-05-15 00:00:00',6,'D','deacoliu;deacoliu;deacoliu','test_mysql',1,'0~10分钟',4,'100%以上',0.783333,487.5,'2015-06-12 10:54:27'),('20150504211454468',68,'2015-05-14 00:00:00',7,'D','deacoliu;deacoliu;deacoliu','test_mysql',1,'0~10分钟',1,'0~20%',0.133333,0,'2015-06-12 10:54:27'),('20150602143223566',119,'2015-06-10 00:00:00',2,'D','wensonsong;deacoliu','【全流程】Postgre导入至HDFS',1,'0~10分钟',4,'100%以上',0.383333,130,'2015-06-12 10:54:27'),('20150602143223566',119,'2015-06-09 00:00:00',3,'D','wensonsong;deacoliu','【全流程】Postgre导入至HDFS',1,'0~10分钟',1,'0~20%',0.166667,0,'2015-06-12 10:54:27'),('20150602143223566',119,'2015-06-08 00:00:00',4,'D','wensonsong;deacoliu','【全流程】Postgre导入至HDFS',1,'0~10分钟',-2,'-50%~-20%',0.166667,-23.0769,'2015-06-12 10:54:27'),('20150602143223566',119,'2015-06-07 00:00:00',5,'D','wensonsong;deacoliu','【全流程】Postgre导入至HDFS',1,'0~10分钟',-2,'-50%~-20%',0.216667,-50,'2015-06-12 10:54:27'),('20150602143223566',119,'2015-06-06 00:00:00',6,'D','wensonsong;deacoliu','【全流程】Postgre导入至HDFS',1,'0~10分钟',3,'50%~100%',0.433333,73.3333,'2015-06-12 10:54:27'),('20150602143223566',119,'2015-06-05 00:00:00',7,'D','wensonsong;deacoliu','【全流程】Postgre导入至HDFS',1,'0~10分钟',3,'50%~100%',0.25,66.6667,'2015-06-12 10:54:27'),('20150602143223566',119,'2015-06-03 00:00:00',8,'D','wensonsong;deacoliu','【全流程】Postgre导入至HDFS',1,'0~10分钟',-1,'-20%~0',0.15,-18.1818,'2015-06-12 10:54:27'),('20150602143223566',119,'2015-06-02 00:00:00',9,'D','wensonsong;deacoliu','【全流程】Postgre导入至HDFS',1,'0~10分钟',-2,'-50%~-20%',0.183333,-42.1053,'2015-06-12 10:54:27'),('20150602143223566',119,'2015-06-01 00:00:00',10,'D','wensonsong;deacoliu','【全流程】Postgre导入至HDFS',1,'0~10分钟',1,'0~20%',0.316667,0,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-06-10 00:00:00',2,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',1,'0~20%',0.183333,10,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-06-09 00:00:00',3,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',-1,'-20%~0',0.166667,-16.6667,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-06-08 00:00:00',4,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',1,'0~20%',0.2,9.09091,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-06-07 00:00:00',5,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',-3,'-100%~-50%',0.183333,-63.3333,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-06-06 00:00:00',6,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',3,'50%~100%',0.5,66.6667,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-06-05 00:00:00',7,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',1,'0~20%',0.3,0,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-06-03 00:00:00',8,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',-1,'-20%~0',0.3,-18.1818,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-06-02 00:00:00',9,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',-2,'-50%~-20%',0.366667,-45,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-05-19 00:00:00',10,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',4,'100%以上',0.666667,207.692,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-05-18 00:00:00',11,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',-2,'-50%~-20%',0.216667,-48,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-05-17 00:00:00',12,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',-2,'-50%~-20%',0.416667,-28.5714,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-05-16 00:00:00',13,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',-2,'-50%~-20%',0.583333,-35.1852,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-05-15 00:00:00',14,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',4,'100%以上',0.9,217.647,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-05-14 00:00:00',15,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',3,'50%~100%',0.283333,88.8889,'2015-06-12 10:54:27'),('20150514141946675',119,'2015-05-13 00:00:00',16,'D','wensonsong','wenson_test_pg_to_hdfs',1,'0~10分钟',1,'0~20%',0.15,0,'2015-06-12 10:54:27'),('20150602143023086',118,'2015-06-10 00:00:00',2,'D','wensonsong;deacoliu','【全流程】Mysql导入至HDFS',1,'0~10分钟',4,'100%以上',0.5,150,'2015-06-12 10:54:27'),('20150602143023086',118,'2015-06-09 00:00:00',3,'D','wensonsong;deacoliu','【全流程】Mysql导入至HDFS',1,'0~10分钟',1,'0~20%',0.2,9.09091,'2015-06-12 10:54:27'),('20150602143023086',118,'2015-06-08 00:00:00',4,'D','wensonsong;deacoliu','【全流程】Mysql导入至HDFS',1,'0~10分钟',-1,'-20%~0',0.183333,-8.33333,'2015-06-12 10:54:27'),('20150602143023086',118,'2015-06-07 00:00:00',5,'D','wensonsong;deacoliu','【全流程】Mysql导入至HDFS',1,'0~10分钟',-3,'-100%~-50%',0.2,-71.4286,'2015-06-12 10:54:27'),('20150602143023086',118,'2015-06-06 00:00:00',6,'D','wensonsong;deacoliu','【全流程】Mysql导入至HDFS',1,'0~10分钟',4,'100%以上',0.7,223.077,'2015-06-12 10:54:27'),('20150602143023086',118,'2015-06-05 00:00:00',7,'D','wensonsong;deacoliu','【全流程】Mysql导入至HDFS',1,'0~10分钟',-2,'-50%~-20%',0.216667,-48,'2015-06-12 10:54:27'),('20150602143023086',118,'2015-06-03 00:00:00',8,'D','wensonsong;deacoliu','【全流程】Mysql导入至HDFS',1,'0~10分钟',-2,'-50%~-20%',0.416667,-37.5,'2015-06-12 10:54:27'),('20150602143023086',118,'2015-06-02 00:00:00',9,'D','wensonsong;deacoliu','【全流程】Mysql导入至HDFS',1,'0~10分钟',4,'100%以上',0.666667,300,'2015-06-12 10:54:27'),('20150602143023086',118,'2015-06-01 00:00:00',10,'D','wensonsong;deacoliu','【全流程】Mysql导入至HDFS',1,'0~10分钟',1,'0~20%',0.166667,0,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-06-10 00:00:00',2,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',-1,'-20%~0',0.166667,-16.6667,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-06-09 00:00:00',3,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',1,'0~20%',0.2,0,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-06-08 00:00:00',4,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',1,'0~20%',0.2,0,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-06-07 00:00:00',5,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',-3,'-100%~-50%',0.2,-62.5,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-06-06 00:00:00',6,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',4,'100%以上',0.533333,113.333,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-06-05 00:00:00',7,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',-1,'-20%~0',0.25,-16.6667,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-06-03 00:00:00',8,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',-1,'-20%~0',0.3,-10,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-06-02 00:00:00',9,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',-2,'-50%~-20%',0.333333,-47.3684,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-05-19 00:00:00',10,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',4,'100%以上',0.633333,375,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-05-18 00:00:00',11,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',-3,'-100%~-50%',0.133333,-80,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-05-17 00:00:00',12,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',4,'100%以上',0.666667,207.692,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-05-16 00:00:00',13,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',-2,'-50%~-20%',0.216667,-48,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-05-15 00:00:00',14,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',4,'100%以上',0.416667,525,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-05-14 00:00:00',15,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',-3,'-100%~-50%',0.0666667,-99.9789,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-05-13 00:00:00',16,'D','wensonsong','wenson_test_mysql_to_hdfs',4,'60分钟以上',4,'100%以上',315.45,135093,'2015-06-12 10:54:27'),('20150513181838225',118,'2015-05-12 00:00:00',17,'D','wensonsong','wenson_test_mysql_to_hdfs',1,'0~10分钟',1,'0~20%',0.233333,0,'2015-06-12 10:54:27'),('20150602142826561',120,'2015-06-10 00:00:00',2,'D','wensonsong;deacoliu','【全流程】Oracle导入至HDFS',1,'0~10分钟',4,'100%以上',0.466667,133.333,'2015-06-12 10:54:27'),('20150602142826561',120,'2015-06-09 00:00:00',3,'D','wensonsong;deacoliu','【全流程】Oracle导入至HDFS',1,'0~10分钟',1,'0~20%',0.2,0,'2015-06-12 10:54:27'),('20150602142826561',120,'2015-06-08 00:00:00',4,'D','wensonsong;deacoliu','【全流程】Oracle导入至HDFS',1,'0~10分钟',1,'0~20%',0.2,0,'2015-06-12 10:54:27'),('20150602142826561',120,'2015-06-07 00:00:00',5,'D','wensonsong;deacoliu','【全流程】Oracle导入至HDFS',1,'0~10分钟',-3,'-100%~-50%',0.2,-71.4286,'2015-06-12 10:54:27'),('20150602142826561',120,'2015-06-06 00:00:00',6,'D','wensonsong;deacoliu','【全流程】Oracle导入至HDFS',1,'0~10分钟',4,'100%以上',0.7,200,'2015-06-12 10:54:27'),('20150602142826561',120,'2015-06-05 00:00:00',7,'D','wensonsong;deacoliu','【全流程】Oracle导入至HDFS',1,'0~10分钟',-1,'-20%~0',0.233333,-17.6471,'2015-06-12 10:54:27'),('20150602142826561',120,'2015-06-03 00:00:00',8,'D','wensonsong;deacoliu','【全流程】Oracle导入至HDFS',1,'0~10分钟',3,'50%~100%',0.283333,88.8889,'2015-06-12 10:54:27'),('20150602142826561',120,'2015-06-02 00:00:00',9,'D','wensonsong;deacoliu','【全流程】Oracle导入至HDFS',1,'0~10分钟',-3,'-100%~-50%',0.15,-80,'2015-06-12 10:54:27'),('20150602142826561',120,'2015-06-01 00:00:00',10,'D','wensonsong;deacoliu','【全流程】Oracle导入至HDFS',1,'0~10分钟',1,'0~20%',0.75,0,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-06-10 00:00:00',2,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',-1,'-20%~0',0.183333,-8.33333,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-06-09 00:00:00',3,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',1,'0~20%',0.2,0,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-06-08 00:00:00',4,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',1,'0~20%',0.2,0,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-06-07 00:00:00',5,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',-3,'-100%~-50%',0.2,-62.5,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-06-06 00:00:00',6,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',4,'100%以上',0.533333,166.667,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-06-05 00:00:00',7,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',-3,'-100%~-50%',0.2,-62.5,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-06-03 00:00:00',8,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',3,'50%~100%',0.533333,88.2353,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-06-02 00:00:00',9,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',-2,'-50%~-20%',0.283333,-39.2857,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-05-19 00:00:00',10,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',4,'100%以上',0.466667,300,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-05-18 00:00:00',11,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',-3,'-100%~-50%',0.116667,-61.1111,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-05-17 00:00:00',12,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',-2,'-50%~-20%',0.3,-28,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-05-16 00:00:00',13,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',-2,'-50%~-20%',0.416667,-44.4444,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-05-15 00:00:00',14,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',4,'100%以上',0.75,462.5,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-05-14 00:00:00',15,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',-2,'-50%~-20%',0.133333,-33.3333,'2015-06-12 10:54:27'),('20150514173504737',120,'2015-05-13 00:00:00',16,'D','wensonsong','wenson_test_oracle_to_hdfs	',1,'0~10分钟',1,'0~20%',0.2,0,'2015-06-12 10:54:27'),('20150602141433038',66,'2015-06-01 00:00:00',2,'D','wensonsong;deacoliu','【全流程】HDFS导出至Postgre',1,'0~10分钟',1,'0~20%',0.133333,0,'2015-06-12 10:54:27');
+/*!40000 ALTER TABLE `lb_run_stat` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_runner`
+--
+
+DROP TABLE IF EXISTS `lb_runner`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_runner` (
+  `type_id` smallint(6) NOT NULL COMMENT '任务类型ID',
+  `broker_ip` varchar(30) NOT NULL COMMENT '部署BrokerIP',
+  `broker_port` int(11) DEFAULT '10000',
+  `executable_path` varchar(500) NOT NULL COMMENT '可执行程序路径',
+  `in_charge` varchar(30) NOT NULL COMMENT '负责人',
+  `status` char(1) NOT NULL DEFAULT 'Y' COMMENT '状态(Y-启用/N-未启用)',
+  `startup_time` datetime DEFAULT NULL COMMENT '启动时间',
+  `last_heartbeat` datetime DEFAULT NULL COMMENT '最后心跳时间',
+  `priority_limit` smallint(1) NOT NULL DEFAULT '9' COMMENT '任务优先级上线',
+  `broker_parallelism` int(6) DEFAULT '0',
+  `is_upgrade` int(1) DEFAULT '0',
+  PRIMARY KEY (`type_id`,`broker_ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='任务Runner部署及运行情况';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_runner`
+--
+
+LOCK TABLES `lb_runner` WRITE;
+/*!40000 ALTER TABLE `lb_runner` DISABLE KEYS */;
+INSERT INTO `lb_runner` VALUES (66,'10.136.130.93',10000,'aaa','libbyli;wensonsong;deacoliu','Y','2015-04-14 19:23:33','2015-04-14 21:35:17',9,1000,0),(66,'10.149.27.91',10000,'aaa','libbyli;wensonsong;deacoliu','Y','2015-06-04 20:56:30','2015-06-05 09:51:36',9,1000,0),(66,'10.151.135.225',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(66,'10.151.136.12',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:42',9,1000,0),(66,'10.151.136.14',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:47',9,1000,0),(66,'10.151.136.15',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(66,'10.151.136.16',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(66,'10.151.136.17',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(66,'10.151.136.18',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(66,'10.151.139.102',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(66,'10.151.139.103',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(66,'10.151.139.111',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:47',9,1000,0),(66,'10.151.139.113',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:42',9,1000,0),(66,'10.151.139.114',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(66,'10.151.140.233',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:42',9,1000,0),(66,'10.151.140.234',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(66,'10.151.141.151',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:42',9,1000,0),(66,'10.151.141.152',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(67,'10.149.27.91',10000,'aaa','libbyli;wensonsong;deacoliu','Y','2015-06-04 20:56:30','2015-06-05 09:51:57',9,1000,0),(67,'10.151.135.225',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:40',9,1000,0),(67,'10.151.136.12',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(67,'10.151.136.14',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(67,'10.151.136.15',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(67,'10.151.136.16',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(67,'10.151.136.17',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(67,'10.151.136.18',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(67,'10.151.139.102',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(67,'10.151.139.103',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:40',9,1000,0),(67,'10.151.139.111',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:47',9,1000,0),(67,'10.151.139.113',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(67,'10.151.139.114',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(67,'10.151.140.233',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(67,'10.151.140.234',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(67,'10.151.141.151',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(67,'10.151.141.152',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(68,'10.136.130.93',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-04-13 17:24:01',9,1000,0),(68,'10.149.27.91',10000,'aaa','libbyli;wensonsong;deacoliu','Y','2015-06-04 20:56:30','2015-06-05 09:51:57',9,1000,0),(68,'10.151.135.225',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(68,'10.151.136.12',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(68,'10.151.136.14',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(68,'10.151.136.15',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(68,'10.151.136.16',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(68,'10.151.136.17',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(68,'10.151.136.18',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(68,'10.151.139.102',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(68,'10.151.139.103',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(68,'10.151.139.111',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(68,'10.151.139.113',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(68,'10.151.139.114',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(68,'10.151.140.233',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(68,'10.151.140.234',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(68,'10.151.141.151',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(68,'10.151.141.152',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(91,'10.136.130.93',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-04-14 21:35:08',9,1000,0),(91,'10.149.27.91',10000,'aaa','libbyli;wensonsong;deacoliu','Y','2015-05-05 19:45:41','2015-06-01 17:59:53',9,1000,0),(92,'10.149.27.91',10000,'aaa','libbyli;wensonsong;deacoliu','Y','2015-06-04 20:56:30','2015-06-05 09:51:36',9,1000,0),(92,'10.151.135.225',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.136.12',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.136.14',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.136.15',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.136.16',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.136.17',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.136.18',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.139.102',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.139.103',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.139.111',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.139.113',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.139.114',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.140.233',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.140.234',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.141.151',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(92,'10.151.141.152',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(93,'10.149.27.91',10000,'aaa','libbyli;wensonsong;deacoliu','Y','2015-05-05 19:45:41','2015-06-01 17:59:53',9,1000,0),(118,'10.149.27.91',10000,'aaa','libbyli;wensonsong;deacoliu','Y','2015-06-04 20:56:30','2015-06-05 09:51:56',9,1000,0),(118,'10.151.135.225',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(118,'10.151.136.12',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(118,'10.151.136.14',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(118,'10.151.136.15',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(118,'10.151.136.16',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(118,'10.151.136.17',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(118,'10.151.136.18',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(118,'10.151.139.102',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(118,'10.151.139.103',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(118,'10.151.139.111',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:47',9,1000,0),(118,'10.151.139.113',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(118,'10.151.139.114',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(118,'10.151.140.233',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(118,'10.151.140.234',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(118,'10.151.141.151',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(118,'10.151.141.152',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(119,'10.149.27.91',10000,'aaa','libbyli;wensonsong;deacoliu','Y','2015-06-04 20:56:30','2015-06-05 09:51:56',9,1000,0),(119,'10.151.135.225',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(119,'10.151.136.12',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(119,'10.151.136.14',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:46',9,1000,0),(119,'10.151.136.15',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(119,'10.151.136.16',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(119,'10.151.136.17',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:35',9,1000,0),(119,'10.151.136.18',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(119,'10.151.139.102',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:35',9,1000,0),(119,'10.151.139.103',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(119,'10.151.139.111',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:47',9,1000,0),(119,'10.151.139.113',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(119,'10.151.139.114',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(119,'10.151.140.233',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(119,'10.151.140.234',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(119,'10.151.141.151',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(119,'10.151.141.152',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:37',9,1000,0),(120,'10.149.27.91',10000,'aaa','libbyli;wensonsong;deacoliu','Y','2015-06-04 20:56:30','2015-06-05 09:51:56',9,1000,0),(120,'10.151.135.225',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(120,'10.151.136.12',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(120,'10.151.136.14',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:46',9,1000,0),(120,'10.151.136.15',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(120,'10.151.136.16',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(120,'10.151.136.17',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(120,'10.151.136.18',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(120,'10.151.139.102',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:38',9,1000,0),(120,'10.151.139.103',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(120,'10.151.139.111',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:41',9,1000,0),(120,'10.151.139.113',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(120,'10.151.139.114',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(120,'10.151.140.233',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(120,'10.151.140.234',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:36',9,1000,0),(120,'10.151.141.151',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:28:39',9,1000,0),(120,'10.151.141.152',10000,'aaa','libbyli;wensonsong;deacoliu','Y',NULL,'2015-06-12 11:29:31',9,1000,0);
+/*!40000 ALTER TABLE `lb_runner` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_server`
+--
+
+DROP TABLE IF EXISTS `lb_server`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_server` (
+  `server_tag` varchar(100) NOT NULL COMMENT '服务器名',
+  `server_type` varchar(20) NOT NULL COMMENT '服务器类型',
+  `server_alias` varchar(50) NOT NULL COMMENT '服务器别名',
+  `host` varchar(2000) NOT NULL COMMENT '主机名',
+  `port` int(11) NOT NULL COMMENT '端口',
+  `service` varchar(30) DEFAULT NULL COMMENT '服务名',
+  `user_name` varchar(100) NOT NULL COMMENT '用户名',
+  `user_group` varchar(30) DEFAULT NULL COMMENT '用户组',
+  `password` varchar(100) NOT NULL COMMENT '密码',
+  `in_charge` varchar(100) NOT NULL COMMENT '负责人',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `is_group` smallint(1) NOT NULL DEFAULT '0' COMMENT '是否为组',
+  `server_version` varchar(50) DEFAULT NULL COMMENT '服务器版本',
+  `special_reserve` smallint(2) NOT NULL DEFAULT '0' COMMENT '特殊保留百分比',
+  `parallelism` smallint(6) NOT NULL DEFAULT '5' COMMENT '最大并发度(每种任务类型独立)',
+  `special_priority` smallint(1) NOT NULL DEFAULT '1' COMMENT '特殊保留的优先级限制',
+  PRIMARY KEY (`server_tag`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务器信息';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_server`
+--
+
+LOCK TABLES `lb_server` WRITE;
+/*!40000 ALTER TABLE `lb_server` DISABLE KEYS */;
+INSERT INTO `lb_server` VALUES('default_mr_group','mr_group','default_mr_group','127.0.0.1','1234','service','user','group','password','admin',now(),1,'cdh3',NULL,10,9),('default_mr_group_hdfs','hdfs','default_mr_group_hdfs','{{default_hdfs_host}}','{{default_hdfs_port}}','service','hdfs','def_group','password','admin',now(),0,'cdh3',null,10,9),('default_mr_group_yarn','yarn','default_mr_group_yarn','{{default_yarn_host}}','{{default_yarn_port}}','service','hdfs','def_group','password','admin',now(),0,'cdh3',null,10,9),('default_mysql','mysql','default_mysql','{{lhotse_database_hosts}}','{{lhotse_database_port}}','test','{{lhotse_database_username}}','def_group','{{lhotse_database_password}}','admin',now(),0,'5.5',null,10,9),('default_postgre','postgre','default_postgre','{{pg_server_host}}','{{pg_server_port}}','test','{{pg_user}}','def_group','{{pg_password}}','admin',now(),0,'5.5',null,10,9);
+/*!40000 ALTER TABLE `lb_server` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_server_group`
+--
+
+DROP TABLE IF EXISTS `lb_server_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_server_group` (
+  `group_tag` varchar(100) NOT NULL COMMENT '组标签',
+  `server_tag` varchar(100) NOT NULL COMMENT '服务器标签',
+  `order_id` smallint(6) NOT NULL DEFAULT '1' COMMENT '排序ID',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `in_charge` varchar(100) NOT NULL COMMENT '负责人',
+  PRIMARY KEY (`group_tag`,`server_tag`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_server_group`
+--
+
+LOCK TABLES `lb_server_group` WRITE;
+/*!40000 ALTER TABLE `lb_server_group` DISABLE KEYS */;
+INSERT INTO `lb_server_group` VALUES ('default_mr_group','default_mr_group_hdfs',1,now(),'admin'),('default_mr_group','default_mr_group_yarn',2,now(),'admin');
+/*!40000 ALTER TABLE `lb_server_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_sripts`
+--
+
+DROP TABLE IF EXISTS `lb_sripts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_sripts` (
+  `task_id` varchar(20) DEFAULT NULL,
+  `script_name` varchar(100) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_sripts`
+--
+
+LOCK TABLES `lb_sripts` WRITE;
+/*!40000 ALTER TABLE `lb_sripts` DISABLE KEYS */;
+INSERT INTO `lb_sripts` VALUES ('20150602142215202','hadoop-mapreduce-examples.jar.zip'),('20150602142215203','hadoop-mapreduce-examples.jar.zip');
+/*!40000 ALTER TABLE `lb_sripts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_sys_log`
+--
+
+DROP TABLE IF EXISTS `lb_sys_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_sys_log` (
+  `log_source` varchar(100) DEFAULT NULL COMMENT '产生源',
+  `log_tigger` varchar(20) DEFAULT NULL COMMENT '触发者',
+  `log_desc` varchar(4000) DEFAULT NULL COMMENT '描述',
+  `log_type` varchar(10) DEFAULT NULL COMMENT '类型',
+  `log_time` datetime DEFAULT NULL COMMENT '日志时间',
+  `log_time_ms` smallint(6) DEFAULT NULL COMMENT '日志时间(毫秒)',
+  `broker_ip` varchar(200) DEFAULT NULL,
+  `time_elapsed` int(11) DEFAULT NULL COMMENT '时间消耗(毫秒)',
+  `task_type` varchar(10) DEFAULT NULL COMMENT '任务类型'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统日志'
+/*!50100 PARTITION BY RANGE (to_days(log_time))
+(PARTITION p_20150409 VALUES LESS THAN (736063) ENGINE = InnoDB,
+ PARTITION p_20150410 VALUES LESS THAN (736064) ENGINE = InnoDB,
+ PARTITION p_20150411 VALUES LESS THAN (736065) ENGINE = InnoDB,
+ PARTITION p_20150412 VALUES LESS THAN (736066) ENGINE = InnoDB,
+ PARTITION p_20150413 VALUES LESS THAN (736067) ENGINE = InnoDB,
+ PARTITION p_20150414 VALUES LESS THAN (736068) ENGINE = InnoDB,
+ PARTITION p_20150415 VALUES LESS THAN (736069) ENGINE = InnoDB,
+ PARTITION p_20150416 VALUES LESS THAN (736070) ENGINE = InnoDB,
+ PARTITION p_max VALUES LESS THAN MAXVALUE ENGINE = InnoDB) */;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_sys_log`
+--
+
+LOCK TABLES `lb_sys_log` WRITE;
+/*!40000 ALTER TABLE `lb_sys_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lb_sys_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_task`
+--
+
+DROP TABLE IF EXISTS `lb_task`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_task` (
+  `task_id` char(17) NOT NULL,
+  `task_type` smallint(6) NOT NULL,
+  `task_name` varchar(200) NOT NULL,
+  `broker_ip` varchar(1000) DEFAULT 'any',
+  `cycle_unit` char(1) NOT NULL,
+  `cycle_num` smallint(6) NOT NULL DEFAULT '1',
+  `start_date` datetime NOT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `self_depend` smallint(1) NOT NULL DEFAULT '1',
+  `task_action` varchar(255) NOT NULL,
+  `delay_time` int(11) NOT NULL DEFAULT '0',
+  `startup_time` smallint(6) NOT NULL DEFAULT '0',
+  `alive_wait` smallint(6) NOT NULL DEFAULT '1440',
+  `retriable` smallint(1) NOT NULL DEFAULT '1',
+  `status` char(1) NOT NULL DEFAULT 'C',
+  `task_priority` smallint(1) NOT NULL DEFAULT '6',
+  `task_group` varchar(255) DEFAULT NULL,
+  `notes` varchar(1000) DEFAULT NULL,
+  `in_charge` varchar(300) NOT NULL DEFAULT '',
+  `create_time` datetime NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `old_id` varchar(100) DEFAULT NULL,
+  `source_server` varchar(100) DEFAULT NULL,
+  `target_server` varchar(100) DEFAULT NULL,
+  `creater` varchar(250) DEFAULT NULL,
+  `try_limit` smallint(6) NOT NULL DEFAULT '-1',
+  PRIMARY KEY (`task_id`),
+  UNIQUE KEY `uq_task_name` (`task_name`),
+  KEY `fk_task_ref_task_type` (`task_type`),
+  KEY `fk_task_ref_serv_1` (`source_server`),
+  KEY `fk_task_ref_serv_2` (`target_server`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_task`
+--
+
+LOCK TABLES `lb_task` WRITE;
+/*!40000 ALTER TABLE `lb_task` DISABLE KEYS */;
+INSERT INTO `lb_task` VALUES ('20150602142023792',68,'【全流程】HDFS导出至Mysql','any','D',1,date_format(date_sub(NOW(),interval'1' day), '%Y-%m-%d 00:00:00'),NULL,2,'',0,0,720,1,'Y',6,NULL,'全流程测试之HDFS导出至MYSQL','admin','2015-06-02 14:20:23','2015-06-03 03:16:47',NULL,'default_mr_group_hdfs','default_mysql','wensonsong',1),('20150602142215202',92,'【全流程】MR_CMD_1','any','D',1,date_format(date_sub(NOW(),interval'1' day), '%Y-%m-%d 00:00:00'),NULL,2,'',0,0,1440,1,'Y',6,NULL,'全流程测试之MR计算示例1','admin','2015-06-02 14:22:15','2015-06-03 10:15:15',NULL,'default_mr_group','','wensonsong',4),('20150602143023086',118,'【全流程】Mysql导入至HDFS','any','D',1,date_format(date_sub(NOW(),interval'1' day), '%Y-%m-%d 00:00:00'),NULL,2,'',0,0,720,1,'Y',6,NULL,'','admin','2015-06-02 14:30:23','2015-06-03 03:03:24',NULL,'default_mysql','default_mr_group_hdfs','wensonsong',4);
+/*!40000 ALTER TABLE `lb_task` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_task_ext`
+--
+
+DROP TABLE IF EXISTS `lb_task_ext`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_task_ext` (
+  `task_id` char(17) NOT NULL COMMENT '任务ID',
+  `prop_name` varchar(255) NOT NULL COMMENT '扩展属性名',
+  `prop_value` varchar(10000) DEFAULT NULL COMMENT '扩展属性值',
+  PRIMARY KEY (`task_id`,`prop_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='任务扩展属性';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_task_ext`
+--
+
+LOCK TABLES `lb_task_ext` WRITE;
+/*!40000 ALTER TABLE `lb_task_ext` DISABLE KEYS */;
+INSERT INTO `lb_task_ext` VALUES ('20150602142215202','mapred.output.dir','/tmp/mr_cmd_1/out/${YYYYMMDD}/'),('20150602142215203','mapred.output.dir','/tmp/mr_cmd_2/out/${YYYYMMDD}/'),('20150602142215203','file.md5','d41eab92318e1bace52252e2f55c6f41'),('20150602142215202','file.md5','d41eab92318e1bace52252e2f55c6f41'),('20150602142023792','dbColumnNames','statis_date,city,cnt'),('20150602142023792','errorPercentage','20'),('20150602142023792','loadMode','TRUNCATE'),('20150602142023792','partition.value','N'),('20150602142023792','seperator','124'),('20150602142023792','source.path','/tmp/mr_cmd_1/out/${YYYYMMDD}/'),('20150602142023792','target.tablename','test_table_result'),('20150602142023792','tdw.ugi.groupname','def_group'),('20150602142215202','post.check.script','done /tmp/mr_cmd_1/out/${YYYYMMDD}/done.check'),('20150602142215202','pre.check.script',''),('20150602142215202','task.check.timeout','5'),('20150602142215202','task.main.param','hadoop-mapreduce-examples.jar org.apache.hadoop.examples.MyWordCount /tmp/import_mysql/${YYYYMMDD}/ /tmp/mr_cmd_1/out/${YYYYMMDD}/ ${YYYYMMDD}'),('20150602142215202','task.main.timeout','180'),('20150602142215202','tdw.ugi.groupname','def_group'),('20150602143023086','charset.encoding','UTF-8'),('20150602143023086','errorThreshold','10000'),('20150602143023086','ignore.empty.datasource','false'),('20150602143023086','readConcurrency','1'),('20150602143023086','separator','124'),('20150602143023086','sql','select city from test_table'),('20150602143023086','target.path','/tmp/import_mysql/${YYYYMMDD}/'),('20150602143023086','tdw.ugi.groupname','def_group');
+/*!40000 ALTER TABLE `lb_task_ext` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_task_link`
+--
+
+DROP TABLE IF EXISTS `lb_task_link`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_task_link` (
+  `task_from` char(17) NOT NULL COMMENT '前置任务ID',
+  `task_to` char(17) NOT NULL COMMENT '后置任务ID',
+  `dependence_type` smallint(3) NOT NULL DEFAULT '1' COMMENT '-1：前一个周期，1：全周期，2：最后一个周期，3：任意一个周期。',
+  `in_charge` varchar(300) NOT NULL COMMENT '负责人',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `status` char(1) NOT NULL DEFAULT 'Y',
+  PRIMARY KEY (`task_from`,`task_to`),
+  KEY `fk_task_link_ref_task_2` (`task_to`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='任务关系';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_task_link`
+--
+
+LOCK TABLES `lb_task_link` WRITE;
+/*!40000 ALTER TABLE `lb_task_link` DISABLE KEYS */;
+INSERT INTO `lb_task_link` VALUES ('20150602143023086','20150602142215202',1,'admin','2015-05-07 11:30:21','Y'),('20150602142215202','20150602142023792',1,'admin','2015-05-07 10:23:29','Y');
+/*!40000 ALTER TABLE `lb_task_link` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_task_log`
+--
+
+DROP TABLE IF EXISTS `lb_task_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_task_log` (
+  `task_id` char(17) DEFAULT NULL COMMENT 'ID',
+  `cur_run_date` datetime DEFAULT NULL,
+  `next_run_date` datetime DEFAULT NULL,
+  `log_type` varchar(10) DEFAULT NULL,
+  `state` smallint(1) DEFAULT NULL COMMENT '״̬',
+  `log_desc` varchar(4000) DEFAULT NULL,
+  `runtime_broker` varchar(100) DEFAULT NULL,
+  `runtime_id` varchar(100) DEFAULT NULL COMMENT '运行时ID',
+  `log_time` datetime DEFAULT NULL COMMENT '时间戳',
+  `log_time_ms` smallint(6) DEFAULT NULL,
+  `tries` smallint(6) DEFAULT '0' COMMENT '\n',
+  KEY `index_task_id` (`task_id`),
+  KEY `log_time_ltl` (`log_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+/*!50100 PARTITION BY RANGE (to_days(log_time))
+(PARTITION p_20150330 VALUES LESS THAN (736053) ENGINE = InnoDB,
+ PARTITION p_20150331 VALUES LESS THAN (736054) ENGINE = InnoDB,
+ PARTITION p_20150401 VALUES LESS THAN (736055) ENGINE = InnoDB,
+ PARTITION p_20150402 VALUES LESS THAN (736056) ENGINE = InnoDB,
+ PARTITION p_20150403 VALUES LESS THAN (736057) ENGINE = InnoDB,
+ PARTITION p_20150404 VALUES LESS THAN (736058) ENGINE = InnoDB,
+ PARTITION p_20150405 VALUES LESS THAN (736059) ENGINE = InnoDB,
+ PARTITION p_20150406 VALUES LESS THAN (736060) ENGINE = InnoDB,
+ PARTITION p_20150407 VALUES LESS THAN (736061) ENGINE = InnoDB,
+ PARTITION p_20150408 VALUES LESS THAN (736062) ENGINE = InnoDB,
+ PARTITION p_20150409 VALUES LESS THAN (736063) ENGINE = InnoDB,
+ PARTITION p_20150410 VALUES LESS THAN (736064) ENGINE = InnoDB,
+ PARTITION p_20150411 VALUES LESS THAN (736065) ENGINE = InnoDB,
+ PARTITION p_20150412 VALUES LESS THAN (736066) ENGINE = InnoDB,
+ PARTITION p_20150413 VALUES LESS THAN (736067) ENGINE = InnoDB,
+ PARTITION p_20150414 VALUES LESS THAN (736068) ENGINE = InnoDB,
+ PARTITION p_20150415 VALUES LESS THAN (736069) ENGINE = InnoDB,
+ PARTITION p_20150416 VALUES LESS THAN (736070) ENGINE = InnoDB,
+ PARTITION p_max VALUES LESS THAN MAXVALUE ENGINE = InnoDB) */;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_task_log`
+--
+
+LOCK TABLES `lb_task_log` WRITE;
+/*!40000 ALTER TABLE `lb_task_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lb_task_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_task_monitor`
+--
+
+DROP TABLE IF EXISTS `lb_task_monitor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_task_monitor` (
+  `task_id` varchar(50) NOT NULL DEFAULT '' COMMENT '任务id',
+  `task_name` varchar(500) DEFAULT NULL,
+  `principal` varchar(4000) DEFAULT NULL,
+  `alertPriority` int(1) DEFAULT NULL,
+  `alertContent` text NOT NULL COMMENT '告警内容',
+  `forcastBeginTime` varchar(30) DEFAULT NULL COMMENT '预计开始时间',
+  `forcastEndTime` varchar(30) NOT NULL DEFAULT '' COMMENT '预计完成时间',
+  `TheDate` int(11) DEFAULT NULL COMMENT '间隔时间',
+  `PeriodType` int(11) DEFAULT NULL COMMENT '周期',
+  `source_server` varchar(100) DEFAULT NULL,
+  `target_server` varchar(100) DEFAULT NULL,
+  `sla_flag` smallint(1) DEFAULT NULL,
+  PRIMARY KEY (`task_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_task_monitor`
+--
+
+LOCK TABLES `lb_task_monitor` WRITE;
+/*!40000 ALTER TABLE `lb_task_monitor` DISABLE KEYS */;
+INSERT INTO `lb_task_monitor` VALUES ('20150501190401365','test','admin',3,'',NULL,'10:00',0,0,NULL,'tdw_tl',NULL),('20150501201234616','qqqq','admin',3,'',NULL,'10:00',0,0,NULL,'tdw_tl',NULL),('20150502155748839','test1111','admin',3,'',NULL,'10:00',0,0,NULL,'tdw_tl',NULL),('20150502160034829','qqq','admin',3,'',NULL,'10:00',0,0,NULL,'tdw_tl',NULL),('20150502161524539','test1','admin',3,'',NULL,'10:00',0,0,NULL,'tdw_tl',NULL),('20150502161655533','test','admin',3,'',NULL,'10:00',0,0,NULL,'tdw_tl',NULL),('20150502161844235','rrr','admin',3,'',NULL,'10:00',0,0,NULL,'tdw_tl',NULL),('20150502164459763','中文2222','admin',3,'',NULL,'10:00',1,0,NULL,'tdw_tl',NULL),('20150502164659415','qqqqqqqqqqqqqqqqqq','admin',3,'',NULL,'10:00',0,0,NULL,'tdw_tl',NULL),('20150502172015622','xxxxxxxx','admin',3,'',NULL,'10:00',0,0,NULL,'tdw_tl',NULL),('20150504143328862','haha','admin',3,'',NULL,'10:00',0,0,NULL,'tdw_tl',NULL),('20150504211454468','test_mysql','deacoliu;deacoliu;deacoliu',3,'',NULL,'10:00',0,0,NULL,'test_mysql',NULL),('20150504214324879','test_mr','deacoliu;deacoliu',3,'',NULL,'10:00',0,0,NULL,'undefined',NULL),('20150505092303630','TestMRRR','deacoliu;deacoliu',3,'',NULL,'10:00',0,0,'tdw@tl_nn_tdcp@tl_jt_tdcp','',NULL),('20150505185639127','test_mysql_v01','admin;deacoliu',3,'',NULL,'06:00',0,0,'hdfs_tl-if-nn-tdw.tencent-distribute.com','test_mysql',NULL),('20150505194227079','test_mysql_v02','admin',3,'',NULL,'06:00',0,0,'hdfs_tl-if-nn-tdw.tencent-distribute.com','test_mysql',NULL),('20150505201856335','wenson-test-mr-cmd','wensonsong',3,'',NULL,'10:00',0,0,'tdw@tl_nn_tdcp@tl_jt_tdcp','',NULL),('20150506145456764','test','admin',3,'',NULL,'10:00',0,0,'tdw@tl_nn_tdcp@tl_jt_tdcp','',NULL),('20150506145651525','wenson-test-hdfs-to-mysql','wensonsong',3,'',NULL,'10:00',0,0,'hdfs_tl-if-nn-tdw.tencent-distribute.com','test_mysql',NULL),('20150508101612151','MR Test','admin',3,'',NULL,'10:00',0,0,'tdw@tl_nn_tdcp@tl_jt_tdcp','',NULL),('20150508101805628','yyyy','admin',3,'',NULL,'10:00',0,0,'tdw@tl_nn_tdcp@tl_jt_tdcp','',NULL),('20150513181838225','wenson_test_mysql_to_hdfs','wensonsong',3,'',NULL,'10:00',0,0,'test_mysql','tl-if-nn-tdw.tencent-distribute.com-namenode',NULL),('20150514141946675','wenson_test_pg_to_hdfs','wensonsong',3,'',NULL,'10:00',0,0,'test@monitor-bi-tdw','tl-if-nn-tdw.tencent-distribute.com-namenode',NULL),('20150514173504737','wenson_test_oracle_to_hdfs	','wensonsong',3,'',NULL,'10:00',0,0,'wenson_oracle','tl-if-nn-tdw.tencent-distribute.com-namenode',NULL),('20150602141150416','【全流程】HDFS导出至Oracle','wensonsong;deacoliu',3,'',NULL,'10:00',0,0,'tl-if-nn-tdw.tencent-distribute.com-namenode','wenson_oracle',NULL),('20150602141433038','【全流程】HDFS导出至Postgre','wensonsong;deacoliu',3,'',NULL,'10:00',0,0,'tl-if-nn-tdw.tencent-distribute.com-namenode','test@monitor-bi-tdw',NULL),('20150602142023792','【全流程】HDFS导出至Mysql','wensonsong;deacoliu',3,'',NULL,'10:00',0,0,'tl-if-nn-tdw.tencent-distribute.com-namenode','test_mysql',NULL),('20150602142215202','【全流程】MR_CMD','wensonsong;deacoliu',3,'',NULL,'10:00',0,0,'tdw@tl_nn_tdcp@tl_jt_tdcp','',NULL),('20150602142826561','【全流程】Oracle导入至HDFS','wensonsong;deacoliu',3,'',NULL,'10:00',0,0,'wenson_oracle','tl-if-nn-tdw.tencent-distribute.com-namenode',NULL),('20150602143023086','【全流程】Mysql导入至HDFS','wensonsong;deacoliu',3,'',NULL,'10:00',0,0,'test_mysql','tl-if-nn-tdw.tencent-distribute.com-namenode',NULL),('20150602143223566','【全流程】Postgre导入至HDFS','wensonsong;deacoliu',3,'',NULL,'10:00',0,0,'test@monitor-bi-tdw','tl-if-nn-tdw.tencent-distribute.com-namenode',NULL);
+/*!40000 ALTER TABLE `lb_task_monitor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_task_run`
+--
+
+DROP TABLE IF EXISTS `lb_task_run`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_task_run` (
+  `task_id` char(17) NOT NULL,
+  `task_type` smallint(6) NOT NULL,
+  `cur_run_date` datetime NOT NULL,
+  `next_run_date` datetime NOT NULL,
+  `state` smallint(1) NOT NULL DEFAULT '0',
+  `redo_flag` smallint(1) NOT NULL DEFAULT '0',
+  `tries` smallint(6) NOT NULL DEFAULT '0',
+  `start_time` datetime DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `runtime_broker` varchar(200) DEFAULT NULL,
+  `runtime_id` varchar(100) DEFAULT NULL,
+  `run_priority` smallint(1) NOT NULL DEFAULT '9',
+  `last_log` varchar(4000) DEFAULT NULL,
+  `try_limit` smallint(6) NOT NULL DEFAULT '-1',
+  `create_time` datetime NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `do_flag` smallint(1) NOT NULL DEFAULT '0',
+  `rg_id` int(11) DEFAULT NULL,
+  `dependence_fulfill_time` datetime DEFAULT NULL,
+  `first_dependence_fulfill_time` datetime DEFAULT NULL,
+  `first_start_time` datetime DEFAULT NULL,
+  `error_desc` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`task_id`,`cur_run_date`,`task_type`),
+  KEY `index_state` (`state`),
+  KEY `ltr_last_update` (`last_update`),
+  KEY `ltrstate` (`state`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+/*!50100 PARTITION BY LIST (task_type)
+(PARTITION p_1 VALUES IN (1) ENGINE = InnoDB,
+ PARTITION p_2 VALUES IN (2) ENGINE = InnoDB,
+ PARTITION p_3 VALUES IN (3) ENGINE = InnoDB,
+ PARTITION p_4 VALUES IN (4) ENGINE = InnoDB,
+ PARTITION p_5 VALUES IN (5) ENGINE = InnoDB,
+ PARTITION p_6 VALUES IN (6) ENGINE = InnoDB,
+ PARTITION p_7 VALUES IN (7) ENGINE = InnoDB,
+ PARTITION p_8 VALUES IN (8) ENGINE = InnoDB,
+ PARTITION p_9 VALUES IN (9) ENGINE = InnoDB,
+ PARTITION p_10 VALUES IN (10) ENGINE = InnoDB,
+ PARTITION p_11 VALUES IN (11) ENGINE = InnoDB,
+ PARTITION p_12 VALUES IN (12) ENGINE = InnoDB,
+ PARTITION p_13 VALUES IN (13) ENGINE = InnoDB,
+ PARTITION p_14 VALUES IN (14) ENGINE = InnoDB,
+ PARTITION p_15 VALUES IN (15) ENGINE = InnoDB,
+ PARTITION p_16 VALUES IN (16) ENGINE = InnoDB,
+ PARTITION p_17 VALUES IN (17) ENGINE = InnoDB,
+ PARTITION p_18 VALUES IN (18) ENGINE = InnoDB,
+ PARTITION p_19 VALUES IN (19) ENGINE = InnoDB,
+ PARTITION p_20 VALUES IN (20) ENGINE = InnoDB,
+ PARTITION p_21 VALUES IN (21) ENGINE = InnoDB,
+ PARTITION p_22 VALUES IN (22) ENGINE = InnoDB,
+ PARTITION p_23 VALUES IN (23) ENGINE = InnoDB,
+ PARTITION p_24 VALUES IN (24) ENGINE = InnoDB,
+ PARTITION p_25 VALUES IN (25) ENGINE = InnoDB,
+ PARTITION p_26 VALUES IN (26) ENGINE = InnoDB,
+ PARTITION p_27 VALUES IN (27) ENGINE = InnoDB,
+ PARTITION p_28 VALUES IN (28) ENGINE = InnoDB,
+ PARTITION p_29 VALUES IN (29) ENGINE = InnoDB,
+ PARTITION p_30 VALUES IN (30) ENGINE = InnoDB,
+ PARTITION p_31 VALUES IN (31) ENGINE = InnoDB,
+ PARTITION p_32 VALUES IN (32) ENGINE = InnoDB,
+ PARTITION p_33 VALUES IN (33) ENGINE = InnoDB,
+ PARTITION p_34 VALUES IN (34) ENGINE = InnoDB,
+ PARTITION p_35 VALUES IN (35) ENGINE = InnoDB,
+ PARTITION p_36 VALUES IN (36) ENGINE = InnoDB,
+ PARTITION p_37 VALUES IN (37) ENGINE = InnoDB,
+ PARTITION p_38 VALUES IN (38) ENGINE = InnoDB,
+ PARTITION p_39 VALUES IN (39) ENGINE = InnoDB,
+ PARTITION p_40 VALUES IN (40) ENGINE = InnoDB,
+ PARTITION p_41 VALUES IN (41) ENGINE = InnoDB,
+ PARTITION p_42 VALUES IN (42) ENGINE = InnoDB,
+ PARTITION p_43 VALUES IN (43) ENGINE = InnoDB,
+ PARTITION p_44 VALUES IN (44) ENGINE = InnoDB,
+ PARTITION p_45 VALUES IN (45) ENGINE = InnoDB,
+ PARTITION p_46 VALUES IN (46) ENGINE = InnoDB,
+ PARTITION p_47 VALUES IN (47) ENGINE = InnoDB,
+ PARTITION p_48 VALUES IN (48) ENGINE = InnoDB,
+ PARTITION p_49 VALUES IN (49) ENGINE = InnoDB,
+ PARTITION p_50 VALUES IN (50) ENGINE = InnoDB,
+ PARTITION p_51 VALUES IN (51) ENGINE = InnoDB,
+ PARTITION p_52 VALUES IN (52) ENGINE = InnoDB,
+ PARTITION p_53 VALUES IN (53) ENGINE = InnoDB,
+ PARTITION p_54 VALUES IN (54) ENGINE = InnoDB,
+ PARTITION p_55 VALUES IN (55) ENGINE = InnoDB,
+ PARTITION p_56 VALUES IN (56) ENGINE = InnoDB,
+ PARTITION p_57 VALUES IN (57) ENGINE = InnoDB,
+ PARTITION p_58 VALUES IN (58) ENGINE = InnoDB,
+ PARTITION p_59 VALUES IN (59) ENGINE = InnoDB,
+ PARTITION p_60 VALUES IN (60) ENGINE = InnoDB,
+ PARTITION p_61 VALUES IN (61) ENGINE = InnoDB,
+ PARTITION p_62 VALUES IN (62) ENGINE = InnoDB,
+ PARTITION p_63 VALUES IN (63) ENGINE = InnoDB,
+ PARTITION p_64 VALUES IN (64) ENGINE = InnoDB,
+ PARTITION p_65 VALUES IN (65) ENGINE = InnoDB,
+ PARTITION p_66 VALUES IN (66) ENGINE = InnoDB,
+ PARTITION p_67 VALUES IN (67) ENGINE = InnoDB,
+ PARTITION p_68 VALUES IN (68) ENGINE = InnoDB,
+ PARTITION p_69 VALUES IN (69) ENGINE = InnoDB,
+ PARTITION p_70 VALUES IN (70) ENGINE = InnoDB,
+ PARTITION p_71 VALUES IN (71) ENGINE = InnoDB,
+ PARTITION p_72 VALUES IN (72) ENGINE = InnoDB,
+ PARTITION p_73 VALUES IN (73) ENGINE = InnoDB,
+ PARTITION p_74 VALUES IN (74) ENGINE = InnoDB,
+ PARTITION p_75 VALUES IN (75) ENGINE = InnoDB,
+ PARTITION p_76 VALUES IN (76) ENGINE = InnoDB,
+ PARTITION p_77 VALUES IN (77) ENGINE = InnoDB,
+ PARTITION p_78 VALUES IN (78) ENGINE = InnoDB,
+ PARTITION p_79 VALUES IN (79) ENGINE = InnoDB,
+ PARTITION p_80 VALUES IN (80) ENGINE = InnoDB,
+ PARTITION p_81 VALUES IN (81) ENGINE = InnoDB,
+ PARTITION p_82 VALUES IN (82) ENGINE = InnoDB,
+ PARTITION p_83 VALUES IN (83) ENGINE = InnoDB,
+ PARTITION p_84 VALUES IN (84) ENGINE = InnoDB,
+ PARTITION p_85 VALUES IN (85) ENGINE = InnoDB,
+ PARTITION p_86 VALUES IN (86) ENGINE = InnoDB,
+ PARTITION p_87 VALUES IN (87) ENGINE = InnoDB,
+ PARTITION p_88 VALUES IN (88) ENGINE = InnoDB,
+ PARTITION p_89 VALUES IN (89) ENGINE = InnoDB,
+ PARTITION p_90 VALUES IN (90) ENGINE = InnoDB,
+ PARTITION p_91 VALUES IN (91) ENGINE = InnoDB,
+ PARTITION p_92 VALUES IN (92) ENGINE = InnoDB,
+ PARTITION p_93 VALUES IN (93) ENGINE = InnoDB,
+ PARTITION p_94 VALUES IN (94) ENGINE = InnoDB,
+ PARTITION p_95 VALUES IN (95) ENGINE = InnoDB,
+ PARTITION p_96 VALUES IN (96) ENGINE = InnoDB,
+ PARTITION p_97 VALUES IN (97) ENGINE = InnoDB,
+ PARTITION p_98 VALUES IN (98) ENGINE = InnoDB,
+ PARTITION p_99 VALUES IN (99) ENGINE = InnoDB,
+ PARTITION p_100 VALUES IN (100) ENGINE = InnoDB,
+ PARTITION p_101 VALUES IN (101) ENGINE = InnoDB,
+ PARTITION p_102 VALUES IN (102) ENGINE = InnoDB,
+ PARTITION p_103 VALUES IN (103) ENGINE = InnoDB,
+ PARTITION p_104 VALUES IN (104) ENGINE = InnoDB,
+ PARTITION p_105 VALUES IN (105) ENGINE = InnoDB,
+ PARTITION p_106 VALUES IN (106) ENGINE = InnoDB,
+ PARTITION p_107 VALUES IN (107) ENGINE = InnoDB,
+ PARTITION p_108 VALUES IN (108) ENGINE = InnoDB,
+ PARTITION p_109 VALUES IN (109) ENGINE = InnoDB,
+ PARTITION p_110 VALUES IN (110) ENGINE = InnoDB,
+ PARTITION p_112 VALUES IN (112) ENGINE = InnoDB,
+ PARTITION p_0 VALUES IN (0) ENGINE = InnoDB,
+ PARTITION p_113 VALUES IN (113) ENGINE = InnoDB,
+ PARTITION p_114 VALUES IN (114) ENGINE = InnoDB,
+ PARTITION p_115 VALUES IN (115) ENGINE = InnoDB,
+ PARTITION p_116 VALUES IN (116) ENGINE = InnoDB,
+ PARTITION p_117 VALUES IN (117) ENGINE = InnoDB,
+ PARTITION p_118 VALUES IN (118) ENGINE = InnoDB,
+ PARTITION p_119 VALUES IN (119) ENGINE = InnoDB,
+ PARTITION p_120 VALUES IN (120) ENGINE = InnoDB,
+ PARTITION p_121 VALUES IN (121) ENGINE = InnoDB,
+ PARTITION p_122 VALUES IN (122) ENGINE = InnoDB,
+ PARTITION p_123 VALUES IN (123) ENGINE = InnoDB,
+ PARTITION p_124 VALUES IN (124) ENGINE = InnoDB,
+ PARTITION p_125 VALUES IN (125) ENGINE = InnoDB,
+ PARTITION p_126 VALUES IN (126) ENGINE = InnoDB,
+ PARTITION p_127 VALUES IN (127) ENGINE = InnoDB,
+ PARTITION p_128 VALUES IN (128) ENGINE = InnoDB,
+ PARTITION p_129 VALUES IN (129) ENGINE = InnoDB,
+ PARTITION p_130 VALUES IN (130) ENGINE = InnoDB,
+ PARTITION p_131 VALUES IN (131) ENGINE = InnoDB,
+ PARTITION p_132 VALUES IN (132) ENGINE = InnoDB,
+ PARTITION p_133 VALUES IN (133) ENGINE = InnoDB,
+ PARTITION p_134 VALUES IN (134) ENGINE = InnoDB,
+ PARTITION p_135 VALUES IN (135) ENGINE = InnoDB,
+ PARTITION p_136 VALUES IN (136) ENGINE = InnoDB,
+ PARTITION p_137 VALUES IN (137) ENGINE = InnoDB,
+ PARTITION p_138 VALUES IN (138) ENGINE = InnoDB,
+ PARTITION p_139 VALUES IN (139) ENGINE = InnoDB,
+ PARTITION p_140 VALUES IN (140) ENGINE = InnoDB,
+ PARTITION p_141 VALUES IN (141) ENGINE = InnoDB,
+ PARTITION p_142 VALUES IN (142) ENGINE = InnoDB,
+ PARTITION p_143 VALUES IN (143) ENGINE = InnoDB,
+ PARTITION p_144 VALUES IN (144) ENGINE = InnoDB,
+ PARTITION p_145 VALUES IN (145) ENGINE = InnoDB,
+ PARTITION p_146 VALUES IN (146) ENGINE = InnoDB,
+ PARTITION p_147 VALUES IN (147) ENGINE = InnoDB,
+ PARTITION p_148 VALUES IN (148) ENGINE = InnoDB,
+ PARTITION p_149 VALUES IN (149) ENGINE = InnoDB,
+ PARTITION p_150 VALUES IN (150) ENGINE = InnoDB,
+ PARTITION p_151 VALUES IN (151) ENGINE = InnoDB,
+ PARTITION p_152 VALUES IN (152) ENGINE = InnoDB,
+ PARTITION p_153 VALUES IN (153) ENGINE = InnoDB,
+ PARTITION p_154 VALUES IN (154) ENGINE = InnoDB,
+ PARTITION p_155 VALUES IN (155) ENGINE = InnoDB,
+ PARTITION p_156 VALUES IN (156) ENGINE = InnoDB,
+ PARTITION p_157 VALUES IN (157) ENGINE = InnoDB,
+ PARTITION p_158 VALUES IN (158) ENGINE = InnoDB,
+ PARTITION p_159 VALUES IN (159) ENGINE = InnoDB,
+ PARTITION p_160 VALUES IN (160) ENGINE = InnoDB,
+ PARTITION p_161 VALUES IN (161) ENGINE = InnoDB,
+ PARTITION p_162 VALUES IN (162) ENGINE = InnoDB,
+ PARTITION p_163 VALUES IN (163) ENGINE = InnoDB,
+ PARTITION p_164 VALUES IN (164) ENGINE = InnoDB,
+ PARTITION p_165 VALUES IN (165) ENGINE = InnoDB,
+ PARTITION p_166 VALUES IN (166) ENGINE = InnoDB,
+ PARTITION p_167 VALUES IN (167) ENGINE = InnoDB,
+ PARTITION p_168 VALUES IN (168) ENGINE = InnoDB,
+ PARTITION p_169 VALUES IN (169) ENGINE = InnoDB,
+ PARTITION p_170 VALUES IN (170) ENGINE = InnoDB,
+ PARTITION p_171 VALUES IN (171) ENGINE = InnoDB,
+ PARTITION p_172 VALUES IN (172) ENGINE = InnoDB,
+ PARTITION p_173 VALUES IN (173) ENGINE = InnoDB,
+ PARTITION p_174 VALUES IN (174) ENGINE = InnoDB,
+ PARTITION p_175 VALUES IN (175) ENGINE = InnoDB,
+ PARTITION p_176 VALUES IN (176) ENGINE = InnoDB,
+ PARTITION p_177 VALUES IN (177) ENGINE = InnoDB,
+ PARTITION p_178 VALUES IN (178) ENGINE = InnoDB,
+ PARTITION p_179 VALUES IN (179) ENGINE = InnoDB,
+ PARTITION p_180 VALUES IN (180) ENGINE = InnoDB,
+ PARTITION p_181 VALUES IN (181) ENGINE = InnoDB,
+ PARTITION p_182 VALUES IN (182) ENGINE = InnoDB,
+ PARTITION p_183 VALUES IN (183) ENGINE = InnoDB,
+ PARTITION p_184 VALUES IN (184) ENGINE = InnoDB,
+ PARTITION p_185 VALUES IN (185) ENGINE = InnoDB,
+ PARTITION p_186 VALUES IN (186) ENGINE = InnoDB,
+ PARTITION p_187 VALUES IN (187) ENGINE = InnoDB,
+ PARTITION p_188 VALUES IN (188) ENGINE = InnoDB,
+ PARTITION p_189 VALUES IN (189) ENGINE = InnoDB,
+ PARTITION p_190 VALUES IN (190) ENGINE = InnoDB,
+ PARTITION p_191 VALUES IN (191) ENGINE = InnoDB,
+ PARTITION p_192 VALUES IN (192) ENGINE = InnoDB,
+ PARTITION p_193 VALUES IN (193) ENGINE = InnoDB,
+ PARTITION p_194 VALUES IN (194) ENGINE = InnoDB,
+ PARTITION p_195 VALUES IN (195) ENGINE = InnoDB,
+ PARTITION p_196 VALUES IN (196) ENGINE = InnoDB,
+ PARTITION p_197 VALUES IN (197) ENGINE = InnoDB,
+ PARTITION p_198 VALUES IN (198) ENGINE = InnoDB,
+ PARTITION p_199 VALUES IN (199) ENGINE = InnoDB,
+ PARTITION p_200 VALUES IN (200) ENGINE = InnoDB,
+ PARTITION p_201 VALUES IN (201) ENGINE = InnoDB,
+ PARTITION p_202 VALUES IN (202) ENGINE = InnoDB,
+ PARTITION p_203 VALUES IN (203) ENGINE = InnoDB,
+ PARTITION p_204 VALUES IN (204) ENGINE = InnoDB,
+ PARTITION p_205 VALUES IN (205) ENGINE = InnoDB,
+ PARTITION p_206 VALUES IN (206) ENGINE = InnoDB,
+ PARTITION p_207 VALUES IN (207) ENGINE = InnoDB,
+ PARTITION p_208 VALUES IN (208) ENGINE = InnoDB,
+ PARTITION p_209 VALUES IN (209) ENGINE = InnoDB,
+ PARTITION p_210 VALUES IN (210) ENGINE = InnoDB,
+ PARTITION p_211 VALUES IN (211) ENGINE = InnoDB,
+ PARTITION p_212 VALUES IN (212) ENGINE = InnoDB,
+ PARTITION p_213 VALUES IN (213) ENGINE = InnoDB,
+ PARTITION p_214 VALUES IN (214) ENGINE = InnoDB,
+ PARTITION p_215 VALUES IN (215) ENGINE = InnoDB,
+ PARTITION p_216 VALUES IN (216) ENGINE = InnoDB,
+ PARTITION p_217 VALUES IN (217) ENGINE = InnoDB,
+ PARTITION p_218 VALUES IN (218) ENGINE = InnoDB,
+ PARTITION p_219 VALUES IN (219) ENGINE = InnoDB,
+ PARTITION p_220 VALUES IN (220) ENGINE = InnoDB,
+ PARTITION p_221 VALUES IN (221) ENGINE = InnoDB,
+ PARTITION p_222 VALUES IN (222) ENGINE = InnoDB,
+ PARTITION p_223 VALUES IN (223) ENGINE = InnoDB,
+ PARTITION p_224 VALUES IN (224) ENGINE = InnoDB,
+ PARTITION p_225 VALUES IN (225) ENGINE = InnoDB,
+ PARTITION p_226 VALUES IN (226) ENGINE = InnoDB,
+ PARTITION p_227 VALUES IN (227) ENGINE = InnoDB,
+ PARTITION p_228 VALUES IN (228) ENGINE = InnoDB,
+ PARTITION p_229 VALUES IN (229) ENGINE = InnoDB,
+ PARTITION p_230 VALUES IN (230) ENGINE = InnoDB,
+ PARTITION p_231 VALUES IN (231) ENGINE = InnoDB,
+ PARTITION p_232 VALUES IN (232) ENGINE = InnoDB,
+ PARTITION p_233 VALUES IN (233) ENGINE = InnoDB,
+ PARTITION p_234 VALUES IN (234) ENGINE = InnoDB,
+ PARTITION p_235 VALUES IN (235) ENGINE = InnoDB,
+ PARTITION p_236 VALUES IN (236) ENGINE = InnoDB,
+ PARTITION p_237 VALUES IN (237) ENGINE = InnoDB,
+ PARTITION p_238 VALUES IN (238) ENGINE = InnoDB,
+ PARTITION p_239 VALUES IN (239) ENGINE = InnoDB,
+ PARTITION p_240 VALUES IN (240) ENGINE = InnoDB,
+ PARTITION p_241 VALUES IN (241) ENGINE = InnoDB,
+ PARTITION p_242 VALUES IN (242) ENGINE = InnoDB,
+ PARTITION p_243 VALUES IN (243) ENGINE = InnoDB,
+ PARTITION p_244 VALUES IN (244) ENGINE = InnoDB,
+ PARTITION p_245 VALUES IN (245) ENGINE = InnoDB,
+ PARTITION p_246 VALUES IN (246) ENGINE = InnoDB,
+ PARTITION p_247 VALUES IN (247) ENGINE = InnoDB,
+ PARTITION p_248 VALUES IN (248) ENGINE = InnoDB,
+ PARTITION p_249 VALUES IN (249) ENGINE = InnoDB,
+ PARTITION p_250 VALUES IN (250) ENGINE = InnoDB,
+ PARTITION p_251 VALUES IN (251) ENGINE = InnoDB,
+ PARTITION p_252 VALUES IN (252) ENGINE = InnoDB,
+ PARTITION p_253 VALUES IN (253) ENGINE = InnoDB,
+ PARTITION p_254 VALUES IN (254) ENGINE = InnoDB,
+ PARTITION p_255 VALUES IN (255) ENGINE = InnoDB,
+ PARTITION p_256 VALUES IN (256) ENGINE = InnoDB,
+ PARTITION p_257 VALUES IN (257) ENGINE = InnoDB,
+ PARTITION p_258 VALUES IN (258) ENGINE = InnoDB,
+ PARTITION p_259 VALUES IN (259) ENGINE = InnoDB,
+ PARTITION p_260 VALUES IN (260) ENGINE = InnoDB,
+ PARTITION p_261 VALUES IN (261) ENGINE = InnoDB,
+ PARTITION p_262 VALUES IN (262) ENGINE = InnoDB,
+ PARTITION p_263 VALUES IN (263) ENGINE = InnoDB,
+ PARTITION p_264 VALUES IN (264) ENGINE = InnoDB,
+ PARTITION p_265 VALUES IN (265) ENGINE = InnoDB,
+ PARTITION p_266 VALUES IN (266) ENGINE = InnoDB,
+ PARTITION p_267 VALUES IN (267) ENGINE = InnoDB,
+ PARTITION p_268 VALUES IN (268) ENGINE = InnoDB,
+ PARTITION p_269 VALUES IN (269) ENGINE = InnoDB,
+ PARTITION p_270 VALUES IN (270) ENGINE = InnoDB,
+ PARTITION p_271 VALUES IN (271) ENGINE = InnoDB,
+ PARTITION p_272 VALUES IN (272) ENGINE = InnoDB,
+ PARTITION p_273 VALUES IN (273) ENGINE = InnoDB,
+ PARTITION p_274 VALUES IN (274) ENGINE = InnoDB,
+ PARTITION p_275 VALUES IN (275) ENGINE = InnoDB,
+ PARTITION p_276 VALUES IN (276) ENGINE = InnoDB,
+ PARTITION p_277 VALUES IN (277) ENGINE = InnoDB,
+ PARTITION p_278 VALUES IN (278) ENGINE = InnoDB,
+ PARTITION p_279 VALUES IN (279) ENGINE = InnoDB,
+ PARTITION p_280 VALUES IN (280) ENGINE = InnoDB,
+ PARTITION p_281 VALUES IN (281) ENGINE = InnoDB,
+ PARTITION p_282 VALUES IN (282) ENGINE = InnoDB,
+ PARTITION p_283 VALUES IN (283) ENGINE = InnoDB,
+ PARTITION p_284 VALUES IN (284) ENGINE = InnoDB,
+ PARTITION p_285 VALUES IN (285) ENGINE = InnoDB,
+ PARTITION p_286 VALUES IN (286) ENGINE = InnoDB,
+ PARTITION p_287 VALUES IN (287) ENGINE = InnoDB,
+ PARTITION p_288 VALUES IN (288) ENGINE = InnoDB,
+ PARTITION p_289 VALUES IN (289) ENGINE = InnoDB,
+ PARTITION p_290 VALUES IN (290) ENGINE = InnoDB,
+ PARTITION p_291 VALUES IN (291) ENGINE = InnoDB,
+ PARTITION p_292 VALUES IN (292) ENGINE = InnoDB,
+ PARTITION p_293 VALUES IN (293) ENGINE = InnoDB,
+ PARTITION p_294 VALUES IN (294) ENGINE = InnoDB,
+ PARTITION p_295 VALUES IN (295) ENGINE = InnoDB,
+ PARTITION p_296 VALUES IN (296) ENGINE = InnoDB,
+ PARTITION p_297 VALUES IN (297) ENGINE = InnoDB,
+ PARTITION p_298 VALUES IN (298) ENGINE = InnoDB,
+ PARTITION p_299 VALUES IN (299) ENGINE = InnoDB,
+ PARTITION p_300 VALUES IN (300) ENGINE = InnoDB,
+ PARTITION p_111 VALUES IN (111) ENGINE = InnoDB) */;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_task_run`
+--
+
+LOCK TABLES `lb_task_run` WRITE;
+/*!40000 ALTER TABLE `lb_task_run` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lb_task_run` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_task_type`
+--
+
+DROP TABLE IF EXISTS `lb_task_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_task_type` (
+  `type_id` smallint(6) NOT NULL COMMENT '类型ID',
+  `type_desc` varchar(100) NOT NULL COMMENT '类型描述',
+  `type_sort` varchar(100) NOT NULL COMMENT '所属大类',
+  `in_charge` varchar(30) NOT NULL COMMENT '负责人',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `killable` smallint(1) NOT NULL DEFAULT '0' COMMENT '可KILL',
+  `broker_parallelism` smallint(6) NOT NULL DEFAULT '10' COMMENT '每个Broker上并发度',
+  `default_alive_wait` smallint(6) NOT NULL DEFAULT '30' COMMENT '默认存活等待',
+  `task_parallelism` smallint(6) NOT NULL DEFAULT '10' COMMENT '每个任务最大并发度',
+  `do_redo_parallelism` smallint(6) DEFAULT '10' COMMENT '此类型补录或重调实例最大个数',
+  `retry_wait` smallint(6) NOT NULL DEFAULT '1' COMMENT '重试等待(分钟)',
+  `retry_limit` smallint(6) DEFAULT '5',
+  `polling_seconds` smallint(6) NOT NULL DEFAULT '60' COMMENT '轮询周期(秒)',
+  `source_server_type` varchar(100) DEFAULT NULL COMMENT '源服务器类型',
+  `target_server_type` varchar(100) DEFAULT NULL COMMENT '目标服务器类型',
+  `param_list` varchar(10240) DEFAULT NULL COMMENT '参数列表XML',
+  `is_multi_ip` varchar(100) DEFAULT NULL,
+  `priority_code` varchar(100) DEFAULT NULL,
+  `downgrade_priority_tries` smallint(6) DEFAULT NULL,
+  `run_jar_name` varchar(100) NOT NULL DEFAULT '',
+  `commit_task_count` int(11) NOT NULL DEFAULT '20',
+  `commit_wait_time` int(11) NOT NULL DEFAULT '5000',
+  `commit_db_thread` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='任务类型';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_task_type`
+--
+
+LOCK TABLES `lb_task_type` WRITE;
+/*!40000 ALTER TABLE `lb_task_type` DISABLE KEYS */;
+INSERT INTO `lb_task_type` VALUES (66,'HDFS导出至PG','数据出库','jessicajin','2013-02-27 15:13:00',0,10,720,10,176,15,5,1,'HDFS','postgre','<parameters><parameter><name>hadoopCommand</name><value>/data/tdwgaia_client/bin/hadoop</value></parameter><parameter><name>cdh3_hadoop</name><value>/data/tdwgaia_client/bin/hadoop</value></parameter><parameter><name>checkFileTmpDir></name><value>/usr/local/lhotse_runners/check_file_tmp_dir</value></parameter><parameter><name>plcProgram</name><value>/data/PLClient2/PLC</value></parameter><parameter><name>nameNodeTmpPath</name><value>/user/ddc/tmp_data_20150412</value></parameter><parameter><name>externalTableDb</name><value>tdw_inter_db</value></parameter><parameter><name>dx_temp_path</name><value>/usr/local/lhotse_runners/DX/tmp/</value></parameter><parameter><name>dx_home</name><value>/usr/local/lhotse_runners/DX/</value></parameter><parameter><name>dx_template_hdfs_to_db</name><value>/usr/local/lhotse_runners/DX/jobs/HDFS2DBTemplate.xml</value></parameter><parameter><name>dx_temp_schema</name><value>denny_test</value></parameter><parameter><name>normal_hadoop</name><value>/data/tdwgaia_client/bin/hadoop</value></parameter><parameter><name>ha_hadoop</name><value>/data/tdwgaia_client/bin/hadoop</value></parameter><parameter><name>tdw_privilege_api_url</name><value>http://10.204.28.91:8084/tdwprivapi</value></parameter><parameter><name>sla_key_pool</name><value>g_isd_999</value></parameter></parameters>','0',NULL,2,'HDFSToPgRunner.jar',1,5000,1),(67,'HDFS导出至Oracle','数据出库','jessicajin','2013-02-27 15:13:00',0,10,720,10,176,15,5,1,'HDFS','oracle_DB','<parameters><parameter><name>hadoopCommand</name><value>/data/tdwgaia_client/bin/hadoop</value></parameter><parameter><name>cdh3_hadoop</name><value>/data/tdwgaia_client/bin/hadoop</value></parameter><parameter><name>checkFileTmpDir></name><value>/usr/local/lhotse_runners/check_file_tmp_dir</value></parameter><parameter><name>plcProgram</name><value>/data/PLClient2/PLC</value></parameter><parameter><name>nameNodeTmpPath</name><value>/user/ddc/tmp_data_20150412</value></parameter><parameter><name>externalTableDb</name><value>tdw_inter_db</value></parameter><parameter><name>dx_temp_path</name><value>/usr/local/lhotse_runners/DX/tmp/</value></parameter><parameter><name>dx_home</name><value>/usr/local/lhotse_runners/DX/</value></parameter><parameter><name>dx_template_hdfs_to_db</name><value>/usr/local/lhotse_runners/DX/jobs/HDFS2OracleTemplate.xml</value></parameter><parameter><name>dx_temp_schema</name><value>denny_test</value></parameter><parameter><name>normal_hadoop</name><value>/data/tdwgaia_client/bin/hadoop</value></parameter><parameter><name>ha_hadoop</name><value>/data/tdwgaia_client/bin/hadoop</value></parameter><parameter><name>tdw_privilege_api_url</name><value>http://10.204.28.91:8084/tdwprivapi</value></parameter><parameter><name>sla_key_pool</name><value>g_isd_999</value></parameter></parameters>','0',NULL,2,'HDFSToOracleRunner.jar',1,5000,1),(68,'HDFS导出至MYSQL','数据出库','dennyliu','2012-10-26 14:38:00',0,30,720,2,160,15,5,1,'HDFS','mysql','<parameters><parameter><name>hadoopCommand</name><value>/data/tdwgaia_client/bin/hadoop</value></parameter><parameter><name>cdh3_hadoop</name><value>/data/tdwgaia_client/bin/hadoop</value></parameter><parameter><name>checkFileTmpDir></name><value>/usr/local/lhotse_runners/check_file_tmp_dir</value></parameter><parameter><name>plcProgram</name><value>/data/PLClient2/PLC</value></parameter><parameter><name>nameNodeTmpPath</name><value>/user/ddc/tmp_data_20150412</value></parameter><parameter><name>externalTableDb</name><value>tdw_inter_db</value></parameter><parameter><name>dx_temp_path</name><value>/usr/local/lhotse_runners/DX/tmp/</value></parameter><parameter><name>dx_home</name><value>/usr/local/lhotse_runners/DX/</value></parameter><parameter><name>dx_template_hdfs_to_db</name><value>/usr/local/lhotse_runners/DX/jobs/HDFS2DBTemplate.xml</value></parameter><parameter><name>dx_temp_schema</name><value>denny_test</value></parameter><parameter><name>normal_hadoop</name><value>/data/tdwgaia_client/bin/hadoop</value></parameter><parameter><name>ha_hadoop</name><value>/data/tdwgaia_client/bin/hadoop</value></parameter><parameter><name>tdw_privilege_api_url</name><value>http://10.204.28.91:8084/tdwprivapi</value></parameter><parameter><name>sla_key_pool</name><value>g_isd_999</value></parameter></parameters>','0',NULL,2,'HDFSToMysqlRunner.jar',1,5000,1),(92,'MapReduce命令式','数据计算','lyndldeng','2013-01-23 14:17:17',0,10,1440,15,60,5,10,10,'mr_group',NULL,'<parameters><parameter><name>hadoopPath_cdh3</name><value>/usr/bin/hadoop</value></parameter><parameter><name>workDir</name><value>/usr/local/lhotse_runners/tdcp/workspace</value></parameter><parameter><name>scriptDir</name><value>/usr/local/lhotse_runners/tdcp/templates</value></parameter><parameter><name>hadoopPath_HA</name><value>/usr/bin/hadoop</value></parameter><parameter><name>hadoopPath_CDH3</name><value>/usr/bin/hadoop</value></parameter><parameter><name>hadoopPath_gaia</name><value>/usr/bin/hadoop</value></parameter><parameter><name>sla_key_pool</name><value>g_isd_999</value></parameter></parameters>','0',NULL,2,'MapReduceCmdRunner.jar',1,5000,1),(118,'Mysql导入至HDFS','数据导入','taoxzhang','2013-12-18 16:01:23',0,10,720,10,48,15,5,10,'mysql','hdfs','<parameters><parameter><name>hadoopPath_cdh3</name><value>/usr/bin/hadoop</value></parameter><parameter><name>dx_temp_path</name><value>/usr/local/lhotse_runners/DX/tmp/</value></parameter><parameter><name>dx_home</name>  <value>/usr/local/lhotse_runners/DX/</value></parameter><parameter><name>dx_template_db_to_hdfs</name><value>/usr/local/lhotse_runners/DX/jobs/DB2HDFSTemplate.xml</value></parameter></parameters>',NULL,NULL,2,'DBToHdfsRunner.jar',1,5000,1),(119,'PG导入至HDFS','数据导入','taoxzhang','2013-12-18 16:01:23',0,10,720,10,48,15,5,2,'postgre','hdfs','<parameters><parameter><name>hadoopPath_cdh3</name><value>/usr/bin/hadoop</value></parameter><parameter><name>dx_temp_path</name><value>/usr/local/lhotse_runners/DX/tmp/</value></parameter><parameter><name>dx_home</name>  <value>/usr/local/lhotse_runners/DX/</value></parameter><parameter><name>dx_template_db_to_hdfs</name><value>/usr/local/lhotse_runners/DX/jobs/DB2HDFSTemplate.xml</value></parameter></parameters>',NULL,NULL,2,'DBToHdfsRunner.jar',1,5000,1),(120,'ORACLE导入至HDFS','数据导入','taoxzhang','2013-12-18 16:01:23',0,10,720,10,48,15,5,10,'oracle_DB','hdfs','<parameters><parameter><name>hadoopPath_cdh3</name><value>/usr/bin/hadoop</value></parameter><parameter><name>dx_temp_path</name><value>/usr/local/lhotse_runners/DX/tmp/</value></parameter><parameter><name>dx_home</name>  <value>/usr/local/lhotse_runners/DX/</value></parameter><parameter><name>dx_template_db_to_hdfs</name><value>/usr/local/lhotse_runners/DX/jobs/DB2HDFSTemplate.xml</value></parameter></parameters>',NULL,NULL,2,'DBToHdfsRunner.jar',1,5000,1);
+/*!40000 ALTER TABLE `lb_task_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_task_type_ext`
+--
+
+DROP TABLE IF EXISTS `lb_task_type_ext`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_task_type_ext` (
+  `type_id` smallint(6) NOT NULL COMMENT '任务类型ID',
+  `prop_name` varchar(255) NOT NULL COMMENT '属性名',
+  `prop_label` varchar(100) NOT NULL COMMENT '属性标签(UI展示用)',
+  `default_flag` smallint(6) DEFAULT '1',
+  `visible_flag` smallint(6) DEFAULT '1',
+  `prop_desc` varchar(1000) DEFAULT NULL,
+  `rank_id` smallint(6) NOT NULL DEFAULT '1' COMMENT '排列ID',
+  `input_type` varchar(50) NOT NULL COMMENT '控件类型',
+  `value_type` varchar(50) NOT NULL COMMENT '值类型(integer,string)',
+  `default_value` varchar(1000) DEFAULT NULL COMMENT '缺省值',
+  `candidate_values` varchar(1000) DEFAULT NULL COMMENT '候选值列表(,分隔)',
+  `is_mandatory` smallint(1) NOT NULL COMMENT '是否必填',
+  `max_value` int(11) DEFAULT NULL COMMENT '最大值',
+  `min_value` int(11) DEFAULT NULL COMMENT '最小值',
+  `conf_level` smallint(1) NOT NULL DEFAULT '1' COMMENT '配置等级(1-普通,2-高级,3-管理员)',
+  `candidate_texts` varchar(2000) DEFAULT NULL COMMENT '候选文本列表(,分隔)',
+  `copy_key` smallint(1) NOT NULL DEFAULT '0' COMMENT '复制时是否需要修改',
+  `regex` varchar(2000) DEFAULT NULL COMMENT '字段正则表达式校验',
+  PRIMARY KEY (`type_id`,`prop_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_task_type_ext`
+--
+
+LOCK TABLES `lb_task_type_ext` WRITE;
+/*!40000 ALTER TABLE `lb_task_type_ext` DISABLE KEYS */;
+INSERT INTO `lb_task_type_ext` VALUES (66,'dbColumnNames','目标表列名',1,1,'目标表列表，需要与源文件需要导入的列一一对应',6,'text-single','string','','',0,1,0,1,'\"',1,''),(66,'errorPercentage','允许误差',1,1,'允许出错的百分比，20代表允许有20%的数据被reject，0代表不允许有任何数据被reject',4,'text-single','string','','',0,1,0,1,'\"',1,''),(66,'loadMode','数据入库模式',1,1,'数据入库模式',3,'select-option','string','TRUNCATE','TRUNCATE,APPEND',0,1,0,1,'TRUNCATE,APPEND',1,''),(66,'partition.key','分区字段',1,1,'表的分区字段，如果为非分区表则不必输入',7,'text-single','string','','',0,1,0,1,'\"',1,''),(66,'partition.value','是否分区',1,1,'目标表分区格式',8,'select-option','string','','N,P_${YYYYMM},P_${YYYYMMDD},P_${YYYYMMDDHH}',0,1,0,1,'不分区,P_${YYYYMM},P_${YYYYMMDD},P_${YYYYMMDDHH}',1,''),(66,'seperator','分隔符',1,1,'分隔符',2,'select-option','string','9','9,124,44,34,42,32,59',1,0,0,1,'TAB键,竖线(|),逗号,双引号(\"),星号(*),空格,分号(;)',1,''),(66,'source.path','源目录',1,1,'源文件所在目录',1,'text-single','string','','',0,1,0,1,'\"',1,''),(66,'target.tablename','目标表',1,1,'目标表的名称',5,'text-single','string','','',0,1,0,1,'\"',1,''),(67,'dbColumnNames','目标表列名',1,1,'目标表列表，需要与源文件需要导入的列一一对应',4,'text-single','string','','',0,1,0,1,'\"',1,''),(67,'errorPercentage','允许误差',1,1,'允许出错的百分比，20代表允许有20%的数据被reject，0代表不允许有任何数据被reject',7,'text-single','string','','',0,1,0,1,'\"',1,''),(67,'loadMode','数据入库模式',1,1,'数据入库模式',6,'select-option','string','TRUNCATE','TRUNCATE,APPEND',0,1,0,1,'TRUNCATE,APPEND',1,''),(67,'partition.value','是否分区',1,1,'目标表分区格式',5,'select-option','string','','N,P_${YYYYMM},P_${YYYYMMDD},P_${YYYYMMDDHH}',0,1,0,1,'不分区,P_${YYYYMM},P_${YYYYMMDD},P_${YYYYMMDDHH}',1,''),(67,'seperator','分隔符',1,1,'分隔符',4,'select-option','string','9','9,124,44,34,42,32,59',1,0,0,1,'TAB键,竖线(|),逗号,双引号(\"),星号(*),空格,分号(;)',1,''),(67,'source.path','源目录',1,1,'源文件所在目录',1,'text-single','string','','',0,1,0,1,'\"',1,''),(67,'target.tablename','目标表',1,1,'目标表的名称',3,'text-single','string','','',0,1,0,1,'\"',1,''),(68,'dbColumnNames','目标表列名',1,1,'目标表列表，需要与源文件需要导入的列一一对应',4,'text-single','string','','',0,1,0,1,'\"',1,''),(68,'errorPercentage','允许误差',1,1,'允许出错的百分比，20代表允许有20%的数据被reject，0代表不允许有任何数据被reject',7,'text-single','string','','',0,1,0,1,'\"',1,''),(68,'loadMode','数据入库模式',1,1,'数据入库模式',6,'select-option','string','TRUNCATE','TRUNCATE,APPEND',0,1,0,1,'TRUNCATE,APPEND',1,''),(68,'partition.value','是否分区',1,1,'目标表分区格式',5,'select-option','string','','N,P_${YYYYMM},P_${YYYYMMDD},P_${YYYYMMDDHH}',0,1,0,1,'不分区,P_${YYYYMM},P_${YYYYMMDD},P_${YYYYMMDDHH}',1,''),(68,'seperator','分隔符',1,1,'分隔符',4,'select-option','string','9','9,124,44,34,42,32,59',1,0,0,1,'TAB键,竖线(|),逗号,双引号(\"),星号(*),空格,分号(;)',1,''),(68,'source.path','源目录',1,1,'源文件所在目录',1,'text-single','string','','',0,1,0,1,'\"',1,''),(68,'target.tablename','目标表',1,1,'目标表的名称',3,'text-single','string','','',0,1,0,1,'\"',1,''),(92,'mapred.output.dir','输出目录',1,1,'计算结果输出目录，如果不输入，则无法提前进行结果目录的清理，任务执行可能失败',1,'text-single','string','','',0,0,0,1,'',1,''),(92,'post.check.script','后置done命令',1,1,'任务执行后的done命令,在hdfs中touchz一个文件或执行清理脚本。对在hdfs中touchz一个文件，采用“done hdfsdir”; 对于清理脚本，采用“ ***.sh  argv”',6,'text-single','string','','',0,0,0,1,'',1,''),(92,'pre.check.script','前置check命令',1,1,'任务执行前的check命令。对于check在hdfs中的目录，采用“check hdfsdir”; 对于脚本，采用“ ./***.sh  argv”',4,'text-single','string','','',0,0,0,1,'',0,''),(92,'task.check.timeout','check命令超时',1,1,'check命令超时，时间单位是分钟。任务在这段时间会一直执行。',5,'select-option','integer','','5,10',1,0,0,1,'5,10',0,''),(92,'task.main.param','命令行参数',1,1,' hadoop 命令行参数(注意：输出目录即使上面已输入，这里仍旧需要)',2,'textarea','string','','',1,0,0,1,'',0,''),(92,'task.main.timeout','任务超时（分钟）',1,1,'hadoop任务超时，时间单位是分钟。当hadoop任务执行时间超过这段时间后，任务会被终止。',3,'select-option','integer','300','180,200,270,300,360,600',1,0,0,1,'180,200,270,300,360,600',0,'180,200,270,300,360'),(118,'charset.encoding','导出文件编码',1,1,'',4,'text-single','string','UTF-8','',1,0,0,1,'',1,''),(118,'errorThreshold','脏数据阈值',1,1,'',3,'text-single','integer','10000','',1,0,0,1,'',1,''),(118,'ignore.empty.datasource','是否忽略空数据源',1,1,'',7,'select-option','string','false','false,true',1,0,0,1,'',1,''),(118,'readConcurrency','读并发度',1,1,'',1,'text-single','integer','1','',1,0,0,1,'',1,''),(118,'separator','分隔符',1,1,'分隔符',4,'select-option','string','9','9,124,44,34,42,32,59',1,0,0,1,'TAB键,竖线(|),逗号,双引号(\"),星号(*),空格,分号(;)',1,''),(118,'sql','Select SQL',1,1,'支持通配符，例：select * from qqshow_${1, 99}; <br>更多通配符例子：<br>十进制 ${1, 99} = 1, 2, 3, ... 98, 99<br> 带占位符的十进制 ${01, 99} = 01, 02, ... 98, 99<br> 十六进制 ${0x0,0xff} = 1, 2, ... fe, ff<br> 带占位符的十六进制 ${0x00,0xff}',4,'textarea','string','','',1,0,0,1,'',1,''),(118,'target.path','出库HDFS目录',1,1,'出库文件路径，指接口机目录，例：/stage/outface/sng/test_table/${YYYYMMDD}/',4,'text-single','string','','',1,0,0,1,'',1,''),(119,'charset.encoding','导出文件编码',1,1,'',4,'text-single','string','UTF-8','',1,0,0,1,'',1,''),(119,'errorThreshold','脏数据阈值',1,1,'',3,'text-single','integer','10000','',1,0,0,1,'',1,''),(119,'ignore.empty.datasource','是否忽略空数据源',1,1,'',7,'select-option','string','false','false,true',1,0,0,1,'',1,''),(119,'readConcurrency','读并发度',1,1,'',1,'text-single','integer','1','',1,0,0,1,'',1,''),(119,'separator','分隔符',1,1,'分隔符',4,'select-option','string','9','9,124,44,34,42,32,59',1,0,0,1,'TAB键,竖线(|),逗号,双引号(\"),星号(*),空格,分号(;)',1,''),(119,'sql','Select SQL',1,1,'支持通配符，例：select * from qqshow_${1, 99}; <br>更多通配符例子：<br>十进制 ${1, 99} = 1, 2, 3, ... 98, 99<br> 带占位符的十进制 ${01, 99} = 01, 02, ... 98, 99<br> 十六进制 ${0x0,0xff} = 1, 2, ... fe, ff<br> 带占位符的十六进制 ${0x00,0xff}',4,'textarea','string','','',1,0,0,1,'',1,''),(119,'target.path','出库HDFS目录',1,1,'出库文件路径，指接口机目录，例：/stage/outface/sng/test_table/${YYYYMMDD}/',4,'text-single','string','','',1,0,0,1,'',1,''),(120,'charset.encoding','导出文件编码',1,1,'',4,'text-single','string','UTF-8','',1,0,0,1,'',1,''),(120,'errorThreshold','脏数据阈值',1,1,'',3,'text-single','integer','10000','',1,0,0,1,'',1,''),(120,'ignore.empty.datasource','是否忽略空数据源',1,1,'',7,'select-option','string','false','false,true',1,0,0,1,'',1,''),(120,'readConcurrency','读并发度',1,1,'',1,'text-single','integer','1','',1,0,0,1,'',1,''),(120,'separator','分隔符',1,1,'分隔符',4,'select-option','string','9','9,124,44,34,42,32,59',1,0,0,1,'TAB键,竖线(|),逗号,双引号(\"),星号(*),空格,分号(;)',1,''),(120,'sql','Select SQL',1,1,'支持通配符，例：select * from qqshow_${1, 99}; <br>更多通配符例子：<br>十进制 ${1, 99} = 1, 2, 3, ... 98, 99<br> 带占位符的十进制 ${01, 99} = 01, 02, ... 98, 99<br> 十六进制 ${0x0,0xff} = 1, 2, ... fe, ff<br> 带占位符的十六进制 ${0x00,0xff}',4,'textarea','string','','',1,0,0,1,'',1,''),(120,'target.path','出库HDFS目录',1,1,'出库文件路径，指接口机目录，例：/stage/outface/sng/test_table/${YYYYMMDD}/',4,'text-single','string','','',1,0,0,1,'',1,''),(121,'file_name','test',1,1,'test',1,'text-single','string','','',1,0,0,1,'xxx.py     NULL',1,NULL),(121,'params','test',1,1,'test',2,'text-single','string','','',0,1,0,1,'${YYYYMMDD},u_isd_qzone    NULL',1,NULL),(121,'special_para','test',1,1,'test',3,'text-single','string','set hive.exec.parallel = true;','',0,1,0,1,'',0,NULL);
+/*!40000 ALTER TABLE `lb_task_type_ext` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_user_role`
+--
+
+DROP TABLE IF EXISTS `lb_user_role`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_user_role` (
+  `user_name` varchar(50) NOT NULL COMMENT '用户名',
+  `role_name` varchar(50) NOT NULL COMMENT '角色名',
+  `in_charge` varchar(50) NOT NULL COMMENT '负责人',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `password` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`user_name`,`role_name`),
+  KEY `fk_user_role_ref_role` (`role_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户与角色对照关系表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_user_role`
+--
+
+LOCK TABLES `lb_user_role` WRITE;
+/*!40000 ALTER TABLE `lb_user_role` DISABLE KEYS */;
+INSERT INTO `lb_user_role` VALUES ('admin','admin','admin','2015-05-01 20:06:56','admin');
+/*!40000 ALTER TABLE `lb_user_role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lb_user_server`
+--
+
+DROP TABLE IF EXISTS `lb_user_server`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lb_user_server` (
+  `user_name` varchar(50) NOT NULL COMMENT '用户名',
+  `server_tag` varchar(200) NOT NULL COMMENT '服务器标识',
+  `in_charge` varchar(50) NOT NULL COMMENT '负责人',
+  `create_time` datetime NOT NULL COMMENT '创建时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lb_user_server`
+--
+
+LOCK TABLES `lb_user_server` WRITE;
+/*!40000 ALTER TABLE `lb_user_server` DISABLE KEYS */;
+INSERT INTO `lb_user_server` VALUES ('qingminli','tdw_tl','deacoliu','2015-05-01 18:19:04'),('qingminli','tdw_tl','deacoliu','2015-05-01 18:19:04'),('deacoliu','tdw_tl','deacoliu','2015-05-01 18:19:12'),('admin','tdw_tl','deacoliu','2015-05-01 19:03:27'),('hillliu','tdw_tl','deacoliu','2015-05-01 20:16:03'),('deacoliu','test_mysql','deacoliu','2015-05-04 21:14:50'),('deacoliu','tdw@tdw_nn_tdcp@tl_jt_tdcp','deacoliu','2015-05-04 21:34:06');
+/*!40000 ALTER TABLE `lb_user_server` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-06-12 11:31:30

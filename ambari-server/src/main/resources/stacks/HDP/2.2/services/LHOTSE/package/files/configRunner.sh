@@ -28,8 +28,9 @@ if [ $PORT_EXIST -ge 1 ]; then
 fi
 
 # Release the cgi-bin codes
-cd $DEFAULT_RUNNER_DIR
-tar -xvzf getlog.tar.gz
+#cd $DEFAULT_RUNNER_DIR
+#tar -xvzf getlog.tar.gz
+#tar -xvzf tdcp.tar.gz
 
 # Restart the httpd to enable the new configurations
 service httpd restart

@@ -23,12 +23,12 @@ class configinit:
       content=Template("base.lhotse.properties.j2")
     )
 
-    print 'create hadoop-metrics2.properties file'
-    File(os.path.join(params.base_config_path,'hadoop-metrics2.properties'),
+    print 'create hadoop-metrics.properties file'
+    File(os.path.join(params.base_config_path,'hadoop-metrics.properties'),
       owner='lhotse',
       group='lhotse',
       mode=0644,
-      content=Template("base.hadoop-metrics2.properties.j2")
+      content=Template("base.hadoop-metrics.properties.j2")
     )
 
   def update_runner_config(self,env):
@@ -100,4 +100,16 @@ class configinit:
       group='hdfs',
       mode=0644,
       content=Template("lhotse.web.httpd.settings.j2")
+    )
+    
+  def update_db_config(self):
+    import params
+
+    print 'create lhotse_schema.sql'
+    File(os.path.join(Script.get_tmp_dir(),'lhotse_schema.sql'),
+      owner='hdfs',
+      group='hdfs',
+      mode=0644,
+	  encoding='UTF-8',
+      content=Template("lhotse.schema.sql.j2")
     )

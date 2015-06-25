@@ -77,7 +77,14 @@ class Web(Script):
     import params
     env.set_params(params)
 
-    mysql_service(daemon_name=params.service_daemon, action = 'stop')
+    #delete conf file
+    cmd = format("rm {web_http_path}/ge.conf")
+    (ret, output) = commands.getstatusoutput(cmd)
+    print "delete ge.conf output"
+    print output
+    print ret
+    
+    mysql_service(daemon_name=params.service_daemon, action = 'restart')
 
     #delete pid file
 

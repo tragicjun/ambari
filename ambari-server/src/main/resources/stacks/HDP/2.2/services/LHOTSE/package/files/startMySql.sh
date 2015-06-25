@@ -90,7 +90,9 @@ echo "Grant privileges for $MYSQL_DB_HOST with result $?"
 mysql -uroot -e "GRANT ALL PRIVILEGES ON $LHOTSE_DATABASE_NAME.* TO '$LHOTSE_DB_USER'@'localhost' IDENTIFIED BY '$LHOTSE_DB_PASSWORD'"
 
 echo "Grant privileges for locallhost with result $?"
-
+mysql -uroot -e "use test;create table test_table(user_name varchar(50), city varchar(50)) ENGINE=InnoDB DEFAULT CHARSET=utf8"
+mysql -uroot -e "use test;insert into test_table values('name1','SZ'),('name2','SZ'),('name3','BJ'),('name4','SH'),('name5','SZ'),('name6','NY'),('name7','GZ'),('name8','SH')"
+mysql -uroot -e "use test;create table test_table_result(statis_date int(11),city varchar(50),cnt int(11)) ENGINE=InnoDB DEFAULT CHARSET=utf8"
 # Flush all privileges
 mysql -uroot -e "FLUSH PRIVILEGES"
 

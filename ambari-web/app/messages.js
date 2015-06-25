@@ -2555,7 +2555,7 @@ Em.I18n.translations = {
     'admin.stackUpgrade.downgrade.proceed': "继续降级",
     'admin.stackUpgrade.downgrade.body': "您确定要放弃升级并降级到<b>{0}</b>么?",
     'admin.stackUpgrade.upgrade.confirm.body': "您将要执行升级到{0}的操作.",
-    'admin.stackUpgrade.title': "套件和版本",
+    'admin.stackUpgrade.title': "套件",
     'admin.stackUpgrade.state.inProgress': "正在升级",
     'admin.stackUpgrade.state.paused': "已暂停升级",
     'admin.stackUpgrade.state.completed': "已完成升级",

@@ -20,6 +20,7 @@ limitations under the License.
 import os
 import sys
 from resource_management import *
+from configinit import configinit
 
 from mysql_service import mysql_service
 
@@ -30,26 +31,26 @@ class MysqlServer(Script):
     excludePackage = ['lhotse-runner*','lhotse-base*','lhotse-service*','vsftpd*','lhotse-web*']
     self.install_packages(env,excludePackage)
     self.configure(env)
-
+    self.initLhotseDB(env)
+    
   def configure(self, env):
     import params
     env.set_params(params)
 
+  def initLhotseDB(self, env):
+    import params
+    env.set_params(params)
+    
     File(params.start_mysql_script,
          mode=0755,
+         encoding='UTF-8',
          content=StaticFile('startMySql.sh')
     )
-
-    File(params.lhotse_schema_path, 
-         mode=0755, 
-         content=StaticFile('lhotse_schema.sql')
-    )
-
+    configinit().update_db_config()
     cmd = format("bash -x {start_mysql_script} {lhotse_database_hosts} {lhotse_database_data_dir} {lhotse_schema_path} {lhotse_database_username} {lhotse_database_password}")
 
     val= os.system(cmd)
     print val
-
 
 #    Execute(cmd,
 #            tries=1,
@@ -60,7 +61,6 @@ class MysqlServer(Script):
   def start(self, env):
     import params
     env.set_params(params)
-
     mysql_service(daemon_name=params.daemon_name, action = 'start')
     print "ok"
 

@@ -67,7 +67,6 @@ class Web(Script):
 
     #create pid file
     check_process = format("ls {lhotse_web_pid_file} >/dev/null 2>&1 && ps `cat {lhotse_web_pid_file}` >/dev/null 2>&1") 
-
     File(params.lhotse_web_pid_file,
        action="create",
        not_if=check_process,
@@ -76,13 +75,19 @@ class Web(Script):
   def stop(self, env):
     import params
     env.set_params(params)
-
-    mysql_service(daemon_name=params.service_daemon, action = 'stop')
+	
+    #delete conf file
+    cmd = format("rm {web_httpd_conf_path}/lhotse_web.conf")
+    (ret, output) = commands.getstatusoutput(cmd)
+    print "delete lhotse_web.conf output"
+    print output
+    print ret
+    
+    #restart httpd
+    mysql_service(daemon_name=params.service_daemon, action = 'restart')
 
     #delete pid file
-
     check_process = format("ls {lhotse_web_pid_file} >/dev/null 2>&1 && ps `cat {lhotse_web_pid_file}` >/dev/null 2>&1") 
-
     File(params.lhotse_web_pid_file,
        action="delete",
        only_if=check_process,

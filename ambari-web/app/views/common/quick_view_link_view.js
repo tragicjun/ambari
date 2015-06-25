@@ -137,7 +137,7 @@ App.QuickViewLinks = Em.View.extend({
 			if (serviceName == 'LHOTSE') {
 				item.set('url', item.get('template').fmt(protocol, hosts[0], port)+'lhotse/index.php/user/auto_login?username='+loginName+'&r='+hash);
 			} else {
-				item.set('url', item.get('template').fmt(protocol, hosts[0], port)+'goldeneye/');
+				item.set('url', item.get('template').fmt(protocol, hosts[0], port)+'ge/');
 			}
 
         }
@@ -331,7 +331,10 @@ App.QuickViewLinks = Em.View.extend({
         break;
 	  case "LHOTSE":
 		hosts[0] = this.findComponentHost(response.items, "LHOTSE_WEB");
-		break;  
+		break;
+	  case "GOLDENEYE":
+		hosts[0] = this.findComponentHost(response.items, "GOLDENEYE_WEB");
+		break;
       default:
         var service = App.StackService.find().findProperty('serviceName', serviceName);
         if (service && service.get('hasMaster')) {
@@ -434,6 +437,8 @@ App.QuickViewLinks = Em.View.extend({
       case "ganglia":
       case "storm":
       case "falcon":
+	  case "lhotse":
+	  case "glodeneye":
         return "_blank";
         break;
       default:

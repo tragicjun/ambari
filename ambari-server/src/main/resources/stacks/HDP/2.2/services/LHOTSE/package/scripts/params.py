@@ -10,11 +10,10 @@ hadoop_conf_dir = "/etc/hadoop/conf"
 
 pid_file = '/usr/local/lhotse_base/lhotsebase.pid'
 
-#metric
-host_name = default("/hostname", "127.0.0.1")
-collector_host = default("/clusterHostInfo/metrics_collector_hosts", ["127.0.0.1"])[0]
-collector_port = default("/configurations/ams-site/timeline.metrics.service.webapp.address", "127.0.0.1:6188").split(":")[-1]
-sink_period = default("/configurations/lhotse-base-env/metrics.report.period", 300)
+#gmond
+gmond_host = default("/clusterHostInfo/ganglia_server_host", ["127.0.0.1"])[0]
+gmond_port = 8672
+gmond_period = default("/configurations/lhotse-base-env/metrics.report.period", 300)
 
 #lhotse runner config
 lhotse_runner_hosts = default("/clusterHostInfo/lhotse_runner_hosts", ["127.0.0.1"])[0]
@@ -23,6 +22,7 @@ config_runner_script = format("{tmp_dir}/configRunner.sh")
 lhotse_runner_hadoop_env = '/etc/hadoop/conf/hadoop-env.sh'
 lhotse_runner_proc_name = 'lhotse_task_loader.jar'
 lhotse_runner_cgi_port = default("/configurations/lhotse-runner/cgi.port", 80)
+lhotse_runner_hosts = default("/clusterHostInfo/lhotse_runner_hosts", ["127.0.0.1"])
 
 #lhotse base config
 lhotse_base_hosts = default("/clusterHostInfo/lhotse_base_hosts", ["127.0.0.1"])[0]
@@ -70,15 +70,35 @@ ftp_server_user = default("/configurations/lhotse-ftp/lhotse.ftp.user", 'root')
 ftp_server_pwd = default("/configurations/lhotse-ftp/lhotse.ftp.password", '')
 ftp_server_root_path = default("/configurations/lhotse-ftp/root.path", '/shell/')
 
+#pgxz config
+pg_server_host = default("/clusterHostInfo/pgxz_coordinator_hosts", ["127.0.0.1"])[0]
+pg_server_port = default("/configurations/coordinator-config-env/pgxz.coordinator.port", '5434')
+pg_user = default("/configurations/pgxz-global/pgxz.user", 'pgxz')
+pg_password = default("/configurations/pgxz-global/pgxz.password", 'pgxz')
+print "ftp server:" + ftp_server_host
 #####################################################################################################################################
 
-
+#config sql
+namenode_info = default("/configurations/core-site/fs.defaultFS", 'hdfs://127.0.0.1:8020')
+print namenode_info
+if namenode_info.startswith('hdfs'):
+    namenode_info = namenode_info[7:]
+default_hdfs_host = namenode_info.split(':')[0]
+print "default hdfs host:" + default_hdfs_host
+default_hdfs_port = namenode_info.split(':')[1]
+print "default hdfs port:" + default_hdfs_port
+yarn_info = default("/configurations/yarn-site/yarn.resourcemanager.address", 'hdfs://127.0.0.1:8020')
+default_yarn_host = yarn_info.split(':')[0]
+default_yarn_port = yarn_info.split(':')[1]
+print "default yarn host:" + default_yarn_host
+print "default yarn port:" + default_yarn_port
 #config path
 base_config_path = '/usr/local/lhotse_base/cfg'
 runner_config_path = '/usr/local/lhotse_runners/cfg'
 runner_httpd_conf_path = '/etc/httpd/conf.d'
 runner_root_path = '/usr/local/lhotse_runners'
 lhotse_web_root_path = '/usr/local/lhotse_web'
+web_httpd_conf_path = '/etc/httpd/conf.d'
 
 # Lhotse metadata database used config settings
 if System.get_instance().os_family == "suse" or System.get_instance().os_family == "ubuntu":
@@ -86,8 +106,6 @@ if System.get_instance().os_family == "suse" or System.get_instance().os_family 
 else:
   daemon_name = 'mysqld'
 
-start_mysql_script = format("{tmp_dir}/startMySql.sh")
-
 lhotse_schema_path = format("{tmp_dir}/lhotse_schema.sql")
-
+start_mysql_script = format("{tmp_dir}/startMySql.sh")
 check_status_script = format("{tmp_dir}/checkStatus.sh")
