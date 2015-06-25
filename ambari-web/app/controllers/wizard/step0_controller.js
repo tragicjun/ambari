@@ -62,10 +62,7 @@ App.WizardStep0Controller = Em.Controller.extend({
   },
   
   sendLicenseKey: function() {
-	var url = App.get('apiPrefix') + '/license/';
-	var data = $('#StepLicenseKey').val();
-	$.post(url, data, function(){
-	});
+
   },
   
   invalidLicenseKey : function() {
@@ -82,6 +79,7 @@ App.WizardStep0Controller = Em.Controller.extend({
    * @method submit
    */
   submit: function () {
+    var _this = this;
     this.set('hasSubmitted', true);
 	var val = $.trim($('#StepLicenseKey').val());
 	var flag = $.trim($('#StepLicenseKey').val()) == '' ? false : true;
@@ -90,11 +88,20 @@ App.WizardStep0Controller = Em.Controller.extend({
 	}
     if ((!this.get('invalidClusterName')) && flag) {
 	
-	    this.sendLicenseKey();
-      App.clusterStatus.set('clusterName', this.get('content.cluster.name'));
-      this.set('content.cluster.status', 'PENDING');
-      this.set('content.cluster.isCompleted', false);
-      App.router.send('next');
+	 var url = App.get('apiPrefix') + '/license/';
+	 var data = $('#StepLicenseKey').val();
+	 $.post(url, data, function(json){
+		
+		if (typeof(json.status) == 'undefined') {
+			_this.set('licenseError', '许可证不对');
+		} else {		
+		   App.clusterStatus.set('clusterName', _this.get('content.cluster.name'));
+		   _this.set('content.cluster.status', 'PENDING');
+		   _this.set('content.cluster.isCompleted', false);
+		   App.router.send('next');
+	   }
+ 
+	 }, 'json');
     }
   }
 
