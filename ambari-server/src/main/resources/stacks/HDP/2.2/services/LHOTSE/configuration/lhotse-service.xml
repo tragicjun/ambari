@@ -10,7 +10,7 @@
 
   <property>
     <name>mfs.path</name>
-    <value>/usr/loca/lhotse_services/templates</value>
+    <value>/usr/loca/lhotse_service/templates</value>
     <description>mfs path</description>
   </property>
 

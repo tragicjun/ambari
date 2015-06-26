@@ -5,8 +5,8 @@ cd $BINDIR
 currentPath=`pwd`
 
 #create the ambari user
-name="ambari"
-password="ambari"
+name="tencent"
+password="tencent"
 home_root="/home"
 
 if [ ! -d ${home_root} ]; then
@@ -28,7 +28,7 @@ if [ ! -d ${home_root}/${name} ]
 fi
 chown -R ${name}:${name} ${home_root}/${name}
 
-#copy the pub file to ambari's .ssh directory
+#copy the pub file to tencent's .ssh directory
 sshPath="${home_root}/${name}/.ssh"
 if [ ! -d ${sshPath} ]
   then

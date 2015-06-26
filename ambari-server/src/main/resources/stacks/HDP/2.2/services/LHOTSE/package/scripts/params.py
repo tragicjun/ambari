@@ -10,13 +10,13 @@ hadoop_conf_dir = "/etc/hadoop/conf"
 
 pid_file = '/usr/local/lhotse_base/lhotsebase.pid'
 
-#gmond
-gmond_host = default("/clusterHostInfo/ganglia_server_host", ["127.0.0.1"])[0]
-gmond_port = 8672
-gmond_period = default("/configurations/lhotse-base-env/metrics.report.period", 300)
+#metric
+host_name = default("/hostname", "127.0.0.1")
+collector_host = default("/clusterHostInfo/metrics_collector_hosts", ["127.0.0.1"])[0]
+collector_port = default("/configurations/ams-site/timeline.metrics.service.webapp.address", "127.0.0.1:6188").split(":")[-1]
+sink_period = default("/configurations/lhotse-base-env/metrics.report.period", 300)
 
 #lhotse runner config
-lhotse_runner_hosts = default("/clusterHostInfo/lhotse_runner_hosts", ["127.0.0.1"])[0]
 lhotse_runner_pid_file = '/usr/local/lhotse_runners/lhotserunner.pid'
 config_runner_script = format("{tmp_dir}/configRunner.sh")
 lhotse_runner_hadoop_env = '/etc/hadoop/conf/hadoop-env.sh'
@@ -46,15 +46,17 @@ lhotse_service_hosts = default("/clusterHostInfo/lhotse_service_hosts", ["127.0.
 config_service_script = format("{tmp_dir}/configService.sh")
 service_java_home = java_home
 service_listen_port = default("/configurations/lhotse-service/listen.port", 9010)
-lhotse_service_pid_file = '/usr/local/lhotse_services/service.pid'
-service_mfs_path = default("/configurations/lhotse-service/mfs.path", '/usr/local/lhotse_services/templates')
-service_config_path = '/usr/local/lhotse_services/webapps/LService/WEB-INF/classes'
+lhotse_service_pid_file = '/usr/local/lhotse_service/service.pid'
+service_mfs_path = default("/configurations/lhotse-service/mfs.path", '/usr/local/lhotse_service/templates')
+service_config_path = '/usr/local/lhotse_service/webapps/LService/WEB-INF/classes'
+lhotse_service_proc_name = 'lhotse_service'
 
 # Lhotse web configurations
 config_web_script = format("{tmp_dir}/configWeb.sh")
 service_daemon = 'httpd'
 lhotse_web_hosts = default("/clusterHostInfo/lhotse_base_hosts", ["127.0.0.1"])[0]
 lhotse_web_listen_port = default("/configurations/lhotse-web/listen.port", 80)
+lhotse_web_url = "http://" + lhotse_web_hosts + ":" + str(lhotse_web_listen_port) + "/lhotse/index.php/"
 lhotse_web_pid_file = '/usr/local/lhotse_web/web.pid'
 web_config_path = '/usr/local/lhotse_web/config'
 

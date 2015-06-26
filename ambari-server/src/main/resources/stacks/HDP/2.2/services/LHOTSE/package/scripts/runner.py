@@ -24,10 +24,20 @@ class Runner(Script):
 
   def stop(self, env):
     import params
+    env.set_params(params)
+
     print 'Stop the Runner';
     val= os.system("su hdfs -c '/usr/local/lhotse_runners/stop_jar.sh'")
     print val
-   
+
+    #delete conf file
+    cmd = format("rm {web_httpd_conf_path}/runner.conf")
+    (ret, output) = commands.getstatusoutput(cmd)
+    print "delete runner.conf output"
+    print output
+    print ret
+
+    commands.getstatusoutput("service httpd restart")
 
   def start(self, env):    
     import params
@@ -36,7 +46,7 @@ class Runner(Script):
     self.configure(env)
 
     print 'start the httpd service'
-    mysql_service(daemon_name=params.service_daemon, action = 'start')    
+    commands.getstatusoutput("service httpd restart")
 
     print 'Start the Runner';
     val= os.system("cd /usr/local/lhotse_runners; su hdfs -c '/usr/local/lhotse_runners/start_jar.sh " + params.java_home +"'")
@@ -48,7 +58,7 @@ class Runner(Script):
     env.set_params(params)    
 
     File(params.check_status_script,
-         mode=0755,
+        mode=0755,
         content=StaticFile('checkStatus.sh')
     )
  
@@ -68,20 +78,7 @@ class Runner(Script):
     env.set_params(params)
     
     configinit().update_runner_config(env)
-    
-    print 'log cgi config httpd'
-    cmd = format("bash -x {config_runner_script} {java_home} {lhotse_runner_hosts} {lhotse_runner_cgi_port}")
-    print cmd
 
-    (ret, output) = commands.getstatusoutput(cmd)
-
-    print "update runner cgi httpd------output-------"
-    print output
-    print ret
-    if ret != 0:
-        print 'update httpd config fail'
-        sys.exit(1)
-    
     
 if __name__ == "__main__":
   Runner().execute()

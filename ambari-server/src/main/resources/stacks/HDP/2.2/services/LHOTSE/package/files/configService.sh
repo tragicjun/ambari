@@ -3,7 +3,7 @@
 SERVICE_JAVA_HOME=$1
 SERVICE_LISTEN_PORT=$2
 
-DEFAULT_SERVICE_PATH=/usr/local/lhotse_services
+DEFAULT_SERVICE_PATH=/usr/local/lhotse_service
 
 # Config the java home in startup.sh
 cat $DEFAULT_SERVICE_PATH/bin/startup.sh | awk -v var=$SERVICE_JAVA_HOME '{if($SERVICE_JAVA_HOME~/^export JAVA_HOME=/){print "export JAVA_HOME="var}else print $0}' > startup.sh.tmp

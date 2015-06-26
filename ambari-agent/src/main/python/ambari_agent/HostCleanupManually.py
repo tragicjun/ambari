@@ -375,16 +375,19 @@ class HostCleanupManually:
     os_name = OSCheck.get_os_family()
     for package in packageList:
       if package != '':
-        command = PACKAGE_ERASE_CMD[os_name].format(package)
-        logger.info('erase command: ' + command)
-        (returncode, stdoutdata, stderrdata) = self.run_os_command(command)
-        logger.info(returncode)
-        logger.info(stdoutdata)
-        logger.info(stderrdata)
-        if returncode != 0:
-          logger.warn("Erasing packages failed: " + stderrdata)
-        else:
-          logger.info("Erased packages successfully.\n" + stdoutdata)
+        try:
+          command = PACKAGE_ERASE_CMD[os_name].format(package)
+          logger.info('erase command: ' + command)
+          (returncode, stdoutdata, stderrdata) = self.run_os_command(command)
+          logger.info(returncode)
+          logger.info(stdoutdata)
+          logger.info(stderrdata)
+          if returncode != 0:
+            logger.warn("Erasing packages failed: " + stderrdata)
+          else:
+            logger.info("Erased packages successfully.\n" + stdoutdata)
+        except:
+          print "-----------------------------exception"
     return 0
 
   def do_erase_packages(self, packageList):

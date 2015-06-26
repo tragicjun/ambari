@@ -38,7 +38,7 @@
         "enabled": true,
         "source": {
           "type": "PORT",
-          "uri": "0.0.0.0:{{thive-config-env/thive.server.port}}",
+          "uri": "0.0.0.0:5432",
           "default_port": "5432",
           "reporting": {
             "ok": {

@@ -333,11 +333,11 @@ public class Configuration {
   
   //bootstrap init config
   private static final String BOOTSTRAP_AGENT_DEFAULT_LOGIN_USER_KEY="bootstarp_agent_default_login_user";
-  private static final String BOOTSTRAP_AGENT_DEFAULT_LOGIN_USER_DEFAULT="ambari";
+  private static final String BOOTSTRAP_AGENT_DEFAULT_LOGIN_USER_DEFAULT="tencent";
   private static final String BOOTSTRAP_AGENT_DEFAULT_LOGIN_PASSWROD_KEY="bootstarp_agent_default_login_password";
-  private static final String BOOTSTRAP_AGENT_DEFAULT_LOGIN_PASSWROD_DEFAULT="ambari";
+  private static final String BOOTSTRAP_AGENT_DEFAULT_LOGIN_PASSWROD_DEFAULT="tencent";
   private static final String BOOTSTRAP_SSH_USER_KEY="bootstarp_ssh_user";
-  private static final String BOOTSTRAP_SSH_USER_DEFAULT="ambari";
+  private static final String BOOTSTRAP_SSH_USER_DEFAULT="tencent";
 
   /**
    * The full path to the XML file that describes the different alert templates.

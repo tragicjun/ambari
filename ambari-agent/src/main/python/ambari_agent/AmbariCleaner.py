@@ -37,22 +37,22 @@ class AmbariCleaner(Script):
     self.run_cmd(cmd)
     
   def remove_dir(self):
-    cmd = "suro rm -rf /var/lib/ambari*"
+    cmd = "sudo rm -rf /var/lib/ambari*"
     self.run_cmd(cmd)
 
-    cmd = "rm -rf /usr/lib/ambari*"
+    cmd = "sudo rm -rf /usr/lib/ambari*"
     self.run_cmd(cmd)
 
-    cmd = "rm -rf /var/log/ambari*"
+    cmd = "sudo rm -rf /var/log/ambari*"
     self.run_cmd(cmd)
 
-    cmd = "rm -rf /var/run/ambari*"
+    cmd = "sudo rm -rf /var/run/ambari*"
     self.run_cmd(cmd)
 
-    cmd = "rm -rf /usr/bin/ambari*"
+    cmd = "sudo rm -rf /usr/bin/ambari*"
     self.run_cmd(cmd)
 
-    cmd = "rm -rf /usr/sbin/ambari*"
+    cmd = "sudo rm -rf /usr/sbin/ambari*"
     self.run_cmd(cmd)
 
     cmd = "sudo rm -rf /usr/lib/python2.6/site-packages/ambari*"

@@ -35,6 +35,7 @@ start_mysql_script = format("{tmp_dir}/startMySql.sh")
 #golden eye web
 goldeneye_web_host = default("/clusterHostInfo/goldeneye_web_hosts", ["localhost"])[0]
 goldeneye_web_listen_port = default("/configurations/goldeneye-web/listen.port", 80)
+goldeneye_web_url = "http://" + goldeneye_web_host + ":" + str(goldeneye_web_listen_port) + "/ge/"
 web_config_path = '/usr/local/goldeneye/goldeneye-web/config'
 service_daemon = 'httpd'
 goldeneye_web_root_path = '/usr/local/goldeneye/goldeneye-web'

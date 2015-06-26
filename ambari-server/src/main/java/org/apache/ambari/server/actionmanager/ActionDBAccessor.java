@@ -200,6 +200,8 @@ public interface ActionDBAccessor {
    *         respectively
    */
   public List<Long> getRequestsByStatus(RequestStatus status, int maxResults, boolean ascOrder);
+  
+  public List<Long> getRequestsByStatus(long clusterId, RequestStatus status, int maxResults, boolean ascOrder);
 
   /**
    * Gets request contexts associated with the list of request id

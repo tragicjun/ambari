@@ -407,7 +407,7 @@ public class RequestResourceProvider extends AbstractControllerResourceProvider 
             + ", requestStatus=" + status);
       }
 
-      List<Long> requestIds = actionManager.getRequestsByStatus(status,
+      List<Long> requestIds = actionManager.getRequestsByStatus(clusterId, status,
         maxResults != null ? maxResults : BaseRequest.DEFAULT_PAGE_SIZE,
         ascOrder != null ? ascOrder : false);
       LOG.debug("List<Long> requestIds = actionManager.getRequestsByStatus = {}", requestIds.size());

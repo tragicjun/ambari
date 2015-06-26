@@ -71,7 +71,7 @@ class CheckHost(Script):
 
   # ignore required packages
   IGNORE_PACKAGES = [
-    "epel-release"
+    "epel-release","ambari-agent"
   ]
   
   # Additional packages to look for (search packages that start with these)

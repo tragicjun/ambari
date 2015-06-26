@@ -219,6 +219,10 @@ public class ActionManager {
   public List<Long> getRequestsByStatus(RequestStatus status, int maxResults, boolean ascOrder) {
     return db.getRequestsByStatus(status, maxResults, ascOrder);
   }
+  
+  public List<Long> getRequestsByStatus(long clusterId, RequestStatus status, int maxResults, boolean ascOrder) {
+	  return db.getRequestsByStatus(clusterId, status, maxResults, ascOrder);
+  }
 
   public Map<Long, String> getRequestContext(List<Long> requestIds) {
     return db.getRequestContext(requestIds);

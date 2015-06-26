@@ -55,7 +55,7 @@ class Services(Script):
 
     self.configure(env)
 
-    val = os.system("su lhotse -c '/usr/local/lhotse_services/bin/startup.sh'")
+    val = os.system("su lhotse -c '/usr/local/lhotse_service/bin/startup.sh'")
     print val
 
     #create pid file
@@ -71,7 +71,7 @@ class Services(Script):
     import params
     env.set_params(params)
 
-    val = os.system("su lhotse -c '/usr/local/lhotse_services/bin/shutdown.sh'")
+    val = os.system("su lhotse -c '/usr/local/lhotse_service/bin/shutdown.sh'")
     print val
 
     #delete pid file
@@ -84,31 +84,23 @@ class Services(Script):
 
 
   def status(self, env):
-    #check pid file
     import params
-    var = os.path.isfile(params.lhotse_service_pid_file)
-    print var
+    env.set_params(params)
 
-    if var:
+    File(params.check_status_script,
+         mode=0755,
+        content=StaticFile('checkStatus.sh')
+    )
+
+    cmd = format("bash -x {check_status_script} {lhotse_service_proc_name} 1")
+
+    var= os.system(cmd)
+
+    if var == 0:
         return 0
     else:
-        print "service is not exist"
+        print "lhotse_service is down"
         raise ComponentIsNotRunning()
-
-
-    #import params
-#    env.set_params(params)
-
- #   val = os.system("ps -ef | grep lhotse_services | wc -l")
-  #  print val
-   # 
-    #if val == 0:
-     #   print "No lhotse services running"
-      #  return 1
-#    else:
- #       print "lhotse services is still running"
-#
- #       return 0
      
      
     

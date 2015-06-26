@@ -44,6 +44,7 @@ public class RequestDAO {
    * SQL template to retrieve all request IDs, sorted by the ID.
    */
   private final static String REQUEST_IDS_SORTED_SQL = "SELECT request.requestId FROM RequestEntity request ORDER BY request.requestId {0}";
+  private final static String CLUSTER_REQUEST_IDS_SORTED_SQL = "SELECT request.requestId FROM RequestEntity request where request.clusterId=:clusterId ORDER BY request.requestId {0}";
 
   @Inject
   Provider<EntityManager> entityManagerProvider;
@@ -103,6 +104,22 @@ public class RequestDAO {
     query.setMaxResults(limit);
 
     return daoUtils.selectList(query);
+  }
+  
+  @RequiresSession
+  public List<Long> findAllRequestIds(long clusterId, int limit, boolean ascending) {
+	  String sort = "ASC";
+	  if (!ascending) {
+		  sort = "DESC";
+	  }
+	  
+	  String sql = MessageFormat.format(CLUSTER_REQUEST_IDS_SORTED_SQL, sort);
+	  TypedQuery<Long> query = entityManagerProvider.get().createQuery(sql,
+			  Long.class);
+	  
+	  query.setMaxResults(limit);
+	  query.setParameter("clusterId", clusterId);
+	  return daoUtils.selectList(query);
   }
 
   @RequiresSession

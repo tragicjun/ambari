@@ -568,6 +568,8 @@ public class ActionDBAccessorImpl implements ActionDBAccessor {
             case FAILED:
               hostRoleCommandCache.put(hostRoleCommand.getTaskId(), hostRoleCommand);
               break;
+            default:break;
+
           }
         }
       }
@@ -606,6 +608,31 @@ public class ActionDBAccessorImpl implements ActionDBAccessor {
 
     if (null == status) {
       return requestDAO.findAllRequestIds(maxResults, ascOrder);
+    }
+
+    EnumSet<HostRoleStatus> taskStatuses = null;
+    switch( status ){
+      case IN_PROGRESS:
+        taskStatuses = HostRoleStatus.IN_PROGRESS_STATUSES;
+        break;
+      case FAILED:
+        taskStatuses = HostRoleStatus.FAILED_STATUSES;
+        break;
+      case COMPLETED:
+        // !!! COMPLETED is special as all tasks in the request must be
+        // completed
+        return hostRoleCommandDAO.getCompletedRequests(maxResults, ascOrder);
+    }
+
+    return hostRoleCommandDAO.getRequestsByTaskStatus(taskStatuses, maxResults,
+        ascOrder);
+  }
+  
+  public List<Long> getRequestsByStatus(long clusterId, RequestStatus status, int maxResults,
+    boolean ascOrder) {
+
+    if (null == status) {
+      return requestDAO.findAllRequestIds(clusterId, maxResults, ascOrder);
     }
 
     EnumSet<HostRoleStatus> taskStatuses = null;

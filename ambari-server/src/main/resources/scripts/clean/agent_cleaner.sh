@@ -21,7 +21,18 @@ currentPath=`pwd`
 loginUser="ambari"
 loginPass="ambari"
 
+count=10
+num=0
 for host in `cat hosts`
 do
-        ./service_cleaner.exp ${host} ${loginUser} ${loginPass}
+  ./service_cleaner.exp ${host} ${loginUser} ${loginPass} &
+  num=$((num+1))
+  echo ${host}
+  if((num >= count)):
+    echo "wait process finished"
+    num=0
+    wait
+   fi
 done
+
+wait

@@ -3,10 +3,10 @@
 echo "Invoke configRunner.sh"
 
 javaHome=$1
-RUNNER_HOST=$2
-CGI_BIN_LISTEN_PORT=$3
+#RUNNER_HOST=$2
+CGI_BIN_LISTEN_PORT=$2
 
-echo $javaHome $RUNNER_HOST $CGI_BIN_LISTEN_PORT
+echo $javaHome  $CGI_BIN_LISTEN_PORT
 
 DEFAULT_HTTPD_CONF=/etc/httpd/conf.d/runner.conf
 DEFAULT_GLOBAL_HTTPD_CONF=/etc/httpd/conf/httpd.conf

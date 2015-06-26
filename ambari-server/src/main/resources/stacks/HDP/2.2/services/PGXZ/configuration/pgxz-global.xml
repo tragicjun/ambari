@@ -27,7 +27,7 @@
 
   <property require-input = "true">
     <name>pgxz.password</name>
-    <value> </value>
+    <value></value>
     <property-type>PASSWORD</property-type>
     <description>PGXZ 数据库用户密码</description>
   </property>

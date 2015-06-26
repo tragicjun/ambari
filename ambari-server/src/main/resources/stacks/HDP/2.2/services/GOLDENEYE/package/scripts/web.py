@@ -21,6 +21,7 @@ import os
 import sys
 import commands
 from resource_management import *
+from resource_management.core.logger import Logger
 
 from mysql_service import mysql_service
 from configinit import configinit
@@ -63,15 +64,8 @@ class Web(Script):
 
     self.configure(env)
 
-    mysql_service(daemon_name=params.service_daemon, action = 'start')
+    commands.getstatusoutput("service httpd restart")
 
-    #create pid file
-    check_process = format("ls {goldeneye_web_pid_file} >/dev/null 2>&1 && ps `cat {goldeneye_web_pid_file}` >/dev/null 2>&1") 
-
-    File(params.goldeneye_web_pid_file,
-       action="create",
-       not_if=check_process,
-    )
 
   def stop(self, env):
     import params
@@ -84,28 +78,17 @@ class Web(Script):
     print output
     print ret
     
-    mysql_service(daemon_name=params.service_daemon, action = 'restart')
-
-    #delete pid file
-
-    check_process = format("ls {goldeneye_web_pid_file} >/dev/null 2>&1 && ps `cat {goldeneye_web_pid_file}` >/dev/null 2>&1") 
-
-    File(params.goldeneye_web_pid_file,
-       action="delete",
-       only_if=check_process,
-    )
-
+    commands.getstatusoutput("service httpd restart")
 
   def status(self, env):
     import params
 
-    #check pid file
-    var = os.path.isfile(params.goldeneye_web_pid_file)
-    if var:
-        return 0
-    else:
-        print "web not exit"
-        raise ComponentIsNotRunning()
+    cmd = "curl -I \"" + params.goldeneye_web_url + "\" 2> /dev/null | awk 'NR==1{print}' | awk '{print $2}'"
+    Logger.error("run cmd = {0}".format(cmd))
+    (ret, output) = commands.getstatusoutput(cmd)
+    if output != "200" :
+      Logger.error("goldeneye web not exists")
+      raise ComponentIsNotRunning()
 
 if __name__ == "__main__":
   Web().execute()
