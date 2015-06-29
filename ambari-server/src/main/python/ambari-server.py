@@ -365,6 +365,8 @@ def init_parser_options(parser):
                     dest="jdbc_db")
   parser.add_option('--cluster-name', default=None, help="Cluster name", dest="cluster_name")
   parser.add_option('--version-display-name', default=None, help="Display name of desired repo version", dest="desired_repo_version")
+  parser.add_option('--repo-url', default=None, dest="repo_url",
+                    help="Specifies the path to YUM repo url")
 
 
 @OsFamilyFuncImpl(OSConst.WINSRV_FAMILY)
