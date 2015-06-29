@@ -961,7 +961,7 @@ def configureRepoURL(repoURL):
     cmd = "sed -i 's/public-repo-1.hortonworks.com\/ARTIFACTS/" + jdkLocation + "/g'" + " /etc/ambari-server/conf/ambari.properties"
     os.system(cmd)
 
-    yumRepoURL = "http://" + repoURL
+    yumRepoURL = "http:\/\/" + repoURL
     cmd = "sed -i 's/${repo_url}/" + yumRepoURL + "/g'" + " /var/lib/ambari-server/resources/stacks/HDP/2.2/repos/repoinfo.xml"
     os.system(cmd)
 
