@@ -184,6 +184,19 @@ App.ApplicationController = Em.Controller.extend(App.UserPref, {
 				key : json.key
 			  })
 			}); 
+			$('#modLicenseBtn').click(function(){
+				if ($(this).text() == '修改') {
+					var val = $('#modLicenseBtn').val();
+					$('#editInput').html('<input type="text" id="modLicenseVal" value="'+val+'" />');
+					$(this).html('保存');
+				} else {
+					var data = $('#modLicenseVal').val();
+					$.post(url, data, function(){
+						$(this).html('修改');
+						$('#editInput').html(data);
+					});
+				}
+			});
 		}
 	});
   }

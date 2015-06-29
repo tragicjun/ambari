@@ -24,7 +24,7 @@ class AmbariCleaner(Script):
     self.hostcheck()
     self.servicecheck()
 
-    cmd = "python /usr/lib/python2.6/site-packages/ambari_agent/HostCleanupManually.py --skip \"users\""
+    cmd = "sudo python /usr/lib/python2.6/site-packages/ambari_agent/HostCleanupManually.py --skip \"users\" 1>/tmp/ambari_clean.log"
     self.run_cmd(cmd)
 
   def eraseagent(self):

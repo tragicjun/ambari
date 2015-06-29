@@ -34,7 +34,7 @@
       </p>
 
       <div class="controls">
-        {{view Ember.TextArea id="host-names" class="span6" valueBinding="content.installOptions.hostNames" rows="5"
+        {{view Ember.TextArea id="host-names" class="span6" valueBinding="content.installOptions.hostNames" rows="10"
         placeholder="host names"}}
         {{#if hostsError}}
           <p class="help-inline">{{hostsError}}</p>
@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div id="hostConnectivity">
+  <div id="hostConnectivity" style="display:none">
     <div class="ambari-agents">
       <h5>{{t installer.step2.sshKey}}</h5>
 

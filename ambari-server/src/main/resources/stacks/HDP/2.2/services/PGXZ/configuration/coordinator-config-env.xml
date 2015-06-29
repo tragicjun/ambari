@@ -30,15 +30,6 @@
   </property>
 
   <property>
-    <name>authorized.ip</name>
-    <value>
-# TYPE  DATABASE        USER            ADDRESS                 METHOD
-host    all             all             127.0.0.1/32            trust
-    </value>
-    <description>可访问 Coordinator 的 IP 列表</description>
-  </property>
-
-  <property>
     <name>content</name>
     <value>
 <![CDATA[
