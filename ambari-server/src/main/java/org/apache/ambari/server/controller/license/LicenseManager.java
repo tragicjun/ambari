@@ -11,6 +11,9 @@ import java.util.Date;
  */
 public class LicenseManager {
     protected static KeyValueDAO keyValueDAO;
+    private static int DEFAULT_CLUSTER_LIMIT = 3;
+    private static int DEFAULT_EXPIRATION_BY_YEAR = 1;
+
     public static String LICENSE_KEY = "license.key";
 
     public static void init(KeyValueDAO instance){
@@ -18,7 +21,7 @@ public class LicenseManager {
     }
 
     public int getClusterLimit(){
-        int limit = 1;
+        int limit = DEFAULT_CLUSTER_LIMIT;
         if(keyValueDAO != null){
             KeyValueEntity entity = keyValueDAO.findByKey(LICENSE_KEY);
             if(entity != null){
@@ -31,7 +34,7 @@ public class LicenseManager {
 
     public Date getExpirationDate(){
         Date date = new Date();
-        date.setYear(date.getYear() + 1);
+        date.setYear(date.getYear() + DEFAULT_EXPIRATION_BY_YEAR);
         if(keyValueDAO != null){
             KeyValueEntity entity = keyValueDAO.findByKey(LICENSE_KEY);
             if(entity != null){
