@@ -19,7 +19,7 @@
   <latest>http://public-repo-1.hortonworks.com/HDP/hdp_urlinfo.json</latest>
   <os family="redhat6">
     <repo>
-      <baseurl>输入YUM仓库地址</baseurl>
+      <baseurl>${repo_url}</baseurl>
       <repoid>HDP-2.2</repoid>
       <reponame>HDP</reponame>
     </repo>

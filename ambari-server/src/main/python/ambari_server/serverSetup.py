@@ -952,6 +952,18 @@ def expand_jce_zip_file(jce_zip_path, jdk_security_path):
     dir_to_delete = os.path.join(jdk_security_path, unziped_jce_path.split(os.sep)[0])
     shutil.rmtree(dir_to_delete)
 
+def _check_repo_options(options):
+    return options.repo_url is not None
+
+def configureRepoURL(repoURL):
+    repoURL = repoURL.replace("/", "\/")
+    jdkLocation = repoURL + "\/" + "java"
+    cmd = "sed -i 's/public-repo-1.hortonworks.com\/ARTIFACTS/" + jdkLocation + "/g'" + " /etc/ambari-server/conf/ambari.properties"
+    os.system(cmd)
+
+    yumRepoURL = "http://" + repoURL
+    cmd = "sed -i 's/${repo_url}/" + yumRepoURL + "/g'" + " /var/lib/ambari-server/resources/stacks/HDP/2.2/repos/repoinfo.xml"
+    os.system(cmd)
 
 #
 # Setup the Ambari Server.
@@ -964,6 +976,9 @@ def setup(options):
   if not is_root():
     err = configDefaults.MESSAGE_ERROR_SETUP_NOT_ROOT
     raise FatalException(4, err)
+
+  if _check_repo_options(options):
+    configureRepoURL(options.repo_url)
 
   # proceed jdbc properties if they were set
   if _check_jdbc_options(options):

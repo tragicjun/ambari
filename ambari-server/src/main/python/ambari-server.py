@@ -302,6 +302,9 @@ def init_parser_options(parser):
                     help="Database user password")
   parser.add_option('--jdbc-driver', default=None, dest="jdbc_driver",
                     help="Specifies the path to the JDBC driver JAR file")
+  parser.add_option('--repo-url', default=None, dest="repo_url",
+                    help="Specifies the path to YUM repo url")
+
   # -b, -i, -k and -x the remaining available short options
   # -h reserved for help
 
