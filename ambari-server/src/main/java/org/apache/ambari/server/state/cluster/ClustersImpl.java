@@ -630,7 +630,8 @@ public class ClustersImpl implements Clusters {
       Map<String, Host> hosts = new HashMap<String, Host>();
 
       for (Host h : clusterHostMap.get(clusterName)) {
-        hosts.put(h.getHostName(), h);
+        //Modified by junz: use ipv4 instead of hostname
+        hosts.put(h.getIPv4(), h);
       }
 
       return hosts;
