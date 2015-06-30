@@ -35,7 +35,12 @@ class AmbariCleaner(Script):
     print "yum erase agent"
     cmd = "sudo yum erase -y ambari-agent*"
     self.run_cmd(cmd)
-    
+
+  def erasemetrics(self):
+    print "yum erase metrics"
+    cmd = "sudo yum erase -y ambari-metrics*"
+    self.run_cmd(cmd)
+
   def remove_dir(self):
     cmd = "sudo rm -rf /var/lib/ambari*"
     self.run_cmd(cmd)
@@ -79,7 +84,9 @@ class AmbariCleaner(Script):
 
   def main(self):
     self.cleaner_services()
-    
+
+    self.erasemetrics()
+
     self.eraseagent()
 
     self.yum_clean()

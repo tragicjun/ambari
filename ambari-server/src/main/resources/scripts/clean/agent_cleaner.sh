@@ -22,7 +22,12 @@ currentPath=`pwd`
 loginUser="ambari"
 loginPass="ambari"
 
-sudo mkdir /tmp/clean
+if [ -d "/tmp/clean/" ]
+then
+   echo "/tmp/clean/ exist"
+else
+  sudo mkdir /tmp/clean
+fi
 
 count=10
 for host in `cat hosts`
@@ -39,7 +44,5 @@ do
       sleep 5
       echo "$p_num:: sleep 2s..."
   done
-
 done
-
 wait

@@ -144,8 +144,10 @@ class HostInfoLinux(HostInfo):
   # Default set of directories that are checked for existence of files and folders
   DEFAULT_DIRS = [
     "/etc", "/var/run", "/var/log", "/usr/lib", "/var/lib", "/var/tmp", "/tmp", "/var",
-    "/hadoop", "/usr/hdp"
+    "/hadoop","/usr/local","/data", "/usr/hdp"
   ]
+
+
 
   DEFAULT_SERVICE_NAME = "ntpd"
   SERVICE_STATUS_CMD = "%s %s status" % (SERVICE_CMD, DEFAULT_SERVICE_NAME)
