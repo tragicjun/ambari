@@ -58,7 +58,7 @@ module.exports = {
     if (!validator.isValidInt(timestamp)) {
       return timestamp;
     }
-    format = format || 'ddd, MMM DD, YYYY HH:mm';
+    format = format || 'YYYY-MM-DD HH:mm';
 
     return moment((new Date(timestamp))).format(format);
   },
@@ -74,7 +74,7 @@ module.exports = {
     if (!validator.isValidInt(timestamp)) {
       return timestamp;
     }
-    var format = 'ddd MMM DD YYYY';
+    var format = 'YYYY-MM-DD';
     var date = moment((new Date(timestamp))).format(format);
     var today = moment((new Date())).format(format);
     if (date === today) {
@@ -175,19 +175,19 @@ module.exports = {
     var oneDayMs = 86400000;
 
     if (lengthOfNumber < 4) {
-      return time + ' ms';
+      return time + ' 毫秒';
     } else if (lengthOfNumber < 7) {
       time = (time / 1000).toFixed(2);
-      return time + ' secs';
+      return time + ' 秒';
     } else if (time < oneHourMs) {
       time = (time / oneMinMs).toFixed(2);
-      return time + ' mins';
+      return time + ' 分钟';
     } else if (time < oneDayMs) {
       time = (time / oneHourMs).toFixed(2);
-      return time + ' hours';
+      return time + ' 小时';
     } else {
       time = (time / oneDayMs).toFixed(2);
-      return time + ' days';
+      return time + ' 天';
     }
   },
 

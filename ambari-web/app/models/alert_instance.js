@@ -110,7 +110,7 @@ App.AlertInstance = DS.Model.extend({
     var previousSuffixAgo = $.timeago.settings.strings.suffixAgo;
     var previousPrefixAgo = $.timeago.settings.strings.prefixAgo;
     $.timeago.settings.strings.suffixAgo = null;
-    $.timeago.settings.strings.prefixAgo = 'for';
+    $.timeago.settings.strings.prefixAgo = '达';
     var triggeredFor = lastTriggered ? $.timeago(new Date(lastTriggered)) : '';
     $.timeago.settings.strings.suffixAgo = previousSuffixAgo;
     $.timeago.settings.strings.prefixAgo = previousPrefixAgo;
@@ -145,11 +145,11 @@ App.AlertInstance = DS.Model.extend({
   }.property('serviceName'),
 
   shortState: {
-    'CRITICAL': 'CRIT',
-    'WARNING': 'WARN',
-    'OK': 'OK',
-    'UNKNOWN': 'UNKWN',
-    'PENDING': 'NONE'
+    'CRITICAL': '严重',
+    'WARNING': '警告',
+    'OK': '正常',
+    'UNKNOWN': '未知',
+    'PENDING': '待启动'
   }
 });
 

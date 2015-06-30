@@ -175,28 +175,34 @@ App.ApplicationController = Em.Controller.extend(App.UserPref, {
 			}); 
 		
 		} else {
+			// "customerName":"jerryjzhang","clusterLimit":10,"expirationDate":1467216000000,"key":"NJSXE4TZ-NJ5GQYLO-M4WTCMBN-GIYDCNRP-GA3C6MZQ"}
 			App.ModalPopup.show({
 			  header: '许可信息',
 			  secondary: false,
 			  bodyClass: Em.View.extend({
 				templateName: require('templates/common/license'),
 				expirationDate: date.dateFormat(json.expirationDate),
+				customerName : json.customerName,
+				clusterLimit : json.clusterLimit,
 				key : json.key
 			  })
 			}); 
-			$('#modLicenseBtn').click(function(){
-				if ($(this).text() == '修改') {
-					var val = $('#modLicenseBtn').val();
-					$('#editInput').html('<input type="text" id="modLicenseVal" value="'+val+'" />');
-					$(this).html('保存');
-				} else {
-					var data = $('#modLicenseVal').val();
-					$.post(url, data, function(){
-						$(this).html('修改');
-						$('#editInput').html(data);
-					});
-				}
-			});
+			window.setTimeout(function(){
+				$('#modLicenseBtn').click(function(){
+					if ($(this).text() == '修改') {
+						var val = $('#modLicenseBtn').val();
+						$('#editInput').html('<input type="text" id="modLicenseVal" value="'+val+'" />');
+						$(this).html('保存');
+					} else {
+						var data = $('#modLicenseVal').val();
+						$.post(url, data, function(){
+							$(this).html('修改');
+							$('#editInput').html(data);
+						});
+					}
+				});
+			}, 500);
+			
 		}
 	});
   }

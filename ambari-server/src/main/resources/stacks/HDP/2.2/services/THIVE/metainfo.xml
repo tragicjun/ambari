@@ -95,6 +95,10 @@
         </osSpecific>
       </osSpecifics>
 
+      <configuration-dependencies>
+        <config-type>pg-config-env</config-type>
+        <config-type>thive-config-env</config-type>
+      </configuration-dependencies>
 
     </service>
   </services>

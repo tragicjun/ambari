@@ -1,137 +1,147 @@
 <?xml version="1.0"?>
 <metainfo>
-    <schemaVersion>2.0</schemaVersion>
-    <services>
-        <service>
-            <name>LHOTSE</name>
-            <displayName>Lhotse</displayName>
-            <comment>Lhotse任务调度系统：支持HDFS与数据库(Mysql,Postgre,Oracle)之间的数据流转，以及MapReduce计算任务的执行，同时集任务配置、运维管理为一体，为用户提供一站式的离线数据处理任务调度服务</comment>
-            <version>1.0.0</version>
-            <components>
-                <component>
-                    <name>LHOTSE_BASE</name>
-                    <displayName>Lhotse Base</displayName>
-                    <category>MASTER</category>
-                    <cardinality>1</cardinality>
-                    <commandScript>
-                        <script>scripts/base.py</script>
-                        <scriptType>PYTHON</scriptType>
-                        <timeout>600</timeout>
-                    </commandScript>
-                </component>
+  <schemaVersion>2.0</schemaVersion>
+  <services>
+    <service>
+      <name>LHOTSE</name>
+      <displayName>Lhotse</displayName>
+      <comment>
+        Lhotse任务调度系统：支持HDFS与数据库(Mysql,Postgre,Oracle)之间的数据流转，以及MapReduce计算任务的执行，同时集任务配置、运维管理为一体，为用户提供一站式的离线数据处理任务调度服务
+      </comment>
+      <version>1.0.0</version>
+      <components>
+        <component>
+          <name>LHOTSE_BASE</name>
+          <displayName>Lhotse Base</displayName>
+          <category>MASTER</category>
+          <cardinality>1</cardinality>
+          <commandScript>
+            <script>scripts/base.py</script>
+            <scriptType>PYTHON</scriptType>
+            <timeout>600</timeout>
+          </commandScript>
+        </component>
 
-                <component>
-                    <name>LHOTSE_DATABASE</name>
-                    <displayName>Lhotse Database</displayName>
-                    <category>MASTER</category>
-                    <cardinality>1</cardinality>
-                    <commandScript>
-                        <script>scripts/mysql_server.py</script>
-                        <scriptType>PYTHON</scriptType>
-                        <timeout>1200</timeout>
-                    </commandScript>
-                </component>
+        <component>
+          <name>LHOTSE_DATABASE</name>
+          <displayName>Lhotse Database</displayName>
+          <category>MASTER</category>
+          <cardinality>1</cardinality>
+          <commandScript>
+            <script>scripts/mysql_server.py</script>
+            <scriptType>PYTHON</scriptType>
+            <timeout>1200</timeout>
+          </commandScript>
+        </component>
 
-                 <component>
-                    <name>LHOTSE_SERVICE</name>
-                    <displayName>Lhotse Service</displayName>
-                    <category>MASTER</category>
-                    <cardinality>1</cardinality>
-                    <commandScript>
-                        <script>scripts/services.py</script>
-                        <scriptType>PYTHON</scriptType>
-                        <timeout>600</timeout>
-                    </commandScript>
-                </component>
+        <component>
+          <name>LHOTSE_SERVICE</name>
+          <displayName>Lhotse Service</displayName>
+          <category>MASTER</category>
+          <cardinality>1</cardinality>
+          <commandScript>
+            <script>scripts/services.py</script>
+            <scriptType>PYTHON</scriptType>
+            <timeout>600</timeout>
+          </commandScript>
+        </component>
 
-                <component>
-                    <name>LHOTSE_WEB</name>
-                    <displayName>Lhotse Web</displayName>
-                    <category>MASTER</category>
-                    <cardinality>1</cardinality>
-                    <commandScript>
-                        <script>scripts/web.py</script>
-                        <scriptType>PYTHON</scriptType>
-                        <timeout>1200</timeout>
-                    </commandScript>
-                </component>
+        <component>
+          <name>LHOTSE_WEB</name>
+          <displayName>Lhotse Web</displayName>
+          <category>MASTER</category>
+          <cardinality>1</cardinality>
+          <commandScript>
+            <script>scripts/web.py</script>
+            <scriptType>PYTHON</scriptType>
+            <timeout>1200</timeout>
+          </commandScript>
+        </component>
 
-                <component>
-                    <name>LHOTSE_FTP</name>
-                    <displayName>Lhotse FTP</displayName>
-                    <category>MASTER</category>
-                    <cardinality>1</cardinality>
-                    <commandScript>
-                        <script>scripts/ftp.py</script>
-                        <scriptType>PYTHON</scriptType>
-                        <timeout>1200</timeout>
-                    </commandScript>
-                </component>
+        <component>
+          <name>LHOTSE_FTP</name>
+          <displayName>Lhotse FTP</displayName>
+          <category>MASTER</category>
+          <cardinality>1</cardinality>
+          <commandScript>
+            <script>scripts/ftp.py</script>
+            <scriptType>PYTHON</scriptType>
+            <timeout>1200</timeout>
+          </commandScript>
+        </component>
 
-                <component>
-                    <name>LHOTSE_RUNNER</name>
-                    <displayName>Lhotse Runner</displayName>
-                    <category>SLAVE</category>
-                    <cardinality>1+</cardinality>
-                    <commandScript>
-                        <script>scripts/runner.py</script>
-                        <scriptType>PYTHON</scriptType>
-                        <timeout>600</timeout>
-                    </commandScript>
+        <component>
+          <name>LHOTSE_RUNNER</name>
+          <displayName>Lhotse Runner</displayName>
+          <category>SLAVE</category>
+          <cardinality>1+</cardinality>
+          <commandScript>
+            <script>scripts/runner.py</script>
+            <scriptType>PYTHON</scriptType>
+            <timeout>600</timeout>
+          </commandScript>
 
-		   <configFiles>
-		     <configFile>
-                          <type>env</type>
-                          <fileName>hadoop-env.sh</fileName>
-                         <dictionaryName>hadoop-env</dictionaryName>
-                     </configFile>
-                  </configFiles>
+          <configFiles>
+            <configFile>
+              <type>env</type>
+              <fileName>hadoop-env.sh</fileName>
+              <dictionaryName>hadoop-env</dictionaryName>
+            </configFile>
+          </configFiles>
 
-                  <dependencies>
-                       <dependency>
-                           <name>HDFS/HDFS_CLIENT</name>
-                           <scope>host</scope>
-                           <auto-deploy>
-                               <enabled>true</enabled>
-                           </auto-deploy>
-                       </dependency>
-                  </dependencies> 
+          <dependencies>
+            <dependency>
+              <name>HDFS/HDFS_CLIENT</name>
+              <scope>host</scope>
+              <auto-deploy>
+                <enabled>true</enabled>
+              </auto-deploy>
+            </dependency>
+          </dependencies>
 
-                </component>
-            </components>
+        </component>
+      </components>
 
-            <osSpecifics>
-                <osSpecific>
-                    <osFamily>redhat5,redhat6,suse11</osFamily>
-                <packages>
-                    <package>
-                         <name>lhotse-base*</name>
-                    </package>
-                    <package>
-                         <name>lhotse-runner*</name>
-                    </package>
-                    <package>
-                         <name>mysql-server*</name>
-                    </package>
-                    <package>
-                        <name>mysql</name>
-                    </package>
+      <osSpecifics>
+        <osSpecific>
+          <osFamily>redhat5,redhat6,suse11</osFamily>
+          <packages>
+            <package>
+              <name>lhotse-base*</name>
+            </package>
+            <package>
+              <name>lhotse-runner*</name>
+            </package>
+            <package>
+              <name>mysql-server*</name>
+            </package>
+            <package>
+              <name>mysql</name>
+            </package>
 
-                    <package>
-                         <name>lhotse-service*</name>
-                    </package>
-                    <package>
-                         <name>lhotse-web*</name>
-                    </package>
-                    <package>
-                         <name>vsftpd*</name>
-                    </package>
-                </packages>
-                </osSpecific>
+            <package>
+              <name>lhotse-service*</name>
+            </package>
+            <package>
+              <name>lhotse-web*</name>
+            </package>
+            <package>
+              <name>vsftpd*</name>
+            </package>
+          </packages>
+        </osSpecific>
 
-           </osSpecifics>
+      </osSpecifics>
 
+      <configuration-dependencies>
+        <config-type>lhotse-base-env</config-type>
+        <config-type>lhotse-database</config-type>
+        <config-type>lhotse-ftp</config-type>
+        <config-type>lhotse-runner</config-type>
+        <config-type>lhotse-service</config-type>
+        <config-type>lhotse-web</config-type>
+      </configuration-dependencies>
 
-        </service>
-    </services>
+    </service>
+  </services>
 </metainfo>

@@ -422,9 +422,9 @@ Em.I18n.translations = {
   'installer.step1.retryRepoUrls': '点击 <b>这里</b> 重试.',
 
   'installer.step2.header':'安装选项',
-  'installer.step2.body':'请输入要加入集群的主机列表，并且提供SSH key.',
+  'installer.step2.body':'请输入要加入集群的主机列表',
   'installer.step2.targetHosts':'目标主机列表',
-  'installer.step2.targetHosts.info':'请使用全域名(FQDN)输入一个主机列表，每行一个',
+  'installer.step2.targetHosts.info':'请使用机器ip，每行一个，具体格式为ip 帐号 密码（注：用空格分割，帐号具备sudo权限）',
   'installer.step2.hostPattern.tooltip.title':'模式表达式',
   'installer.step2.hostPattern.tooltip.content':'可以利用模式表达式来指定多个目标主机. 例如, 为了指定从 host01.com 到 host10.com这些主机, 可在目标主机文本框里输入 host[01-10].com',
   'installer.step2.hostName.error.required':'你必须指定最少一个主机名',
