@@ -401,7 +401,7 @@ Em.I18n.translations = {
   'installer.step0.clusterName.tooltip.content':'输入一个唯一的集群名.',
   'installer.step0.clusterName.error.required':'集群名称是必须的',
   'installer.step0.clusterName.error.whitespaces':'集群名称不能包含空格',
-  'installer.step0.clusterName.error.specialChar':'集群名称不能包含特殊字符',
+  'installer.step0.clusterName.error.specialChar':'集群名称仅支持字母数字和下划线',
 
   'installer.step1.header':'选择套件',
   'installer.step1.body':'请选择您想用来安装Hadoop集群的服务套件.',
@@ -1223,7 +1223,7 @@ Em.I18n.translations = {
   'services.service.actions.downloadClientConfigs.fail.noConfigFile':'组建无对应的配置文件',
   'services.service.actions.downloadClientConfigs.fail.popup.header':'{0} 配置',
   'services.service.actions.downloadClientConfigs.fail.popup.body.noErrorMessage':'{0}配置文件生成失败',
-  'services.service.actions.downloadClientConfigs.fail.popup.body.errorMessage':'{0}配置文件生成失败，错误信息r /><pre><span class="text-error">{2}</span></pre>',
+  'services.service.actions.downloadClientConfigs.fail.popup.body.errorMessage':'{0}配置文件生成失败，错误信息<br/><pre><span class="text-error">{2}</span></pre>',
   'services.service.actions.downloadClientConfigs.fail.popup.body.question':'是否重试？',
   'services.service.actions.run.rebalancer':'运行重平衡',
   'services.service.actions.run.rebalanceHdfsNodes':'HDFS重平衡',

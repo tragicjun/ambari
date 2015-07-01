@@ -184,7 +184,17 @@ App.ApplicationController = Em.Controller.extend(App.UserPref, {
 				expirationDate: date.dateFormat(json.expirationDate),
 				customerName : json.customerName,
 				clusterLimit : json.clusterLimit,
-				key : json.key
+				key : json.key,
+				primary : Em.I18n.t('common.save'),
+				onPrimary : function() {
+					if ($('#modLicenseVal').length > 0) {
+						var data = $('#modLicenseVal').val();
+						$.post(url, data, function(){
+							$(this).html('修改');
+							$('#editInput').html(data);
+						});
+					}
+				}
 			  })
 			}); 
 			window.setTimeout(function(){
@@ -192,7 +202,7 @@ App.ApplicationController = Em.Controller.extend(App.UserPref, {
 					if ($(this).text() == '修改') {
 						var val = $('#modLicenseBtn').val();
 						$('#editInput').html('<input type="text" id="modLicenseVal" value="'+val+'" />');
-						$(this).html('保存');
+						//$(this).html('保存');
 					} else {
 						var data = $('#modLicenseVal').val();
 						$.post(url, data, function(){

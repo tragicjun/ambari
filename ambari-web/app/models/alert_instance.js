@@ -110,7 +110,7 @@ App.AlertInstance = DS.Model.extend({
     var previousSuffixAgo = $.timeago.settings.strings.suffixAgo;
     var previousPrefixAgo = $.timeago.settings.strings.prefixAgo;
     $.timeago.settings.strings.suffixAgo = null;
-    $.timeago.settings.strings.prefixAgo = '´ï';
+    $.timeago.settings.strings.prefixAgo = 'è¾¾';
     var triggeredFor = lastTriggered ? $.timeago(new Date(lastTriggered)) : '';
     $.timeago.settings.strings.suffixAgo = previousSuffixAgo;
     $.timeago.settings.strings.prefixAgo = previousPrefixAgo;
@@ -145,11 +145,11 @@ App.AlertInstance = DS.Model.extend({
   }.property('serviceName'),
 
   shortState: {
-    'CRITICAL': 'ÑÏÖØ',
-    'WARNING': '¾¯¸æ',
-    'OK': 'Õı³£',
-    'UNKNOWN': 'Î´Öª',
-    'PENDING': '´ıÆô¶¯'
+    'CRITICAL': 'ä¸¥é‡',
+    'WARNING': 'è­¦å‘Š',
+    'OK': 'æ­£å¸¸',
+    'UNKNOWN': 'æœªçŸ¥',
+    'PENDING': 'å¾…å¯åŠ¨'
   }
 });
 

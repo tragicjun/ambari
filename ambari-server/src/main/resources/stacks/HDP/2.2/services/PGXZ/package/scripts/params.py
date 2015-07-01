@@ -23,7 +23,7 @@ from utils import utils
 config = Script.get_config()
 
 #global settings
-user_name = default("/configurations/pgxz-global/pgxz.user", "pgxz")
+user_name = default("/configurations/pgxz-global/pgxz.username", "pgxz")
 user_group = default("/configurations/cluster-env/user_group", "hadoop")
 user_password = default("/configurations/pgxz-global/pgxz.password", "pgxz")
 

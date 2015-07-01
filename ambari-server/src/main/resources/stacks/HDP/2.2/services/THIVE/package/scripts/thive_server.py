@@ -58,7 +58,7 @@ class Master(Script):
     env.set_params(params)
 
     print 'Stop the thive';
-    cmd = format("su hdfs -c '/usr/local/thive/dist/bin/stop-server.sh {thive_port}'")
+    cmd = format("su hdfs -c '/usr/local/thive/dist/bin/stop-server.sh {hive_process_keyword}'")
 
     (ret, output) = commands.getstatusoutput(cmd)
     print "[ret]"

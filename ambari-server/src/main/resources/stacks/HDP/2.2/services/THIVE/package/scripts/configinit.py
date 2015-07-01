@@ -8,7 +8,7 @@ class configinit:
     import params
     
     File(params.checkstatus_script, 
-      mode=0755, 
+      mode=0755,
       content=StaticFile('thive_check_status.sh')
     )
 
@@ -22,16 +22,16 @@ class configinit:
     print 'create hive-default.xml'
     File(os.path.join(params.thive_config_path,'hive-default.xml'),
       owner='hdfs',
-      group='hdfs',
-      mode=0644,
+      group='hadoop',
+      mode=0755,
       content=Template("thive.hive-default.j2")
     )
 
     print 'create hive-log4j.properties'
     File(os.path.join(params.thive_config_path,'hive-log4j.properties'),
       owner='hdfs',
-      group='hdfs',
-      mode=0644,
+      group='hadoop',
+      mode=0755,
       content=Template("thive.hive-log4j.j2")
     )
 
@@ -88,8 +88,8 @@ class configinit:
     print 'create postgresql.conf'
     File(os.path.join(params.pg_config_path,'postgresql.conf'),
       owner='hdfs',
-      group='hdfs',
-      mode=0644,
+      group='hadoop',
+      mode=0755,
       content=Template("pg.postgresql.j2")
     )
 
@@ -102,8 +102,8 @@ class configinit:
     env.set_params(params)
     File(os.path.join(params.pg_config_path,'pg_hba.conf'),
       owner='hdfs',
-      group='hdfs',
-      mode=0644,
+      group='hadoop',
+      mode=0755,
       content=Template("pg.pg_hba.j2")
     )
 
@@ -121,7 +121,7 @@ class configinit:
     print 'create system.properties'
     File(os.path.join(params.service_config_path,'system.properties'),
       owner='hdfs',
-      group='hdfs',
-      mode=0644,
+      group='hadoop',
+      mode=0755,
       content=Template("service.system.properties.j2")
     )

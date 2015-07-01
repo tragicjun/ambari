@@ -234,7 +234,7 @@ App.MainServiceItemView = Em.View.extend({
           label: actionMap.ROLLING_RESTART.label.format(App.format.role(slave))
         }));
       });
-      allMasters.filter(function(master) {
+      /*allMasters.filter(function(master) {
         return App.get('components.reassignable').contains(master);
       }).forEach(function(master) {
         options.push(self.createOption(actionMap.MOVE_COMPONENT, {
@@ -242,8 +242,8 @@ App.MainServiceItemView = Em.View.extend({
           label: actionMap.MOVE_COMPONENT.label.format(App.format.role(master)),
           disabled: App.allHostNames.length === App.HostComponent.find().filterProperty('componentName', master).mapProperty('hostName').length
         }));
-      });
-      if (service.get('serviceTypes').contains('HA_MODE')) {
+      });*/
+      /*if (service.get('serviceTypes').contains('HA_MODE')) {
         switch (service.get('serviceName')) {
           case 'HDFS':
             options.push(actionMap.TOGGLE_NN_HA);
@@ -252,7 +252,7 @@ App.MainServiceItemView = Em.View.extend({
             options.push(actionMap.TOGGLE_RM_HA);
             break;
         }
-      }
+      }*/
       if (serviceCheckSupported) {
         options.push(actionMap.RUN_SMOKE_TEST);
       }

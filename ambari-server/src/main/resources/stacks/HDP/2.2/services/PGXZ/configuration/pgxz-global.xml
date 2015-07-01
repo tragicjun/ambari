@@ -18,7 +18,7 @@
 -->
 <configuration supports_final="true">
   <property>
-    <name>pgxz.user</name>
+    <name>pgxz.username</name>
     <value>pgxz</value>
     <property-type>USER</property-type>
     <description>PGXZ 数据库用户名</description>

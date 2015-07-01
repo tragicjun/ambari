@@ -8,17 +8,13 @@ class configinit:
 
     print 'create database.php'
     File(os.path.join(params.web_config_path,'database.php'),
-      owner='ambari',
-      group='ambari',
-      mode=0644,
+      mode=0755,
       content=Template("web.database.php.j2")
     )
 
     print 'create ge.conf'
     File(os.path.join(params.web_http_path,'ge.conf'),
-      owner='ambari',
-      group='ambari',
-      mode=0644,
+      mode=0755,
       content=Template("goldeneye.web.httpd.conf.j2")
     )
 	
