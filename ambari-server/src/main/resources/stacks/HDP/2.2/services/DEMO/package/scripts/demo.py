@@ -51,6 +51,9 @@ class DEMO(Script):
         #self.install_packages(env)
         print 'installed demo'
 
+    def uninstall(self, env):
+        print 'uninstalled demo'
+
     def configure(self, env):
         print 'configured demo'
 

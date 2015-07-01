@@ -206,6 +206,13 @@ public enum State {
           return true;
         }
         break;
+      case UNINSTALLED:
+        if (startState == State.INSTALLED
+                || startState == State.INSTALL_FAILED
+                || startState == State.UNINSTALLED) {
+            return true;
+        }
+        break;
     }
     return false;
   }
