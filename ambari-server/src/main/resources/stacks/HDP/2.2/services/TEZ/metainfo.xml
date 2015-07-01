@@ -22,6 +22,7 @@
       <name>TEZ</name>
       <displayName>Tez</displayName>
       <version>0.5.2.2.2</version>
+      <comment>Hadoop查询处理框架：作为支撑PIG/Hive的新一代计算引擎，可以将多个有依赖的作业转换为一个DAG作业，从而大幅提高查询性能</comment>
       <osSpecifics>
         <osSpecific>
           <osFamily>redhat5,redhat6,suse11</osFamily>

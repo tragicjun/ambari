@@ -228,7 +228,6 @@ public class StageUtils {
 
     //Fill hosts and ports lists
     Set<String> hostsSet = new LinkedHashSet<String>();
-    Set<String> hostsIPSet = new LinkedHashSet<String>();
     List<Integer> portsList = new ArrayList<Integer>();
 
     for (Host host : allHosts.values()) {
@@ -238,7 +237,6 @@ public class StageUtils {
 
       hostsSet.add(host.getHostName());
       portsList.add(currentPingPort);
-      hostsIPSet.add(host.getIPv4());
     }
 
     List<String> hostsList = new ArrayList<String>(hostsSet);
@@ -307,7 +305,7 @@ public class StageUtils {
       clusterHostInfo.put(entry.getKey(), replacedRangesSet);
     }
 
-    clusterHostInfo.put(HOSTS_LIST, hostsIPSet);
+    clusterHostInfo.put(HOSTS_LIST, hostsSet);
     clusterHostInfo.put(PORTS, replaceMappedRanges(portsList));
 
     // Fill server host
