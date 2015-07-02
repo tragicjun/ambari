@@ -178,31 +178,34 @@ App.ApplicationController = Em.Controller.extend(App.UserPref, {
 			// "customerName":"jerryjzhang","clusterLimit":10,"expirationDate":1467216000000,"key":"NJSXE4TZ-NJ5GQYLO-M4WTCMBN-GIYDCNRP-GA3C6MZQ"}
 			App.ModalPopup.show({
 			  header: '许可信息',
-			  secondary: false,
 			  bodyClass: Em.View.extend({
 				templateName: require('templates/common/license'),
 				expirationDate: date.dateFormat(json.expirationDate),
 				customerName : json.customerName,
 				clusterLimit : json.clusterLimit,
-				key : json.key,
-				primary : Em.I18n.t('common.save'),
-				onPrimary : function() {
+				key : json.key
+			  }),
+			  primary : Em.I18n.t('common.save'),
+			  onPrimary : function() {
+				var _this = this;
 					if ($('#modLicenseVal').length > 0) {
 						var data = $('#modLicenseVal').val();
 						$.post(url, data, function(){
 							$('#editInput').html(data);
+							_this.hide();
 						}).error(function(){
 							alert('输入许可证不对');
 						});
+					} else {
+						this.hide();
 					}
 				}
-			  })
 			}); 
 			window.setTimeout(function(){
 				$('#modLicenseBtn').click(function(){
 					if ($(this).text() == '修改') {
-						var val = $('#modLicenseBtn').val();
-						$('#editInput').html('<input type="text" id="modLicenseVal" value="'+val+'" />');
+						var val = $('#editInput').text();
+						$('#editInput').html('<input type="text" style="wdith:200px;" id="modLicenseVal" value="'+val+'" />');
 						//$(this).html('保存');
 					} else {
 						var data = $('#modLicenseVal').val();
@@ -223,9 +226,10 @@ App.ApplicationController = Em.Controller.extend(App.UserPref, {
 		  }),
 		  primary : Em.I18n.t('common.save'),
 		  onPrimary: function() {
+			var _this = this;
 			var data = $('#licenseId').val();
 			$.post(url, data, function(){
-				
+				_this.hide();
 			}).error(function(){
 				alert('输入许可证不对');
 			});
