@@ -190,8 +190,9 @@ App.ApplicationController = Em.Controller.extend(App.UserPref, {
 					if ($('#modLicenseVal').length > 0) {
 						var data = $('#modLicenseVal').val();
 						$.post(url, data, function(){
-							$(this).html('修改');
 							$('#editInput').html(data);
+						}).error(function(){
+							alert('输入许可证不对');
 						});
 					}
 				}
@@ -214,6 +215,22 @@ App.ApplicationController = Em.Controller.extend(App.UserPref, {
 			}, 500);
 			
 		}
+	}).error(function(){
+		App.ModalPopup.show({
+		  header: '许可信息',
+		  bodyClass: Em.View.extend({
+			templateName: require('templates/common/edit_license')
+		  }),
+		  primary : Em.I18n.t('common.save'),
+		  onPrimary: function() {
+			var data = $('#licenseId').val();
+			$.post(url, data, function(){
+				
+			}).error(function(){
+				alert('输入许可证不对');
+			});
+		  }
+		}); 
 	});
   }
 

@@ -49,7 +49,7 @@ class Base(Script):
         content=StaticFile('checkStatus.sh')
     )
  
-    cmd = format("bash -x {check_status_script} {lhotse_base_proc_name} 1")
+    cmd = format("bash -x {check_status_script} {lhotse_base_proc_name} 1 lhotse")
     
     var= os.system(cmd)
     print var

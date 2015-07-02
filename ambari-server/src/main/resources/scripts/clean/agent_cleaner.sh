@@ -19,8 +19,8 @@ BINDIR=`dirname "$0"`
 cd $BINDIR
 currentPath=`pwd`
 
-loginUser="ambari"
-loginPass="ambari"
+loginUser="tencent"
+loginPass="tencent"
 
 if [ -d "/tmp/clean/" ]
 then
