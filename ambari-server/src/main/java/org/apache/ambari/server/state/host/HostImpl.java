@@ -18,10 +18,7 @@
 package org.apache.ambari.server.state.host;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -1068,7 +1065,15 @@ public class HostImpl implements Host {
             }
         }
         if(runOnDocker){
-            r.getDisksInfo().clear();
+            Iterator<DiskInfo> itr = r.getDisksInfo().iterator();
+            while(itr.hasNext()){
+                DiskInfo disk = itr.next();
+                if("/".equals(disk.getMountPoint())){
+                    disk.setType("/dev/sda4");
+                }else{
+                    itr.remove();
+                }
+            }
         }
         //Ended
 

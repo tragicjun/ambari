@@ -36,6 +36,18 @@ var hdp2properties = [
     },
 	{
       "id": "site property",
+      "name": "lhotse.db.username",
+      "displayName": "用户名",
+      "defaultValue": "lhotse",
+      "isReconfigurable": false,
+      "isOverridable": false,
+      "isVisible": true,
+      "serviceName": "LHOTSE",
+      "filename": "lhotse-database.xml",
+      "category": "Advanced lhotse-database"
+    },
+	{
+      "id": "site property",
       "name": "lhotse.db.password",
       "displayName": "密码",
       "defaultValue": "lhotse",
@@ -48,15 +60,15 @@ var hdp2properties = [
     },
 	{
       "id": "site property",
-      "name": "lhotse.db.username",
+      "name": "lhotse.ftp.user",
       "displayName": "用户名",
-      "defaultValue": "lhotse",
+      "defaultValue": "ftpadmin",
       "isReconfigurable": false,
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "LHOTSE",
-      "filename": "lhotse-database.xml",
-      "category": "Advanced lhotse-database"
+      "filename": "lhotse-ftp.xml",
+      "category": "Advanced lhotse-ftp"
     },
 	{
       "id": "site property",
@@ -75,18 +87,6 @@ var hdp2properties = [
       "name": "lhotse.ftp.port",
       "displayName": "端口",
       "defaultValue": "2121",
-      "isReconfigurable": false,
-      "isOverridable": false,
-      "isVisible": true,
-      "serviceName": "LHOTSE",
-      "filename": "lhotse-ftp.xml",
-      "category": "Advanced lhotse-ftp"
-    },
-	{
-      "id": "site property",
-      "name": "lhotse.ftp.user",
-      "displayName": "用户名",
-      "defaultValue": "ftpadmin",
       "isReconfigurable": false,
       "isOverridable": false,
       "isVisible": true,
@@ -123,18 +123,6 @@ var hdp2properties = [
     },	
 	{
       "id": "site property",
-      "name": "goldeneye.password",
-      "displayName": "密码",
-      "defaultValue": "goldeneye",
-      "isReconfigurable": false,
-      "isOverridable": false,
-      "isVisible": true,
-      "serviceName": "GOLDENEYE",
-      "filename": "goldeneye-database.xml",
-      "category": "Advanced goldeneye-database"
-    },	
-	{
-      "id": "site property",
       "name": "goldeneye.username",
       "displayName": "用户名",
       "defaultValue": "goldeneye",
@@ -145,6 +133,18 @@ var hdp2properties = [
       "filename": "goldeneye-database.xml",
       "category": "Advanced goldeneye-database"
     },		
+	{
+      "id": "site property",
+      "name": "goldeneye.password",
+      "displayName": "密码",
+      "defaultValue": "goldeneye",
+      "isReconfigurable": false,
+      "isOverridable": false,
+      "isVisible": true,
+      "serviceName": "GOLDENEYE",
+      "filename": "goldeneye-database.xml",
+      "category": "Advanced goldeneye-database"
+    },	
 /**********************************************HDFS***************************************/
   {
     "id": "site property",
