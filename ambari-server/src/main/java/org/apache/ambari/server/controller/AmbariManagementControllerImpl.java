@@ -614,7 +614,8 @@ public class AmbariManagementControllerImpl implements AmbariManagementControlle
       Map<String, ServiceComponent> m = service.getServiceComponents();
       for (Entry<String, ServiceComponent> entry : m.entrySet()) {
         ServiceComponent serviceComponent = entry.getValue();
-        if (serviceComponent.isMasterComponent()) {
+        //Modified by junz: remove the test so that restart all components not just masters
+        //if (serviceComponent.isMasterComponent()) {
           Map<String, ServiceComponentHost> schMap = serviceComponent.getServiceComponentHosts();
           //schMap will only contain hostName when deleting a host; when adding a host the test skips the loop
           //Modified by junz: remove the test so that adding a host also triggers master component restart
@@ -624,7 +625,7 @@ public class AmbariManagementControllerImpl implements AmbariManagementControlle
               serviceComponentHost.setRestartRequired(true);
             }
           //}
-        }
+        //}
       }
     }
   }
