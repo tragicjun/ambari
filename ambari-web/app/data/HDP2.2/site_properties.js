@@ -45,11 +45,11 @@ var hdp22properties = hdp2properties.filter(function (item) {
 });
 
 hdp22properties.push(
-  /**********************************************LHOTSE***************************************/
+ /**********************************************LHOTSE***************************************/
     {
       "id": "site property",
       "name": "data.dir",
-      "displayName": "dataÄ¿Â¼",
+      "displayName": "dataç›®å½•",
       "defaultValue": "/data/mysql_data",
       "isReconfigurable": false,
       "displayType": "directory",
@@ -62,10 +62,9 @@ hdp22properties.push(
 	{
       "id": "site property",
       "name": "lhotse.db.password",
-      "displayName": "ÃÜÂë",
+      "displayName": "å¯†ç ",
       "defaultValue": "lhotse",
       "isReconfigurable": false,
-      "displayType": "directories",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "LHOTSE",
@@ -75,10 +74,9 @@ hdp22properties.push(
 	{
       "id": "site property",
       "name": "lhotse.db.username",
-      "displayName": "ÓÃ»§Ãû",
+      "displayName": "ç”¨æˆ·å",
       "defaultValue": "lhotse",
       "isReconfigurable": false,
-      "displayType": "directories",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "LHOTSE",
@@ -88,10 +86,9 @@ hdp22properties.push(
 	{
       "id": "site property",
       "name": "lhotse.ftp.password",
-      "displayName": "ÃÜÂë",
+      "displayName": "å¯†ç ",
       "defaultValue": "ftpadmin",
       "isReconfigurable": false,
-      "displayType": "directories",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "LHOTSE",
@@ -101,10 +98,9 @@ hdp22properties.push(
 	{
       "id": "site property",
       "name": "lhotse.ftp.port",
-      "displayName": "¶Ë¿Ú",
+      "displayName": "ç«¯å£",
       "defaultValue": "2121",
       "isReconfigurable": false,
-      "displayType": "directories",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "LHOTSE",
@@ -114,10 +110,9 @@ hdp22properties.push(
 	{
       "id": "site property",
       "name": "lhotse.ftp.user",
-      "displayName": "ÓÃ»§Ãû",
+      "displayName": "ç”¨æˆ·å",
       "defaultValue": "ftpadmin",
       "isReconfigurable": false,
-      "displayType": "directories",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "LHOTSE",
@@ -127,10 +122,10 @@ hdp22properties.push(
 	{
       "id": "site property",
       "name": "root.path",
-      "displayName": "¸ùÄ¿Â¼",
+      "displayName": "æ ¹ç›®å½•",
       "defaultValue": "/data/ftp_data",
       "isReconfigurable": false,
-      "displayType": "directories",
+      "displayType": "directory",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "LHOTSE",
@@ -141,7 +136,7 @@ hdp22properties.push(
     {
       "id": "site property",
       "name": "data.dir",
-      "displayName": "dataÄ¿Â¼",
+      "displayName": "dataç›®å½•",
       "defaultValue": "/data/goldeneye/mysql_data",
       "isReconfigurable": false,
       "displayType": "directory",
@@ -154,10 +149,9 @@ hdp22properties.push(
 	{
       "id": "site property",
       "name": "goldeneye.password",
-      "displayName": "ÃÜÂë",
+      "displayName": "å¯†ç ",
       "defaultValue": "goldeneye",
       "isReconfigurable": false,
-      "displayType": "directories",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "GOLDENEYE",
@@ -167,16 +161,15 @@ hdp22properties.push(
 	{
       "id": "site property",
       "name": "goldeneye.username",
-      "displayName": "ÓÃ»§Ãû",
+      "displayName": "ç”¨æˆ·å",
       "defaultValue": "goldeneye",
       "isReconfigurable": false,
-      "displayType": "directories",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "GOLDENEYE",
       "filename": "goldeneye-database.xml",
       "category": "Advanced goldeneye-database"
-    },	
+    },		
   {
     "id": "site property",
     "name": "hive.zookeeper.quorum",

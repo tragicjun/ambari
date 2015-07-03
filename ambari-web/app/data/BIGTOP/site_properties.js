@@ -22,7 +22,7 @@ module.exports =
 {
   "configProperties": [
   //***************************************** BIGTOP stack **************************************
-  /**********************************************LHOTSE***************************************/
+ /**********************************************LHOTSE***************************************/
     {
       "id": "site property",
       "name": "data.dir",
@@ -42,7 +42,6 @@ module.exports =
       "displayName": "密码",
       "defaultValue": "lhotse",
       "isReconfigurable": false,
-      "displayType": "directories",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "LHOTSE",
@@ -55,7 +54,6 @@ module.exports =
       "displayName": "用户名",
       "defaultValue": "lhotse",
       "isReconfigurable": false,
-      "displayType": "directories",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "LHOTSE",
@@ -68,7 +66,6 @@ module.exports =
       "displayName": "密码",
       "defaultValue": "ftpadmin",
       "isReconfigurable": false,
-      "displayType": "directories",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "LHOTSE",
@@ -81,7 +78,6 @@ module.exports =
       "displayName": "端口",
       "defaultValue": "2121",
       "isReconfigurable": false,
-      "displayType": "directories",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "LHOTSE",
@@ -94,7 +90,6 @@ module.exports =
       "displayName": "用户名",
       "defaultValue": "ftpadmin",
       "isReconfigurable": false,
-      "displayType": "directories",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "LHOTSE",
@@ -107,7 +102,7 @@ module.exports =
       "displayName": "根目录",
       "defaultValue": "/data/ftp_data",
       "isReconfigurable": false,
-      "displayType": "directories",
+      "displayType": "directory",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "LHOTSE",
@@ -134,7 +129,6 @@ module.exports =
       "displayName": "密码",
       "defaultValue": "goldeneye",
       "isReconfigurable": false,
-      "displayType": "directories",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "GOLDENEYE",
@@ -147,13 +141,12 @@ module.exports =
       "displayName": "用户名",
       "defaultValue": "goldeneye",
       "isReconfigurable": false,
-      "displayType": "directories",
       "isOverridable": false,
       "isVisible": true,
       "serviceName": "GOLDENEYE",
       "filename": "goldeneye-database.xml",
       "category": "Advanced goldeneye-database"
-    },	
+    },		
   /**********************************************HDFS***************************************/
     {
       "id": "site property",

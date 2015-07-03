@@ -1,30 +1,31 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
+    <!--
+      <property>
+        <name>goldeneye.username</name>
+        <value>goldeneye</value>
+        <description>Golden Eye 数据库用户名(仅首次安装时,修改生效)</description>
+      </property>
 
-  <property>
-    <name>goldeneye.username</name>
-    <value>goldeneye</value>
-    <description>Golden Eye 数据库用户名(仅首次安装时,修改生效)</description>
-  </property>
-  
-  <property>
-    <name>goldeneye.password</name>
-    <value>goldeneye</value>
-    <description>Golden Eye 数据库密码(仅首次安装时,修改生效)</description>
-  </property>
-
-<!--
-  <property>
-    <name>database.port</name>
-    <value>3306</value>
-    <description>Golden Eye 数据库端口号</description>
-  </property>
--->
-  <property>
-    <name>data.dir</name>
-    <value>/data/goldeneye/mysql_data</value>
-    <description>Golden Eye 数据库文件路径(仅首次安装时,修改生效)</description>
-  </property>
-  
+      <property>
+        <name>goldeneye.password</name>
+        <value>goldeneye</value>
+        <description>Golden Eye 数据库密码(仅首次安装时,修改生效)</description>
+      </property>
+        -->
+    <!--
+      <property>
+        <name>database.port</name>
+        <value>3306</value>
+        <description>Golden Eye 数据库端口号</description>
+      </property>
+    -->
+    <!--
+ <property>
+   <name>data.dir</name>
+   <value>/data/goldeneye/mysql_data</value>
+   <description>Golden Eye 数据库文件路径(仅首次安装时,修改生效)</description>
+ </property>
+     -->
 </configuration>
