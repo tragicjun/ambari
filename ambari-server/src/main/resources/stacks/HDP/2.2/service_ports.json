@@ -56,14 +56,14 @@
     ],
     "HIVE_SERVER":[
       "hive-site/hive.server2.thrift.port",
-      "hive-site/hive.server2.thrift.http.port"
+      "hive-site/hive.server2.thrift.http.port",
+      "3306"
     ],
     "WEBHCAT_SERVER":[
       "webhcat-site/templeton.port",
       "9999"
     ],
     "MYSQL_SERVER":[
-      "3306"
     ]
   },
   "HBASE":{

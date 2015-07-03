@@ -37,6 +37,8 @@ def mysql_adduser():
     cmd = format(add_hiveserver_cmd)
   else:
     cmd = format(add_hiveserver_cmd + ";" + add_metastore_cmd)
+
+  print cmd
   Execute(cmd,
           tries=3,
           try_sleep=5,
