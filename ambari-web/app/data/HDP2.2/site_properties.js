@@ -45,6 +45,138 @@ var hdp22properties = hdp2properties.filter(function (item) {
 });
 
 hdp22properties.push(
+  /**********************************************LHOTSE***************************************/
+    {
+      "id": "site property",
+      "name": "data.dir",
+      "displayName": "data目录",
+      "defaultValue": "/data/mysql_data",
+      "isReconfigurable": false,
+      "displayType": "directory",
+      "isOverridable": false,
+      "isVisible": true,
+      "serviceName": "LHOTSE",
+      "filename": "lhotse-database.xml",
+      "category": "Advanced lhotse-database"
+    },
+	{
+      "id": "site property",
+      "name": "lhotse.db.password",
+      "displayName": "密码",
+      "defaultValue": "lhotse",
+      "isReconfigurable": false,
+      "displayType": "directories",
+      "isOverridable": false,
+      "isVisible": true,
+      "serviceName": "LHOTSE",
+      "filename": "lhotse-database.xml",
+      "category": "Advanced lhotse-database"
+    },
+	{
+      "id": "site property",
+      "name": "lhotse.db.username",
+      "displayName": "用户名",
+      "defaultValue": "lhotse",
+      "isReconfigurable": false,
+      "displayType": "directories",
+      "isOverridable": false,
+      "isVisible": true,
+      "serviceName": "LHOTSE",
+      "filename": "lhotse-database.xml",
+      "category": "Advanced lhotse-database"
+    },
+	{
+      "id": "site property",
+      "name": "lhotse.ftp.password",
+      "displayName": "密码",
+      "defaultValue": "ftpadmin",
+      "isReconfigurable": false,
+      "displayType": "directories",
+      "isOverridable": false,
+      "isVisible": true,
+      "serviceName": "LHOTSE",
+      "filename": "lhotse-ftp.xml",
+      "category": "Advanced lhotse-ftp"
+    },
+	{
+      "id": "site property",
+      "name": "lhotse.ftp.port",
+      "displayName": "端口",
+      "defaultValue": "2121",
+      "isReconfigurable": false,
+      "displayType": "directories",
+      "isOverridable": false,
+      "isVisible": true,
+      "serviceName": "LHOTSE",
+      "filename": "lhotse-ftp.xml",
+      "category": "Advanced lhotse-ftp"
+    },
+	{
+      "id": "site property",
+      "name": "lhotse.ftp.user",
+      "displayName": "用户名",
+      "defaultValue": "ftpadmin",
+      "isReconfigurable": false,
+      "displayType": "directories",
+      "isOverridable": false,
+      "isVisible": true,
+      "serviceName": "LHOTSE",
+      "filename": "lhotse-ftp.xml",
+      "category": "Advanced lhotse-ftp"
+    },
+	{
+      "id": "site property",
+      "name": "root.path",
+      "displayName": "根目录",
+      "defaultValue": "/data/ftp_data",
+      "isReconfigurable": false,
+      "displayType": "directories",
+      "isOverridable": false,
+      "isVisible": true,
+      "serviceName": "LHOTSE",
+      "filename": "lhotse-ftp.xml",
+      "category": "Advanced lhotse-ftp"
+    },
+    /**********************************************GOLDENEYE***************************************/
+    {
+      "id": "site property",
+      "name": "data.dir",
+      "displayName": "data目录",
+      "defaultValue": "/data/goldeneye/mysql_data",
+      "isReconfigurable": false,
+      "displayType": "directory",
+      "isOverridable": false,
+      "isVisible": true,
+      "serviceName": "GOLDENEYE",
+      "filename": "goldeneye-database.xml",
+      "category": "Advanced goldeneye-database"
+    },	
+	{
+      "id": "site property",
+      "name": "goldeneye.password",
+      "displayName": "密码",
+      "defaultValue": "goldeneye",
+      "isReconfigurable": false,
+      "displayType": "directories",
+      "isOverridable": false,
+      "isVisible": true,
+      "serviceName": "GOLDENEYE",
+      "filename": "goldeneye-database.xml",
+      "category": "Advanced goldeneye-database"
+    },	
+	{
+      "id": "site property",
+      "name": "goldeneye.username",
+      "displayName": "用户名",
+      "defaultValue": "goldeneye",
+      "isReconfigurable": false,
+      "displayType": "directories",
+      "isOverridable": false,
+      "isVisible": true,
+      "serviceName": "GOLDENEYE",
+      "filename": "goldeneye-database.xml",
+      "category": "Advanced goldeneye-database"
+    },	
   {
     "id": "site property",
     "name": "hive.zookeeper.quorum",
