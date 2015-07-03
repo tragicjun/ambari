@@ -853,20 +853,6 @@ public class HeartBeatHandler {
     int currentPingPort = register.getCurrentPingPort();
     long now = System.currentTimeMillis();
 
-    //Added by junz: tricky hack, clear mounts if the agent is running on Docker container
-    boolean runOnDocker = false;
-    for(DiskInfo disk : register.getHardwareProfile().getMounts()){
-        if("/etc/resolv.conf".equals(disk.getMountPoint()) ||
-                "/etc/hosts".equals(disk.getMountPoint())){
-            runOnDocker = true;
-            break;
-        }
-    }
-    if(runOnDocker){
-        register.getHardwareProfile().getMounts().clear();
-    }
-    //Ended
-
     String agentVersion = register.getAgentVersion();
     String serverVersion = ambariMetaInfo.getServerVersion();
     if (!VersionUtils.areVersionsEqual(serverVersion, agentVersion, true)) {

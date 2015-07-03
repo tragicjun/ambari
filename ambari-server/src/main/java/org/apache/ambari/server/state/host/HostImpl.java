@@ -1057,6 +1057,21 @@ public class HostImpl implements Host {
       r.setPhCpuCount(getPhCpuCount());
       r.setCpuCount(getCpuCount());
       r.setDisksInfo(getDisksInfo());
+
+        //Added by junz: tricky hack, clear mounts if the host is running on Docker container
+        boolean runOnDocker = false;
+        for(DiskInfo disk : r.getDisksInfo()){
+            if("/etc/resolv.conf".equals(disk.getMountPoint()) ||
+                    "/etc/hosts".equals(disk.getMountPoint())){
+                runOnDocker = true;
+                break;
+            }
+        }
+        if(runOnDocker){
+            r.getDisksInfo().clear();
+        }
+        //Ended
+
       r.setHealthStatus(getHealthStatus());
       r.setHostAttributes(getHostAttributes());
       r.setIpv4(getIPv4());
