@@ -62,7 +62,7 @@ class Runner(Script):
         content=StaticFile('checkStatus.sh')
     )
  
-    cmd = format("bash -x {check_status_script} {lhotse_runner_proc_name} 7")
+    cmd = format("bash -x {check_status_script} {lhotse_runner_proc_name} 8")
     
     var= os.system(cmd)
 

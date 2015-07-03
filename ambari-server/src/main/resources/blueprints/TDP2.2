@@ -1,0 +1,146 @@
+{
+  "configurations": [
+  ],
+  "host_groups": [
+    {
+      "name": "gateway",
+      "components": [
+        {
+          "name": "AMBARI_SERVER"
+        },
+        {
+          "name": "NAMENODE"
+        },
+        {
+          "name": "ZOOKEEPER_SERVER"
+        },
+        {
+          "name": "HBASE_MASTER"
+        },
+        {
+          "name": "METRICS_COLLECTOR"
+        },
+        {
+          "name": "PGXZ_GTM"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "THIVE_CLIENT"
+        },
+        {
+          "name": "HBASE_CLIENT"
+        },
+        {
+          "name": "PGXZ_CLIENT"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name": "TEZ_CLIENT"
+        },
+        {
+          "name": "METRICS_MONITOR"
+        },
+        {
+          "name": "RESOURCEMANAGER"
+        },
+        {
+          "name": "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name": "LHOTSE_WEB"
+        },
+        {
+          "name": "LHOTSE_FTP"
+        },
+        {
+          "name": "GOLDENEYE_METADATA_DATABASE"
+        }
+      ],
+      "cardinality": "1"
+    },
+    {
+      "name": "master_2",
+      "components": [
+        {
+          "name": "HISTORYSERVER"
+        },
+        {
+          "name": "SECONDARY_NAMENODE"
+        },
+        {
+          "name": "METRICS_MONITOR"
+        },
+        {
+          "name": "APP_TIMELINE_SERVER"
+        },
+        {
+          "name": "THIVE_SERVER"
+        },
+        {
+          "name": "THIVE_METADATA_DATABASE"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "LHOTSE_BASE"
+        },
+        {
+          "name": "LHOTSE_DATABASE"
+        },
+        {
+          "name": "LHOTSE_SERVICE"
+        },
+        {
+          "name": "GOLDENEYE_WEB"
+        }
+      ],
+      "cardinality": "1"
+    },
+    {
+      "name": "slave_1",
+      "components": [
+        {
+          "name" : "METRICS_MONITOR"
+        },
+        {
+          "name": "HBASE_REGIONSERVER"
+        },
+        {
+          "name": "NODEMANAGER"
+        },
+        {
+          "name": "DATANODE"
+        },
+        {
+          "name": "PGXZ_DATANODE"
+        },
+        {
+          "name": "PGXZ_COORDINATOR"
+        },
+        {
+          "name": "LHOTSE_RUNNER"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        }
+      ],
+      "cardinality": "${slavesCount}"
+    }
+  ],
+  "Blueprints": {
+    "blueprint_name": "tdp",
+    "stack_name": "HDP",
+    "stack_version": "2.2"
+  }
+}

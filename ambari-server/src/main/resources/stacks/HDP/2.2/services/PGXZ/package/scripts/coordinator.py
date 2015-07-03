@@ -43,6 +43,7 @@ class Coordinator(Script):
     utils().exe(params.coordinator_start)
     utils().check_start(params.coordinator_pid)
 
+    utils().syncCluster(params.coordinator_hosts, params.datanode_hosts, params.coordinator_port, params.datanode_port, params.host_name, params.sql_str)
 
   def configure(self, env):
     import params

@@ -87,7 +87,7 @@
         <config-type>coordinator-config-env</config-type>
         <config-type>datanode-config-env</config-type>
       </configuration-dependencies>
-
+      <restartRequiredAfterChange>true</restartRequiredAfterChange>
     </service>
   </services>
 </metainfo>

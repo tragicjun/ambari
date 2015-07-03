@@ -29,6 +29,7 @@ user_password = default("/configurations/pgxz-global/pgxz.password", "pgxz")
 
 
 #component hosts
+host_name = default("/hostname", "127.0.0.1")
 gtm_host = default("/clusterHostInfo/pgxz_gtm_hosts", ["127.0.0.1"])[0]
 coordinator_hosts = default("/clusterHostInfo/pgxz_coordinator_hosts", [])
 datanode_hosts = default("/clusterHostInfo/pgxz_datanode_hosts", [])
@@ -87,4 +88,7 @@ coordinator_stop = cmd_prefix + pg_ctl + " stop -D " + coordinator_path + " -Z c
 datanode_install = cmd_prefix + initdb + " -D " + datanode_path + " --nodename " + datanode_name + cmd_suffix
 datanode_start = cmd_prefix + pg_ctl + " start -D " + datanode_path + " -Z datanode" + cmd_suffix
 datanode_stop = cmd_prefix + pg_ctl + " stop -D " + datanode_path + " -Z datanode" + cmd_suffix
+
+psql = bin_path + "/psql"
+sql_str = "cd {0}; su {1} -c \"{2}\"".format(pgxz_path, user_name, "{0} -h {1} -p {2} postgres -c \\\"{3}\\\"").format(psql, "{0}", "{1}", "{2}")
 

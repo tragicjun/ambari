@@ -4,18 +4,18 @@
   <property>
     <name>lhotse.db.username</name>
     <value>lhotse</value>
-    <description>Lhotse 元数据库账号</description>
+    <description>Lhotse 元数据库账号(仅首次安装时,修改生效)</description>
   </property>
 
   <property>
     <name>lhotse.db.password</name>
     <value>lhotse</value>
-    <description>Lhotse 元数据库密码</description>
+    <description>Lhotse 元数据库密码(仅首次安装时,修改生效)</description>
   </property>
 
   <property>
     <name>data.dir</name>
     <value>/data/mysql_data</value>
-    <description>Lhotse 元数据库数据路径</description>
+    <description>Lhotse 元数据库数据路径(仅首次安装时,修改生效)</description>
   </property>
 </configuration>

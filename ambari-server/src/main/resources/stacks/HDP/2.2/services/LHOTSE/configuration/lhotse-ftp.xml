@@ -4,25 +4,25 @@
   <property>
     <name>lhotse.ftp.port</name>
     <value>2121</value>
-    <description>Lhotse ftp port</description>
+    <description>Lhotse ftp port(仅首次安装时,修改生效)</description>
   </property>
 
   <property>
     <name>lhotse.ftp.user</name>
     <value>ftpadmin</value>
-    <description>ftp user</description>
+    <description>ftp user(仅首次安装时,修改生效)</description>
   </property>
 
   <property>
     <name>lhotse.ftp.password</name>
     <value>ftpadmin</value>
-    <description>ftp password</description>
+    <description>ftp password(仅首次安装时,修改生效)</description>
   </property>
  
   <property>
     <name>root.path</name>
     <value>/data/ftp_data</value>
-    <description>ftp root path</description>
+    <description>ftp root path(仅首次安装时,修改生效)</description>
   </property>
 
 </configuration>

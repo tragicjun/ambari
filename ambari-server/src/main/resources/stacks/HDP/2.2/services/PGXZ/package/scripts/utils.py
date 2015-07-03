@@ -102,6 +102,67 @@ class utils:
     Logger.error("process stop failed")
     raise Fail()
 
+  def syncCluster(self, coors, datanodes, coord_port, datanode_port, host, sql_str):
+    for coor in coors:
+      name = "coordinator_" + coor.replace(".", "_")
+      sql = "CREATE NODE {0} WITH (TYPE = '{1}', HOST = '{2}', PORT = {3});".format(name, "coordinator", coor, coord_port)
+      cmd = sql_str.format(host, coord_port, sql)
+      Logger.info(cmd)
+      (ret, out) = commands.getstatusoutput(cmd)
+      if (ret == 0 and out.rfind("CREATE NODE") != -1):
+        # insert record
+        Logger.info("coordinator {0} create success on coordinator {1}".format(name, host))
+      elif (ret != 0 and out.rfind(name) != -1):
+        # update record
+        Logger.info("coordinator {0} exist on coordinator {1}, updating coordinator ...".format(name, host))
+        update_cmd = cmd.replace("CREATE", "ALTER")
+        Logger.info(update_cmd)
+        (ret, out) = commands.getstatusoutput(update_cmd)
+        if (ret == 0 and out.rfind("ALTER NODE") != -1):
+          Logger.info("coordinator {0} update success on coordinator {1}".format(name, host))
+        elif (ret != 0 and out.rfind(name) != -1):
+          # update coordinator self
+          # update pgxc_node set node_host = 'local', node_port = 5000 WHERE node_name = 'datanode_10_151_0_123';
+          self_sql = "update pgxc_node set node_host = '{0}', node_port = {1} WHERE node_name = '{2}';".format(host, port, name)
+          self_cmd = sql_str.format(coor, coord_port, self_sql)
+          Logger.info(self_cmd)
+          (ret, out) = commands.getstatusoutput(self_cmd)
+          if (ret == 0 and out.rfind("UPDATE 1") != -1):
+            Logger.info("coordinator {0} update success on coordinator {1} itself".format(name, host))
+          else:
+            Logger.error("coordinator {0} update failed on coordinator {1} itself".format(name, host))
+            raise Fail()
+        else:
+          Logger.error("coordinator {0} update failed on coordinator {1}".format(name, host))
+          raise Fail()
+      else:
+        Logger.error("coordinator {0} create failed on coordinator {1}".format(name, host))
+        raise Fail()
+
+    for datanode in datanodes:
+      name = "datanode_" + datanode.replace(".", "_")
+      sql = "CREATE NODE {0} WITH (TYPE = '{1}', HOST = '{2}', PORT = {3});".format(name, "datanode", datanode, datanode_port)
+      cmd = sql_str.format(host, coord_port, sql)
+      Logger.info(cmd)
+      (ret, out) = commands.getstatusoutput(cmd)
+      if (ret == 0 and out.rfind("CREATE NODE") != -1):
+        # insert record
+        Logger.info("datanode {0} create success on coordinator {1}".format(name, host))
+      elif (ret != 0 and out.rfind(name) != -1):
+        # update record
+        Logger.info("datanode {0} exist on coordinator {1}, updating datanode ...".format(name, host))
+        update_cmd = cmd.replace("CREATE", "ALTER")
+        Logger.info(update_cmd)
+        (ret, out) = commands.getstatusoutput(update_cmd)
+        if (ret == 0 and out.rfind("ALTER NODE") != -1):
+          Logger.info("datannode {0} update success on coordinator {1}".format(name, host))
+        else:
+          Logger.error("datanode {0} update failed on coordinator {1}".format(name, host))
+          raise Fail()
+      else:
+        Logger.error("datanode {0} create failed on coordinator {1}".format(name, host))
+        raise Fail()
+
 if __name__ == "__main__":
   utils().exe("pwd")
   utils().get_local_name()
@@ -111,4 +172,9 @@ if __name__ == "__main__":
   utils().check_install("/")
   utils().check_stop("test")
   utils().check_start("test")
+  pgxz_path = "/usr/local/pgxz/bin"
+  user_name = "pgxz"
+  psql = "/usr/local/pgxz/bin/psql"
+  sql_str = "cd {0}; su {1} -c \"{2}\"".format(pgxz_path, user_name, "{0} -h {1} -p {2} postgres -c \\\"{3}\\\"").format(psql, "{0}", "{1}", "{2}")
+  utils().syncCluster(["127.0.0.0","127.0.0.1"], ["127.0.0.2","127.0.0.3"], 5434, 5433, "10.151.0.12", sql_str)
 
