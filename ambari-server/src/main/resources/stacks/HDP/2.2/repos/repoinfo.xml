@@ -19,8 +19,8 @@
   <os family="redhat6">
     <repo>
       <baseurl>${repo_url}</baseurl>
-      <repoid>HDP-2.2</repoid>
-      <reponame>HDP</reponame>
+      <repoid>TDP-2.2</repoid>
+      <reponame>TDP</reponame>
     </repo>
   </os>
 </reposinfo>
