@@ -100,6 +100,7 @@ App.lhotse_task_type = {
   "66": Em.I18n.t('services.service.info.metrics.lhotse.taskType.66'),
   "67": Em.I18n.t('services.service.info.metrics.lhotse.taskType.67'),
   "68": Em.I18n.t('services.service.info.metrics.lhotse.taskType.68'),
+  "69": Em.I18n.t('services.service.info.metrics.lhotse.taskType.69'),
   "92": Em.I18n.t('services.service.info.metrics.lhotse.taskType.92'),
   "118": Em.I18n.t('services.service.info.metrics.lhotse.taskType.118'),
   "119": Em.I18n.t('services.service.info.metrics.lhotse.taskType.119'),

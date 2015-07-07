@@ -128,7 +128,7 @@ App.MainMenuView = Em.CollectionView.extend({
           url: 'serviceAccounts',
           label: Em.I18n.t('common.serviceAccounts')
         });
-        if (!App.get('isHadoopWindowsStack')) {
+        /*if (!App.get('isHadoopWindowsStack')) {
           if (App.get('supports.automatedKerberos')) {
             categories.push({
               name: 'kerberos',
@@ -142,7 +142,7 @@ App.MainMenuView = Em.CollectionView.extend({
               label: Em.I18n.t('common.security')
             });
           }
-        }
+        }*/
       }
       return categories;
     }.property(''),

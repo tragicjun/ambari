@@ -295,7 +295,7 @@ public class ServiceResourceProvider extends AbstractControllerResourceProvider 
     Map<String, Object> installProperties = new HashMap<String, Object>();
     installProperties.put(SERVICE_SERVICE_STATE_PROPERTY_ID, "INSTALLED");
     Map<String, String> requestInfo = new HashMap<String, String>();
-    requestInfo.put("context", "Install and start all services");
+    requestInfo.put("context", "安装与启动所有服务");
     Request installRequest = new RequestImpl(null, Collections.singleton(installProperties), requestInfo, null);
     Predicate statePredicate = new EqualsPredicate<String>(SERVICE_SERVICE_STATE_PROPERTY_ID, "INIT");
     Predicate clusterPredicate = new EqualsPredicate<String>(SERVICE_CLUSTER_NAME_PROPERTY_ID, clusterName);

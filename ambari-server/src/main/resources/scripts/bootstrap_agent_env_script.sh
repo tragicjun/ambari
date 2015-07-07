@@ -7,18 +7,19 @@ currentPath=`pwd`
 #create the ambari user
 name="tencent"
 password="tencent"
-home_root="/home"
+mkdir -p="/home"
 
 if [ ! -d ${home_root} ]; then
-  echo "$home_root does not exists"
-  exit -1;
+  mkdir -p ${home_root}
 fi
 if cat /etc/passwd | awk -F : '{print $1}' | grep "^${name}$" >/dev/null 2>&1
   then
     home_root=`cat /etc/passwd | grep ${name}: | awk -F':' '{print $6}' | xargs dirname`
     echo "the ${name} user has always exist"
   else
+    yum -y install perl
     pass=$(perl -e 'print crypt($ARGV[0], "wtf")' ${password})
+    #pass="wtg/tyWzQ10Ns"
     /usr/sbin/groupadd ${name}
     /usr/sbin/useradd -g ${name} -d ${home_root}/${name} -s /bin/bash -m ${name} -p ${pass}
 fi

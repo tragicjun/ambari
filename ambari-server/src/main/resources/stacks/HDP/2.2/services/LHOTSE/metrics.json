@@ -24,6 +24,11 @@
             "pointInTime": true,
             "temporal": true
           },
+          "metrics/lhotse_db/metrics_db/issued_instance_count/69": {
+            "metric": "lhotse_db.metrics_db.issued_instance_count.69",
+            "pointInTime": true,
+            "temporal": true
+          },
           "metrics/lhotse_db/metrics_db/issued_instance_count/92": {
             "metric": "lhotse_db.metrics_db.issued_instance_count.92",
             "pointInTime": true,
@@ -56,6 +61,11 @@
           },
           "metrics/lhotse_db/metrics_db/issue_avg_time/68": {
             "metric": "lhotse_db.metrics_db.issue_avg_time.68",
+            "pointInTime": true,
+            "temporal": true
+          },
+          "metrics/lhotse_db/metrics_db/issue_avg_time/69": {
+            "metric": "lhotse_db.metrics_db.issue_avg_time.69",
             "pointInTime": true,
             "temporal": true
           },
@@ -94,6 +104,11 @@
             "pointInTime": true,
             "temporal": true
           },
+          "metrics/lhotse_db/metrics_db/base_request_count/69": {
+            "metric": "lhotse_db.metrics_db.base_request_count.69",
+            "pointInTime": true,
+            "temporal": true
+          },
           "metrics/lhotse_db/metrics_db/base_request_count/92": {
             "metric": "lhotse_db.metrics_db.base_request_count.92",
             "pointInTime": true,
@@ -126,6 +141,11 @@
           },
           "metrics/lhotse_db/metrics_db/running_instance_count/68": {
             "metric": "lhotse_db.metrics_db.running_instance_count.68",
+            "pointInTime": true,
+            "temporal": true
+          },
+          "metrics/lhotse_db/metrics_db/running_instance_count/69": {
+            "metric": "lhotse_db.metrics_db.running_instance_count.69",
             "pointInTime": true,
             "temporal": true
           },
@@ -164,6 +184,11 @@
             "pointInTime": true,
             "temporal": true
           },
+          "metrics/lhotse_db/metrics_db/failed_instance_count/69": {
+            "metric": "lhotse_db.metrics_db.failed_instance_count.69",
+            "pointInTime": true,
+            "temporal": true
+          },
           "metrics/lhotse_db/metrics_db/failed_instance_count/92": {
             "metric": "lhotse_db.metrics_db.failed_instance_count.92",
             "pointInTime": true,
@@ -196,6 +221,11 @@
           },
           "metrics/lhotse_db/metrics_db/waiting_instance_count/68": {
             "metric": "lhotse_db.metrics_db.waiting_instance_count.68",
+            "pointInTime": true,
+            "temporal": true
+          },
+          "metrics/lhotse_db/metrics_db/waiting_instance_count/69": {
+            "metric": "lhotse_db.metrics_db.waiting_instance_count.69",
             "pointInTime": true,
             "temporal": true
           },
@@ -234,6 +264,11 @@
             "pointInTime": true,
             "temporal": true
           },
+          "metrics/lhotse_db/metrics_db/ready_instance_count/69": {
+            "metric": "lhotse_db.metrics_db.ready_instance_count.69",
+            "pointInTime": true,
+            "temporal": true
+          },
           "metrics/lhotse_db/metrics_db/ready_instance_count/92": {
             "metric": "lhotse_db.metrics_db.ready_instance_count.92",
             "pointInTime": true,
@@ -266,6 +301,11 @@
           },
           "metrics/lhotse_db/metrics_db/new_instance_count/68": {
             "metric": "lhotse_db.metrics_db.new_instance_count.68",
+            "pointInTime": true,
+            "temporal": true
+          },
+          "metrics/lhotse_db/metrics_db/new_instance_count/69": {
+            "metric": "lhotse_db.metrics_db.new_instance_count.69",
             "pointInTime": true,
             "temporal": true
           },
@@ -304,6 +344,11 @@
             "pointInTime": true,
             "temporal": true
           },
+          "metrics/lhotse_db/metrics_db/succ_instance_count/69": {
+            "metric": "lhotse_db.metrics_db.succ_instance_count.69",
+            "pointInTime": true,
+            "temporal": true
+          },
           "metrics/lhotse_db/metrics_db/succ_instance_count/92": {
             "metric": "lhotse_db.metrics_db.succ_instance_count.92",
             "pointInTime": true,
@@ -339,6 +384,11 @@
             "pointInTime": true,
             "temporal": true
           },
+          "metrics/lhotse_db/metrics_db/succ_avg_time/69": {
+            "metric": "lhotse_db.metrics_db.succ_avg_time.69",
+            "pointInTime": true,
+            "temporal": true
+          },
           "metrics/lhotse_db/metrics_db/succ_avg_time/92": {
             "metric": "lhotse_db.metrics_db.succ_avg_time.92",
             "pointInTime": true,
@@ -371,6 +421,11 @@
           },
           "metrics/lhotse_db/metrics_db/alive_runner_count/68": {
             "metric": "lhotse_db.metrics_db.alive_runner_count.68",
+            "pointInTime": true,
+            "temporal": true
+          },
+          "metrics/lhotse_db/metrics_db/alive_runner_count/69": {
+            "metric": "lhotse_db.metrics_db.alive_runner_count.69",
             "pointInTime": true,
             "temporal": true
           },

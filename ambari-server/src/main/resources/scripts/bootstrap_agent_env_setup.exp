@@ -4,7 +4,7 @@ set host_ip       [ lindex $argv 1 ]
 set ssh_user      [ lindex $argv 2 ]
 set ssh_password  [ lindex $argv 3 ]
 set tmp_path "/tmp"
-set timeout 4
+set timeout 40
 set agent_env_script "bootstrap_agent_env_script.sh"
 
 spawn scp ${tarFile} ${ssh_user}@${host_ip}:${tmp_path}
@@ -29,7 +29,7 @@ expect {
         "#*" {send "\r"}
 }
 expect {
-	"$*" {
+	"]$*" {
 		send "cd ${tmp_path}\r"
 		expect "$*"
 		send "tar -xzvf `basename ${tarFile}`\r"
@@ -37,10 +37,10 @@ expect {
 		send "chmod 777 ./${agent_env_script}\r"
 		expect "$*"
 		send "./${agent_env_script}\r"
-		expect "$*"
+		expect "]$*"
 		send "\r"
 	}
-	"#*" {
+	"]#*" {
 		send "cd ${tmp_path}\r"
 		expect "#*"
 		send "tar -xzvf `basename ${tarFile}`\r"
@@ -48,7 +48,7 @@ expect {
 		send "chmod 777 ./${agent_env_script}\r"
 		expect "#*"
 		send "./${agent_env_script}\r"
-		expect "#*"
+		expect "]#*"
 		send "\r"
 	}
 }

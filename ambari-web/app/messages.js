@@ -174,7 +174,7 @@ Em.I18n.translations = {
   'common.revert': '还原',
   'common.errorPopup.header': '遇到一个错误',
   'common.use': '使用',
-  'common.stacks': '套件',
+  'common.stacks': '资源库',
   'common.reset': '重置',
   'common.path': '路径',
   'common.package': '程序包',
@@ -413,7 +413,7 @@ Em.I18n.translations = {
   'installer.step1.advancedRepo.localRepo.column.baseUrl':'Base URL',
   'installer.step1.advancedRepo.localRepo.label.os':'操作系统',
   'installer.step1.advancedRepo.localRepo.label.baseUrl':'资源库Base URL',
-  'installer.step1.advancedRepo.localRepo.label.stack':'套件',
+  'installer.step1.advancedRepo.localRepo.label.stack':'资源库',
   'installer.step1.advancedRepo.skipValidation.tooltip':'<b>警告:</b> 仅限高级用户. 如果你想跳过资源库Base URLs校验,选择此选项.',
   'installer.step1.advancedRepo.skipValidation.message':'跳过基础资源库Base URL校验 (高级配置)',
   'installer.step1.attentionNeeded':'<b>注意:</b> 在继续之前，请确认已有资源库URL.',
@@ -424,10 +424,10 @@ Em.I18n.translations = {
   'installer.step2.header':'安装选项',
   'installer.step2.body':'请输入要加入集群的主机列表',
   'installer.step2.targetHosts':'目标主机列表',
-  'installer.step2.targetHosts.info':'请使用机器ip，每行一个，具体格式为ip 帐号 密码（注：用空格分割，帐号具备sudo权限）',
+  'installer.step2.targetHosts.info':'请使用机器ip，每行一个，具体格式为ip 帐号 密码（注：用空格分隔，帐号具备sudo权限）',
   'installer.step2.hostPattern.tooltip.title':'模式表达式',
   'installer.step2.hostPattern.tooltip.content':'可以利用模式表达式来指定多个目标主机. 例如, 为了指定从 host01.com 到 host10.com这些主机, 可在目标主机文本框里输入 host[01-10].com',
-  'installer.step2.hostName.error.required':'你必须指定最少一个主机名',
+  'installer.step2.hostName.error.required':'格式为: IP 帐号 密码',
   'installer.step2.hostName.error.already_installed':'集群中已经有这些主机了！',
   'installer.step2.hostName.error.notRequired':'如果不使用SSH来自动配置主机，主机名将会被忽略掉',
   'installer.step2.hostName.error.invalid':'不合法的主机名',
@@ -1418,6 +1418,7 @@ Em.I18n.translations = {
     'services.service.info.metrics.lhotse.taskType.66': 'HDFS导出至PG',
     'services.service.info.metrics.lhotse.taskType.67': 'HDFS导出至Oracle',
     'services.service.info.metrics.lhotse.taskType.68': 'HDFS导出至MYSQL',
+    'services.service.info.metrics.lhotse.taskType.69': 'FTP导入至HDFS',
     'services.service.info.metrics.lhotse.taskType.92': 'MapReduce命令式',
     'services.service.info.metrics.lhotse.taskType.118': 'Mysql导入至HDFS',
     'services.service.info.metrics.lhotse.taskType.119': 'PG导入至HDFS',
@@ -1537,7 +1538,7 @@ Em.I18n.translations = {
 
   'services.reassign.step1.header':'入门',
   'services.reassign.step1.message1': '该向导将引导您通过移动{0}.<br/>',
-  'services.reassign.step1.message2': '该过程重新分配{0}涉及的组合的<b>自动化步骤</ b>的（将被向导处理）和<b>人工步骤</ b>的（即，必须在顺序执行的指示的向导）。<BR/><BR/>',
+  'services.reassign.step1.message2': '该过程重新分配{0}涉及的组合的<b>自动化步骤</b>的（将被向导处理）和<b>人工步骤</b>的（即，必须在顺序执行的指示的向导）。<BR/><BR/>',
   'services.reassign.step1.message3': '<br/><b>所有必需的服务将被作为向导的一部分进行重新启动。在移动{0}的时候，你应该计划集群维护窗口和集群停机时间准备。</b>',
 
   'services.reassign.step2.header':'分配主控节点',
@@ -1590,7 +1591,7 @@ Em.I18n.translations = {
       '<li>登录到最近安装的NameNode主机<b>{2}</b>。<br>' +
       '<div class="alert alert-warn"><strong>Important!</strong> 一定要登录到新安装的NameNode的主机.<br>这是和上面的步骤1和2不同的主机。</div>' +
       '</li>' +
-      '<li>通过运行初始化元:' +
+      '<li>初始化元数据:' +
       "<div class='code-snippet'>sudo su -l {3} -c 'hdfs namenode -bootstrapStandby'</div></li>" +
       '</ol>' +
       '</div>',
