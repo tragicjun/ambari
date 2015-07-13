@@ -113,7 +113,7 @@ Deploy
 -----
 To deploy a view we simply place the view archive in the views folder of the ambari-server machine.  By default the views folder is located at ...
 
-    /var/lib/ambari-server/resources/views
+    /var/lib/tbds-server/resources/views
 
 To deploy the Restricted view simply copy the restricted-view jar to the ambari-server views folder and restart the ambari server.
 
@@ -152,7 +152,7 @@ If we want to see the details about a specific view, we can ask for it by name. 
     {
       "href" : "http://<server>/api/v1/views/RESTRICTED/versions/1.0.0/",
       "ViewVersionInfo" : {
-        "archive" : "/var/lib/ambari-server/resources/views/work/RESTRICTED{1.0.0}",
+        "archive" : "/var/lib/tbds-server/resources/views/work/RESTRICTED{1.0.0}",
         "label" : "The Restricted View",
         "masker_class" : null,
         "parameters" : [ ],

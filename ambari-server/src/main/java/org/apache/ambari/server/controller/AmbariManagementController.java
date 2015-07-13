@@ -593,17 +593,17 @@ public interface AmbariManagementController {
   public String getJdkResourceUrl();
 
   /**
-   * Getter for the java home, stored in ambari.properties
+   * Getter for the java home, stored in tbds.properties
    */
   public String getJavaHome();
 
   /**
-   * Getter for the jdk name, stored in ambari.properties
+   * Getter for the jdk name, stored in tbds.properties
    */
   public String getJDKName();
 
   /**
-   * Getter for the jce name, stored in ambari.properties
+   * Getter for the jce name, stored in tbds.properties
    */
   public String getJCEName();
 

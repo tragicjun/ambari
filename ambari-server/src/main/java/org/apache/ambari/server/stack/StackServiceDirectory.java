@@ -50,7 +50,7 @@ public class StackServiceDirectory extends ServiceDirectory {
    * Parse stack service directory.
    * packageDir Format: stacks/<stackName>/<stackVersion>/services/<serviceName>/package
    * Example:
-   *  directory: "/var/lib/ambari-server/resources/stacks/HDP/2.0.6/services/HDFS"
+   *  directory: "/var/lib/tbds-server/resources/stacks/HDP/2.0.6/services/HDFS"
    *  packageDir: "stacks/HDP/2.0.6/services/HDFS/package"
    * @throws AmbariException if unable to parse the service directory
    */

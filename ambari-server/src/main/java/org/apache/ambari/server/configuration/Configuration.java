@@ -45,12 +45,12 @@ import com.google.inject.Singleton;
 
 /**
  * Ambari configuration.
- * Reads properties from ambari.properties
+ * Reads properties from tbds.properties
  */
 @Singleton
 public class Configuration {
 
-  public static final String CONFIG_FILE = "ambari.properties";
+  public static final String CONFIG_FILE = "tbds.properties";
   public static final String BOOTSTRAP_DIR = "bootstrap.dir";
 
   /**
@@ -59,9 +59,9 @@ public class Configuration {
    */
   public static final String PREFIX_DIR = "/var/lib/ambari-agent/data";
 
-  public static final String BOOTSTRAP_DIR_DEFAULT = "/var/run/ambari-server/bootstrap";
+  public static final String BOOTSTRAP_DIR_DEFAULT = "/var/run/tbds-server/bootstrap";
   public static final String VIEWS_DIR = "views.dir";
-  public static final String VIEWS_DIR_DEFAULT = "/var/lib/ambari-server/resources/views";
+  public static final String VIEWS_DIR_DEFAULT = "/var/lib/tbds-server/resources/views";
   public static final String VIEWS_VALIDATE = "views.validate";
   public static final String VIEWS_VALIDATE_DEFAULT = "false";
   public static final String WEBAPP_DIR = "webapp.dir";
@@ -71,9 +71,9 @@ public class Configuration {
   public static final String BOOTSTRAP_SETUP_AGENT_PASSWORD = "bootstrap.setup_agent.password";
   public static final String BOOTSTRAP_MASTER_HOSTNAME = "bootstrap.master_host_name";
   public static final String RECOMMENDATIONS_DIR = "recommendations.dir";
-  public static final String RECOMMENDATIONS_DIR_DEFAULT = "/var/run/ambari-server/stack-recommendations";
+  public static final String RECOMMENDATIONS_DIR_DEFAULT = "/var/run/tbds-server/stack-recommendations";
   public static final String STACK_ADVISOR_SCRIPT = "stackadvisor.script";
-  public static final String STACK_ADVISOR_SCRIPT_DEFAULT = "/var/lib/ambari-server/resources/scripts/stack_advisor.py";
+  public static final String STACK_ADVISOR_SCRIPT_DEFAULT = "/var/lib/tbds-server/resources/scripts/stack_advisor.py";
   public static final String AMBARI_PYTHON_WRAP_KEY = "ambari.python.wrap";
   public static final String AMBARI_PYTHON_WRAP_DEFAULT = "ambari-python-wrap";
   public static final String API_AUTHENTICATE = "api.authenticate";
@@ -202,7 +202,7 @@ public class Configuration {
   public static final String HIVE_METASTORE_PASSWORD_PROPERTY = "javax.jdo.option.ConnectionPassword";
   public static final String MASTER_KEY_PERSISTED = "security.master.key.ispersisted";
   public static final String MASTER_KEY_LOCATION = "security.master.key.location";
-  public static final String MASTER_KEY_ENV_PROP = "AMBARI_SECURITY_MASTER_KEY";
+  public static final String MASTER_KEY_ENV_PROP = "TBDS_SECURITY_MASTER_KEY";
   public static final String MASTER_KEY_FILENAME_DEFAULT = "master";
 
   /**
@@ -221,7 +221,7 @@ public class Configuration {
   public static final String DEFAULT_EXECUTION_SCHEDULER_MISFIRE_TOLERATION = "480";
   public static final String DEFAULT_SCHEDULER_START_DELAY_SECONDS = "120";
   public static final String SERVER_TMP_DIR_KEY = "server.tmp.dir";
-  public static final String SERVER_TMP_DIR_DEFAULT = "/var/lib/ambari-server/tmp";
+  public static final String SERVER_TMP_DIR_DEFAULT = "/var/lib/tbds-server/tmp";
   public static final String EXTERNAL_SCRIPT_TIMEOUT_KEY = "server.script.timeout";
   public static final String EXTERNAL_SCRIPT_TIMEOUT_DEFAULT = "5000";
   public static final String DEF_ARCHIVE_EXTENSION;
@@ -235,7 +235,7 @@ public class Configuration {
   public static final String KDC_CONNECTION_CHECK_TIMEOUT_KEY = "kdcserver.connection.check.timeout";
   public static final String KDC_CONNECTION_CHECK_TIMEOUT_DEFAULT = "10000";
   public static final String KERBEROS_KEYTAB_CACHE_DIR_KEY = "kerberos.keytab.cache.dir";
-  public static final String KERBEROS_KEYTAB_CACHE_DIR_DEFAULT = "/var/lib/ambari-server/data/cache";
+  public static final String KERBEROS_KEYTAB_CACHE_DIR_DEFAULT = "/var/lib/tbds-server/data/cache";
   /**
    * This key defines whether stages of parallel requests are executed in
    * parallel or sequentally. Only stages from different requests
@@ -249,7 +249,7 @@ public class Configuration {
 
   public static final String CUSTOM_ACTION_DEFINITION_KEY = "custom.action.definitions";
   public static final String SHARED_RESOURCES_DIR_KEY = "shared.resources.dir";
-  private static final String CUSTOM_ACTION_DEFINITION_DEF_VALUE = "/var/lib/ambari-server/resources/custom_action_definitions";
+  private static final String CUSTOM_ACTION_DEFINITION_DEF_VALUE = "/var/lib/tbds-server/resources/custom_action_definitions";
 
   private static final long SERVER_EC_CACHE_SIZE_DEFAULT = 10000L;
   private static final String SERVER_STALE_CONFIG_CACHE_ENABLED_DEFAULT = "true";
@@ -265,8 +265,8 @@ public class Configuration {
   private static final String SRVR_DISABLED_CIPHERS_DEFAULT = "";
   private static final String SRVR_DISABLED_PROTOCOLS_DEFAULT = "";
   private static final String PASSPHRASE_ENV_DEFAULT = "AMBARI_PASSPHRASE";
-  private static final String RESOURCES_DIR_DEFAULT = "/var/lib/ambari-server/resources/";
-  private static final String SHARED_RESOURCES_DIR_DEFAULT = "/usr/lib/ambari-server/lib/ambari_commons/resources";
+  private static final String RESOURCES_DIR_DEFAULT = "/var/lib/tbds-server/resources/";
+  private static final String SHARED_RESOURCES_DIR_DEFAULT = "/usr/lib/tbds-server/lib/ambari_commons/resources";
   private static final String ANONYMOUS_AUDIT_NAME_KEY = "anonymous.audit.name";
 
   private static final int CLIENT_API_PORT_DEFAULT = 8080;
@@ -1337,7 +1337,7 @@ public class Configuration {
    * Gets the inactivity timeout value, in milliseconds, for socket connection
    * made to KDC Server for its reachability verification.
    *
-   * @return the timeout value as configured in {@code ambari.properties}
+   * @return the timeout value as configured in {@code tbds.properties}
    * 				 or {@code 10000 ms} for default.
    */
   public int getKdcConnectionCheckTimeout() {

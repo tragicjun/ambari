@@ -140,7 +140,7 @@ def adjust_directory_permissions(ambari_user):
   trust_store_location = properties[SSL_TRUSTSTORE_PATH_PROPERTY]
   if trust_store_location:
     configDefaults.NR_ADJUST_OWNERSHIP_LIST.append((trust_store_location, configDefaults.TRUST_STORE_LOCATION_PERMISSIONS, "{0}", "{0}", False))
-  print "Adjusting ambari-server permissions and ownership..."
+  print "Adjusting tbds-server permissions and ownership..."
 
   for pack in configDefaults.NR_ADJUST_OWNERSHIP_LIST:
     file = pack[0]
@@ -212,13 +212,13 @@ class LdapSyncOptions:
 #
 def sync_ldap(options):
   if not is_root():
-    err = 'Ambari-server sync-ldap should be run with ' \
+    err = 'TBDS-server sync-ldap should be run with ' \
           'root-level privileges'
     raise FatalException(4, err)
 
   server_status, pid = is_server_runing()
   if not server_status:
-    err = 'Ambari Server is not running.'
+    err = 'TBDS Server is not running.'
     raise FatalException(1, err)
 
   properties = get_ambari_properties()
@@ -227,20 +227,20 @@ def sync_ldap(options):
 
   ldap_configured = properties.get_property(IS_LDAP_CONFIGURED)
   if ldap_configured != 'true':
-    err = "LDAP is not configured. Run 'ambari-server setup-ldap' first."
+    err = "LDAP is not configured. Run 'tbds-server setup-ldap' first."
     raise FatalException(1, err)
 
   # set ldap sync options
   ldap_sync_options = LdapSyncOptions(options)
 
   if ldap_sync_options.no_ldap_sync_options_set():
-    err = 'Must specify a sync option (all, existing, users or groups).  Please invoke ambari-server.py --help to print the options.'
+    err = 'Must specify a sync option (all, existing, users or groups).  Please invoke tbds-server.py --help to print the options.'
     raise FatalException(1, err)
 
-  admin_login = get_validated_string_input(prompt="Enter Ambari Admin login: ", default=None,
+  admin_login = get_validated_string_input(prompt="Enter TBDS Admin login: ", default=None,
                                            pattern=None, description=None,
                                            is_pass=False, allowEmpty=False)
-  admin_password = get_validated_string_input(prompt="Enter Ambari Admin password: ", default=None,
+  admin_password = get_validated_string_input(prompt="Enter TBDS Admin password: ", default=None,
                                               pattern=None, description=None,
                                               is_pass=True, allowEmpty=False)
 
@@ -333,7 +333,7 @@ def sync_ldap(options):
 
 def setup_master_key():
   if not is_root():
-    err = 'Ambari-server setup should be run with ' \
+    err = 'TBDS-server setup should be run with ' \
           'root-level privileges'
     raise FatalException(4, err)
 
@@ -416,7 +416,7 @@ def setup_master_key():
     masterKey = read_master_key(resetKey)
     persist = get_YN_input("Do you want to persist master key. If you choose " \
                            "not to persist, you need to provide the Master " \
-                           "Key while starting the ambari server as an env " \
+                           "Key while starting the tbds server as an env " \
                            "variable named " + SECURITY_KEY_ENV_VAR_NAME + \
                            " or the start will prompt for the master key."
                            " Persist [y/n] (y)? ", True)
@@ -484,12 +484,12 @@ def setup_master_key():
 def setup_ambari_krb5_jaas():
   jaas_conf_file = search_file(SECURITY_KERBEROS_JASS_FILENAME, get_conf_dir())
   if os.path.exists(jaas_conf_file):
-    print 'Setting up Ambari kerberos JAAS configuration to access ' + \
+    print 'Setting up TBDS kerberos JAAS configuration to access ' + \
           'secured Hadoop daemons...'
-    principal = get_validated_string_input('Enter ambari server\'s kerberos '
-                                           'principal name (ambari@EXAMPLE.COM): ', 'ambari@EXAMPLE.COM', '.*', '', False,
+    principal = get_validated_string_input('Enter tbds server\'s kerberos '
+                                           'principal name (tbds@EXAMPLE.COM): ', 'tbds@EXAMPLE.COM', '.*', '', False,
                                            False)
-    keytab = get_validated_string_input('Enter keytab path for ambari '
+    keytab = get_validated_string_input('Enter keytab path for tbds'
                                         'server\'s kerberos principal: ',
                                         '/etc/security/keytabs/ambari.keytab', '.*', False, False,
                                         validatorFunction=is_valid_filepath)
@@ -546,7 +546,7 @@ def init_ldap_properties_list_reqd(properties):
 
 def setup_ldap():
   if not is_root():
-    err = 'Ambari-server setup-ldap should be run with ' \
+    err = 'TBDS-server setup-ldap should be run with ' \
           'root-level privileges'
     raise FatalException(4, err)
 
@@ -602,7 +602,7 @@ def setup_ldap():
     truststore_set = bool(SSL_TRUSTSTORE_PATH_DEFAULT)
     if truststore_set:
       truststore_default = "y"
-    custom_trust_store = get_YN_input("Do you want to provide custom TrustStore for Ambari [y/n] ({0})?".
+    custom_trust_store = get_YN_input("Do you want to provide custom TrustStore for TBDS [y/n] ({0})?".
                                       format(truststore_default),
                                       truststore_set)
     if custom_trust_store:

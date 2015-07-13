@@ -91,7 +91,7 @@ def main():
     config[x['StackConfigurations']['property_name']] = x['StackConfigurations']['property_value']
 
   for site_name, site_content in configs.iteritems():
-    code = call('/var/lib/ambari-server/resources/scripts/configs.sh get {hostname} {cluster_name} {site_name}'.format(hostname=HOSTNAME, cluster_name=CLUSTER_NAME, site_name=site_name))[0]
+    code = call('/var/lib/tbds-server/resources/scripts/configs.sh get {hostname} {cluster_name} {site_name}'.format(hostname=HOSTNAME, cluster_name=CLUSTER_NAME, site_name=site_name))[0]
 
     if code:
       print "Adding new site: "+site_name
@@ -99,7 +99,7 @@ def main():
     else:
       timestamp = int(time.time())
       print "Modifiying site: "+site_name+" version"+str(timestamp)
-      checked_call('/var/lib/ambari-server/resources/scripts/configs.sh get {hostname} {cluster_name} {site_name} /tmp/current_site.json'.format(hostname=HOSTNAME, cluster_name=CLUSTER_NAME, site_name=site_name))
+      checked_call('/var/lib/tbds-server/resources/scripts/configs.sh get {hostname} {cluster_name} {site_name} /tmp/current_site.json'.format(hostname=HOSTNAME, cluster_name=CLUSTER_NAME, site_name=site_name))
       
       with open('/tmp/current_site.json', "r") as f:
         fcontent = f.read()
@@ -113,7 +113,7 @@ def main():
   for site_name, site_configs in CONFIGS_TO_CHANGE.iteritems():
     for config_name, config_value in site_configs.iteritems():
       print "Adding config "+config_name+"="+config_value+" to "+site_name
-      checked_call('/var/lib/ambari-server/resources/scripts/configs.sh set {hostname} {cluster_name} {site_name} {config_name} {config_value}'.format(config_name=config_name, config_value=config_value, hostname=HOSTNAME, cluster_name=CLUSTER_NAME, site_name=site_name))
+      checked_call('/var/lib/tbds-server/resources/scripts/configs.sh set {hostname} {cluster_name} {site_name} {config_name} {config_value}'.format(config_name=config_name, config_value=config_value, hostname=HOSTNAME, cluster_name=CLUSTER_NAME, site_name=site_name))
       
         
   # install all new components

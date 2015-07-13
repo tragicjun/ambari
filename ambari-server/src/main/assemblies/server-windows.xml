@@ -32,7 +32,7 @@
       <outputDirectory>ambari-server-${project.version}/resources</outputDirectory>
     </file>
     <file>
-      <source>${basedir}/conf/windows/ambari.properties</source>
+      <source>${basedir}/conf/windows/tbds.properties</source>
       <outputDirectory>/ambari-server-${project.version}/conf</outputDirectory>
     </file>
     <file>
@@ -44,7 +44,7 @@
       <outputDirectory>/ambari-server-${project.version}/keystore</outputDirectory>
     </file>
     <file>
-      <source>${basedir}/src/main/python/ambari-server.py</source>
+      <source>${basedir}/src/main/python/tbds-server.py</source>
       <outputDirectory>/ambari-server-${project.version}/sbin</outputDirectory>
     </file>
     <file>

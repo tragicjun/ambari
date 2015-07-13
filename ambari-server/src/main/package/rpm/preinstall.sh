@@ -13,15 +13,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-STACKS_FOLDER="/var/lib/ambari-server/resources/stacks"
-STACKS_FOLDER_OLD=/var/lib/ambari-server/resources/stacks_$(date '+%d_%m_%y_%H_%M').old
+STACKS_FOLDER="/var/lib/tbds-server/resources/stacks"
+STACKS_FOLDER_OLD=/var/lib/tbds-server/resources/stacks_$(date '+%d_%m_%y_%H_%M').old
 
-COMMON_SERVICES_FOLDER="/var/lib/ambari-server/resources/common-services"
-COMMON_SERVICES_FOLDER_OLD=/var/lib/ambari-server/resources/common-services_$(date '+%d_%m_%y_%H_%M').old
+COMMON_SERVICES_FOLDER="/var/lib/tbds-server/resources/common-services"
+COMMON_SERVICES_FOLDER_OLD=/var/lib/tbds-server/resources/common-services_$(date '+%d_%m_%y_%H_%M').old
 
-if [ -d "/etc/ambari-server/conf.save" ]
+if [ -d "/etc/tbds-server/conf.save" ]
 then
-    mv /etc/ambari-server/conf.save /etc/ambari-server/conf_$(date '+%d_%m_%y_%H_%M').save
+    mv /etc/tbds-server/conf.save /etc/tbds-server/conf_$(date '+%d_%m_%y_%H_%M').save
 fi
 
 if [ -d "$STACKS_FOLDER" ]

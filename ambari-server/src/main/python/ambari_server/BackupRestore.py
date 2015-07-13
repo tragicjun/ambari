@@ -28,13 +28,13 @@ RESTORE_PROCESS = 'restore'
 SUPPORTED_PROCESSES = [BACKUP_PROCESS, RESTORE_PROCESS]
 
 # The list of files where the ambari server state is kept on the filesystem
-AMBARI_FILESYSTEM_STATE = ["/etc/ambari-server/conf",
-                           "/var/lib/ambari-server/resources",
-                           "/var/run/ambari-server/bootstrap/",
-                           "/var/run/ambari-server/stack-recommendations"]
+AMBARI_FILESYSTEM_STATE = ["/etc/tbds-server/conf",
+                           "/var/lib/tbds-server/resources",
+                           "/var/run/tbds-server/bootstrap/",
+                           "/var/run/tbds-server/stack-recommendations"]
 
 # What to use when no path/archive is specified
-DEFAULT_ARCHIVE = "/var/lib/ambari-server/Ambari_State_Backup.zip"
+DEFAULT_ARCHIVE = "/var/lib/tbds-server/Ambari_State_Backup.zip"
 
 # Responsible for managing the Backup/Restore process
 class BackupRestore:
@@ -62,7 +62,8 @@ class BackupRestore:
     except Exception, e:
       sys.exit("Could not create zip file. Details: " + str(e))
 
-    print("Zip file created at " + self.zip_folder_path + self.zipname)
+    # print("Zip file created at " + self.zip_folder_path + self.zipname)
+    print("Zip file created.")
 
   def perform_restore(self):
     """
@@ -70,7 +71,8 @@ class BackupRestore:
     :return:
     """
     try:
-      print("Extracting the archive " + self.zip_folder_path + self.zipname)
+      # print("Extracting the archive " + self.zip_folder_path + self.zipname)
+      print("Extracting the archive...")
       unzip(self.zip_folder_path + self.zipname, '/')
     except Exception, e:
       sys.exit("Could not extract the zipfile " + self.zip_folder_path + self.zipname
@@ -161,6 +163,7 @@ def main(argv=None):
     # if no archive is specified
     if len(argv) == 2:
       print "No path specified. Will use " + DEFAULT_ARCHIVE
+      print "No path specified." # Will use " + DEFAULT_ARCHIVE
       location_data = retrieve_path_and_zipname(DEFAULT_ARCHIVE)
     else:
       location_data = retrieve_path_and_zipname(argv[2])

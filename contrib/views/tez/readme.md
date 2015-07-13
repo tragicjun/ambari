@@ -71,7 +71,7 @@ Use the [Ambari Vagrant](https://cwiki.apache.org/confluence/display/AMBARI/Quic
 
 Deploy the TEZ view into Ambari.
 
-    cp tez-ambari-view-0.6.0-SNAPSHOT.jar /var/lib/ambari-server/resources/views/
+    cp tez-ambari-view-0.6.0-SNAPSHOT.jar /var/lib/tbds-server/resources/views/
     ambari-server restart
 
 From the Ambari Administration interface, create a TEZ view instance.

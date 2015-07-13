@@ -99,7 +99,7 @@ SERVER_SEARCH_PATTERN = "org.apache.ambari.server.controller.AmbariServer"
 
 EXITCODE_NAME = "ambari-server.exitcode"
 
-AMBARI_SERVER_DIE_MSG = "Ambari Server java process died with exitcode {0}. Check {1} for more information."
+AMBARI_SERVER_DIE_MSG = "TBDS Server java process died with exitcode {0}. Check {1} for more information."
 
 # linux open-file limit
 ULIMIT_OPEN_FILES_KEY = 'ulimit.open.files'
@@ -123,10 +123,10 @@ def ensure_can_start_under_current_user(ambari_user):
 def ensure_can_start_under_current_user(ambari_user):
   current_user = getpass.getuser()
   if ambari_user is None:
-    err = "Unable to detect a system user for Ambari Server.\n" + SETUP_OR_UPGRADE_MSG
+    err = "Unable to detect a system user for TBDS Server.\n" + SETUP_OR_UPGRADE_MSG
     raise FatalException(1, err)
   if current_user != ambari_user and not is_root():
-    err = "Unable to start Ambari Server as user {0}. Please either run \"ambari-server start\" " \
+    err = "Unable to start TBDS Server as user {0}. Please either run \"tbds-server start\" " \
           "command as root, as sudo or as user \"{1}\"".format(current_user, ambari_user)
     raise FatalException(1, err)
   return current_user
@@ -290,11 +290,11 @@ def server_process_main(options, scmStatus=None):
   ambari_user = read_ambari_user()
   current_user = ensure_can_start_under_current_user(ambari_user)
 
-  print_info_msg("Ambari Server is not running...")
+  print_info_msg("TBDS Server is not running...")
 
   jdk_path = find_jdk()
   if jdk_path is None:
-    err = "No JDK found, please run the \"ambari-server setup\" " \
+    err = "No JDK found, please run the \"tbds-server setup\" " \
           "command to install a JDK automatically or install any " \
           "JDK manually to " + configDefaults.JDK_INSTALL_DIR
     raise FatalException(1, err)
@@ -355,9 +355,9 @@ def server_process_main(options, scmStatus=None):
   else:
     pidfile = os.path.join(configDefaults.PID_DIR, PID_NAME)
     save_pid(pidJava, pidfile)
-    print "Server PID at: "+pidfile
-    print "Server out at: "+configDefaults.SERVER_OUT_FILE
-    print "Server log at: "+configDefaults.SERVER_LOG_FILE
+    # print "Server PID at: "+pidfile
+    # print "Server out at: "+configDefaults.SERVER_OUT_FILE
+    # print "Server log at: "+configDefaults.SERVER_LOG_FILE
 
     wait_for_server_start(pidfile, scmStatus)
 

@@ -265,7 +265,7 @@ public class MasterKeyServiceImpl implements MasterKeyService {
 
   public static void main(String args[]) {
     String masterKey = "ThisissomeSecretPassPhrasse";
-    String masterKeyLocation = "/var/lib/ambari-server/keys/master";
+    String masterKeyLocation = "/var/lib/tbds-server/keys/master";
     boolean persistMasterKey = false;
     if (args != null && args.length > 0) {
       masterKey = args[0];

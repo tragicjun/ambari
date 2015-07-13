@@ -123,7 +123,7 @@ public class CertGenerationTest {
         content = content.replace("keystore\\\\db", temp.getRoot().getAbsolutePath().replace("\\", "\\\\"));
       }
       else {
-        content = content.replaceAll("/var/lib/ambari-server/keys/db", temp.getRoot().getAbsolutePath());
+        content = content.replaceAll("/var/lib/tbds-server/keys/db", temp.getRoot().getAbsolutePath());
       }
       IOUtils.write(content, new FileOutputStream(caConfigTest));
     } catch (IOException e) {

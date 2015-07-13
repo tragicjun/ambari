@@ -33,9 +33,9 @@
     <custom.tests>false</custom.tests>
     <hdpUrlForCentos6>http://public-repo-1.hortonworks.com/HDP/centos6/2.x/updates/2.1.1.0</hdpUrlForCentos6>
     <hdpLatestUrl>http://public-repo-1.hortonworks.com/HDP/hdp_urlinfo.json</hdpLatestUrl>
-    <ambari_commons.install.dir>/usr/lib/ambari-server/lib/ambari_commons</ambari_commons.install.dir>
-    <resource_management.install.dir>/usr/lib/ambari-server/lib/resource_management</resource_management.install.dir>
-    <jinja.install.dir>/usr/lib/ambari-server/lib/ambari_jinja2</jinja.install.dir>
+    <ambari_commons.install.dir>/usr/lib/tbds-server/lib/ambari_commons</ambari_commons.install.dir>
+    <resource_management.install.dir>/usr/lib/tbds-server/lib/resource_management</resource_management.install.dir>
+    <jinja.install.dir>/usr/lib/tbds-server/lib/ambari_jinja2</jinja.install.dir>
     <ambari-web-dir>${basedir}/../ambari-web/public</ambari-web-dir>
     <ambari-admin-dir>${basedir}/../ambari-admin</ambari-admin-dir>
     <contrib-views-dir>${basedir}/../contrib/views</contrib-views-dir>
@@ -153,6 +153,7 @@
         <artifactId>apache-rat-plugin</artifactId>
         <configuration>
           <excludes>
+            <exclude>src/**</exclude>
             <exclude>pass.txt</exclude>
             <exclude>derby.log</exclude>
             <exclude>src/test/resources/version</exclude>
@@ -290,7 +291,7 @@
               </dependency>
             </mapping>
             <mapping>
-              <directory>/usr/lib/ambari-server/web</directory>
+              <directory>/usr/lib/tbds-server/web</directory>
               <sources>
                 <source>
                   <location>${ambari-web-dir}</location>
@@ -350,7 +351,7 @@
               <directoryIncluded>false</directoryIncluded>
               <sources>
                 <source>
-                  <location>src/main/python/ambari-server.py</location>
+                  <location>src/main/python/tbds-server.py</location>
                 </source>
                 <source>
                   <location>src/main/python/ambari_server_main.py</location>
@@ -362,7 +363,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/</directory>
+              <directory>/var/lib/tbds-server/</directory>
               <filemode>755</filemode>
               <username>root</username>
               <groupname>root</groupname>
@@ -374,11 +375,11 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/etc/ambari-server/conf</directory>
+              <directory>/etc/tbds-server/conf</directory>
               <configuration>true</configuration>
               <sources>
                 <source>
-                  <location>conf/unix/ambari.properties</location>
+                  <location>conf/unix/tbds.properties</location>
                 </source>
                 <source>
                   <location>conf/unix/log4j.properties</location>
@@ -389,7 +390,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/</directory>
+              <directory>/var/lib/tbds-server/</directory>
               <filemode>700</filemode>
               <username>root</username>
               <groupname>root</groupname>
@@ -400,7 +401,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/</directory>
+              <directory>/var/lib/tbds-server/</directory>
               <filemode>700</filemode>
               <username>root</username>
               <groupname>root</groupname>
@@ -411,7 +412,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/keys</directory>
+              <directory>/var/lib/tbds-server/keys</directory>
               <sources>
                 <source>
                   <location>conf/unix/ca.config</location>
@@ -419,7 +420,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/keys/db</directory>
+              <directory>/var/lib/tbds-server/keys/db</directory>
               <filemode>700</filemode>
               <username>root</username>
               <groupname>root</groupname>
@@ -430,13 +431,13 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/run/ambari-server/stack-recommendations</directory>
+              <directory>/var/run/tbds-server/stack-recommendations</directory>
             </mapping>
             <mapping>
               <directory>/var/log/ambari-server</directory>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/resources</directory>
+              <directory>/var/lib/tbds-server/resources</directory>
               <sources>
                 <source>
                   <location>target/classes/Ambari-DDL-Postgres-CREATE.sql</location>
@@ -480,19 +481,19 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/data/tmp</directory>
+              <directory>/var/lib/tbds-server/data/tmp</directory>
               <filemode>755</filemode>
               <username>root</username>
               <groupname>root</groupname>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/data/cache</directory>
+              <directory>/var/lib/tbds-server/data/cache</directory>
               <filemode>700</filemode>
               <username>root</username>
               <groupname>root</groupname>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/resources/apps</directory>
+              <directory>/var/lib/tbds-server/resources/apps</directory>
               <filemode>755</filemode>
               <username>root</username>
               <groupname>root</groupname>
@@ -503,7 +504,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/resources/scripts</directory>
+              <directory>/var/lib/tbds-server/resources/scripts</directory>
               <filemode>755</filemode>
               <sources>
                 <source>
@@ -515,7 +516,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/resources/views</directory>
+              <directory>/var/lib/tbds-server/resources/views</directory>
               <filemode>755</filemode>
               <sources>
                 <source>
@@ -527,10 +528,10 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/resources/upgrade</directory>
+              <directory>/var/lib/tbds-server/resources/upgrade</directory>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/resources/upgrade/ddl</directory>
+              <directory>/var/lib/tbds-server/resources/upgrade/ddl</directory>
               <sources>
                 <source>
                   <location>src/main/resources/upgrade/ddl</location>
@@ -538,7 +539,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/resources/upgrade/dml</directory>
+              <directory>/var/lib/tbds-server/resources/upgrade/dml</directory>
               <sources>
                 <source>
                   <location>src/main/resources/upgrade/dml</location>
@@ -546,7 +547,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/resources/common-services</directory>
+              <directory>/var/lib/tbds-server/resources/common-services</directory>
               <sources>
                 <source>
                   <location>target/classes/common-services</location>
@@ -554,7 +555,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/resources/upgrade/catalog</directory>
+              <directory>/var/lib/tbds-server/resources/upgrade/catalog</directory>
               <sources>
                 <source>
                   <location>src/main/resources/upgrade/catalog</location>
@@ -562,7 +563,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/resources/stacks/${stack.distribution}</directory>
+              <directory>/var/lib/tbds-server/resources/stacks/${stack.distribution}</directory>
               <sources>
                 <source>
                   <location>target/classes/stacks/${stack.distribution}</location>
@@ -570,7 +571,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/resources/stacks</directory>
+              <directory>/var/lib/tbds-server/resources/stacks</directory>
               <filemode>755</filemode>
               <username>root</username>
               <groupname>root</groupname>
@@ -604,7 +605,7 @@
               <directory>/var/run/ambari-server</directory>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/resources</directory>
+              <directory>/var/lib/tbds-server/resources</directory>
               <sources>
                 <source>
                   <location>../version</location>
@@ -613,7 +614,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/resources/custom_action_definitions</directory>
+              <directory>/var/lib/tbds-server/resources/custom_action_definitions</directory>
               <sources>
                 <source>
                   <location>src/main/resources/custom_action_definitions</location>
@@ -622,7 +623,7 @@
             </mapping>
             <mapping>
               <!-- custom actions root-->
-              <directory>/var/lib/ambari-server/resources/custom_actions</directory>
+              <directory>/var/lib/tbds-server/resources/custom_actions</directory>
               <filemode>755</filemode>
               <username>root</username>
               <groupname>root</groupname>
@@ -633,7 +634,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/lib/ambari-server/resources/host_scripts</directory>
+              <directory>/var/lib/tbds-server/resources/host_scripts</directory>
               <filemode>755</filemode>
               <username>root</username>
               <groupname>root</groupname>
@@ -668,12 +669,12 @@
               <paths>
                 <path>/usr/lib/ambari-server</path>
                 <path>/var/run/ambari-server</path>
-                <path>/var/run/ambari-server/bootstrap</path>
-                <path>/var/run/ambari-server/stack-recommendations</path>
+                <path>/var/run/tbds-server/bootstrap</path>
+                <path>/var/run/tbds-server/stack-recommendations</path>
                 <path>/var/log/ambari-server</path>
-                <path>/var/lib/ambari-server/resources/upgrade</path>
-                <path>/var/lib/ambari-server/data/tmp</path>
-                <path>/var/lib/ambari-server/data/cache</path>
+                <path>/var/lib/tbds-server/resources/upgrade</path>
+                <path>/var/lib/tbds-server/data/tmp</path>
+                <path>/var/lib/tbds-server/data/cache</path>
               </paths>
             </data>
             <!-- TODO: should be included all subdirs, if exists-->
@@ -682,7 +683,7 @@
               <type>directory</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/usr/lib/ambari-server/web</prefix>
+                <prefix>/usr/lib/tbds-server/web</prefix>
               </mapper>
             </data>
             <data>
@@ -694,7 +695,7 @@
               </mapper>
             </data>
             <data>
-              <src>src/main/python/ambari-server.py</src>
+              <src>src/main/python/tbds-server.py</src>
               <type>file</type>
               <mapper>
                 <type>perm</type>
@@ -716,7 +717,7 @@
               </mapper>
             </data>
             <data>
-              <src>src/main/python/ambari-server.py</src>
+              <src>src/main/python/tbds-server.py</src>
               <type>file</type>
               <mapper>
                 <type>perm</type>
@@ -749,11 +750,11 @@
               </mapper>
             </data>
             <data>
-              <src>conf/unix/ambari.properties</src>
+              <src>conf/unix/tbds.properties</src>
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/etc/ambari-server/conf</prefix>
+                <prefix>/etc/tbds-server/conf</prefix>
               </mapper>
             </data>
             <data>
@@ -761,7 +762,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/etc/ambari-server/conf</prefix>
+                <prefix>/etc/tbds-server/conf</prefix>
               </mapper>
             </data>
             <data>
@@ -769,7 +770,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/etc/ambari-server/conf</prefix>
+                <prefix>/etc/tbds-server/conf</prefix>
               </mapper>
             </data>
              <!-- /q001 -->
@@ -778,7 +779,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/</prefix>
+                <prefix>/var/lib/tbds-server/</prefix>
                 <user>root</user>
                 <group>root</group>
                 <filemode>700</filemode>
@@ -789,7 +790,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/</prefix>
+                <prefix>/var/lib/tbds-server/</prefix>
                 <user>root</user>
                 <group>root</group>
                 <filemode>700</filemode>
@@ -800,7 +801,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources/apps/</prefix>
+                <prefix>/var/lib/tbds-server/resources/apps/</prefix>
                 <user>root</user>
                 <group>root</group>
                 <filemode>755</filemode>
@@ -811,7 +812,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/keys</prefix>
+                <prefix>/var/lib/tbds-server/keys</prefix>
               </mapper>
             </data>
             <data>
@@ -819,7 +820,7 @@
               <type>directory</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/keys/db</prefix>
+                <prefix>/var/lib/tbds-server/keys/db</prefix>
                 <user>root</user>
                 <group>root</group>
                 <filemode>700</filemode>
@@ -830,7 +831,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources</prefix>
+                <prefix>/var/lib/tbds-server/resources</prefix>
               </mapper>
             </data>
             <data>
@@ -838,7 +839,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources</prefix>
+                <prefix>/var/lib/tbds-server/resources</prefix>
               </mapper>
             </data>
             <data>
@@ -846,7 +847,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources</prefix>
+                <prefix>/var/lib/tbds-server/resources</prefix>
               </mapper>
             </data>
             <data>
@@ -854,7 +855,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources</prefix>
+                <prefix>/var/lib/tbds-server/resources</prefix>
               </mapper>
             </data>
             <data>
@@ -862,7 +863,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources</prefix>
+                <prefix>/var/lib/tbds-server/resources</prefix>
               </mapper>
             </data>
             <data>
@@ -870,7 +871,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources</prefix>
+                <prefix>/var/lib/tbds-server/resources</prefix>
               </mapper>
             </data>
             <data>
@@ -878,7 +879,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources</prefix>
+                <prefix>/var/lib/tbds-server/resources</prefix>
               </mapper>
             </data>
             <data>
@@ -886,7 +887,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources</prefix>
+                <prefix>/var/lib/tbds-server/resources</prefix>
               </mapper>
             </data>
             <data>
@@ -894,7 +895,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources</prefix>
+                <prefix>/var/lib/tbds-server/resources</prefix>
               </mapper>
             </data>
             <data>
@@ -902,7 +903,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources</prefix>
+                <prefix>/var/lib/tbds-server/resources</prefix>
               </mapper>
             </data>
             <data>
@@ -910,7 +911,7 @@
               <type>directory</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources/scripts</prefix>
+                <prefix>/var/lib/tbds-server/resources/scripts</prefix>
                 <filemode>755</filemode>
               </mapper>
             </data>
@@ -920,7 +921,7 @@
               <includes>*.jar</includes>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources/views</prefix>
+                <prefix>/var/lib/tbds-server/resources/views</prefix>
               </mapper>
             </data>
             <data>
@@ -928,7 +929,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources/scripts</prefix>
+                <prefix>/var/lib/tbds-server/resources/scripts</prefix>
                 <filemode>755</filemode>
               </mapper>
             </data>
@@ -937,7 +938,7 @@
               <type>directory</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources/upgrade/ddl</prefix>
+                <prefix>/var/lib/tbds-server/resources/upgrade/ddl</prefix>
               </mapper>
             </data>
             <data>
@@ -945,7 +946,7 @@
               <type>directory</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources/upgrade/dml</prefix>
+                <prefix>/var/lib/tbds-server/resources/upgrade/dml</prefix>
               </mapper>
             </data>
             <data>
@@ -953,7 +954,7 @@
               <type>directory</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources/common-services</prefix>
+                <prefix>/var/lib/tbds-server/resources/common-services</prefix>
               </mapper>
             </data>
             <data>
@@ -961,7 +962,7 @@
               <type>directory</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources/upgrade/catalog</prefix>
+                <prefix>/var/lib/tbds-server/resources/upgrade/catalog</prefix>
               </mapper>
             </data>
             <data>
@@ -969,7 +970,7 @@
               <type>directory</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources/stacks/${stack.distribution}</prefix>
+                <prefix>/var/lib/tbds-server/resources/stacks/${stack.distribution}</prefix>
               </mapper>
             </data>
             <data>
@@ -977,7 +978,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources/stacks</prefix>
+                <prefix>/var/lib/tbds-server/resources/stacks</prefix>
                 <user>root</user>
                 <group>root</group>
                 <filemode>755</filemode>
@@ -1032,7 +1033,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources</prefix>
+                <prefix>/var/lib/tbds-server/resources</prefix>
               </mapper>
             </data>
             <data>
@@ -1040,7 +1041,7 @@
               <type>directory</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources/custom_action_definitions</prefix>
+                <prefix>/var/lib/tbds-server/resources/custom_action_definitions</prefix>
               </mapper>
             </data>
             <data>
@@ -1048,7 +1049,7 @@
               <type>directory</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources/custom_actions</prefix>
+                <prefix>/var/lib/tbds-server/resources/custom_actions</prefix>
                 <user>root</user>
                 <group>root</group>
                 <filemode>755</filemode>
@@ -1059,7 +1060,7 @@
               <type>directory</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server/resources/host_scripts</prefix>
+                <prefix>/var/lib/tbds-server/resources/host_scripts</prefix>
                 <user>root</user>
                 <group>root</group>
                 <filemode>755</filemode>

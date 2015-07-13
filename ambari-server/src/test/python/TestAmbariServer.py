@@ -952,7 +952,7 @@ class TestAmbariServer(TestCase):
 
     del os.environ[AMBARI_CONF_VAR]
     result = get_conf_dir()
-    self.assertEqual("/etc/ambari-server/conf", result)
+    self.assertEqual("/etc/tbds-server/conf", result)
     pass
 
   def test_search_file(self):
@@ -1023,8 +1023,8 @@ class TestAmbariServer(TestCase):
 
     try:
       configDefaults.NR_ADJUST_OWNERSHIP_LIST = [
-        ( "/etc/ambari-server/conf", "755", "{0}", True ),
-        ( "/etc/ambari-server/conf/ambari.properties", "644", "{0}", False )
+        ( "/etc/tbds-server/conf", "755", "{0}", True ),
+        ( "/etc/tbds-server/conf/tbds.properties", "644", "{0}", False )
       ]
 
       adjust_directory_permissions("user")
@@ -1291,7 +1291,7 @@ class TestAmbariServer(TestCase):
   @patch("ambari_server.serverConfiguration.set_file_permissions")
   def test_store_password_file(self, set_file_permissions_mock,
                                read_ambari_user_mock, open_mock, search_file_mock):
-    search_file_mock.return_value = "/etc/ambari-server/conf/ambari.properties"
+    search_file_mock.return_value = "/etc/tbds-server/conf/tbds.properties"
     open_mock.return_value = MagicMock()
     store_password_file("password", "passfile")
     self.assertTrue(set_file_permissions_mock.called)
@@ -1862,7 +1862,7 @@ class TestAmbariServer(TestCase):
   @patch("ambari_server.setupHttps.get_ambari_properties")
   def test_is_valid_https_port(self, get_ambari_properties_mock):
 
-    #No ambari.properties
+    #No tbds.properties
     get_ambari_properties_mock.return_value = -1
     is_valid = is_valid_https_port(1111)
     self.assertEqual(is_valid, False)
@@ -1891,7 +1891,7 @@ class TestAmbariServer(TestCase):
   @patch("urllib2.urlopen")
   @patch("ambari_server.setupHttps.get_ambari_properties")
   def test_get_fqdn(self, get_ambari_properties_mock, url_open_mock, getfqdn_mock):
-    #No ambari.properties
+    #No tbds.properties
     get_ambari_properties_mock.return_value = -1
     fqdn = get_fqdn()
     self.assertEqual(fqdn, None)
@@ -1922,19 +1922,19 @@ class TestAmbariServer(TestCase):
     pass
 
   def test_get_ulimit_open_files(self):
-    # 1 - No ambari.properties
+    # 1 - No tbds.properties
     p = Properties()
 
     open_files = get_ulimit_open_files(p)
     self.assertEqual(open_files, ULIMIT_OPEN_FILES_DEFAULT)
 
-    # 2 - With ambari.properties - ok
+    # 2 - With tbds.properties - ok
     prop_value = 65000
     p.process_pair(ULIMIT_OPEN_FILES_KEY, str(prop_value))
     open_files = get_ulimit_open_files(p)
     self.assertEqual(open_files, 65000)
 
-    # 2 - With ambari.properties - default
+    # 2 - With tbds.properties - default
     tf1 = tempfile.NamedTemporaryFile()
     prop_value = 0
     p.process_pair(ULIMIT_OPEN_FILES_KEY, str(prop_value))
@@ -2041,7 +2041,7 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
     run_os_command_mock.return_value = 0, "", ""
     self.assertRaises(NonFatalException, is_server_runing)
 
-    open_mock.side_effect = IOError('[Errno 13] Permission denied: /var/run/ambari-server/ambari-server.pid')
+    open_mock.side_effect = IOError('[Errno 13] Permission denied: /var/run/tbds-server/tbds-server.pid')
     self.assertRaises(FatalException, is_server_runing)
     pass
 
@@ -2102,10 +2102,10 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
     path_existsMock.return_value = False
     get_JAVA_HOME_mock.return_value = False
     get_ambari_properties_mock.return_value = p
-    # Test case: ambari.properties not found
+    # Test case: tbds.properties not found
     try:
       download_and_install_jdk(args)
-      self.fail("Should throw exception because of not found ambari.properties")
+      self.fail("Should throw exception because of not found tbds.properties")
     except FatalException:
       # Expected
       self.assertTrue(get_ambari_properties_mock.called)
@@ -2592,10 +2592,10 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
 
     tempdir = tempfile.gettempdir()
     os.environ[AMBARI_CONF_VAR] = tempdir
-    prop_file = os.path.join(tempdir, "ambari.properties")
+    prop_file = os.path.join(tempdir, "tbds.properties")
 
     for i in range(0, 4):
-      # Use the expected path of the ambari.properties file to delete it if it exists, and then create a new one
+      # Use the expected path of the tbds.properties file to delete it if it exists, and then create a new one
       # during each use case.
       if os.path.exists(prop_file):
         os.remove(prop_file)
@@ -2762,7 +2762,7 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
     properties = MagicMock()
     unpack_jce_policy_mock.return_value = 0
     get_ambari_properties_mock.return_value = properties
-    conf_file = 'etc/ambari-server/conf/ambari.properties'
+    conf_file = 'etc/tbds-server/conf/tbds.properties'
     search_file_mock.return_value = conf_file
     path_split_mock.return_value = ["/path/to", "JCEPolicy.zip"]
     args = ['setup-jce', '/path/to/JCEPolicy.zip']
@@ -3724,7 +3724,7 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
     run_os_command_mock.assert_called_with('/usr/lib/java/bin/java -cp /etc/conf:test:path12 '
                                           'org.apache.ambari.server.upgrade.StackUpgradeHelper '
                                           'updateStackId ' + "'" + json.dumps(stackIdMap) + "'" +
-                                          ' > /var/log/ambari-server/ambari-server.out 2>&1')
+                                          ' > /var/log/tbds-server/tbds-server.out 2>&1')
     pass
 
   @patch("ambari_server.serverConfiguration.get_conf_dir")
@@ -3748,7 +3748,7 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
     run_os_command_mock.assert_called_with('/usr/lib/java/bin/java -cp /etc/conf:test:path12 '
                                           'org.apache.ambari.server.upgrade.StackUpgradeHelper '
                                           'updateStackId ' + "'" + json.dumps(stackIdMap) + "'" +
-                                          ' > /var/log/ambari-server/ambari-server.out 2>&1')
+                                          ' > /var/log/tbds-server/tbds-server.out 2>&1')
     pass
 
   @patch("ambari_server.serverConfiguration.get_conf_dir")
@@ -3772,7 +3772,7 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
     run_os_command_mock.assert_called_with('/usr/lib/java/bin/java -cp /etc/conf:test:path12 '
                                           'org.apache.ambari.server.upgrade.StackUpgradeHelper '
                                           'updateStackId ' + "'" + json.dumps(stackIdMap) + "'" +
-                                          ' > /var/log/ambari-server/ambari-server.out 2>&1')
+                                          ' > /var/log/tbds-server/tbds-server.out 2>&1')
     pass
 
 
@@ -3795,7 +3795,7 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
     self.assertTrue(run_os_command_mock.called)
     run_os_command_mock.assert_called_with('/usr/lib/java/bin/java -cp /etc/conf:test:path12 '
                                            'org.apache.ambari.server.upgrade.SchemaUpgradeHelper '
-                                           '> /var/log/ambari-server/ambari-server.out 2>&1')
+                                           '> /var/log/tbds-server/tbds-server.out 2>&1')
     pass
 
 
@@ -3820,7 +3820,7 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
     run_os_command_mock.assert_called_with('/usr/lib/java/bin/java -cp /etc/conf:test:path12 '
                                            'org.apache.ambari.server.upgrade.StackUpgradeHelper updateMetaInfo ' +
                                            "'" + json.dumps(json_map) + "'" +
-                                           ' > /var/log/ambari-server/ambari-server.out 2>&1')
+                                           ' > /var/log/tbds-server/tbds-server.out 2>&1')
     pass
 
 
@@ -4355,7 +4355,7 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
   @patch.object(OSCheck, "os_distribution", new = MagicMock(return_value = os_distro_value))
   @patch.object(_ambari_server_, "setup")
   def test_main_db_options(self, setup_mock):
-    base_args = ["ambari-server.py", "setup"]
+    base_args = ["tbds-server.py", "setup"]
     db_args = ["--database", "postgres", "--databasehost", "somehost.net", "--databaseport", "12345",
                "--databasename", "ambari", "--databaseusername", "ambari", "--databasepassword", "bigdata"]
 
@@ -4522,7 +4522,7 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
     from ambari_server import serverConfiguration   # need to modify constants inside the module
 
     properties = ["server.jdbc.user.name=ambari-server\n",
-                  "server.jdbc.user.passwd=/etc/ambari-server/conf/password.dat\n",
+                  "server.jdbc.user.passwd=/etc/tbds-server/conf/password.dat\n",
                   "java.home=/usr/jdk64/jdk1.6.0_31\n",
                   "server.jdbc.database_name=ambari\n",
                   "ambari-server.user=ambari\n",
@@ -4533,7 +4533,7 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
     JCE_NAME_PROPERTY = 'jce.name=jce_policy-6.zip\n'
     CHANGED_VALUE_PROPERTY = 'server.jdbc.database_name=should_not_overwrite_value\n'
 
-    get_conf_dir_mock.return_value = '/etc/ambari-server/conf'
+    get_conf_dir_mock.return_value = '/etc/tbds-server/conf'
 
     (tf1, fn1) = tempfile.mkstemp()
     (tf2, fn2) = tempfile.mkstemp()
@@ -4588,7 +4588,7 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
 
     os.unlink(fn2)
 
-    #if ambari.properties file is absent then "ambari-server upgrade" should
+    #if tbds.properties file is absent then "ambari-server upgrade" should
     # fail
     (tf, fn) = tempfile.mkstemp()
     configDefaults.AMBARI_PROPERTIES_BACKUP_FILE = fn
@@ -4626,11 +4626,11 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
     from ambari_server import serverConfiguration   # need to modify constants inside the module
 
     properties = ["server.jdbc.user.name=ambari-server\n",
-                  "server.jdbc.user.passwd=/etc/ambari-server/conf/password.dat\n",
+                  "server.jdbc.user.passwd=/etc/tbds-server/conf/password.dat\n",
                   "java.home=/usr/jdk64/jdk1.6.0_31\n",
                   "server.os_type=redhat6\n"]
 
-    get_conf_dir_mock.return_value = '/etc/ambari-server/conf'
+    get_conf_dir_mock.return_value = '/etc/tbds-server/conf'
 
     (tf1, fn1) = tempfile.mkstemp()
     (tf2, fn2) = tempfile.mkstemp()
@@ -6193,7 +6193,7 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
   @patch("ambari_server.serverConfiguration.search_file")
   @patch("ambari_server.serverConfiguration.backup_file_in_temp")
   def test_update_properties_2(self, backup_file_in_temp_mock, search_file_mock, open_mock):
-    conf_file = "ambari.properties"
+    conf_file = "tbds.properties"
     propertyMap = {"1": "1", "2": "2"}
     properties = MagicMock()
     f = MagicMock(name="file")
@@ -6414,7 +6414,7 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
     del args.persistence_type
 
     tempdir = tempfile.gettempdir()
-    prop_file = os.path.join(tempdir, "ambari.properties")
+    prop_file = os.path.join(tempdir, "tbds.properties")
     with open(prop_file, "w") as f:
       f.write("server.jdbc.database_name=oldDBName")
     f.close()

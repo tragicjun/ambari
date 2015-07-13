@@ -200,7 +200,7 @@ class TestOSCheck(TestCase):
     serverConfiguration.OS_FAMILY = "family_of_trolls"
     serverConfiguration.OS_VERSION = "666"
 
-    get_conf_dir_mock.return_value = '/etc/ambari-server/conf'
+    get_conf_dir_mock.return_value = '/etc/tbds-server/conf'
 
     (tf1, fn1) = tempfile.mkstemp()
     (tf2, fn2) = tempfile.mkstemp()

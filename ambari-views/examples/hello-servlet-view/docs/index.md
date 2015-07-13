@@ -126,7 +126,7 @@ Deploy
 -----
 To deploy a view we simply place the view archive in the views folder of the ambari-server machine.  By default the views folder is located at ...
 
-    /var/lib/ambari-server/resources/views
+    /var/lib/tbds-server/resources/views
 
 To deploy the Hello Servlet view simply copy the hello-servlet-view jar to the ambari-server views folder and restart the ambari server.
 
@@ -163,7 +163,7 @@ If we want to see the details about a specific view, we can ask for it by name. 
       {
       "href" : "http://<server>:8080/api/v1/views/HELLO_SERVLET/versions/1.0.0/",
       "ViewVersionInfo" : {
-        "archive" : "/var/lib/ambari-server/resources/views/work/HELLO_SERVLET{1.0.0}",
+        "archive" : "/var/lib/tbds-server/resources/views/work/HELLO_SERVLET{1.0.0}",
         "label" : "The Hello Servlet View!",
         "parameters" : [
           {

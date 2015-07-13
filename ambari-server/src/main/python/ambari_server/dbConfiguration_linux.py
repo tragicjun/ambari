@@ -295,7 +295,7 @@ class PGConfig(LinuxDBMSConfig):
                        '--command=psql -f {0} -v stack_name="\'{1}\'"  -v stack_version="\'{2}\'" -v dbname="{3}"']
 
   CHANGE_OWNER_COMMAND = ['su', '-', 'postgres',
-                          '--command=/var/lib/ambari-server/resources/scripts/change_owner.sh -d {0} -s {1} -o {2}']
+                          '--command=/var/lib/tbds-server/resources/scripts/change_owner.sh -d {0} -s {1} -o {2}']
 
   PG_ERROR_BLOCKED = "is being accessed by other users"
   PG_STATUS_RUNNING = None
@@ -317,11 +317,11 @@ class PGConfig(LinuxDBMSConfig):
   PG_HBA_CONF_FILE_BACKUP = None
   POSTGRESQL_CONF_FILE = None
 
-  POSTGRES_EMBEDDED_INIT_FILE = "/var/lib/ambari-server/resources/Ambari-DDL-Postgres-EMBEDDED-CREATE.sql"
-  POSTGRES_EMBEDDED_DROP_FILE = "/var/lib/ambari-server/resources/Ambari-DDL-Postgres-EMBEDDED-DROP.sql"
+  POSTGRES_EMBEDDED_INIT_FILE = "/var/lib/tbds-server/resources/Ambari-DDL-Postgres-EMBEDDED-CREATE.sql"
+  POSTGRES_EMBEDDED_DROP_FILE = "/var/lib/tbds-server/resources/Ambari-DDL-Postgres-EMBEDDED-DROP.sql"
 
-  POSTGRES_INIT_FILE = "/var/lib/ambari-server/resources/Ambari-DDL-Postgres-CREATE.sql"
-  POSTGRES_DROP_FILE = "/var/lib/ambari-server/resources/Ambari-DDL-Postgres-DROP.sql"
+  POSTGRES_INIT_FILE = "/var/lib/tbds-server/resources/Ambari-DDL-Postgres-CREATE.sql"
+  POSTGRES_DROP_FILE = "/var/lib/tbds-server/resources/Ambari-DDL-Postgres-DROP.sql"
 
   def __init__(self, options, properties, storage_type):
     super(PGConfig, self).__init__(options, properties, storage_type)
@@ -732,8 +732,8 @@ class OracleConfig(LinuxDBMSConfig):
                                    'you must copy the {0} JDBC driver JAR file to {1}.'.format(
         self.dbms_full_name, configDefaults.JAVA_SHARE_PATH)
 
-    self.init_script_file = "/var/lib/ambari-server/resources/Ambari-DDL-Oracle-CREATE.sql'"
-    self.drop_tables_script_file = "/var/lib/ambari-server/resources/Ambari-DDL-Oracle-DROP.sql"
+    self.init_script_file = "/var/lib/tbds-server/resources/Ambari-DDL-Oracle-CREATE.sql'"
+    self.drop_tables_script_file = "/var/lib/tbds-server/resources/Ambari-DDL-Oracle-DROP.sql"
     self.client_tool_usage_pattern = 'sqlplus {1}/{2} < {0}'
 
     self.jdbc_extra_params = [
@@ -834,8 +834,8 @@ class MySQLConfig(LinuxDBMSConfig):
                                      'you must copy the {0} JDBC driver JAR file to {1}.'.format(
     self.dbms_full_name, configDefaults.JAVA_SHARE_PATH)
 
-    self.init_script_file = "/var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql"
-    self.drop_tables_script_file = "/var/lib/ambari-server/resources/Ambari-DDL-MySQL-DROP.sql"
+    self.init_script_file = "/var/lib/tbds-server/resources/Ambari-DDL-MySQL-CREATE.sql"
+    self.drop_tables_script_file = "/var/lib/tbds-server/resources/Ambari-DDL-MySQL-DROP.sql"
     self.client_tool_usage_pattern = 'mysql --user={1} --password={2} {3}<{0}'
 
   #
@@ -854,7 +854,7 @@ class MySQLConfig(LinuxDBMSConfig):
     return True
 
   def _get_remote_script_line(self, scriptFile):
-    MYSQL_INIT_SCRIPT = '/var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql'
+    MYSQL_INIT_SCRIPT = '/var/lib/tbds-server/resources/Ambari-DDL-MySQL-CREATE.sql'
     MYSQL_EXEC_ARGS_WITH_USER_VARS = "mysql --host={0} --port={1} --user={2} --password={3} {4} " \
                                      "-e\"set @schema=\'{4}\'; set @username=\'{2}\'; source {5};\""
     MYSQL_EXEC_ARGS_WO_USER_VARS = "mysql --force --host={0} --port={1} --user={2} --password={3} --database={4} < {5} 2> /dev/null"

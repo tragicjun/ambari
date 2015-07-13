@@ -22,12 +22,12 @@ RESOURCE_MANAGEMENT_DIR="/usr/lib/python2.6/site-packages/resource_management"
 JINJA_DIR="/usr/lib/python2.6/site-packages/ambari_jinja2"
 OLD_COMMON_DIR="/usr/lib/python2.6/site-packages/common_functions"
 INSTALL_HELPER_AGENT="/var/lib/ambari-agent/install-helper.sh"
-COMMON_DIR_SERVER="/usr/lib/ambari-server/lib/ambari_commons"
-RESOURCE_MANAGEMENT_DIR_SERVER="/usr/lib/ambari-server/lib/resource_management"
-JINJA_SERVER_DIR="/usr/lib/ambari-server/lib/ambari_jinja2"
+COMMON_DIR_SERVER="/usr/lib/tbds-server/lib/ambari_commons"
+RESOURCE_MANAGEMENT_DIR_SERVER="/usr/lib/tbds-server/lib/resource_management"
+JINJA_SERVER_DIR="/usr/lib/tbds-server/lib/ambari_jinja2"
 
 PYTHON_WRAPER_TARGET="/usr/bin/ambari-python-wrap"
-PYTHON_WRAPER_SOURCE="/var/lib/ambari-server/ambari-python-wrap"
+PYTHON_WRAPER_SOURCE="/var/lib/tbds-server/ambari-python-wrap"
 
 do_install(){
   # setting ambari_commons shared resource

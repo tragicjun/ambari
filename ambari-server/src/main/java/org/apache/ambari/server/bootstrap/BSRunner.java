@@ -23,6 +23,7 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -44,7 +45,7 @@ class BSRunner extends Thread {
   private static Log LOG = LogFactory.getLog(BSRunner.class);
 
   private static final String DEFAULT_USER = "root";
-  private static final String SCRIPTS_DIR = "/var/lib/ambari-server/resources/scripts";
+  private static final String SCRIPTS_DIR = "/var/lib/tbds-server/resources/scripts";
   
   private  boolean finished = false;
   private SshHostInfo sshHostInfo;
@@ -167,6 +168,11 @@ class BSRunner extends Thread {
 		  List<String> hosts = sshHostInfo.getHosts();
 		  String agentEnvSetupShellPath = SCRIPTS_DIR+"/bootstrap_agent_env_setup.sh";
 		  Map<String, BSHostPasser> hostPassers = sshHostInfo.getHostPassers();
+		  
+		  if(hosts == null || hosts.size() == 0){
+			  return;
+		  }
+		  CountDownLatch latch=new CountDownLatch(hosts.size());
 		  for(String host : hosts){
 			  String agentUser = this.bsImpl.getAgentDefaultLoginUser();
 			  String agentPass = this.bsImpl.getAgentDefaultLoginPassword();
@@ -175,8 +181,10 @@ class BSRunner extends Thread {
 				  agentUser = bsHostPasser.getLoginUser();
 				  agentPass = bsHostPasser.getPassword();
 			  }
-			  ShellCommandUtil.runCommand(agentEnvSetupShellPath, host, agentUser, agentPass);
+			  AgentSetupThread agentSetupThread= new AgentSetupThread(agentEnvSetupShellPath,host, agentUser,agentPass,latch);
+			  agentSetupThread.start();
 		  }
+		  latch.await();
 	  } catch (IOException e) {
 		  LOG.error(e.getMessage());
 		  e.printStackTrace();
@@ -393,5 +401,33 @@ class BSRunner extends Thread {
 
   public synchronized boolean isRunning() {
     return !this.finished;
+  }
+  
+  static class AgentSetupThread extends Thread{
+	  private CountDownLatch latch;  
+	  private String hostName;
+	  private String agentUser;
+	  private String agentPass;
+	  private String agentEnvSetupShellPath;
+      public AgentSetupThread(String agentEnvSetupShellPath, String hostName , String agentUser, String agentPass,CountDownLatch latch){  
+          this.latch=latch; 
+          this.agentEnvSetupShellPath = agentEnvSetupShellPath;
+          this.hostName = hostName;
+          this.agentUser = agentUser;
+          this.agentPass = agentPass;
+      }  
+      public void run(){  
+    	  try {
+			ShellCommandUtil.runCommand(this.agentEnvSetupShellPath, this.hostName, this.agentUser, this.agentPass);
+		  } catch (IOException e) {
+			LOG.error(e.getMessage());
+			e.printStackTrace();
+		  } catch (InterruptedException e) {
+			LOG.error(e.getMessage());
+			e.printStackTrace();
+		  }finally{
+			latch.countDown();
+		  }
+      } 
   }
 }

@@ -43,7 +43,7 @@ OS_VERSION = OSCheck().get_os_major_version()
 OS_TYPE = OSCheck.get_os_type()
 OS_FAMILY = OSCheck.get_os_family()
 
-PID_NAME = "ambari-server.pid"
+PID_NAME = "tbds-server.pid"
 
 # Non-root user setup commands
 NR_USER_PROPERTY = "ambari-server.user"
@@ -59,7 +59,7 @@ OS_TYPE_PROPERTY = "server.os_type"
 BOOTSTRAP_DIR_PROPERTY = "bootstrap.dir"
 
 AMBARI_CONF_VAR = "AMBARI_CONF_DIR"
-AMBARI_PROPERTIES_FILE = "ambari.properties"
+AMBARI_PROPERTIES_FILE = "tbds.properties"
 
 GET_FQDN_SERVICE_URL = "server.fqdn.service.url"
 
@@ -92,7 +92,7 @@ JDBC_PATTERNS = {"oracle": "*ojdbc*.jar", "mysql": "*mysql*.jar"}
 #TODO property used incorrectly in local case, it was meant to be dbms name, not postgres database name,
 # has workaround for now, as we don't need dbms name if persistence_type=local
 JDBC_DATABASE_PROPERTY = "server.jdbc.database"                 # E.g., embedded|oracle|mysql|postgres|sqlserver
-JDBC_DATABASE_NAME_PROPERTY = "server.jdbc.database_name"       # E.g., ambari. Not used on Windows.
+JDBC_DATABASE_NAME_PROPERTY = "server.jdbc.database_name"       # E.g., tbds. Not used on Windows.
 JDBC_HOSTNAME_PROPERTY = "server.jdbc.hostname"
 JDBC_PORT_PROPERTY = "server.jdbc.port"
 JDBC_POSTGRES_SCHEMA_PROPERTY = "server.jdbc.postgres.schema"   # Only for postgres, defaults to same value as DB name
@@ -167,9 +167,9 @@ JDK_RELEASES="java.releases"
 VIEWS_DIR_PROPERTY = "views.dir"
 
 #Common setup or upgrade message
-SETUP_OR_UPGRADE_MSG = "- If this is a new setup, then run the \"ambari-server setup\" command to create the user\n" \
-                       "- If this is an upgrade of an existing setup, run the \"ambari-server upgrade\" command.\n" \
-                       "Refer to the Ambari documentation for more information on setup and upgrade."
+SETUP_OR_UPGRADE_MSG = "- If this is a new setup, then run the \"tbds-server setup\" command to create the user\n" \
+                       "- If this is an upgrade of an existing setup, run the \"tbds-server upgrade\" command.\n" \
+                       "Refer to the TBDS documentation for more information on setup and upgrade."
 
 DEFAULT_DB_NAME = "ambari"
 
@@ -177,8 +177,8 @@ class ServerConfigDefaults(object):
   def __init__(self):
     self.JAVA_SHARE_PATH = "/usr/share/java"
     self.OUT_DIR = os.sep + os.path.join("var", "log", "ambari-server")
-    self.SERVER_OUT_FILE = os.path.join(self.OUT_DIR, "ambari-server.out")
-    self.SERVER_LOG_FILE = os.path.join(self.OUT_DIR, "ambari-server.log")
+    self.SERVER_OUT_FILE = os.path.join(self.OUT_DIR, "tbds-server.out")
+    self.SERVER_LOG_FILE = os.path.join(self.OUT_DIR, "tbds-server.log")
     self.ROOT_FS_PATH = os.sep
 
     self.JDK_INSTALL_DIR = ""
@@ -197,7 +197,7 @@ class ServerConfigDefaults(object):
     # ownership/permissions mapping
     # path - permissions - user - group - recursive
     # Rules are executed in the same order as they are listed
-    # {0} in user/group will be replaced by customized ambari-server username
+    # {0} in user/group will be replaced by customized tbds-server username
     self.NR_ADJUST_OWNERSHIP_LIST = []
     self.NR_USERADD_CMD = ""
 
@@ -233,12 +233,12 @@ class ServerConfigDefaultsWindows(ServerConfigDefaults):
     self.DEFAULT_CONF_DIR = "conf"
     self.DEFAULT_LIBS_DIR = "lib"
 
-    self.AMBARI_PROPERTIES_BACKUP_FILE = "ambari.properties.backup"
+    self.AMBARI_PROPERTIES_BACKUP_FILE = "tbds.properties.backup"
 
     # ownership/permissions mapping
     # path - permissions - user - group - recursive
     # Rules are executed in the same order as they are listed
-    # {0} in user/group will be replaced by customized ambari-server username
+    # {0} in user/group will be replaced by customized tbds-server username
     # The permissions are icacls
     self.NR_ADJUST_OWNERSHIP_LIST = [
       (self.OUT_DIR, "M", "{0}", True),  #0110-0100-0100 rw-r-r
@@ -256,7 +256,7 @@ class ServerConfigDefaultsWindows(ServerConfigDefaults):
       ("conf", "644", "{0}", True),
       ("conf", "755", "{0}", False),
       ("conf\\password.dat", "640", "{0}", False),
-      # Also, /etc/ambari-server/conf/password.dat
+      # Also, /etc/tbds-server/conf/password.dat
       # is generated later at store_password_file
     ]
     self.NR_USERADD_CMD = "cmd /C net user {0} {1} /ADD"
@@ -270,10 +270,10 @@ class ServerConfigDefaultsWindows(ServerConfigDefaults):
     self.keytool_bin_subpath = "bin\\keytool.exe"
 
     #Standard messages
-    self.MESSAGE_SERVER_RUNNING_AS_ROOT = "Ambari Server running with 'root' privileges."
-    self.MESSAGE_ERROR_SETUP_NOT_ROOT = "Ambari-server setup must be run with administrator-level privileges"
-    self.MESSAGE_ERROR_RESET_NOT_ROOT = "Ambari-server reset must be run with administrator-level privileges"
-    self.MESSAGE_ERROR_UPGRADE_NOT_ROOT = "Ambari-server upgrade must be run with administrator-level privileges"
+    self.MESSAGE_SERVER_RUNNING_AS_ROOT = "TBDS Server running with 'root' privileges."
+    self.MESSAGE_ERROR_SETUP_NOT_ROOT = "TBDS-server setup must be run with administrator-level privileges"
+    self.MESSAGE_ERROR_RESET_NOT_ROOT = "TBDS-server reset must be run with administrator-level privileges"
+    self.MESSAGE_ERROR_UPGRADE_NOT_ROOT = "TBDS-server upgrade must be run with administrator-level privileges"
     self.MESSAGE_CHECK_FIREWALL = "Checking firewall status..."
 
 @OsFamilyImpl(os_family=OsFamilyImpl.DEFAULT)
@@ -286,63 +286,63 @@ class ServerConfigDefaultsLinux(ServerConfigDefaults):
     self.JAVA_EXE_SUBPATH = "bin/java"
 
     # Configuration defaults
-    self.DEFAULT_CONF_DIR = "/etc/ambari-server/conf"
+    self.DEFAULT_CONF_DIR = "/etc/tbds-server/conf"
     self.DEFAULT_LIBS_DIR = "/usr/lib/ambari-server"
 
-    self.AMBARI_PROPERTIES_BACKUP_FILE = "ambari.properties.rpmsave"
+    self.AMBARI_PROPERTIES_BACKUP_FILE = "tbds.properties.rpmsave"
 
     # ownership/permissions mapping
     # path - permissions - user - group - recursive
     # Rules are executed in the same order as they are listed
-    # {0} in user/group will be replaced by customized ambari-server username
+    # {0} in user/group will be replaced by customized TBDS-server username
     self.NR_ADJUST_OWNERSHIP_LIST = [
       ("/var/log/ambari-server", "644", "{0}", True),
       ("/var/log/ambari-server", "755", "{0}", False),
       ("/var/run/ambari-server", "644", "{0}", True),
       ("/var/run/ambari-server", "755", "{0}", False),
-      ("/var/run/ambari-server/bootstrap", "755", "{0}", False),
-      ("/var/lib/ambari-server/ambari-env.sh", "700", "{0}", False),
-      ("/var/lib/ambari-server/keys", "600", "{0}", True),
-      ("/var/lib/ambari-server/keys", "700", "{0}", False),
-      ("/var/lib/ambari-server/keys/db", "700", "{0}", False),
-      ("/var/lib/ambari-server/keys/db/newcerts", "700", "{0}", False),
-      ("/var/lib/ambari-server/keys/.ssh", "700", "{0}", False),
-      ("/var/lib/ambari-server/resources/stacks/", "755", "{0}", True),
-      ("/var/lib/ambari-server/resources/custom_actions/", "755", "{0}", True),
-      ("/var/lib/ambari-server/resources/host_scripts/", "755", "{0}", True),
-      ("/var/lib/ambari-server/resources/views", "644", "{0}", True),
-      ("/var/lib/ambari-server/resources/views", "755", "{0}", False),
-      ("/var/lib/ambari-server/resources/views/work", "755", "{0}", True),
-      ("/etc/ambari-server/conf", "644", "{0}", True),
-      ("/etc/ambari-server/conf", "755", "{0}", False),
-      ("/etc/ambari-server/conf/password.dat", "640", "{0}", False),
-      ("/var/lib/ambari-server/keys/pass.txt", "600", "{0}", False),
-      ("/etc/ambari-server/conf/ldap-password.dat", "640", "{0}", False),
-      ("/var/run/ambari-server/stack-recommendations/", "744", "{0}", True),
-      ("/var/run/ambari-server/stack-recommendations/", "755", "{0}", False),
-      ("/var/lib/ambari-server/data/tmp/", "644", "{0}", True),
-      ("/var/lib/ambari-server/data/tmp/", "755", "{0}", False),
-      ("/var/lib/ambari-server/data/cache/", "600", "{0}", True),
-      ("/var/lib/ambari-server/data/cache/", "700", "{0}", False),
-      # Also, /etc/ambari-server/conf/password.dat
+      ("/var/run/tbds-server/bootstrap", "755", "{0}", False),
+      ("/var/lib/tbds-server/ambari-env.sh", "700", "{0}", False),
+      ("/var/lib/tbds-server/keys", "600", "{0}", True),
+      ("/var/lib/tbds-server/keys", "700", "{0}", False),
+      ("/var/lib/tbds-server/keys/db", "700", "{0}", False),
+      ("/var/lib/tbds-server/keys/db/newcerts", "700", "{0}", False),
+      ("/var/lib/tbds-server/keys/.ssh", "700", "{0}", False),
+      ("/var/lib/tbds-server/resources/stacks/", "755", "{0}", True),
+      ("/var/lib/tbds-server/resources/custom_actions/", "755", "{0}", True),
+      ("/var/lib/tbds-server/resources/host_scripts/", "755", "{0}", True),
+      ("/var/lib/tbds-server/resources/views", "644", "{0}", True),
+      ("/var/lib/tbds-server/resources/views", "755", "{0}", False),
+      ("/var/lib/tbds-server/resources/views/work", "755", "{0}", True),
+      ("/etc/tbds-server/conf", "644", "{0}", True),
+      ("/etc/tbds-server/conf", "755", "{0}", False),
+      ("/etc/tbds-server/conf/password.dat", "640", "{0}", False),
+      ("/var/lib/tbds-server/keys/pass.txt", "600", "{0}", False),
+      ("/etc/tbds-server/conf/ldap-password.dat", "640", "{0}", False),
+      ("/var/run/tbds-server/stack-recommendations/", "744", "{0}", True),
+      ("/var/run/tbds-server/stack-recommendations/", "755", "{0}", False),
+      ("/var/lib/tbds-server/data/tmp/", "644", "{0}", True),
+      ("/var/lib/tbds-server/data/tmp/", "755", "{0}", False),
+      ("/var/lib/tbds-server/data/cache/", "600", "{0}", True),
+      ("/var/lib/tbds-server/data/cache/", "700", "{0}", False),
+      # Also, /etc/tbds-server/conf/password.dat
       # is generated later at store_password_file
     ]
     self.NR_USERADD_CMD = 'useradd -M --comment "{1}" ' \
-                 '--shell %s -d /var/lib/ambari-server/keys/ {0}' % locate_file('nologin', '/sbin')
+                 '--shell %s -d /var/lib/tbds-server/keys/ {0}' % locate_file('nologin', '/sbin')
 
-    self.SERVER_RESOURCES_DIR = "/var/lib/ambari-server/resources"
-    self.STACK_LOCATION_DEFAULT = "/var/lib/ambari-server/resources/stacks"
+    self.SERVER_RESOURCES_DIR = "/var/lib/tbds-server/resources"
+    self.STACK_LOCATION_DEFAULT = "/var/lib/tbds-server/resources/stacks"
 
-    self.DEFAULT_VIEWS_DIR = "/var/lib/ambari-server/resources/views"
+    self.DEFAULT_VIEWS_DIR = "/var/lib/tbds-server/resources/views"
 
     #keytool commands
     self.keytool_bin_subpath = "bin/keytool"
 
     #Standard messages
-    self.MESSAGE_SERVER_RUNNING_AS_ROOT = "Ambari Server running with administrator privileges."
-    self.MESSAGE_ERROR_SETUP_NOT_ROOT = "Ambari-server setup should be run with root-level privileges"
-    self.MESSAGE_ERROR_RESET_NOT_ROOT = "Ambari-server reset should be run with root-level privileges"
-    self.MESSAGE_ERROR_UPGRADE_NOT_ROOT = "Ambari-server upgrade must be run with root-level privileges"
+    self.MESSAGE_SERVER_RUNNING_AS_ROOT = "TBDS Server running with administrator privileges."
+    self.MESSAGE_ERROR_SETUP_NOT_ROOT = "TBDS-server setup should be run with root-level privileges"
+    self.MESSAGE_ERROR_RESET_NOT_ROOT = "TBDS-server reset should be run with root-level privileges"
+    self.MESSAGE_ERROR_UPGRADE_NOT_ROOT = "TBDS-server upgrade must be run with root-level privileges"
     self.MESSAGE_CHECK_FIREWALL = "Checking iptables..."
 
 configDefaults = ServerConfigDefaults()
@@ -351,7 +351,7 @@ configDefaults = ServerConfigDefaults()
 SECURITY_KEYS_DIR = "security.server.keys_dir"
 SECURITY_MASTER_KEY_LOCATION = "security.master.key.location"
 SECURITY_KEY_IS_PERSISTED = "security.master.key.ispersisted"
-SECURITY_KEY_ENV_VAR_NAME = "AMBARI_SECURITY_MASTER_KEY"
+SECURITY_KEY_ENV_VAR_NAME = "TBDS_SECURITY_MASTER_KEY"
 SECURITY_MASTER_KEY_FILENAME = "master"
 SECURITY_IS_ENCRYPTION_ENABLED = "security.passwords.encryption.enabled"
 SECURITY_KERBEROS_JASS_FILENAME = "krb5JAASLogin.conf"
@@ -393,7 +393,7 @@ def find_properties_file():
     print_info_msg('Loading properties from ' + conf_file)
   return conf_file
 
-# Load ambari properties and return dict with values
+# Load tbds properties and return dict with values
 def get_ambari_properties():
   conf_file = find_properties_file()
 
@@ -408,7 +408,7 @@ def get_ambari_properties():
 
 def read_ambari_user():
   '''
-  Reads ambari user from properties file
+  Reads tbds user from properties file
   '''
   properties = get_ambari_properties()
   if properties != -1:
@@ -429,7 +429,7 @@ def get_value_from_properties(properties, key, default=""):
 def get_admin_views_dir(properties):
   views_dir = properties.get_property(VIEWS_DIR_PROPERTY)
   if views_dir is None or views_dir == "":
-    views_dirs = glob.glob("/var/lib/ambari-server/resources/views/work/ADMIN_VIEW*")
+    views_dirs = glob.glob("/var/lib/tbds-server/resources/views/work/ADMIN_VIEW*")
   else:
     views_dirs = glob.glob(views_dir + "/work/ADMIN_VIEW*")
   return views_dirs
@@ -449,7 +449,7 @@ def get_is_persisted(properties):
 def get_credential_store_location(properties):
   store_loc = properties[SECURITY_KEYS_DIR]
   if store_loc is None or store_loc == "":
-    store_loc = "/var/lib/ambari-server/keys/credentials.jceks"
+    store_loc = "/var/lib/tbds-server/keys/credentials.jceks"
   else:
     store_loc += os.sep + "credentials.jceks"
   return store_loc
@@ -475,8 +475,8 @@ def backup_file_in_temp(filePath):
 
 def get_ambari_version(properties):
   """
-  :param properties: Ambari properties
-  :return: Return a string of the ambari version. When comparing versions, please use "compare_versions" function.
+  :param properties: TBDS properties
+  :return: Return a string of the tbds version. When comparing versions, please use "compare_versions" function.
   """
   version = None
   try:
@@ -485,7 +485,7 @@ def get_ambari_version(properties):
       with open(server_version_file_path, 'r') as file:
         version = file.read().strip()
   except:
-    print_error_msg("Error getting ambari version")
+    print_error_msg("Error getting tbds version")
   return version
 
 def get_db_type(properties):
@@ -505,21 +505,21 @@ def get_db_type(properties):
 
 def check_database_name_property(upgrade=False):
   """
-  :param upgrade: If Ambari is being upgraded.
+  :param upgrade: If TBDS is being upgraded.
   :return:
   """
   properties = get_ambari_properties()
   if properties == -1:
-    print_error_msg("Error getting ambari properties")
+    print_error_msg("Error getting tbds properties")
     return -1
 
   version = get_ambari_version(properties)
   if upgrade and (properties[JDBC_DATABASE_PROPERTY] not in ["postgres", "oracle", "mysql", "derby"]
                     or properties.has_key(JDBC_RCA_SCHEMA_PROPERTY)):
-    # This code exists for historic reasons in which property names changed from Ambari 1.6.1 to 1.7.0
+    # This code exists for historic reasons in which property names changed from TBDS 1.6.1 to 1.7.0
     persistence_type = properties[PERSISTENCE_TYPE_PROPERTY]
     if persistence_type == "remote":
-      db_name = properties["server.jdbc.schema"]  # this was a property in Ambari 1.6.1, but not after 1.7.0
+      db_name = properties["server.jdbc.schema"]  # this was a property in TBDS 1.6.1, but not after 1.7.0
       if db_name:
         write_property(JDBC_DATABASE_NAME_PROPERTY, db_name)
 
@@ -532,7 +532,7 @@ def check_database_name_property(upgrade=False):
 
       properties = get_ambari_properties()
     elif persistence_type == "local":
-      # Ambari 1.6.1, had "server.jdbc.database" as the DB name, and the
+      # TBDS 1.6.1, had "server.jdbc.database" as the DB name, and the
       # DB type was assumed to be "postgres" if was embedded ("local")
       db_name = properties[JDBC_DATABASE_PROPERTY]
       if db_name:
@@ -551,7 +551,7 @@ def update_database_name_property(upgrade=False):
   except FatalException:
     properties = get_ambari_properties()
     if properties == -1:
-      err = "Error getting ambari properties"
+      err = "Error getting tbds properties"
       raise FatalException(-1, err)
     print_warning_msg(JDBC_DATABASE_NAME_PROPERTY + " property isn't set in " +
                       AMBARI_PROPERTIES_FILE + ". Setting it to default value - " + configDefaults.DEFAULT_DB_NAME)
@@ -560,7 +560,7 @@ def update_database_name_property(upgrade=False):
     try:
       properties.store(open(conf_file, "w"))
     except Exception, e:
-      err = 'Could not write ambari config file "%s": %s' % (conf_file, e)
+      err = 'Could not write tbds config file "%s": %s' % (conf_file, e)
       raise FatalException(-1, err)
 
 
@@ -688,7 +688,7 @@ def store_password_file(password, filename):
   ambari_user = read_ambari_user()
   set_file_permissions(passFilePath, "660", ambari_user, False)
 
-  #Windows paths need double backslashes, otherwise the Ambari server deserializer will think the single \ are escape markers
+  #Windows paths need double backslashes, otherwise the TBDS server deserializer will think the single \ are escape markers
   return passFilePath.replace('\\', '\\\\')
 
 def remove_password_file(filename):
@@ -748,7 +748,7 @@ def get_original_master_key(properties):
 def parse_properties_file(args):
   properties = get_ambari_properties()
   if properties == -1:
-    print_error_msg("Error getting ambari properties")
+    print_error_msg("Error getting tbds properties")
     return -1
 
   args.server_version_file_path = properties[SERVER_VERSION_FILE_PATH]
@@ -782,7 +782,7 @@ def update_ambari_properties():
 
   # Previous config file does not exist
   if (not prev_conf_file) or (prev_conf_file is None):
-    print_warning_msg("Can not find ambari.properties.backup file from previous version, skipping import of settings")
+    print_warning_msg("Can not find tbds.properties.backup file from previous version, skipping import of settings")
     return 0
 
   try:
@@ -798,7 +798,7 @@ def update_ambari_properties():
 
     for prop_key, prop_value in old_properties.getPropertyDict().items():
       if ("agent.fqdn.service.url" == prop_key):
-        #BUG-7179 what is agent.fqdn property in ambari.props?
+        #BUG-7179 what is agent.fqdn property in tbds.props?
         new_properties.process_pair(GET_FQDN_SERVICE_URL, prop_value)
       elif ("server.os_type" == prop_key):
         new_properties.process_pair(OS_TYPE_PROPERTY, OS_FAMILY + OS_VERSION)
@@ -881,13 +881,13 @@ def write_property(key, value):
   try:
     properties.load(open(conf_file))
   except Exception, e:
-    print_error_msg('Could not read ambari config file "%s": %s' % (conf_file, e))
+    print_error_msg('Could not read tbds config file "%s": %s' % (conf_file, e))
     return -1
   properties.process_pair(key, value)
   try:
     properties.store(open(conf_file, "w"))
   except Exception, e:
-    print_error_msg('Could not write ambari config file "%s": %s' % (conf_file, e))
+    print_error_msg('Could not write tbds config file "%s": %s' % (conf_file, e))
     return -1
   return 0
 
@@ -903,11 +903,11 @@ def is_local_database(args):
 
 def update_debug_mode():
   debug_mode = get_debug_mode()
-  # The command-line settings supersede the ones in ambari.properties
+  # The command-line settings supersede the ones in tbds.properties
   if not debug_mode & 1:
     properties = get_ambari_properties()
     if properties == -1:
-      print_error_msg("Error getting ambari properties")
+      print_error_msg("Error getting tbds properties")
       return -1
 
     if get_value_from_properties(properties, DEBUG_MODE_KEY, False):
@@ -1048,7 +1048,7 @@ def get_full_ambari_classpath(conf_dir = None):
 def get_JAVA_HOME():
   properties = get_ambari_properties()
   if properties == -1:
-    print_error_msg("Error getting ambari properties")
+    print_error_msg("Error getting tbds properties")
     return None
 
   java_home = properties[JAVA_HOME_PROPERTY]

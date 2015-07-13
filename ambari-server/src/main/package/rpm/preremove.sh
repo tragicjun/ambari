@@ -19,8 +19,8 @@
 
 if [ "$1" -eq 0 ]; then  # Action is uninstall
     /usr/sbin/ambari-server stop > /dev/null 2>&1
-    if [ -d "/etc/ambari-server/conf.save" ]; then
-        mv /etc/ambari-server/conf.save /etc/ambari-server/conf_$(date '+%d_%m_%y_%H_%M').save
+    if [ -d "/etc/tbds-server/conf.save" ]; then
+        mv /etc/tbds-server/conf.save /etc/tbds-server/conf_$(date '+%d_%m_%y_%H_%M').save
     fi
 
     if [ -e "/etc/init.d/ambari-server" ]; then
@@ -28,10 +28,10 @@ if [ "$1" -eq 0 ]; then  # Action is uninstall
         rm /etc/init.d/ambari-server
     fi
 
-    mv /etc/ambari-server/conf /etc/ambari-server/conf.save
+    mv /etc/tbds-server/conf /etc/tbds-server/conf.save
 
-    if [ -f "/var/lib/ambari-server/install-helper.sh" ]; then
-      /var/lib/ambari-server/install-helper.sh remove
+    if [ -f "/var/lib/tbds-server/install-helper.sh" ]; then
+      /var/lib/tbds-server/install-helper.sh remove
     fi
 
     chkconfig --list | grep ambari-server && chkconfig --del ambari-server

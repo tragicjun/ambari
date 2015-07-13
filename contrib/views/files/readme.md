@@ -39,7 +39,7 @@ The build will produce the view archive.
 
 Place the view archive on the Ambari Server and restart to deploy.    
 
-    cp files-0.1.0-SNAPSHOT.jar /var/lib/ambari-server/resources/views/
+    cp files-0.1.0-SNAPSHOT.jar /var/lib/tbds-server/resources/views/
     ambari-server restart
 
 Cluster Configuration
@@ -69,7 +69,7 @@ Use the [Ambari Vagrant](https://cwiki.apache.org/confluence/display/AMBARI/Quic
 
 Deploy the Files view into Ambari.
 
-    cp files-0.1.0-SNAPSHOT.jar /var/lib/ambari-server/resources/views/
+    cp files-0.1.0-SNAPSHOT.jar /var/lib/tbds-server/resources/views/
     ambari-server restart
 
 From the Ambari Administration interface, create a Files view instance.
@@ -92,7 +92,7 @@ After deploying the view into a Vagrant VM, if you want to perform view developm
 
 Browse to the work directory.
 
-    cd /var/lib/ambari-server/resources/views/work
+    cd /var/lib/tbds-server/resources/views/work
 
 Remove the FILES{0.1.0} directory.
 

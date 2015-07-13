@@ -342,7 +342,7 @@ def set_current(options):
   finalize_options = SetCurrentVersionOptions(options)
 
   if finalize_options.no_finalize_options_set():
-    err = 'Must specify --cluster-name and --version-display-name. Please invoke ambari-server.py --help to print the options.'
+    err = 'Must specify --cluster-name and --version-display-name. Please invoke tbds-server.py --help to print the options.'
     raise FatalException(1, err)
 
   admin_login = get_validated_string_input(prompt="Enter Ambari Admin login: ", default=None,

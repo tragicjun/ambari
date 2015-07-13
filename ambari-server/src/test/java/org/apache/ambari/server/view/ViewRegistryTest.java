@@ -259,12 +259,12 @@ public class ViewRegistryTest {
       files.put("\\var\\lib\\ambari-server\\resources\\views\\work\\MY_VIEW{1.0.0}\\META-INF", metaInfDir);
     }
     else {
-      files.put("/var/lib/ambari-server/resources/views/work", extractedArchiveDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}", archiveDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/view.xml", entryFile);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/classes", classesDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/lib", libDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/META-INF", metaInfDir);
+      files.put("/var/lib/tbds-server/resources/views/work", extractedArchiveDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}", archiveDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/view.xml", entryFile);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/classes", classesDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/lib", libDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/META-INF", metaInfDir);
     }
 
     Map<File, FileOutputStream> outputStreams = new HashMap<File, FileOutputStream>();
@@ -279,7 +279,7 @@ public class ViewRegistryTest {
       expect(viewDir.getAbsolutePath()).andReturn("\\var\\lib\\ambari-server\\resources\\views");
     }
     else {
-      expect(viewDir.getAbsolutePath()).andReturn("/var/lib/ambari-server/resources/views");
+      expect(viewDir.getAbsolutePath()).andReturn("/var/lib/tbds-server/resources/views");
     }
 
     expect(configuration.getViewExtractionThreadPoolCoreSize()).andReturn(2).anyTimes();
@@ -293,7 +293,7 @@ public class ViewRegistryTest {
       expect(viewArchive.getAbsolutePath()).andReturn("\\var\\lib\\ambari-server\\resources\\views\\work\\MY_VIEW{1.0.0}").anyTimes();
     }
     else {
-      expect(viewArchive.getAbsolutePath()).andReturn("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}").anyTimes();
+      expect(viewArchive.getAbsolutePath()).andReturn("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}").anyTimes();
     }
 
     expect(archiveDir.exists()).andReturn(false).anyTimes();
@@ -301,7 +301,7 @@ public class ViewRegistryTest {
       expect(archiveDir.getAbsolutePath()).andReturn("\\var\\lib\\ambari-server\\resources\\views\\work\\MY_VIEW{1.0.0}").anyTimes();
     }
     else {
-      expect(archiveDir.getAbsolutePath()).andReturn("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}").anyTimes();
+      expect(archiveDir.getAbsolutePath()).andReturn("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}").anyTimes();
     }
     expect(archiveDir.mkdir()).andReturn(true).anyTimes();
     expect(archiveDir.toURI()).andReturn(new URI("file:./")).anyTimes();
@@ -436,12 +436,12 @@ public class ViewRegistryTest {
       files.put("\\var\\lib\\ambari-server\\resources\\views\\work\\MY_VIEW{1.0.0}\\META-INF", metaInfDir);
     }
     else {
-      files.put("/var/lib/ambari-server/resources/views/work", extractedArchiveDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}", archiveDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/view.xml", entryFile);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/classes", classesDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/lib", libDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/META-INF", metaInfDir);
+      files.put("/var/lib/tbds-server/resources/views/work", extractedArchiveDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}", archiveDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/view.xml", entryFile);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/classes", classesDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/lib", libDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/META-INF", metaInfDir);
     }
 
     Map<File, FileOutputStream> outputStreams = new HashMap<File, FileOutputStream>();
@@ -456,7 +456,7 @@ public class ViewRegistryTest {
       expect(viewDir.getAbsolutePath()).andReturn("\\var\\lib\\ambari-server\\resources\\views");
     }
     else {
-      expect(viewDir.getAbsolutePath()).andReturn("/var/lib/ambari-server/resources/views");
+      expect(viewDir.getAbsolutePath()).andReturn("/var/lib/tbds-server/resources/views");
     }
 
     expect(configuration.getViewExtractionThreadPoolCoreSize()).andReturn(2).anyTimes();
@@ -470,7 +470,7 @@ public class ViewRegistryTest {
       expect(viewArchive.getAbsolutePath()).andReturn("\\var\\lib\\ambari-server\\resources\\views\\work\\MY_VIEW{1.0.0}");
     }
     else {
-      expect(viewArchive.getAbsolutePath()).andReturn("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}");
+      expect(viewArchive.getAbsolutePath()).andReturn("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}");
     }
 
     expect(archiveDir.exists()).andReturn(false);
@@ -478,7 +478,7 @@ public class ViewRegistryTest {
       expect(archiveDir.getAbsolutePath()).andReturn("\\var\\lib\\ambari-server\\resources\\views\\work\\MY_VIEW{1.0.0}").anyTimes();
     }
     else {
-      expect(archiveDir.getAbsolutePath()).andReturn("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}").anyTimes();
+      expect(archiveDir.getAbsolutePath()).andReturn("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}").anyTimes();
     }
     expect(archiveDir.mkdir()).andReturn(true);
     expect(archiveDir.toURI()).andReturn(new URI("file:./"));
@@ -1440,13 +1440,13 @@ public class ViewRegistryTest {
       files.put("\\var\\lib\\ambari-server\\resources\\views\\work\\MY_VIEW{1.0.0}\\META-INF", metaInfDir);
     }
     else {
-      files.put("/var/lib/ambari-server/resources/views/my_view-1.0.0.jar", viewArchive);
-      files.put("/var/lib/ambari-server/resources/views/work", extractedArchiveDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}", archiveDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/view.xml", entryFile);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/classes", classesDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/lib", libDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/META-INF", metaInfDir);
+      files.put("/var/lib/tbds-server/resources/views/my_view-1.0.0.jar", viewArchive);
+      files.put("/var/lib/tbds-server/resources/views/work", extractedArchiveDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}", archiveDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/view.xml", entryFile);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/classes", classesDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/lib", libDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/META-INF", metaInfDir);
     }
 
     Map<File, FileOutputStream> outputStreams = new HashMap<File, FileOutputStream>();
@@ -1461,7 +1461,7 @@ public class ViewRegistryTest {
       expect(viewDir.getAbsolutePath()).andReturn("\\var\\lib\\ambari-server\\resources\\views");
     }
     else {
-      expect(viewDir.getAbsolutePath()).andReturn("/var/lib/ambari-server/resources/views");
+      expect(viewDir.getAbsolutePath()).andReturn("/var/lib/tbds-server/resources/views");
     }
 
     expect(configuration.getViewExtractionThreadPoolCoreSize()).andReturn(2).anyTimes();
@@ -1472,7 +1472,7 @@ public class ViewRegistryTest {
       expect(viewArchive.getAbsolutePath()).andReturn("\\var\\lib\\ambari-server\\resources\\views\\work\\MY_VIEW{1.0.0}").anyTimes();
     }
     else {
-      expect(viewArchive.getAbsolutePath()).andReturn("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}").anyTimes();
+      expect(viewArchive.getAbsolutePath()).andReturn("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}").anyTimes();
     }
 
     expect(archiveDir.exists()).andReturn(false);
@@ -1480,7 +1480,7 @@ public class ViewRegistryTest {
       expect(archiveDir.getAbsolutePath()).andReturn("\\var\\lib\\ambari-server\\resources\\views\\work\\MY_VIEW{1.0.0}").anyTimes();
     }
     else {
-      expect(archiveDir.getAbsolutePath()).andReturn("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}").anyTimes();
+      expect(archiveDir.getAbsolutePath()).andReturn("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}").anyTimes();
     }
 
     Capture<ViewEntity> viewEntityCapture = new Capture<ViewEntity>();
@@ -1488,7 +1488,7 @@ public class ViewRegistryTest {
       expect(viewExtractor.ensureExtractedArchiveDirectory("\\var\\lib\\ambari-server\\resources\\views\\work")).andReturn(true);
     }
     else {
-      expect(viewExtractor.ensureExtractedArchiveDirectory("/var/lib/ambari-server/resources/views/work")).andReturn(true);
+      expect(viewExtractor.ensureExtractedArchiveDirectory("/var/lib/tbds-server/resources/views/work")).andReturn(true);
     }
     expect(viewExtractor.extractViewArchive(capture(viewEntityCapture), eq(viewArchive), eq(archiveDir))).andReturn(null);
 
@@ -1503,7 +1503,7 @@ public class ViewRegistryTest {
               viewExtractor, archiveUtility, configuration, true));
     }
     else {
-      Assert.assertTrue(ViewRegistry.extractViewArchive("/var/lib/ambari-server/resources/views/my_view-1.0.0.jar",
+      Assert.assertTrue(ViewRegistry.extractViewArchive("/var/lib/tbds-server/resources/views/my_view-1.0.0.jar",
               viewExtractor, archiveUtility, configuration, true));
     }
 

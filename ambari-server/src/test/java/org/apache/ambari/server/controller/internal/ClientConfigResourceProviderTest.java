@@ -298,15 +298,15 @@ public class ClientConfigResourceProviderTest {
     PowerMock.mockStatic(Runtime.class);
     expect(mockFile.exists()).andReturn(true);
     String commandLine = "ambari-python-wrap /tmp/stacks/S1/V1/PIG/package/null generate_configs null " +
-            "/tmp/stacks/S1/V1/PIG/package /var/lib/ambari-server/tmp/structured-out.json " +
-            "INFO /var/lib/ambari-server/tmp";
+            "/tmp/stacks/S1/V1/PIG/package /var/lib/tbds-server/tmp/structured-out.json " +
+            "INFO /var/lib/tbds-server/tmp";
 
     if (System.getProperty("os.name").contains("Windows")) {
       String absoluteStackRoot = stackRootFile.getAbsolutePath();
       commandLine = "ambari-python-wrap " + absoluteStackRoot +
               "\\PIG\\package\\null generate_configs null " +
-              absoluteStackRoot + "\\PIG\\package /var/lib/ambari-server/tmp\\structured-out.json " +
-              "INFO /var/lib/ambari-server/tmp";
+              absoluteStackRoot + "\\PIG\\package /var/lib/tbds-server/tmp\\structured-out.json " +
+              "INFO /var/lib/tbds-server/tmp";
     }
 
     ProcessBuilder processBuilder = PowerMock.createNiceMock(ProcessBuilder.class);
@@ -400,7 +400,7 @@ public class ClientConfigResourceProviderTest {
 
     String stackRoot="/tmp/stacks/S1/V1";
     String packageFolder= StackManager.COMMON_SERVICES + "/PIG/package";
-    String commonServicesPath = "/var/lib/ambari-server/src/main/resources/common-services";
+    String commonServicesPath = "/var/lib/tbds-server/src/main/resources/common-services";
 
     if (System.getProperty("os.name").contains("Windows")) {
       stackRoot = "\\tmp\\stacks\\S1\\V1";
@@ -499,15 +499,15 @@ public class ClientConfigResourceProviderTest {
     PowerMock.mockStatic(Runtime.class);
     expect(mockFile.exists()).andReturn(true);
     String commandLine = "ambari-python-wrap " + commonServicesPath + "/PIG/package/null generate_configs null " +
-            commonServicesPath + "/PIG/package /var/lib/ambari-server/tmp/structured-out.json " +
-            "INFO /var/lib/ambari-server/tmp";
+            commonServicesPath + "/PIG/package /var/lib/tbds-server/tmp/structured-out.json " +
+            "INFO /var/lib/tbds-server/tmp";
 
     if (System.getProperty("os.name").contains("Windows")) {
       String absoluteStackRoot = stackRootFile.getAbsolutePath();
       commandLine = "ambari-python-wrap " + commonServicesPath +
               "\\PIG\\package\\null generate_configs null " +
-              commonServicesPath + "\\PIG\\package /var/lib/ambari-server/tmp\\structured-out.json " +
-              "INFO /var/lib/ambari-server/tmp";
+              commonServicesPath + "\\PIG\\package /var/lib/tbds-server/tmp\\structured-out.json " +
+              "INFO /var/lib/tbds-server/tmp";
     }
 
     ProcessBuilder processBuilder = PowerMock.createNiceMock(ProcessBuilder.class);

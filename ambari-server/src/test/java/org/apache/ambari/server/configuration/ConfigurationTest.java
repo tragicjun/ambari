@@ -81,7 +81,7 @@ public class ConfigurationTest {
   }
 
   /**
-   * ambari.properties doesn't contain "security.server.two_way_ssl" option
+   * tbds.properties doesn't contain "security.server.two_way_ssl" option
    * @throws Exception
    */
   @Test
@@ -90,7 +90,7 @@ public class ConfigurationTest {
   }
 
   /**
-   * ambari.properties contains "security.server.two_way_ssl=true" option
+   * tbds.properties contains "security.server.two_way_ssl=true" option
    * @throws Exception
    */
   @Test
@@ -102,7 +102,7 @@ public class ConfigurationTest {
   }
 
   /**
-   * ambari.properties contains "security.server.two_way_ssl=false" option
+   * tbds.properties contains "security.server.two_way_ssl=false" option
    * @throws Exception
    */
   @Test

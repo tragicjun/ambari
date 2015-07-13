@@ -94,7 +94,7 @@ public class ViewExtractorTest {
       expect(viewArchive.getAbsolutePath()).andReturn("\\var\\lib\\ambari-server\\resources\\views\\work\\MY_VIEW{1.0.0}").anyTimes();
     }
     else {
-      expect(viewArchive.getAbsolutePath()).andReturn("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}").anyTimes();
+      expect(viewArchive.getAbsolutePath()).andReturn("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}").anyTimes();
     }
 
     expect(archiveDir.exists()).andReturn(false);
@@ -102,7 +102,7 @@ public class ViewExtractorTest {
       expect(archiveDir.getAbsolutePath()).andReturn("\\var\\lib\\ambari-server\\resources\\views\\work\\MY_VIEW{1.0.0}").anyTimes();
     }
     else {
-      expect(archiveDir.getAbsolutePath()).andReturn("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}").anyTimes();
+      expect(archiveDir.getAbsolutePath()).andReturn("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}").anyTimes();
     }
     expect(archiveDir.mkdir()).andReturn(true);
     expect(archiveDir.toURI()).andReturn(new URI("file:./"));
@@ -162,7 +162,7 @@ public class ViewExtractorTest {
       Assert.assertTrue(viewExtractor.ensureExtractedArchiveDirectory("\\var\\lib\\ambari-server\\resources\\views\\work"));
     }
     else {
-      Assert.assertTrue(viewExtractor.ensureExtractedArchiveDirectory("/var/lib/ambari-server/resources/views/work"));
+      Assert.assertTrue(viewExtractor.ensureExtractedArchiveDirectory("/var/lib/tbds-server/resources/views/work"));
     }
 
     verify(extractedArchiveDir, viewArchive, archiveDir, entryFile, classesDir, libDir, metaInfDir, viewJarFile,
@@ -181,7 +181,7 @@ public class ViewExtractorTest {
       Assert.assertTrue(viewExtractor.ensureExtractedArchiveDirectory("\\var\\lib\\ambari-server\\resources\\views\\work"));
     }
     else {
-      Assert.assertTrue(viewExtractor.ensureExtractedArchiveDirectory("/var/lib/ambari-server/resources/views/work"));
+      Assert.assertTrue(viewExtractor.ensureExtractedArchiveDirectory("/var/lib/tbds-server/resources/views/work"));
     }
 
     verify(extractedArchiveDir);
@@ -199,7 +199,7 @@ public class ViewExtractorTest {
       Assert.assertFalse(viewExtractor.ensureExtractedArchiveDirectory("\\var\\lib\\ambari-server\\resources\\views\\work"));
     }
     else {
-      Assert.assertFalse(viewExtractor.ensureExtractedArchiveDirectory("/var/lib/ambari-server/resources/views/work"));
+      Assert.assertFalse(viewExtractor.ensureExtractedArchiveDirectory("/var/lib/tbds-server/resources/views/work"));
     }
     verify(extractedArchiveDir);
   }
@@ -220,12 +220,12 @@ public class ViewExtractorTest {
       files.put("\\var\\lib\\ambari-server\\resources\\views\\work\\MY_VIEW{1.0.0}\\META-INF", metaInfDir);
     }
     else {
-      files.put("/var/lib/ambari-server/resources/views/work", extractedArchiveDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}", archiveDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/view.xml", entryFile);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/classes", classesDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/lib", libDir);
-      files.put("/var/lib/ambari-server/resources/views/work/MY_VIEW{1.0.0}/META-INF", metaInfDir);
+      files.put("/var/lib/tbds-server/resources/views/work", extractedArchiveDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}", archiveDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/view.xml", entryFile);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/classes", classesDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/WEB-INF/lib", libDir);
+      files.put("/var/lib/tbds-server/resources/views/work/MY_VIEW{1.0.0}/META-INF", metaInfDir);
     }
 
     Map<File, FileOutputStream> outputStreams = new HashMap<File, FileOutputStream>();

@@ -139,10 +139,10 @@ public class TestShellCommandUtil extends TestCase {
   public void testHideOpenSslPassword(){
     String command_pass = "openssl ca -config ca.config -in agent_hostname1.csr -out "+
             "agent_hostname1.crt -batch -passin pass:1234 -keyfile ca.key -cert ca.crt";
-    String command_key = "openssl ca -create_serial -out /var/lib/ambari-server/keys/ca.crt -days 365 -keyfile /var/lib/ambari-server/keys/ca.key " +
+    String command_key = "openssl ca -create_serial -out /var/lib/tbds-server/keys/ca.crt -days 365 -keyfile /var/lib/tbds-server/keys/ca.key " +
         "-key 1234 -selfsign -extensions jdk7_ca " +
-        "-config /var/lib/ambari-server/keys/ca.config -batch " +
-        "-infiles /var/lib/ambari-server/keys/ca.csr";
+        "-config /var/lib/tbds-server/keys/ca.config -batch " +
+        "-infiles /var/lib/tbds-server/keys/ca.csr";
     assertFalse(ShellCommandUtil.hideOpenSslPassword(command_pass).contains("1234"));
     assertFalse(ShellCommandUtil.hideOpenSslPassword(command_key).contains("1234"));
   }

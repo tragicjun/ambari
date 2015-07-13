@@ -52,7 +52,7 @@ The build will produce the view archive.
 
 Place the view archive on the Ambari Server and restart to deploy.    
 
-    cp property-validator-view-0.1.0.jar /var/lib/ambari-server/resources/views/
+    cp property-validator-view-0.1.0.jar /var/lib/tbds-server/resources/views/
     ambari-server restart
     
 Create View Instance

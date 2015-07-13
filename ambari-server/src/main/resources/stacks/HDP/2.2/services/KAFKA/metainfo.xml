@@ -21,7 +21,6 @@
     <service>
       <name>KAFKA</name>
       <extends>common-services/KAFKA/0.8.1.2.2</extends>
-      <deleted>true</deleted>
     </service>
   </services>
 </metainfo>

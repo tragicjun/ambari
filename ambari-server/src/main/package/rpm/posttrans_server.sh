@@ -15,9 +15,9 @@
 
 
 RESOURCE_MANAGEMENT_DIR="/usr/lib/python2.6/site-packages/resource_management"
-RESOURCE_MANAGEMENT_DIR_SERVER="/usr/lib/ambari-server/lib/resource_management"
+RESOURCE_MANAGEMENT_DIR_SERVER="/usr/lib/tbds-server/lib/resource_management"
 JINJA_DIR="/usr/lib/python2.6/site-packages/ambari_jinja2"
-JINJA_SERVER_DIR="/usr/lib/ambari-server/lib/ambari_jinja2"
+JINJA_SERVER_DIR="/usr/lib/tbds-server/lib/ambari_jinja2"
 
 # remove RESOURCE_MANAGEMENT_DIR if it's a directory
 if [ -d "$RESOURCE_MANAGEMENT_DIR" ]; then  # resource_management dir exists

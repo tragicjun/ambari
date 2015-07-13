@@ -232,7 +232,7 @@ class SQLServerConfig(DBMSConfig):
 
     if db_machine == "localhost" or db_machine.lower() == os.getenv("COMPUTERNAME").lower() or \
             db_machine.lower() == socket.getfqdn().lower():
-      #TODO: Configure the SQL Server service name in ambari.properties
+      #TODO: Configure the SQL Server service name in tbds.properties
       ret = WinServiceController.EnsureServiceIsStarted(sql_svc_name)
       if 0 != ret:
         raise FatalException(-1, "Error starting SQL Server: " + string(ret))

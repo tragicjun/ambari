@@ -89,8 +89,8 @@ def refresh_stack_hash(properties):
   resource_files_keeper = ResourceFilesKeeper(resources_location)
 
   try:
-    print "Organizing resource files at {0}...".format(resources_location,
-                                                       verbose=get_verbose())
+    # print "Organizing resource files at {0}...".format(resources_location, verbose=get_verbose())
+    print "Organizing resource files..."
     resource_files_keeper.perform_housekeeping()
   except KeeperException, ex:
     msg = "Can not organize resource files at {0}: {1}".format(

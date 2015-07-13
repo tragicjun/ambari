@@ -37,7 +37,7 @@ then
   then
     HDPREPO=target/classes/stacks/HDP/${VERSION}/repos
   else
-    HDPREPO=$3/var/lib/ambari-server/resources/stacks/HDP/${VERSION}/repos
+    HDPREPO=$3/var/lib/tbds-server/resources/stacks/HDP/${VERSION}/repos
   fi
 
   echo "Processing '${HDPREPO}/repoinfo.xml' and '${HDPLOCALREPO}/repoinfo.xml'"

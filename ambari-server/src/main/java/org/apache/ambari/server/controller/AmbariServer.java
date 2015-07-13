@@ -436,7 +436,7 @@ public class AmbariServer {
       String osType = getServerOsType();
       if (osType == null || osType.isEmpty()) {
         throw new RuntimeException(Configuration.OS_VERSION_KEY + " is not "
-            + " set in the ambari.properties file");
+            + " set in the tbds.properties file");
       }
 
       //Start action scheduler

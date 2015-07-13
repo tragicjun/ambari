@@ -7,7 +7,7 @@ currentPath=`pwd`
 #create the ambari user
 name="tencent"
 password="tencent"
-mkdir -p="/home"
+home_root="/home"
 
 if [ ! -d ${home_root} ]; then
   mkdir -p ${home_root}

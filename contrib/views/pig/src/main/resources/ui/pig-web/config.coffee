@@ -59,4 +59,4 @@ exports.config =
     development:
       fileListInterval: 64
       paths:
-        public: '/usr/lib/ambari-server/web/views-debug/PIG/0.1.0/MyPig/'
+        public: '/usr/lib/tbds-server/web/views-debug/PIG/0.1.0/MyPig/'

@@ -201,7 +201,7 @@ function Main( $scriptDir )
             }
             if ($out -eq $null)
     		{
-    			Write-Log "Cannot detect HDP version. Please add correct HDP version into ambari.properties file"
+    			Write-Log "Cannot detect HDP version. Please add correct HDP version into tbds.properties file"
     		}
 			else 
 			{
@@ -372,8 +372,8 @@ function Main( $scriptDir )
     $package = GetName $package "full"
     $command = "$winpkg $Package unzip $destination"
     Invoke-Pschk $command
-    Write-Log "Modifiying ambari.properties"
-    $props = Join-Path $destination "$ambari_conf\conf\ambari.properties"
+    Write-Log "Modifiying tbds.properties"
+    $props = Join-Path $destination "$ambari_conf\conf\tbds.properties"
     Add-Content $props "scom.sink.db.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver"
     $value = "scom.sink.db.url=jdbc:sqlserver://$env:SQL_SERVER_NAME':$env:SQL_SERVER_PORT;databaseName=HadoopMetrics;user=$env:SQL_SERVER_LOGIN;password=$env:SQL_SERVER_PASSWORD"
     Add-Content $props $value.Replace("'","")

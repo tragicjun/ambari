@@ -88,7 +88,7 @@ A specific version can be requested.  Note that all of the instances of the view
     {
       "href" : "http://<server>:8080/api/v1/views/FILES/versions/0.1.0/",
       "ViewVersionInfo" : {
-        "archive" : "/var/lib/ambari-server/resources/views/work/FILES{0.1.0}",
+        "archive" : "/var/lib/tbds-server/resources/views/work/FILES{0.1.0}",
         "label" : "Files",
         "parameters" : [
           {

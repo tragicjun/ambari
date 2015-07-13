@@ -29,7 +29,7 @@
       <outputDirectory>ambari-server-${project.version}/lib/ambari-server</outputDirectory>
     </file>
    <file>
-      <source>${basedir}/src/main/python/ambari-server.py</source>
+      <source>${basedir}/src/main/python/tbds-server.py</source>
       <outputDirectory>/ambari-server-${project.version}/sbin</outputDirectory>
     </file>
     <file>
@@ -87,11 +87,11 @@
     </fileSet>
     <fileSet>
       <directory>src/main/conf</directory>
-      <outputDirectory>/ambari-server-${project.version}/etc/ambari-server/conf</outputDirectory>
+      <outputDirectory>/ambari-server-${project.version}/etc/tbds-server/conf</outputDirectory>
     </fileSet>
     <fileSet>
       <directory>src/main/resources</directory>
-      <outputDirectory>/ambari-server-${project.version}/var/lib/ambari-server/resources/</outputDirectory>
+      <outputDirectory>/ambari-server-${project.version}/var/lib/tbds-server/resources/</outputDirectory>
       <includes>
         <include>common-services/**</include>
         <include>stacks/stack_advisor.py</include>

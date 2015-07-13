@@ -825,17 +825,17 @@ Deploy
 -----
 To deploy a view, simply place the view archive in the views folder of the ambari-server machine.  By default the views folder is located at ...
 
-    /var/lib/ambari-server/resources/views
+    /var/lib/tbds-server/resources/views
 
 
 ###Exploded Archive
 When a view is deployed, the contents of the archive are expanded under the views folder.  By default the exploded view archives are located at … 
 
-    /var/lib/ambari-server/resources/views/work/:viewName{:viewVersion}
+    /var/lib/tbds-server/resources/views/work/:viewName{:viewVersion}
     
 For example, the exploded view archive for the above Files view would be found at …
 
-    /var/lib/ambari-server/resources/views/work/FILES{0.1.0}
+    /var/lib/tbds-server/resources/views/work/FILES{0.1.0}
 
 Once deployed, the user may make changes directly to the view components.  Changes to some files, such as html and other UI components, may be noticed right away while others require a restart of Ambari.  
 
@@ -914,7 +914,7 @@ A specific version can be requested.  Note that all of the instances of the view
     {
       "href" : "http://<server>:8080/api/v1/views/FILES/versions/0.1.0/",
       "ViewVersionInfo" : {
-        "archive" : "/var/lib/ambari-server/resources/views/work/FILES{0.1.0}",
+        "archive" : "/var/lib/tbds-server/resources/views/work/FILES{0.1.0}",
         "label" : "Files",
         "parameters" : [
           {

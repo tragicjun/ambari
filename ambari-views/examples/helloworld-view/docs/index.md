@@ -72,7 +72,7 @@ Deploy
 -----
 To deploy a view we simply place the view archive in the views folder of the ambari-server machine.  By default the views folder is located at ...
 
-    /var/lib/ambari-server/resources/views
+    /var/lib/tbds-server/resources/views
 
 To deploy the HelloWorld view simply copy the helloworld-view jar to the ambari-server views folder and restart the ambari server.
 
@@ -103,7 +103,7 @@ If we want to see the details about a specific view, we can ask for it by name. 
     {
       "href" : "http://<server>:8080/api/v1/views/HELLO_WORLD/versions/1.0.0/",
       "ViewVersionInfo" : {
-        "archive" : "/var/lib/ambari-server/resources/views/work/HELLO_WORLD{1.0.0}",
+        "archive" : "/var/lib/tbds-server/resources/views/work/HELLO_WORLD{1.0.0}",
         "label" : "The Hello World View!",
         "parameters" : [ ],
         "version" : "1.0.0",

@@ -83,7 +83,7 @@ class VerifiedHTTPSConnection(httplib.HTTPSConnection):
                     '\nIn order to receive a new agent certificate, remove '
                     'existing certificate file from keys directory. As a '
                     'workaround you can turn off two-way SSL authentication in '
-                    'server configuration(ambari.properties) '
+                    'server configuration(tbds.properties) '
                     '\nExiting..')
         raise err
 
@@ -234,7 +234,7 @@ class CertificateManager():
                    '\nIn order to receive a new agent'
                    ' certificate, remove existing certificate file from keys '
                    'directory. As a workaround you can turn off two-way SSL '
-                   'authentication in server configuration(ambari.properties) '
+                   'authentication in server configuration(tbds.properties) '
                    '\nExiting..')
       raise ssl.SSLError
 

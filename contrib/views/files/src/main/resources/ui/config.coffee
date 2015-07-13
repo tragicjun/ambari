@@ -50,4 +50,4 @@ exports.config =
   overrides:
     development:
       paths:
-        public: '/usr/lib/ambari-server/web/views-debug/FILES/0.1.0/MyFiles/'
+        public: '/usr/lib/tbds-server/web/views-debug/FILES/0.1.0/MyFiles/'

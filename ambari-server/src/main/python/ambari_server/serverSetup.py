@@ -23,6 +23,7 @@ import os
 import re
 import shutil
 import sys
+import commands
 
 from ambari_commons.exceptions import FatalException
 from ambari_commons.firewall import Firewall
@@ -57,7 +58,7 @@ SE_MODE_ENFORCING = "enforcing"
 SE_MODE_PERMISSIVE = "permissive"
 
 # Non-root user setup commands
-NR_USER_COMMENT = "Ambari user"
+NR_USER_COMMENT = "TBDS user"
 
 VIEW_EXTRACT_CMD = "{0} -cp {1} " + \
                    "org.apache.ambari.server.view.ViewRegistry extract {2} " + \
@@ -65,7 +66,7 @@ VIEW_EXTRACT_CMD = "{0} -cp {1} " + \
 
 MAKE_FILE_EXECUTABLE_CMD = "chmod a+x {0}"
 
-# use --no-same-owner when running as root to prevent uucp as the user (AMBARI-6478)
+# use --no-same-owner when running as root to prevent uucp as the user (TBDS-6478)
 UNTAR_JDK_ARCHIVE = "tar --no-same-owner -xvf {0}"
 
 JDK_PROMPT = "[{0}] {1}\n"
@@ -87,7 +88,7 @@ def verify_setup_allowed():
   if get_silent():
     properties = get_ambari_properties()
     if properties == -1:
-      print_error_msg("Error getting ambari properties")
+      print_error_msg("Error getting tbds properties")
       return -1
 
     isSecure = get_is_secure(properties)
@@ -96,7 +97,7 @@ def verify_setup_allowed():
       if not isPersisted:
         print "ERROR: Cannot run silent 'setup' with password encryption enabled " \
               "and Master Key not persisted."
-        print "Ambari Server 'setup' exiting."
+        print "TBDS Server 'setup' exiting."
         return 1
   return 0
 
@@ -163,7 +164,7 @@ class AmbariUserChecks(object):
     self.NR_USER_CHANGE_PROMPT = ""
     self.NR_USER_CUSTOMIZE_PROMPT = ""
     self.NR_DEFAULT_USER = ""
-    self.NR_USER_COMMENT = "Ambari user"
+    self.NR_USER_COMMENT = "TBDS user"
 
   def do_checks(self):
     try:
@@ -204,13 +205,13 @@ class AmbariUserChecksWindows(AmbariUserChecks):
   def __init__(self):
     super(AmbariUserChecksWindows, self).__init__()
 
-    self.NR_USER_CHANGE_PROMPT = "Ambari-server service is configured to run under user '{0}'. Change this setting [y/n] (n)? "
-    self.NR_USER_CUSTOMIZE_PROMPT = "Customize user account for ambari-server service [y/n] (n)? "
+    self.NR_USER_CHANGE_PROMPT = "TBDS-server service is configured to run under user '{0}'. Change this setting [y/n] (n)? "
+    self.NR_USER_CUSTOMIZE_PROMPT = "Customize user account for tbds-server service [y/n] (n)? "
     self.NR_DEFAULT_USER = "NT AUTHORITY\SYSTEM"
 
   def _create_custom_user(self):
     user = get_validated_string_input(
-      "Enter user account for ambari-server service ({0}):".format(self.NR_DEFAULT_USER),
+      "Enter user account for tbds-server service ({0}):".format(self.NR_DEFAULT_USER),
       self.NR_DEFAULT_USER, None,
       "Invalid username.",
       False
@@ -242,7 +243,7 @@ class AmbariUserChecksWindows(AmbariUserChecks):
     print_info_msg("User configuration is done.")
     print_warning_msg("When using non SYSTEM user make sure that your user have read\write access to log directories and "
                       "all server directories. In case of integrated authentication for SQL Server make sure that your "
-                      "user properly configured to use ambari and metric database.")
+                      "user properly configured to use tbds and metric database.")
     #storing username and password in os.environ temporary to pass them to service
     os.environ[SERVICE_USERNAME_KEY] = user
     os.environ[SERVICE_PASSWORD_KEY] = password
@@ -253,16 +254,16 @@ class AmbariUserChecksLinux(AmbariUserChecks):
   def __init__(self):
     super(AmbariUserChecksLinux, self).__init__()
 
-    self.NR_USER_CHANGE_PROMPT = "Ambari-server daemon is configured to run under user '{0}'. Change this setting [y/n] (n)? "
-    self.NR_USER_CUSTOMIZE_PROMPT = "Customize user account for ambari-server daemon [y/n] (n)? "
+    self.NR_USER_CHANGE_PROMPT = "TBDS-server daemon is configured to run under user '{0}'. Change this setting [y/n] (n)? "
+    self.NR_USER_CUSTOMIZE_PROMPT = "Customize user account for tbds-server daemon [y/n] (n)? "
     self.NR_DEFAULT_USER = "root"
 
     self.NR_USERADD_CMD = 'useradd -M --comment "{1}" ' \
-                          '--shell %s -d /var/lib/ambari-server/keys/ {0}' % locate_file('nologin', '/sbin')
+                          '--shell %s -d /var/lib/tbds-server/keys/ {0}' % locate_file('nologin', '/sbin')
 
   def _create_custom_user(self):
     user = get_validated_string_input(
-      "Enter user account for ambari-server daemon (root):",
+      "Enter user account for tbds-server daemon (root):",
       "root",
       "^[a-z_][a-z0-9_-]{1,31}$",
       "Invalid username.",
@@ -298,9 +299,9 @@ def check_firewall():
   if firewall_obj.stderrdata and len(firewall_obj.stderrdata) > 0:
     print firewall_obj.stderrdata
   if firewall_on:
-    print_warning_msg("%s is running. Confirm the necessary Ambari ports are accessible. " %
+    print_warning_msg("%s is running. Confirm the necessary TBDS ports are accessible. " %
                       firewall_obj.FIREWALL_SERVICE_NAME +
-                      "Refer to the Ambari documentation for more details on ports.")
+                      "Refer to the TBDS documentation for more details on ports.")
     ok = get_YN_input("OK to continue [y/n] (y)? ", True)
     if not ok:
       raise FatalException(1, None)
@@ -396,7 +397,7 @@ class JDKSetup(object):
       if not os.path.exists(args.java_home) or not os.path.isfile(os.path.join(args.java_home, "bin", self.JAVA_BIN)):
         err = "Java home path or java binary file is unavailable. Please put correct path to java home."
         raise FatalException(1, err)
-      print "Validating JDK on Ambari Server...done."
+      print "Validating JDK on TBDS Server...done."
 
       properties.process_pair(JAVA_HOME_PROPERTY, args.java_home)
       properties.removeOldProp(JDK_NAME_PROPERTY)
@@ -422,7 +423,7 @@ class JDKSetup(object):
                         "license terms found at "
                         "http://www.oracle.com/technetwork/java/javase/"
                         "terms/license/index.html and not accepting will "
-                        "cancel the Ambari Server setup and you must install the JDK and JCE "
+                        "cancel the TBDS Server setup and you must install the JDK and JCE "
                         "files manually.\nDo you accept the "
                         "Oracle Binary Code License Agreement [y/n] (y)? ", True)
       if not ok:
@@ -444,7 +445,7 @@ class JDKSetup(object):
                           "Would you like to re-download the JDK [y/n] (y)? ", not get_silent())
         if not ok:
           err = "Unable to install JDK. Please remove JDK file found at " + \
-                dest_file + " and re-run Ambari Server setup"
+                dest_file + " and re-run TBDS Server setup"
           raise FatalException(1, err)
         else:
           jdk_url = jdk_cfg.url
@@ -458,12 +459,12 @@ class JDKSetup(object):
           except Exception, e:
             print "Installation of JDK was failed: %s\n" % str(e)
             err = "Unable to install JDK. Please remove JDK, file found at " + \
-                  dest_file + " and re-run Ambari Server setup"
+                  dest_file + " and re-run TBDS Server setup"
             raise FatalException(1, err)
 
       else:
         err = "Unable to install JDK. File " + dest_file + " does not exist, " \
-                                                           "please re-run Ambari Server setup"
+                                                           "please re-run TBDS Server setup"
         raise FatalException(1, err)
 
     properties.process_pair(JDK_NAME_PROPERTY, jdk_cfg.dest_file)
@@ -605,7 +606,7 @@ class JDKSetupWindows(JDKSetup):
     if java_inst_file.endswith(".exe"):
       (dirname, filename) = os.path.split(java_inst_file)
       installLogFilePath = os.path.join(configDefaults.OUT_DIR, filename + "-install.log")
-      #jre7u67.exe /s INSTALLDIR=<dir> STATIC=1 WEB_JAVA=0 /L \\var\\log\\ambari-server\\jre7u67.exe-install.log
+      #jre7u67.exe /s INSTALLDIR=<dir> STATIC=1 WEB_JAVA=0 /L \\var\\log\\tbds-server\\jre7u67.exe-install.log
       installCmd = [
         java_inst_file,
         "/s",
@@ -617,7 +618,7 @@ class JDKSetupWindows(JDKSetup):
       ]
       retcode, out, err = run_os_command(installCmd)
       #TODO: support .msi file installations
-      #msiexec.exe jre.msi /s INSTALLDIR=<dir> STATIC=1 WEB_JAVA=0 /L \\var\\log\\ambari-server\\jre7u67-install.log ?
+      #msiexec.exe jre.msi /s INSTALLDIR=<dir> STATIC=1 WEB_JAVA=0 /L \\var\\log\\tbds-server\\jre7u67-install.log ?
     else:
       err = "JDK installation failed.Unknown file mask."
       raise FatalException(1, err)
@@ -670,7 +671,7 @@ class JDKSetupLinux(JDKSetup):
     self.CHMOD_JDK_DIR_CMD = "chmod a+x {0}"
     self.MAKE_FILE_EXECUTABLE_CMD = "chmod a+x {0}"
 
-    # use --no-same-owner when running as root to prevent uucp as the user (AMBARI-6478)
+    # use --no-same-owner when running as root to prevent uucp as the user (TBDS-6478)
     self.UNTAR_JDK_ARCHIVE = "tar --no-same-owner -xvf {0}"
 
   def _install_jdk(self, java_inst_file, jdk_cfg):
@@ -711,7 +712,7 @@ class JDKSetupLinux(JDKSetup):
 def download_and_install_jdk(options):
   properties = get_ambari_properties()
   if properties == -1:
-    err = "Error getting ambari properties"
+    err = "Error getting tbds properties"
     raise FatalException(-1, err)
 
   jdkSetup = JDKSetup()
@@ -726,12 +727,12 @@ def download_and_install_jdk(options):
 
 
 #
-# Configures the OS settings in ambari properties.
+# Configures the OS settings in tbds properties.
 #
 def configure_os_settings():
   properties = get_ambari_properties()
   if properties == -1:
-    print_error_msg("Error getting ambari properties")
+    print_error_msg("Error getting tbds properties")
     return -1
   try:
     conf_os_type = properties[OS_TYPE_PROPERTY]
@@ -780,7 +781,7 @@ def _cache_jdbc_driver(args):
 def _cache_jdbc_driver(args):
   properties = get_ambari_properties()
   if properties == -1:
-    err = "Error getting ambari properties"
+    err = "Error getting tbds properties"
     raise FatalException(-1, err)
   conf_file = properties.fileName
 
@@ -831,7 +832,7 @@ def prompt_db_properties(options):
 def _setup_database(options):
   properties = get_ambari_properties()
   if properties == -1:
-    raise FatalException(-1, "Error getting ambari properties")
+    raise FatalException(-1, "Error getting tbds properties")
 
   factory = DBMSConfigFactory()
 
@@ -847,10 +848,10 @@ def _setup_database(options):
 def _createDefDbFactory(options):
   properties = get_ambari_properties()
   if properties == -1:
-    raise FatalException(-1, "Error getting ambari properties")
+    raise FatalException(-1, "Error getting tbds properties")
   if not (properties.getPropertyDict().has_key(JDBC_URL_PROPERTY) and
             properties.getPropertyDict().has_key(JDBC_RCA_URL_PROPERTY)):
-    raise FatalException(-1, "Ambari Server not set up yet. Nothing to reset.")
+    raise FatalException(-1, "TBDS Server not set up yet. Nothing to reset.")
 
   empty_options = optparse.Values()
   empty_options.must_set_database_options = options.must_set_database_options
@@ -871,7 +872,7 @@ def _createDefDbFactory(options):
 def _reset_database(options):
   properties = get_ambari_properties()
   if properties == -1:
-    print_error_msg("Error getting ambari properties")
+    print_error_msg("Error getting tbds properties")
     return -1
 
   factory = DBMSConfigFactory()
@@ -893,7 +894,7 @@ def extract_views():
 
   properties = get_ambari_properties()
   if properties == -1:
-    print_error_msg("Error getting ambari properties")
+    print_error_msg("Error getting tbds properties")
     return -1
 
   vdir = get_value_from_properties(properties, VIEWS_DIR_PROPERTY, configDefaults.DEFAULT_VIEWS_DIR)
@@ -958,15 +959,60 @@ def _check_repo_options(options):
 def configureRepoURL(repoURL):
     repoURL = repoURL.replace("/", "\/")
     jdkLocation = repoURL + "\/" + "java"
-    cmd = "sed -i 's/public-repo-1.hortonworks.com\/ARTIFACTS/" + jdkLocation + "/g'" + " /etc/ambari-server/conf/ambari.properties"
+    cmd = "sed -i 's/public-repo-1.hortonworks.com\/ARTIFACTS/" + jdkLocation + "/g'" + " /etc/tbds-server/conf/tbds.properties"
     os.system(cmd)
 
     yumRepoURL = "http:\/\/" + repoURL
-    cmd = "sed -i 's/${repo_url}/" + yumRepoURL + "/g'" + " /var/lib/ambari-server/resources/stacks/HDP/2.2/repos/repoinfo.xml"
+    cmd = "sed -i 's/${repo_url}/" + yumRepoURL + "/g'" + " /var/lib/tbds-server/resources/stacks/HDP/2.2/repos/repoinfo.xml"
     os.system(cmd)
+    
+def _check_hostname(options):
+    return options.hostname is not None
+    
+def configureHostname(hostName):
+  if(hostName == None or hostName.strip() == ""):
+    print "hostName can not be none or blank"
+    return False
+  #set the /etc/hosts
+  try:
+    wHostFile=None
+    hostFile=None
+    try:
+      hostsFile=file("/etc/hosts")
+      isFirstLine = True
+      firstLine = ""
+      lines = []
+      for line in hostsFile:
+        if(isFirstLine):
+          isFirstLine = False
+          firstLine = line.strip()
+        lines.append(line.strip())
+      insertLine = "127.0.0.1 "+hostName.strip()
+      newContent=""
+      if(firstLine != insertLine):
+        lines.insert(0, insertLine)
+        newContent = '\n'.join(lines)
+
+        wHostFile=file('/etc/hosts', 'w')
+        wHostFile.write(newContent)
+    finally:
+      if(hostFile != None):
+        hostsFile.close()
+      if(wHostFile != None):
+        wHostFile.close()
+  except Exception:
+    print "erro to set /etc/hosts"
+    traceback.print_exc()
+    return False
+  #valid the hostname
+  (status, output) = commands.getstatusoutput('sudo hostname '+hostName)
+  if (status != 0):
+      print output
+      return False
+  return True
 
 #
-# Setup the Ambari Server.
+# Setup the TBDS Server.
 #
 def setup(options):
   retcode = verify_setup_allowed()
@@ -979,6 +1025,9 @@ def setup(options):
 
   if _check_repo_options(options):
     configureRepoURL(options.repo_url)
+    
+  if _check_hostname(options):
+    configureHostname(options.hostname)
 
   # proceed jdbc properties if they were set
   if _check_jdbc_options(options):
@@ -989,7 +1038,7 @@ def setup(options):
   if not retcode == 0:
     raise FatalException(retcode, err)
 
-  #Create ambari user, if needed
+  #Create tbds user, if needed
   retcode = check_ambari_user()
   if not retcode == 0:
     err = 'Failed to create user. Exiting.'
@@ -1012,7 +1061,7 @@ def setup(options):
   print 'Completing setup...'
   retcode = configure_os_settings()
   if not retcode == 0:
-    err = 'Configure of OS settings in ambari.properties failed. Exiting.'
+    err = 'Configure of OS settings in tbds.properties failed. Exiting.'
     raise FatalException(retcode, err)
 
   print 'Configuring database...'
@@ -1035,7 +1084,7 @@ def setup(options):
 
 
 #
-# Setup the JCE policy for Ambari Server.
+# Setup the JCE policy for TBDS Server.
 #
 def setup_jce_policy(args):
   if os.path.exists(args[1]):
@@ -1065,12 +1114,12 @@ def setup_jce_policy(args):
 
   update_properties(properties)
 
-  print 'NOTE: Restart Ambari Server to apply changes' + \
-        ' ("ambari-server restart|stop|start")'
+  print 'NOTE: Restart TBDS Server to apply changes' + \
+        ' ("tbds-server restart|stop|start")'
 
 
 #
-# Resets the Ambari Server.
+# Resets the TBDS Server.
 #
 def reset(options):
   if not is_root():
@@ -1079,7 +1128,7 @@ def reset(options):
 
   status, stateDesc = is_server_runing()
   if status:
-    err = 'Ambari-server must be stopped to reset'
+    err = 'TBDS-server must be stopped to reset'
     raise FatalException(1, err)
 
   #force reset if silent option provided
@@ -1089,15 +1138,15 @@ def reset(options):
     default = "no"
 
   choice = get_YN_input("**** WARNING **** You are about to reset and clear the "
-                        "Ambari Server database. This will remove all cluster "
+                        "TBDS Server database. This will remove all cluster "
                         "host and configuration information from the database. "
-                        "You will be required to re-configure the Ambari server "
+                        "You will be required to re-configure the TBDS server "
                         "and re-run the cluster wizard. \n"
                         "Are you SURE you want to perform the reset "
                         "[yes/no] ({0})? ".format(default), get_silent())
   okToRun = choice
   if not okToRun:
-    err = "Ambari Server 'reset' cancelled"
+    err = "TBDS Server 'reset' cancelled"
     raise FatalException(1, err)
 
   _reset_database(options)

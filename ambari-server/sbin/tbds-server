@@ -1,0 +1,162 @@
+#!/usr/bin/env bash
+# chkconfig: 345 95 20
+# description: tbds-server daemon
+# processname: tbds-server
+
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# /etc/init.d/tbds-server
+
+VERSION="${ambariVersion}"
+HASH="${buildNumber}"
+
+case "$1" in
+  --version)
+        echo -e $VERSION
+        exit 0
+        ;;
+  --hash)
+        echo -e $HASH
+        exit 0
+        ;;
+esac
+
+export PATH=/usr/lib/tbds-server/g*:$PATH:/sbin/:/usr/sbin
+export AMBARI_CONF_DIR=/etc/tbds-server/conf:$PATH
+
+# Because TBDS rpm unpacks modules here on all systems
+export PYTHONPATH=/usr/lib/python2.6/site-packages:$PYTHONPATH
+
+if [ -a /usr/bin/python2.7 ] && [ -z "$PYTHON" ]; then
+  PYTHON=/usr/bin/python2.7
+fi
+
+if [ -a /usr/bin/python2.6 ] && [ -z "$PYTHON" ]; then
+  PYTHON=/usr/bin/python2.6
+fi
+
+if [ -a /var/lib/tbds-server/ambari-env.sh ]; then
+  . /var/lib/tbds-server/ambari-env.sh
+fi
+
+if [ -z "$PYTHON" ]; then
+  PYTHON=/usr/bin/python
+fi
+
+if [ -z "$AMBARI_PASSPHRASE" ]; then
+  AMBARI_PASSPHRASE="DEV"
+fi
+
+if [ -n "$JAVA_HOME" ]; then
+  export JAVA_HOME=$JAVA_HOME
+fi
+
+export AMBARI_PASSPHRASE=$AMBARI_PASSPHRASE
+
+# check for version
+majversion=`$PYTHON -V 2>&1 | awk '{print $2}' | cut -d'.' -f1`
+minversion=`$PYTHON -V 2>&1 | awk '{print $2}' | cut -d'.' -f2`
+numversion=$(( 10 * $majversion + $minversion))
+if (( $numversion < 26 )); then
+  echo "Need python version > 2.6"
+  exit 1
+fi
+echo "Using python " $PYTHON
+
+case "$1" in
+  start)
+        echo -e "Starting tbds-server"
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  stop)
+        echo -e "Stopping tbds-server"
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  reset)
+        echo -e "Resetting tbds-server"
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  restart)
+        echo -e "Restarting tbds-server"
+        $0 stop
+        $0 start
+        ;;
+  upgrade)
+        echo -e "Upgrading tbds-server"
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  status)
+        echo -e "tbds-server status"
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  upgradestack)
+        echo -e "Upgrading stack of tbds-server"
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  setup)
+        echo -e "Setup tbds-server"
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  setup-jce)
+        echo -e "Updating jce policy"
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  setup-ldap)
+        echo -e "Setting up LDAP properties..."
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  sync-ldap)
+        echo -e "Syncing with LDAP..."
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  set-current)
+        echo -e "Setting current version..."
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  setup-security)
+        echo -e "Security setup options..."
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  refresh-stack-hash)
+        echo -e "Refreshing stack hashes..."
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  backup)
+        echo -e "Backing up TBDS File System state... *this will not backup the server database*"
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  restore)
+        echo -e "Restoring TBDS File System state"
+        $PYTHON /usr/sbin/tbds-server.py $@
+        ;;
+  clean-agent)
+        echo -e "Clean TBDS cluster includes Agent"
+        /var/lib/tbds-server/resources/scripts/clean/agent_cleaner.sh
+        ;;
+  clean-server)
+        echo "Clean TBDS server"
+        /var/lib/tbds-server/resources/scripts/clean/server_cleaner.sh
+        ;;
+  *)
+        echo "Usage: /usr/sbin/tbds-server
+        {start|stop|restart|setup|setup-jce|upgrade|status|upgradestack|setup-ldap|sync-ldap|set-current|setup-security|refresh-stack-hash|backup|restore} [options]
+        Use usr/sbin/tbds-server <action> --help to get details on options available.
+        Or, simply invoke tbds-server.py --help to print the options."
+        exit 1
+esac
+
+exit 0

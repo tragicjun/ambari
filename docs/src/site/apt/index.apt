@@ -48,7 +48,7 @@ Introduction
 
   Ambari enables Application Developers and System Integrators to:
 
-  * Easily integrate Hadoop provisioning, management, and monitoring capabilities to their own applications with the {{{https://github.com/apache/ambari/blob/trunk/ambari-server/docs/api/v1/index.md} Ambari REST APIs}}.
+  * Easily integrate Hadoop provisioning, management, and monitoring capabilities to their own applications with the {{{https://github.com/apache/ambari/blob/trunk/tbds-server/docs/api/v1/index.md} Ambari REST APIs}}.
 
 Getting Started with Ambari
 

@@ -6,7 +6,12 @@
     <value>9010</value>
     <description>Lhotse 服务端口</description>
   </property>
-
+  
+  <property>
+    <name>lhotse.default.taskId</name>
+    <value>20150602143023086</value>
+    <description>Lhotse 默认任务ID</description>
+  </property>
 
   <property>
     <name>mfs.path</name>

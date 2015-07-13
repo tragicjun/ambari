@@ -94,6 +94,18 @@
             }
           }
         }
+      },
+      {
+        "name": "lhotse_service_check",
+        "label": "Lhotse Service Check",
+        "description": "当Lhotse服务进程不能正常工作时，触发告警提示。",
+        "interval": 1,
+        "scope": "ANY",
+        "enabled": true,
+        "source": {
+          "type": "SCRIPT",
+          "path": "HDP/2.2/services/LHOTSE/package/alerts/lhotse_service_check.py"
+        }
       }
     ],
     "LHOTSE_WEB": [

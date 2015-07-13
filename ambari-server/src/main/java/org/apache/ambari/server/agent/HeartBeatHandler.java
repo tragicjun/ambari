@@ -32,14 +32,16 @@ import org.apache.ambari.server.RoleCommand;
 import org.apache.ambari.server.ServiceComponentHostNotFoundException;
 import org.apache.ambari.server.ServiceComponentNotFoundException;
 import org.apache.ambari.server.ServiceNotFoundException;
-import org.apache.ambari.server.actionmanager.ActionManager;
-import org.apache.ambari.server.actionmanager.HostRoleCommand;
-import org.apache.ambari.server.actionmanager.HostRoleStatus;
+import org.apache.ambari.server.actionmanager.*;
 import org.apache.ambari.server.api.services.AmbariMetaInfo;
 import org.apache.ambari.server.configuration.Configuration;
+import org.apache.ambari.server.controller.AmbariManagementController;
 import org.apache.ambari.server.controller.AmbariServer;
+import org.apache.ambari.server.controller.internal.RequestOperationLevel;
+import org.apache.ambari.server.controller.internal.RequestResourceFilter;
 import org.apache.ambari.server.controller.license.LicenseManager;
 import org.apache.ambari.server.controller.MaintenanceStateHelper;
+import org.apache.ambari.server.controller.spi.Resource;
 import org.apache.ambari.server.events.ActionFinalReportReceivedEvent;
 import org.apache.ambari.server.events.AlertEvent;
 import org.apache.ambari.server.events.AlertReceivedEvent;
@@ -52,26 +54,8 @@ import org.apache.ambari.server.orm.dao.KerberosPrincipalHostDAO;
 import org.apache.ambari.server.serveraction.kerberos.KerberosActionDataFile;
 import org.apache.ambari.server.serveraction.kerberos.KerberosActionDataFileReader;
 import org.apache.ambari.server.serveraction.kerberos.KerberosServerAction;
-import org.apache.ambari.server.state.AgentVersion;
-import org.apache.ambari.server.state.Alert;
-import org.apache.ambari.server.state.Cluster;
-import org.apache.ambari.server.state.Clusters;
-import org.apache.ambari.server.state.ComponentInfo;
-import org.apache.ambari.server.state.ConfigHelper;
-import org.apache.ambari.server.state.Host;
-import org.apache.ambari.server.state.HostHealthStatus;
+import org.apache.ambari.server.state.*;
 import org.apache.ambari.server.state.HostHealthStatus.HealthStatus;
-import org.apache.ambari.server.state.HostState;
-import org.apache.ambari.server.state.MaintenanceState;
-import org.apache.ambari.server.state.SecurityState;
-import org.apache.ambari.server.state.Service;
-import org.apache.ambari.server.state.ServiceComponent;
-import org.apache.ambari.server.state.ServiceComponentHost;
-import org.apache.ambari.server.state.ServiceInfo;
-import org.apache.ambari.server.state.StackId;
-import org.apache.ambari.server.state.StackInfo;
-import org.apache.ambari.server.state.State;
-import org.apache.ambari.server.state.UpgradeState;
 import org.apache.ambari.server.state.alert.AlertDefinition;
 import org.apache.ambari.server.state.alert.AlertDefinitionHash;
 import org.apache.ambari.server.state.fsm.InvalidStateTransitionException;
@@ -271,6 +255,96 @@ public class HeartBeatHandler {
     return response;
   }
 
+
+  /**
+   * drop alert when in progress
+   * @param cluster
+   * @param requests
+   * @param alert
+   * @throws AmbariException
+   */
+  private boolean dropAlert(Cluster cluster, List<Request> requests, Alert alert) throws AmbariException{
+    // do not process OK alert
+    if (alert.getState().equals(AlertState.OK)) {
+      LOG.debug("alert state is OK, need not to drop. alert = {}", alert);
+      return false;
+    }
+
+    // no request
+    if (requests.size() == 0) {
+      LOG.debug("no request in progress when alert comes");
+      return false;
+    }
+
+    // get alert info
+    Service service = cluster.getService(alert.getService());
+    ServiceComponent component = service.getServiceComponent(alert.getComponent());
+    ServiceComponentHost host = component.getServiceComponentHost(alert.getHost());
+
+    // filter by request
+    for (Request request : requests) {
+      // prepare request info
+      String clusterName = request.getClusterName();
+      List<RequestResourceFilter> filters = request.getResourceFilters();
+      String context = request.getRequestContext();
+      RequestOperationLevel level = request.getOperationLevel();
+
+      // process requests in the same cluster
+      if (!cluster.getClusterName().equals(clusterName)) {
+        LOG.debug("alert come from another cluster {}, not request's cluster {}", cluster.getClusterName(), clusterName);
+        return false;
+      }
+
+      if (level == null) {
+        LOG.info("Operation level is null, default as CLUSTER operating, drop all the alerts. in request {}", request
+          .toString());
+        return true;
+      }
+
+      // request level
+      switch (level.getLevel().getInternalType()) {
+        // cluster in process
+        case Cluster:
+          LOG.debug("Cluster {} in progress: {}, ignore alert {}", clusterName, context, alert.toString());
+          return true;
+
+        // service in process
+        case Service:
+          if (!filters.isEmpty() && filters.get(0).getServiceName().equals(service.getName())) {
+            LOG.debug("Service {} in cluster {} in progress: {}, ignore alert {}", service.getName(),
+              clusterName, context, alert.toString());
+            return true;
+          }
+          break;
+
+        // host in process
+        case Host:
+          if (!filters.isEmpty() && filters.get(0).getHostNames().contains(host.getHostName())) {
+            LOG.debug("Host {} in cluster {} in progress: {}, ignore alert {}", host.getHostName(), clusterName,
+              context, alert.toString());
+            return true;
+          }
+          break;
+
+        // host component in process
+        case HostComponent:
+          for (RequestResourceFilter filter : filters) {
+            if (filter.getHostNames().contains(host.getHostName()) &&
+              filter.getComponentName().equals(component.getName())) {
+              LOG.debug("HostComponent {}@{} in cluster {} in progress: {}, ignore alert {}", component.getName(),
+                host.getHostName(),clusterName, context, alert.toString());
+              return true;
+            }
+          }
+          break;
+        default:
+          LOG.error("Unsupported operation level found in request {}", request.toString());
+          return false;
+      }
+    }
+    return false;
+  }
+
   /**
    * Extracts all of the {@link Alert}s from the heartbeat and fires
    * {@link AlertEvent}s for each one. If there is a problem looking up the
@@ -288,6 +362,10 @@ public class HeartBeatHandler {
     }
 
     if (null != heartbeat.getAlerts()) {
+
+      List<Long> requestIds = actionManager.getRequestsByStatus(RequestStatus.IN_PROGRESS, Integer.MAX_VALUE, false);
+      List<Request> requests = actionManager.getRequests(requestIds);
+
       for (Alert alert : heartbeat.getAlerts()) {
         if (null == alert.getHost()) {
           alert.setHost(hostname);
@@ -295,8 +373,11 @@ public class HeartBeatHandler {
 
         try {
           Cluster cluster = clusterFsm.getCluster(alert.getCluster());
-          AlertEvent event = new AlertReceivedEvent(cluster.getClusterId(),
-              alert);
+          if (dropAlert(cluster, requests, alert)) {
+            continue;
+          }
+
+          AlertEvent event = new AlertReceivedEvent(cluster.getClusterId(), alert);
           alertEventPublisher.publish(event);
         } catch (AmbariException ambariException) {
           LOG.warn(

@@ -17,6 +17,7 @@ if [ "${homePath}" == "" ]
 fi
 
 # generate sshkey file
+sudo yum -y install expect
 if [ "${executor}" == "${sshUser}" ]
   then
     ${currentPath}/bootstrap_agent_ssh_keygen.exp ${homePath}

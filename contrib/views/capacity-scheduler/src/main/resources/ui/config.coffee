@@ -66,5 +66,5 @@ exports.config =
   overrides:
     development:
       paths:
-        public: '/usr/lib/ambari-server/web/views-debug/CAPACITY-SCHEDULER/0.3.0/CS_1/'
+        public: '/usr/lib/tbds-server/web/views-debug/CAPACITY-SCHEDULER/0.3.0/CS_1/'
 

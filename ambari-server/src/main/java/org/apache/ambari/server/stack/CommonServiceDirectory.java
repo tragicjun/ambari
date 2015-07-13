@@ -48,7 +48,7 @@ public class CommonServiceDirectory extends ServiceDirectory {
    * Parse common service directory
    * packageDir Format: common-services/<serviceName>/<serviceVersion>/package
    * Example:
-   *  directory: "/var/lib/ambari-server/resources/common-services/HDFS/1.0"
+   *  directory: "/var/lib/tbds-server/resources/common-services/HDFS/1.0"
    *  packageDir: "common-services/HDFS/1.0/package"
    *
    * @throws AmbariException

@@ -22,14 +22,14 @@ ln -s /usr/sbin/ambari-server /etc/init.d/ambari-server
 
 case "$1" in
   1) # Action install
-    if [ -f "/var/lib/ambari-server/install-helper.sh" ]; then
-        /var/lib/ambari-server/install-helper.sh install
+    if [ -f "/var/lib/tbds-server/install-helper.sh" ]; then
+        /var/lib/tbds-server/install-helper.sh install
     fi
     chkconfig --add ambari-server
   ;;
   2) # Action upgrade
-    if [ -f "/var/lib/ambari-server/install-helper.sh" ]; then
-        /var/lib/ambari-server/install-helper.sh upgrade
+    if [ -f "/var/lib/tbds-server/install-helper.sh" ]; then
+        /var/lib/tbds-server/install-helper.sh upgrade
     fi
   ;;
 esac

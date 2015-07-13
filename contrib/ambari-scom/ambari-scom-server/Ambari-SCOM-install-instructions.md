@@ -65,7 +65,7 @@ For example, '-classpath C:\ambari-scom\target\ambari-scom-1.0.jar;C:\hadoop\sql
 ###Run AmbariServer
 
 
-1. Edit the **ambari.properties** file from the ambari-scom project (ambari-scom/config/ambari.properties or unzip target/ambari-scom-1.0-conf.zip to desired location).  Add the following properties ...
+1. Edit the **tbds.properties** file from the ambari-scom project (ambari-scom/config/tbds.properties or unzip target/ambari-scom-1.0-conf.zip to desired location).  Add the following properties ...
 
         scom.sink.db.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
         scom.sink.db.url=jdbc:sqlserver://[server]:[port];databaseName=HadoopMonitoring;user=[user];password=[password]
@@ -73,7 +73,7 @@ For example, '-classpath C:\ambari-scom\target\ambari-scom-1.0.jar;C:\hadoop\sql
 
 2. Use java to run the ambari server **(org.apache.ambari.scom.AmbariServer)** from a Windows command prompt.  Include the following in the classpath ...
 
-   * the folder containing the **ambari.properties** file (see step #1).
+   * the folder containing the **tbds.properties** file (see step #1).
    * the folder containing the **clusterproperties.txt** file from the hadoop install.
    * the SqlServer JDBC jar **(sqljdbc4.jar)** from the steps above.
    * the ambari-scom jar from the ambari-scom build target.

@@ -30,8 +30,8 @@ switch ($($args[0])){
   }
 }
 
-$AMBARI_SERVER="ambari-server"
-$AMBARI_SVC_NAME = "Ambari Server"
+$AMBARI_SERVER="tbds-server"
+$AMBARI_SVC_NAME = "TBDS Server"
 $current_directory = (Get-Item -Path ".\" -Verbose).FullName
 #environment variables used in python, check if they exists, otherwise set them to $current_directory
 #and pass to child python process
@@ -39,10 +39,10 @@ $Env:PYTHONPATH="$current_directory\sbin;$($Env:PYTHONPATH)"
 $Env:PYTHON = "python.exe"
 
 $AMBARI_LOG_DIR="\var\log\ambari-server"
-$OUTFILE_STDOUT=Join-Path -path $AMBARI_LOG_DIR -childpath "ambari-server.stdout"
-$OUTFILE_STDERR=Join-Path -path $AMBARI_LOG_DIR -childpath "ambari-server.stderr"
-$LOGFILE=Join-Path -path $AMBARI_LOG_DIR -childpath "ambari-server.log"
-$AMBARI_SERVER_PY_SCRIPT=Join-Path -path $PSScriptRoot -childpath "sbin\ambari-server.py"
+$OUTFILE_STDOUT=Join-Path -path $AMBARI_LOG_DIR -childpath "tbds-server.stdout"
+$OUTFILE_STDERR=Join-Path -path $AMBARI_LOG_DIR -childpath "tbds-server.stderr"
+$LOGFILE=Join-Path -path $AMBARI_LOG_DIR -childpath "tbds-server.log"
+$AMBARI_SERVER_PY_SCRIPT=Join-Path -path $PSScriptRoot -childpath "sbin\tbds-server.py"
 if($AMBARI_SERVER_PY_SCRIPT.Contains(' '))
 {
   $AMBARI_SERVER_PY_SCRIPT = """" + $AMBARI_SERVER_PY_SCRIPT + """"
@@ -53,8 +53,8 @@ $NOTOK=0
 
 
 # Reading the environment file
-#if [ -a /var/lib/ambari-server/ambari-env.sh ]; then
-#  . /var/lib/ambari-server/ambari-env.sh
+#if [ -a /var/lib/tbds-server/ambari-env.sh ]; then
+#  . /var/lib/tbds-server/ambari-env.sh
 #fi
 
 
@@ -237,65 +237,65 @@ switch ($($args[0])){
   "start" {_start $args}
   "pstart"
   {
-    echo "Starting Ambari Server"
+    echo "Starting TBDS Server"
     _pstart_ioredir $args
-    echo "Ambari Server Start finished"
+    echo "TBDS Server Start finished"
   }
   "stop"
   {
-    echo "Stopping Ambari Server"
+    echo "Stopping TBDS Server"
     _stop $args
-    echo "Ambari Server Stop finished"
+    echo "TBDS Server Stop finished"
   }
   "reset"
   {
-    echo "Reseting Ambari Server"
+    echo "Reseting TBDS Server"
     _pstart $args
-    echo "Ambari Server Reset finished"
+    echo "TBDS Server Reset finished"
   }
   "restart"
   {
-    echo "Restarting Ambari Server"
+    echo "Restarting TBDS Server"
     _stop @("stop")
     _start @("start")
-    echo "Ambari Server Restart finished"
+    echo "TBDS Server Restart finished"
   }
   "upgrade"
   {
-    echo "Upgrade Ambari Server"
+    echo "Upgrade TBDS Server"
     _upgrade $args
-    echo "Ambari Server Upgrade finished"
+    echo "TBDS Server Upgrade finished"
   }
   "status"
   {
-    echo "Checking Ambari Server status"
+    echo "Checking TBDS Server status"
     _status $args
   }
 #    "upgradestack" {_pstart $args}
   "setup"
   {
-    echo "Installing Ambari Server"
+    echo "Installing TBDS Server"
     _detect_local_sql
     _pstart $args
-    echo "Ambari Server Installation finished"
+    echo "TBDS Server Installation finished"
   }
   "setup-ldap"
   {
-    echo "Setting up LDAP for Ambari Server"
+    echo "Setting up LDAP for TBDS Server"
     _pstart $args
-    echo "Ambari Server LDAP setup finished"
+    echo "TBDS Server LDAP setup finished"
   }
   "setup-security"
   {
-    echo "Setting up security for Ambari Server"
+    echo "Setting up security for TBDS Server"
     _pstart $args
-    echo "Ambari Server security setup finished"
+    echo "TBDS Server security setup finished"
   }
   default
   {
-    echo "Usage: ambari-server {start|stop|restart|setup|upgrade|status|upgradestack|setup-ldap|setup-security} [options]"
-    echo "Use ambari-server <action> --help to get details on options available."
-    echo "Or, simply invoke ambari-server.py --help to print the options."
+    echo "Usage: tbds-server {start|stop|restart|setup|upgrade|status|upgradestack|setup-ldap|setup-security} [options]"
+    echo "Use tbds-server <action> --help to get details on options available."
+    echo "Or, simply invoke tbds-server.py --help to print the options."
     $retcode=1
   }
 }
