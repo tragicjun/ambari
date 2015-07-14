@@ -287,7 +287,7 @@ class ServerConfigDefaultsLinux(ServerConfigDefaults):
 
     # Configuration defaults
     self.DEFAULT_CONF_DIR = "/etc/tbds-server/conf"
-    self.DEFAULT_LIBS_DIR = "/usr/lib/ambari-server"
+    self.DEFAULT_LIBS_DIR = "/usr/lib/tbds-server"
 
     self.AMBARI_PROPERTIES_BACKUP_FILE = "tbds.properties.rpmsave"
 
@@ -296,10 +296,10 @@ class ServerConfigDefaultsLinux(ServerConfigDefaults):
     # Rules are executed in the same order as they are listed
     # {0} in user/group will be replaced by customized TBDS-server username
     self.NR_ADJUST_OWNERSHIP_LIST = [
-      ("/var/log/ambari-server", "644", "{0}", True),
-      ("/var/log/ambari-server", "755", "{0}", False),
-      ("/var/run/ambari-server", "644", "{0}", True),
-      ("/var/run/ambari-server", "755", "{0}", False),
+      ("/var/log/tbds-server", "644", "{0}", True),
+      ("/var/log/tbds-server", "755", "{0}", False),
+      ("/var/run/tbds-server", "644", "{0}", True),
+      ("/var/run/tbds-server", "755", "{0}", False),
       ("/var/run/tbds-server/bootstrap", "755", "{0}", False),
       ("/var/lib/tbds-server/ambari-env.sh", "700", "{0}", False),
       ("/var/lib/tbds-server/keys", "600", "{0}", True),

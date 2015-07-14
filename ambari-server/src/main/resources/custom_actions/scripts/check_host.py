@@ -296,7 +296,7 @@ class CheckHost(Script):
         download_file(jdbc_auth_url, jdbc_auth_path)
     except Exception, e:
       message = format("Error: Ambari Server cannot download the database JDBC driver and is unable to test the " \
-                "database connection. You must run ambari-server setup --jdbc-db={db_name} " \
+                "database connection. You must run tbds-server setup --jdbc-db={db_name} " \
                 "--jdbc-driver=/path/to/your/{db_name}/driver.jar on the Ambari Server host to make the JDBC " \
                 "driver available for download and to enable testing the database connection.\n") + str(e)
       print message

@@ -42,7 +42,7 @@ This file defines the command to send traps for service and host failures.
 2. Copy the file src/nagios/objects/snmp-contacts.cfg to {nagios\_home\_dir}/objects/snmp-contacts.cfg in the node where nagios is running.
 This file defines the **snmp-management-station** contact.
 
-3. In the node where ambari-server is running, edit file /var/lib/tbds-server/resources/stacks/HDP/2.0.6/services/NAGIOS/package/templates/nagios.cfg.j2
+3. In the node where tbds-server is running, edit file /var/lib/tbds-server/resources/stacks/HDP/2.0.6/services/NAGIOS/package/templates/nagios.cfg.j2
 and add below lines just before the {{nagios\_host\_cfg}}
 
 	<pre><code>&#35;Definitions for SNMP traps
@@ -50,10 +50,10 @@ and add below lines just before the {{nagios\_host\_cfg}}
 	cfg_file=/etc/nagios/objects/snmp-contacts.cfg</code></pre>
 
     Note: If the home directory is different than /etc/nagios, use the updated home directory.  The updated configuration will be automatically
-    pushed to the nagios server when ambari-server restarted.
+    pushed to the nagios server when tbds-server restarted.
 
 4. To enable SNMP trap, edit file /var/lib/tbds-server/resources/stacks/HDP/2.0.6/services/NAGIOS/package/templates/contacts.cfg.j2
-in the ambari-server and add **snmp-management-station** to the contract group **admins**
+in the tbds-server and add **snmp-management-station** to the contract group **admins**
 
 	>  members {{nagios\_web\_login}},sys_logger,**snmp-management-station**
 
@@ -74,8 +74,8 @@ Also, run the following command
 7. Download nagios MIBS from *http://ftp.cc.uoc.gr/mirrors/monitoring-plugins/mib/nagiosmib-1.0.0.tar.gz* and
 extract the files to /usr/share/snmp/mibs/ directory.
 
-8. Restart ambari-server
-	> ambari-server restart
+8. Restart tbds-server
+	> tbds-server restart
 
 9. Launch ambari-web (or GUI) in the browser and login.  Select Nagios server and restart the service.
 

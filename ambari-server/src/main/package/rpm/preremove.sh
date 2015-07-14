@@ -18,14 +18,14 @@
 # for details
 
 if [ "$1" -eq 0 ]; then  # Action is uninstall
-    /usr/sbin/ambari-server stop > /dev/null 2>&1
+    /usr/sbin/tbds-server stop > /dev/null 2>&1
     if [ -d "/etc/tbds-server/conf.save" ]; then
         mv /etc/tbds-server/conf.save /etc/tbds-server/conf_$(date '+%d_%m_%y_%H_%M').save
     fi
 
-    if [ -e "/etc/init.d/ambari-server" ]; then
+    if [ -e "/etc/init.d/tbds-server" ]; then
         # Remove link created during install
-        rm /etc/init.d/ambari-server
+        rm /etc/init.d/tbds-server
     fi
 
     mv /etc/tbds-server/conf /etc/tbds-server/conf.save
@@ -34,7 +34,7 @@ if [ "$1" -eq 0 ]; then  # Action is uninstall
       /var/lib/tbds-server/install-helper.sh remove
     fi
 
-    chkconfig --list | grep ambari-server && chkconfig --del ambari-server
+    chkconfig --list | grep tbds-server && chkconfig --del tbds-server
 fi
 
 exit 0

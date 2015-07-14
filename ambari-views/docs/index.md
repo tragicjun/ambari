@@ -823,7 +823,7 @@ The configuration in this example defines a view named FILES that has a single i
 
 Deploy
 -----
-To deploy a view, simply place the view archive in the views folder of the ambari-server machine.  By default the views folder is located at ...
+To deploy a view, simply place the view archive in the views folder of the tbds-server machine.  By default the views folder is located at ...
 
     /var/lib/tbds-server/resources/views
 

@@ -559,7 +559,7 @@ public class Configuration {
         }
       } else {
         LOG.error("There is no keystore for https UI connection.");
-        LOG.error("Run \"ambari-server setup-https\" or set " + Configuration.API_USE_SSL + " = false.");
+        LOG.error("Run \"tbds-server setup-https\" or set " + Configuration.API_USE_SSL + " = false.");
         throw new RuntimeException("Error reading certificate password from " +
           "file " + httpsPassFile.getAbsolutePath());
 

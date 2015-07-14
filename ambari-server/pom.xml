@@ -92,7 +92,7 @@
                 <resource>
                   <directory>${basedir}/sbin/</directory>
                   <includes>
-                    <include>ambari-server</include>
+                    <include>tbds-server</include>
                   </includes>
                   <filtering>true</filtering>
                 </resource>
@@ -254,6 +254,7 @@
           </execution>
         </executions>
         <configuration>
+          <name>tbds-server</name>
           <copyright>2012, Apache Software Foundation</copyright>
           <group>Development</group>
           <description>Maven Recipe: RPM Package.</description>
@@ -286,7 +287,7 @@
           <defaultGroupname>root</defaultGroupname>
           <mappings>
             <mapping>
-              <directory>/usr/lib/ambari-server</directory>
+              <directory>/usr/lib/tbds-server</directory>
               <dependency>
               </dependency>
             </mapping>
@@ -302,7 +303,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/usr/lib/ambari-server</directory>
+              <directory>/usr/lib/tbds-server</directory>
               <sources>
                 <source>
                   <location>${project.build.directory}/${project.artifactId}-${project.version}.jar</location>
@@ -357,7 +358,7 @@
                   <location>src/main/python/ambari_server_main.py</location>
                 </source>
                 <source>
-                  <location>sbin/ambari-server</location>
+                  <location>sbin/tbds-server</location>
                   <filter>true</filter>
                 </source>
               </sources>
@@ -434,7 +435,7 @@
               <directory>/var/run/tbds-server/stack-recommendations</directory>
             </mapping>
             <mapping>
-              <directory>/var/log/ambari-server</directory>
+              <directory>/var/log/tbds-server</directory>
             </mapping>
             <mapping>
               <directory>/var/lib/tbds-server/resources</directory>
@@ -602,7 +603,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/var/run/ambari-server</directory>
+              <directory>/var/run/tbds-server</directory>
             </mapping>
             <mapping>
               <directory>/var/lib/tbds-server/resources</directory>
@@ -667,11 +668,11 @@
             <data>
               <type>template</type>
               <paths>
-                <path>/usr/lib/ambari-server</path>
-                <path>/var/run/ambari-server</path>
+                <path>/usr/lib/tbds-server</path>
+                <path>/var/run/tbds-server</path>
                 <path>/var/run/tbds-server/bootstrap</path>
                 <path>/var/run/tbds-server/stack-recommendations</path>
-                <path>/var/log/ambari-server</path>
+                <path>/var/log/tbds-server</path>
                 <path>/var/lib/tbds-server/resources/upgrade</path>
                 <path>/var/lib/tbds-server/data/tmp</path>
                 <path>/var/lib/tbds-server/data/cache</path>
@@ -732,7 +733,7 @@
               <type>file</type>
               <mapper>
                 <type>perm</type>
-                <prefix>/var/lib/ambari-server</prefix>
+                <prefix>/var/lib/tbds-server</prefix>
                 <user>root</user>
                 <group>root</group>
                 <filemode>755</filemode>

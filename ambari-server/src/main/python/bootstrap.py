@@ -647,7 +647,7 @@ def main(argv=None):
   if len(onlyargs) < 3:
     sys.stderr.write("Usage: <comma separated hosts> "
                      "<tmpdir for storage> <user> <sshkey_file> <agent setup script>"
-                     " <ambari-server name> <cluster os type> <ambari version> <ambari port> <user_run_as> <passwordFile>\n")
+                     " <tbds-server name> <cluster os type> <ambari version> <ambari port> <user_run_as> <passwordFile>\n")
     sys.exit(2)
     pass
   

@@ -19,7 +19,7 @@
 # under the License.
 #
 
-#Host where ambari-server is running. Can be the the same with one of agent host
+#Host where tbds-server is running. Can be the the same with one of agent host
 SERVER_HOST=`hostname -f`
 
 AGENT_HOST1="1.agenthost.com"

@@ -59,7 +59,7 @@ STACK_UPGRADE_HELPER_CMD = "{0} -cp {1} " + \
 
 def upgrade_stack(args):
   if not is_root():
-    err = 'Ambari-server upgradestack should be run with ' \
+    err = 'TBDS-server upgradestack should be run with ' \
           'root-level privileges'
     raise FatalException(4, err)
   check_database_name_property()
@@ -327,7 +327,7 @@ def upgrade(args):
 
   # check if ambari has obsolete LDAP configuration
   if properties.get_property(LDAP_PRIMARY_URL_PROPERTY) and not properties.get_property(IS_LDAP_CONFIGURED):
-    args.warnings.append("Existing LDAP configuration is detected. You must run the \"ambari-server setup-ldap\" command to adjust existing LDAP configuration.")
+    args.warnings.append("Existing LDAP configuration is detected. You must run the \"tbds-server setup-ldap\" command to adjust existing LDAP configuration.")
 
 
 #

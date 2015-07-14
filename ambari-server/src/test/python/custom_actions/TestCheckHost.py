@@ -119,7 +119,7 @@ class TestCheckHost(TestCase):
     checkHost.actionexecute(None)
 
     self.assertEquals(format_mock.call_args[0][0], 'Error: Ambari Server cannot download the database JDBC driver '
-                  'and is unable to test the database connection. You must run ambari-server setup '
+                  'and is unable to test the database connection. You must run tbds-server setup '
                   '--jdbc-db={db_name} --jdbc-driver=/path/to/your/{db_name}/driver.jar on the Ambari '
                   'Server host to make the JDBC driver available for download and to enable testing '
                   'the database connection.\n')

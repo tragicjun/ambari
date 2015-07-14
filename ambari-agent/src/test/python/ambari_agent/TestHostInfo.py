@@ -66,7 +66,7 @@ class TestHostInfo(TestCase):
            i | gweb                              | package | 2.2.0-99               | noarch | Hortonworks Data Platform Utils Version - HDP-UTILS-1.1.0.15
            i | hadoop                            | package | 1.2.0.1.3.0.0-107      | x86_64 | HDP
            i | hadoop-libhdfs                    | package | 1.2.0.1.3.0.0-107      | x86_64 | HDP
-           i | ambari-server                     | package | 1.2.4.9-1              | noarch | Ambari 1.x
+           i | tbds-server                     | package | 1.2.4.9-1              | noarch | Ambari 1.x
            i | hdp_mon_ganglia_addons            | package | 1.2.4.9-1              | noarch | Ambari 1.x
            i | Minimal                           | pattern | 11-38.13.9             | x86_64 | SLES11-SP1"""
     result = {}

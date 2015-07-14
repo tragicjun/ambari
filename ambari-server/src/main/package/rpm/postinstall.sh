@@ -13,19 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-if [ -e "/etc/init.d/ambari-server" ]; then # Check is needed for upgrade
+if [ -e "/etc/init.d/tbds-server" ]; then # Check is needed for upgrade
     # Remove link created by previous package version
-    rm /etc/init.d/ambari-server
+    rm /etc/init.d/tbds-server
 fi
 
-ln -s /usr/sbin/ambari-server /etc/init.d/ambari-server
+ln -s /usr/sbin/tbds-server /etc/init.d/tbds-server
 
 case "$1" in
   1) # Action install
     if [ -f "/var/lib/tbds-server/install-helper.sh" ]; then
         /var/lib/tbds-server/install-helper.sh install
     fi
-    chkconfig --add ambari-server
+    chkconfig --add tbds-server
   ;;
   2) # Action upgrade
     if [ -f "/var/lib/tbds-server/install-helper.sh" ]; then

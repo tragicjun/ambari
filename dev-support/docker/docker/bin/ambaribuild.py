@@ -47,7 +47,7 @@ def buildAmbari(stack_distribution):
 	return proc.wait()
 
 def install_ambari_server():
-	proc = subprocess.Popen("sudo yum install -y ambari-server-*.noarch.rpm",
+	proc = subprocess.Popen("sudo yum install -y tbds-server-*.noarch.rpm",
 			shell=True,
 			cwd="/tmp/ambari/tbds-server/target/rpm/tbds-server/RPMS/noarch")
 	return proc.wait()
@@ -59,12 +59,12 @@ def install_ambari_agent():
 	return proc.wait()
 
 def setup_ambari_server():
-	proc = subprocess.Popen("echo -e '\n\n\n\n' | sudo ambari-server setup",
+	proc = subprocess.Popen("echo -e '\n\n\n\n' | sudo tbds-server setup",
 			shell=True)
 	return proc.wait()
 
 def start_ambari_server(debug=False):
-	proc = subprocess.Popen("sudo ambari-server start" + (" --debug" if debug else ""),
+	proc = subprocess.Popen("sudo tbds-server start" + (" --debug" if debug else ""),
 			shell=True)
 	return proc.wait()
 
@@ -173,7 +173,7 @@ def parse(argv):
 				dest="is_server_debug",
 				action="store_true",
 				default=False,
-				help="set a debug option for ambari-server")
+				help="set a debug option for tbds-server")
 
 		(options, args) = parser.parse_args(argv[1:])
 		if options.is_deep_clean:

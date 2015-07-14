@@ -148,7 +148,7 @@ case "$1" in
         /var/lib/tbds-server/resources/scripts/clean/agent_cleaner.sh
         ;;
   clean-server)
-        echo "Clean TBDS server"
+        echo "Clean TBDS server"F
         /var/lib/tbds-server/resources/scripts/clean/server_cleaner.sh
         ;;
   *)

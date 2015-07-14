@@ -679,6 +679,12 @@ App.WizardStep5Controller = Em.Controller.extend(App.BlueprintMixin, {
       var serviceComponent = App.StackServiceComponent.find().findProperty('componentName', item.component_name);
       var showRemoveControl = installedServices.contains(serviceComponent.get('stackService.serviceName')) &&
         (masterComponents.filterProperty('component_name', item.component_name).length > 1);
+		
+	  /*mod by hillliu*/
+	  var  flag = installedServices.contains(serviceComponent.get('stackService.serviceName'));
+	  if (!flag) return;
+	  /*end mod*/
+		
       var componentObj = Em.Object.create(item);
       console.log("TRACE: render master component name is: " + item.component_name);
       var masterComponent = App.StackServiceComponent.find().findProperty('componentName', item.component_name);

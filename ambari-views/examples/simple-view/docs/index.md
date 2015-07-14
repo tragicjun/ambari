@@ -64,7 +64,7 @@ The build will produce the view archive.
 Place the view archive on the Ambari Server and restart to deploy.    
 
     cp simple-view-0.1.0.jar /var/lib/tbds-server/resources/views/
-    ambari-server restart
+    tbds-server restart
     
 Create View Instance
 -----

@@ -1493,7 +1493,7 @@ Em.I18n.translations = {
   'services.service.config.database.btn.idle': '测试链接',
   'services.service.config.database.btn.connecting': '正在连接...',
   'services.service.config.database.msg.jdbcSetup': '请确保您有运行:<br/>' +
-    '<b>ambari-server setup --jdbc-db={0} --jdbc-driver=/path/to/{1}/driver.jar</b> ' +
+    '<b>tbds-server setup --jdbc-db={0} --jdbc-driver=/path/to/{1}/driver.jar</b> ' +
     '在Ambari Server主机上进行JDBC驱动程序可用，以使测试数据库连接。',
 
   'services.service.config.configHistory.configGroup': '配置组',
@@ -2265,7 +2265,7 @@ Em.I18n.translations = {
   'rolling.nothingToDo.header': '啥都不干',
   'rolling.nothingToDo.body': '所选择主机上的{0}已经在选中状态或者在Maintenance Mode.',
 
-  'restart.service.all': '全部重启',
+  'restart.service.all': '重启',
   'restart.service.rest.context': '重启 {0}',
 
   'menu.item.dashboard':'指标面板',
@@ -2409,7 +2409,7 @@ Em.I18n.translations = {
       '<li>在向导分配Masters的步骤中，将提示您选择一台主机做Ranger Admin.在该主机上，为了Ranger可以访问数据库，您<strong>必须安装MySQL客户端或Oracle客户端</strong></li>' +
       '<li>所有主机的数据库，必须确保DB管理用户可以访问(MySQL中的<strong>root</strong>或Oracle中的<strong>SYS</strong>)</li>' +
       '<li>在Ambari Server主机上执行下面的操作。替换<code>database-type</code>为<strong>mysql</strong>或<strong>oracle</strong>，并且基于MySQL或Oracle JDBC驱动所在路径<code>/jdbc/driver/path</code>执行:' +
-      '<pre>ambari-server setup --jdbc-db={database-type} --jdbc-driver={/jdbc/driver/path}</pre></li></ol>',
+      '<pre>tbds-server setup --jdbc-db={database-type} --jdbc-driver={/jdbc/driver/path}</pre></li></ol>',
     'installer.step4.rangerRequirements.popup.body.confirmation': '我已经满足上述所有要求',
     'installer.step4.sparkWarning.popup.body': 'Spark需要HDP2.2.2或更高的版本。尝试在HDP 2.2.0集群上安装Spark将会失败，确定您正在使用的是HDP 2.2.2或更高版本的安装包. 您确定要继续么?',
     'installer.step7.misc.notification.configure':'配置邮件通知',

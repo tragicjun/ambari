@@ -70,16 +70,16 @@ The build will produce the view archive.
 
 Deploy
 -----
-To deploy a view we simply place the view archive in the views folder of the ambari-server machine.  By default the views folder is located at ...
+To deploy a view we simply place the view archive in the views folder of the tbds-server machine.  By default the views folder is located at ...
 
     /var/lib/tbds-server/resources/views
 
-To deploy the HelloWorld view simply copy the helloworld-view jar to the ambari-server views folder and restart the ambari server.
+To deploy the HelloWorld view simply copy the helloworld-view jar to the tbds-server views folder and restart the ambari server.
 
 Use
 -----
 
-After deploying a view you should see it as a view resource in the Ambari REST API.  If we request all views, we should see the HELLO_WORLD view.  In this example it is shown as the only deployed view.
+After deploying a view you should see it as a view resource in the TBDS REST API.  If we request all views, we should see the HELLO_WORLD view.  In this example it is shown as the only deployed view.
 
       http://<server>:8080/api/v1/views
 

@@ -13,8 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 
-# description: ambari-server service
-# processname: ambari-server
+# description: tbds-server service
+# processname: tbds-server
 
 $VERSION="1.3.0-SNAPSHOT"
 $HASH="testhash"
@@ -38,7 +38,7 @@ $current_directory = (Get-Item -Path ".\" -Verbose).FullName
 $Env:PYTHONPATH="$current_directory\sbin;$($Env:PYTHONPATH)"
 $Env:PYTHON = "python.exe"
 
-$AMBARI_LOG_DIR="\var\log\ambari-server"
+$AMBARI_LOG_DIR="\var\log\tbds-server"
 $OUTFILE_STDOUT=Join-Path -path $AMBARI_LOG_DIR -childpath "tbds-server.stdout"
 $OUTFILE_STDERR=Join-Path -path $AMBARI_LOG_DIR -childpath "tbds-server.stderr"
 $LOGFILE=Join-Path -path $AMBARI_LOG_DIR -childpath "tbds-server.log"

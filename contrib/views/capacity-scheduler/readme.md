@@ -40,7 +40,7 @@ The build will produce the view archive.
 Place the view archive on the Ambari Server and restart to deploy.    
 
     cp capacity-scheduler-0.3.0-SNAPSHOT /var/lib/tbds-server/resources/views/
-    ambari-server restart
+    tbds-server restart
 
 Deploying the View
 -----
@@ -50,7 +50,7 @@ Use the [Ambari Vagrant](https://cwiki.apache.org/confluence/display/AMBARI/Quic
 Deploy the Capacity Scheduler view into Ambari.
 
     cp capacity-scheduler-0.3.0-SNAPSHOT /var/lib/tbds-server/resources/views/
-    ambari-server restart
+    tbds-server restart
 
 From the Ambari Administration interface, create a view instance.
 
@@ -84,7 +84,7 @@ Create a symlink from the vagrant machine running your Ambari Server to your loc
     
 Restart Ambari Server, login and browse to the view.
 
-    ambari-server restart
+    tbds-server restart
     http://c6401.ambari.apache.org:8080/#/main/views/CAPACITY-SCHEDULER/0.3.0/CS_1
     
 If you modify the view UI code on your machine and re-build, the UI will pickup

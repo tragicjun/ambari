@@ -903,6 +903,19 @@ App.WizardStep9Controller = Em.Controller.extend({
         tasksHostMap[task.Tasks.host_name] = [task];
       }
     });
+	
+	
+	/*add by hillliu*/
+	var hosts = this.get('content.hosts');
+	var new_hosts = {};
+    for (var name in hosts) {
+	  if (hosts[name].progress == '33' && hosts[name].status != 'failed' && hosts[name].status != 'warning') {
+		continue;
+	  }
+	  new_hosts[name] = hosts[name];
+    }
+	this.set('hosts', new_hosts);
+	/*end add*/
 
     this.get('hosts').forEach(function (_host) {
       var actionsPerHost = tasksHostMap[_host.name] || []; // retrieved from polled Data

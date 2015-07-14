@@ -79,11 +79,11 @@ The build will produce the view archive.
 
 Deploy
 -----
-To deploy a view we simply place the view archive in the views folder of the ambari-server machine.  By default the views folder is located at ...
+To deploy a view we simply place the view archive in the views folder of the tbds-server machine.  By default the views folder is located at ...
 
     /var/lib/tbds-server/resources/views
 
-To deploy the Calculator view simply copy the calculator-view jar to the ambari-server views folder and restart the ambari server.
+To deploy the Calculator view simply copy the calculator-view jar to the tbds-server views folder and restart the ambari server.
 
 Use
 -----

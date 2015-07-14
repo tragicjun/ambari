@@ -28,7 +28,7 @@
   </thead>
   <tbody>
     {{#each service in view.services}}
-    <tr>
+    <tr {{bindAttr class="service.isIencent:success"}}>
       <td class="service-display-name">{{service.displayName}}</td>
       <td class="service-stack-version">{{service.serviceVersion}}</td>
       <td class="stack-version-state">

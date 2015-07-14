@@ -397,7 +397,7 @@ def run_component_https_cmd(cmd):
 
 def setup_https(args):
   if not is_root():
-        err = 'ambari-server setup-https should be run with ' \
+        err = 'tbds-server setup-https should be run with ' \
               'root-level privileges'
         raise FatalException(4, err)
   args.exit_message = None
@@ -436,7 +436,7 @@ def setup_https(args):
 
       conf_file = find_properties_file()
       f = open(conf_file, 'w')
-      properties.store(f, "Changed by 'ambari-server setup-https' command")
+      properties.store(f, "Changed by 'tbds-server setup-https' command")
 
       ambari_user = read_ambari_user()
       if ambari_user:
@@ -454,7 +454,7 @@ def setup_component_https(component, command, property, alias):
   if not get_silent():
     jdk_path = find_jdk()
     if jdk_path is None:
-      err = "No JDK found, please run the \"ambari-server setup\" " \
+      err = "No JDK found, please run the \"tbds-server setup\" " \
             "command to install a JDK automatically or install any " \
             "JDK manually to " + configDefaults.JDK_INSTALL_DIR
       raise FatalException(1, err)
@@ -493,6 +493,6 @@ def setup_component_https(component, command, property, alias):
 
     conf_file = find_properties_file()
     f = open(conf_file, 'w')
-    properties.store(f, "Changed by 'ambari-server " + command + "' command")
+    properties.store(f, "Changed by 'tbds-server " + command + "' command")
   else:
     print command + " is not enabled in silent mode."

@@ -19,11 +19,17 @@
 {{#isAccessible ADMIN}}
   <div class="service-button" style="margin-top: 10px;">
 	<h3 class="title">服务列表</h3>
-	<a href="#"
-	  {{bindAttr class=":add-service controller.isAllServicesInstalled:disabled"}}
-	  {{action gotoAddService target="controller"}}>
-	  <i class="icon-plus-sign"></i></a>
-	  </a>
+	{{#if controller.isAllServicesInstalled}}
+		<a href="javascript:;" class="disabled" title="服务已全部安装" >
+		  <i class="icon-plus-sign"></i></a>
+		  </a>
+	{{else}}
+		<a href="#"
+		  {{bindAttr class=":add-service controller.isAllServicesInstalled:disabled"}}
+		  {{action gotoAddService target="controller"}}>
+		  <i class="icon-plus-sign"></i></a>
+		  </a>
+	{{/if}}
 	  
     <div class="btn-group display-inline-block">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#">

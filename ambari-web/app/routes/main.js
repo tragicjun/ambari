@@ -696,16 +696,20 @@ module.exports = Em.Route.extend(App.RouterRedirections, {
 			str += '<div class="hd"><h3 class="modules"><i class="icon-ok-sign health-status-LIVE"></i>'+service_name+'</h3><h3 class="hosts">'+length+'主机</h3></div><div class="bd open">';
 			str +='<table class="host-table">';
 			str += '<tr><th class="modules">包含组件</th><th class="host">运行的主机</th><th class="trigger"></th></tr>';
+			var flag = 0;
 			for (var key in data) {
-				str += '<tr><td class="modules">'+key+'</td><td class="host">'+data[key].length+'主机</td><td class="trigger"><i class="caret"></i></td><div></div></tr>';
-				str += '<tr class="show-detail">';
+				str += flag==0 ? '<tr class="open">' : '<tr>';
+				str += '<td class="modules">'+key+'</td><td class="host">'+data[key].length+'主机</td><td class="trigger"><i class="caret"></i></td><div></div></tr>';
+				str += flag==0 ? '<tr class="open show-detail">' : '<tr class="show-detail">';
+				//str += '<tr class="show-detail">';
+				flag = 1;
 				
 				str += '<td colspan="3"><table class="detail-table">';
 				str += '<tr><th>名字</th><th>IP地址</th><th>Cores (CPU)</th><th>内存</th><th>磁盘用量</th><th>平均负载</th></tr>';
 				for (var i=0; i<data[key].length; i++) {
 					str += '<tr>';
 					// host_status
-					str += '<td><div class="host-name"><i class="icon-ok-sign health-status-LIVE"></i>'+data[key][i].Hosts.host_name+'</div></td>';
+					str += '<td><div class="host-name"><i class="icon-ok-sign health-status-LIVE"></i><a href="#/main/hosts/'+data[key][i].Hosts.ip+'/summary">'+data[key][i].Hosts.host_name+'</a></div></td>';
 					str += '<td><div class="host-ip">'+data[key][i].Hosts.ip+'</div></td>';
 					str += '<td>'+data[key][i].Hosts.cpu_count+'('+data[key][i].Hosts.ph_cpu_count+')</td>';
 					str += '<td>'+numberUtils.bytesToSize(data[key][i].Hosts.total_mem, 2, 'parseFloat', 1024)+'</td>'; 

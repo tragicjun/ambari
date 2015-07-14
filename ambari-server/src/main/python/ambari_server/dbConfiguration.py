@@ -501,7 +501,7 @@ def ensure_dbms_is_running(options, properties, scmStatus=None):
   dbms = factory.create(options, properties)
   result = dbms._is_jdbc_driver_installed(properties)
   if result == -1:
-    raise FatalException(-1, "JDBC driver is not installed. Run ambari-server setup and try again.")
+    raise FatalException(-1, "JDBC driver is not installed. Run tbds-server setup and try again.")
   dbms.ensure_dbms_is_running(options, properties, scmStatus)
 
 

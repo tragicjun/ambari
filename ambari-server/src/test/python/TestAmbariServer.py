@@ -897,7 +897,7 @@ class TestAmbariServer(TestCase):
 
     del os.environ[AMBARI_SERVER_LIB]
     result = get_ambari_jars()
-    self.assertEqual("/usr/lib/ambari-server", result)
+    self.assertEqual("/usr/lib/tbds-server", result)
     self.assertTrue(printInfoMsg_mock.called)
     pass
 
@@ -1417,7 +1417,7 @@ class TestAmbariServer(TestCase):
         self.fail("Should throw exception")
     except FatalException as fe:
         # Expected
-        self.assertTrue('No JDK found, please run the "ambari-server setup" command to install a' +
+        self.assertTrue('No JDK found, please run the "tbds-server setup" command to install a' +
                         ' JDK automatically or install any JDK manually to ' in fe.reason)
         pass
     #Verbouse mode and jdk_path is not None (use_https = true)
@@ -3371,7 +3371,7 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
     is_root_2_mock.return_value = is_root_mock.return_value = False
     try:
       _ambari_server_.start(args)
-      self.fail("Should fail with 'Can not start ambari-server as user...'")
+      self.fail("Should fail with 'Can not start tbds-server as user...'")
     except FatalException as e:
       # Expected
       self.assertTrue('Unable to start Ambari Server as user' in e.reason)
@@ -3568,10 +3568,10 @@ MIIFHjCCAwYCCQDpHKOBI+Lt0zANBgkqhkiG9w0BAQUFADBRMQswCQYDVQQGEwJV
     getuser_mock.return_value = "non_custom_user"
     try:
       _ambari_server_.start(args)
-      self.fail("Can not start ambari-server as user non_custom_user.")
+      self.fail("Can not start tbds-server as user non_custom_user.")
     except FatalException as e:
       # Expected
-      self.assertTrue('Unable to start Ambari Server as user' in e.reason)
+      self.assertTrue('Unable to start TBDS Server as user' in e.reason)
 
     args = reset_mocks()
 
