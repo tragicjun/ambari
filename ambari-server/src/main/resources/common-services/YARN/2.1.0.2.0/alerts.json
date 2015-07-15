@@ -377,7 +377,7 @@
 	        "name": "yarn_service_check",
 	        "label": "Yarn Service Check",
 	        "description": "yarn service check。",
-	        "interval": 1,
+	        "interval": 10,
 	        "scope": "ANY",
 	        "enabled": true,
 	        "source": {
