@@ -20,17 +20,17 @@ Em.I18n.translations = {
 
  'app.name':'腾讯大数据套件',
   'app.name.subtitle':'腾讯大数据套件 - {0}',
-  'app.name.subtitle.experimental':'Ambari实验',
+  'app.name.subtitle.experimental':'套件实验',
   'app.reloadPopup.link': '刷新页面',
   'app.reloadPopup.text': '试图连接到服务器...',
   'app.reloadPopup.header': '刷新页面',
 
   'app.loadingPlaceholder': '加载中...',
-  'app.versionMismatchAlert.title': 'Ambari服务器/Web客户端版本不匹配',
-  'app.versionMismatchAlert.body': 'Ambari服务器和Web客户端版本不匹配:<br> ' +
-    '<br>Ambari服务器: <strong>{0}</strong>' +
-    '<br>Ambari Web客户端: <strong>{1}</strong><br>' +
-    '<br>这种情况通常发生在Ambari升级后,Ambari Web客户端代码被缓存在浏览器中.' +
+  'app.versionMismatchAlert.title': '套件服务器/Web客户端版本不匹配',
+  'app.versionMismatchAlert.body': '套件服务器和Web客户端版本不匹配:<br> ' +
+    '<br>套件服务器: <strong>{0}</strong>' +
+    '<br>套件 Web客户端: <strong>{1}</strong><br>' +
+    '<br>这种情况通常发生在套件升级后,套件 Web客户端代码被缓存在浏览器中.' +
     '<br>强制刷新浏览器缓存来查看此消息是否会消失,通常为快捷键 \'Ctrl+Shift+R\' (\'Cmd+Shift+R\' on OS X).' +
     '<br>如果你一直看到此消息,请彻底清除浏览器缓存,并再次打开这个URL.' +
     '<br>请务必解决此问题以进行下一步的操作.',
@@ -183,8 +183,8 @@ Em.I18n.translations = {
   'common.process': '过程',
   'common.property': '属性',
   'common.installed': '已安装',
-  'common.persist.error' : '在ambari服务器端保持Web客户端状态遇到错误:',
-  'common.update.error' : '从ambari服务器端恢复Web客户端状态遇到错误',
+  'common.persist.error' : '在套件服务器端保持Web客户端状态遇到错误:',
+  'common.update.error' : '从套件服务器端恢复Web客户端状态遇到错误',
   'common.tags': '标签',
   'common.important': '<strong>重要:</strong>',
   'common.allServices':'所有服务',
@@ -303,7 +303,7 @@ Em.I18n.translations = {
   'login.loginButton':'登录',
   'login.error.bad.credentials':'登录失败，无效的用户名或密码',
   'login.error.disabled':'登录失败. 无效的用户名或密码.',
-  'login.error.bad.connection':'无法连接到Ambari 服务器. 确认Ambari服务器正在运行，并且可以从本机连接到Ambari服务器',
+  'login.error.bad.connection':'无法连接到套件 服务器. 确认套件服务器正在运行，并且可以从本机连接到套件服务器',
 
   'graphs.noData.title': '无最新指标数据',
   'graphs.noData.message': '',
@@ -436,7 +436,7 @@ Em.I18n.translations = {
   'installer.step2.sshKey.error.required':'需要SSH私钥',
   'installer.step2.passphrase.error.match':'密码不正确',
   'installer.step2.manualInstall.label':'请不要使用SSH来自动配置主机',
-  'installer.step2.manualInstall.info':'如果不使用SSH来连接主机,你必须手工在每个主机上安装和启动Ambari代理，' +
+  'installer.step2.manualInstall.info':'如果不使用SSH来连接主机,你必须手工在每个主机上安装和启动套件代理，' +
     ' 这样向导才能够执行一些必要的配置和软件安装过程' +
     '.',
   'installer.step2.advancedOption':'高级选项',
@@ -453,18 +453,18 @@ Em.I18n.translations = {
     '这被叫做<b>本地软件资源库</b>',
   'installer.step2.javaHome.label' : '64-bit JDK 路径',
   'installer.step2.javaHome.tooltip.title' : 'JAVA_HOME',
-  'installer.step2.javaHome.tooltip.content' : '64-bit JAVA_HOME的路径. Ambari默认使用/usr/jdk/jdk1.6.0_31路径 . 可以使用一个包含JDK的路径来覆盖这个路径. <br/> 注意: 该路径必须在集群的<b>所有</b>主机上都有效.',
+  'installer.step2.javaHome.tooltip.content' : '64-bit JAVA_HOME的路径. 套件默认使用/usr/jdk/jdk1.6.0_31路径 . 可以使用一个包含JDK的路径来覆盖这个路径. <br/> 注意: 该路径必须在集群的<b>所有</b>主机上都有效.',
   'installer.step2.javaHome.tooltip.placeholder' : '/usr/jdk/jdk1.6.0_31',
   'installer.step2.useSsh.provide' : '请提供你的',
   'installer.step2.useSsh.provide_id_rsa' : ' 来自动注册主机',
   'installer.step2.useSsh.tooltip.title':'SSH私钥',
-  'installer.step2.useSsh.tooltip.content':'<b>SSH私有秘钥文件</b>被用来连接集群中的主机并安装Ambari代理.',
+  'installer.step2.useSsh.tooltip.content':'<b>SSH私有秘钥文件</b>被用来连接集群中的主机并安装套件代理.',
   'installer.step2.manualInstall.perform':'执行',
   'installer.step2.manualInstall.perform_on_hosts':'，不使用SSH',
   'installer.step2.manualInstall.tooltip.title':'手工注册',
-  'installer.step2.manualInstall.tooltip.content':'在每一台主机上手工注册Ambari Agent，省去了对SSH的需求。这个操作应该在集群安装继续之前完成.',
+  'installer.step2.manualInstall.tooltip.content':'在每一台主机上手工注册套件 Agent，省去了对SSH的需求。这个操作应该在集群安装继续之前完成.',
   'installer.step2.manualInstall.popup.header':'在继续之前',
-  'installer.step2.manualInstall.popup.body':'在继续之前，必须在你想要管理的所有主机上安装Ambari Agent.',
+  'installer.step2.manualInstall.popup.body':'在继续之前，必须在你想要管理的所有主机上安装套件 Agent.',
   'installer.step2.warning.popup.body':'<p>下列主机名不是合法的全域名:</p><p> {0} </p><p>在安装期间，可能会引起异常. 是否继续?</p>',
   'installer.step2.orUse':'或者使用',
   'installer.step2.registerAndConfirm':'注册并确认',
@@ -477,9 +477,9 @@ Em.I18n.translations = {
   'installer.step2.sshUser.toolTip':'执行sudo命令不需要输入密码的账户',
   'installer.step2.sshUser.placeholder':'输入用户名',
   'installer.step2.sshUser.required':'需要用户名',
-  'installer.step2.bootStrap.error':'在主机上安装Ambari Agent遇到错误.',
-  'installer.step2.bootStrap.inProgress':'请稍候，正在主机上安装Ambari Agent。这可能需要几分钟，具体取决于主机的数量.',
-  'installer.step2.bootStrap.header':'正在安装 Ambari Agent',
+  'installer.step2.bootStrap.error':'在主机上安装套件 Agent遇到错误.',
+  'installer.step2.bootStrap.inProgress':'请稍候，正在主机上安装套件 Agent。这可能需要几分钟，具体取决于主机的数量.',
+  'installer.step2.bootStrap.header':'正在安装 套件 Agent',
 
   'installer.step3.header':'确认主机名',
   'installer.step3.body':'正在注册你的主机.<br>' +
@@ -667,7 +667,7 @@ Em.I18n.translations = {
   'installer.step7.popup.rddWarning.header':'警告:{0}磁盘空间过低',
   'installer.step7.popup.rddWarning.body':'推荐为Ganglia服务器的日志分配最小16G的磁盘空间，但是挂载在{1}的磁盘{0}没有足够的空间可以使用({2}空闲)。在Misc标签为Ganglia RRD缓存根目录分配超过16G的磁盘空间，如果仍要继续，{1}可能会消耗所有的磁盘空间而无法使用',
   'installer.step7.popup.mySQLWarning.header':'错误: Hive的新MySQL元数据库冲突',
-  'installer.step7.popup.mySQLWarning.body':'无法将Hive的\"新MySQL数据库\"安装到Ambari的MySQL服务器，请到<b>分配Masters</b>重新分配Hive到另外一台主机<b>或</b>选择\"已有MySQL数据库\" 选项为Ambari的MySQL数据库指定数据库认证和URL，如果选择了\"已有MySQL数据库\"选项，你需要执行Hive的预设步骤为Hive准备MySQL服务器。',
+  'installer.step7.popup.mySQLWarning.body':'无法将Hive的\"新MySQL数据库\"安装到套件的MySQL服务器，请到<b>分配Masters</b>重新分配Hive到另外一台主机<b>或</b>选择\"已有MySQL数据库\" 选项为套件的MySQL数据库指定数据库认证和URL，如果选择了\"已有MySQL数据库\"选项，你需要执行Hive的预设步骤为Hive准备MySQL服务器。',
   'installer.step7.popup.mySQLWarning.button.gotostep5': '转到规划Masters',
   'installer.step7.popup.mySQLWarning.button.dismiss': '下架',
   'installer.step7.popup.mySQLWarning.confirmation.header': '确认：转到规划Masters',
@@ -703,9 +703,9 @@ Em.I18n.translations = {
   'installer.step9.status.failed':'安装并启动服务失败',
   'installer.step9.status.start.services.failed':'启动所有服务的API调用失败',
   'installer.step9.status.install.components.failed': '部分服务组件尚未安装成功，请重新尝试',
-  'installer.step9.status.hosts.heartbeat_lost': 'Ambari 客户端未在{0}主机上运行.',
+  'installer.step9.status.hosts.heartbeat_lost': '套件 客户端未在{0}主机上运行.',
   'installer.step9.host.heartbeat_lost': '主机心跳丢失',
-  'installer.step9.host.heartbeat_lost_popup': 'Ambari 客户端进程不再发送心跳',
+  'installer.step9.host.heartbeat_lost_popup': '套件 客户端进程不再发送心跳',
   'installer.step9.host.heartbeat_lost.header' : '主机心跳丢失',
   'installer.step9.host.status.success':'成功',
   'installer.step9.host.status.startAborted':'安装完成，启动终止',
@@ -724,7 +724,7 @@ Em.I18n.translations = {
   'installer.step9.hostLog.popup.categories.aborted':'终止',
   'installer.step9.hostLog.popup.categories.timedout':'超时',
   'installer.step9.hostLog.popup.noTasksToShow':'没有任务可以展示',
-  'installer.step9.host.status.noTasks': 'Ambari 服务器未在主机上调度任何任务，尽管服务组件已经是已安装状态<b>或</b>预检查主机可达性失败',
+  'installer.step9.host.status.noTasks': '套件 服务器未在主机上调度任何任务，尽管服务组件已经是已安装状态<b>或</b>预检查主机可达性失败',
   'installer.step9.overallProgress':'一共{0}%',
   'installer.step9.serviceStatus.install.pending':'准备安装',
   'installer.step9.serviceStatus.install.queued':'等待安装',
@@ -1010,7 +1010,7 @@ Em.I18n.translations = {
     '<div class="code-snippet">sudo su -l {0} -c \'hdfs dfsadmin -safemode enter\'</div></li>' +
     '<li>一旦在安全模式下，创建一个检查点：' +
     '<div class="code-snippet">sudo su -l {0} -c \'hdfs dfsadmin -saveNamespace\'</div></li>' +
-   '<li>请在Ambari检测到NameNode处于安全模式，且Checkpoint成功创建之后继续操作</li>'+
+   '<li>请在套件检测到NameNode处于安全模式，且Checkpoint成功创建之后继续操作</li>'+
     '<div class="alert alert-warn">If the <b>Next</b> button is enabled before you run the <b>"Step 3: Create a Checkpoint"</b> command, it means there is a recent Checkpoint already and you may proceed without running the <b>"Step 3: Create a Checkpoint"</b> command.</div>' +
     '</ol>',
   'admin.highAvailability.wizard.step3.confirm.host.body':'<b>请确认选择的机器</b>',
@@ -1096,7 +1096,7 @@ Em.I18n.translations = {
   'admin.addSecurity.apply.save.config': '保存配置',
   'admin.addSecurity.apply.start.services': '启动服务',
   'admin.addSecurity.apply.delete.ats': '删除ATS',
-  'admin.addSecurity.user.smokeUser': 'Ambari冒烟测试用户',
+  'admin.addSecurity.user.smokeUser': '套件冒烟测试用户',
   'admin.addSecurity.user.hdfsUser': 'HDFS User',
   'admin.addSecurity.user.hbaseUser': 'HBase User',
   'admin.addSecurity.user.stormUser': 'Storm User',
@@ -1122,7 +1122,7 @@ Em.I18n.translations = {
   'admin.removeSecurity.header': 'Disable Security',
   'admin.security.applying.config.header': 'Applying Configurations',
   'admin.security.applying.config.body':'You cannot quit wizard while configurations are being applied',
-  'admin.security.status.error' : 'Error in retrieving cluster security status from Ambari server',
+  'admin.security.status.error' : 'Error in retrieving cluster security status from tbds server',
   'admin.users.ldapAuthUsed':'LDAP验证模式打开',
   'admin.users.delete.yourself.message':'无法删除自己',
   'admin.users.delete.yourself.header':'删除警告',
@@ -1494,7 +1494,7 @@ Em.I18n.translations = {
   'services.service.config.database.btn.connecting': '正在连接...',
   'services.service.config.database.msg.jdbcSetup': '请确保您有运行:<br/>' +
     '<b>tbds-server setup --jdbc-db={0} --jdbc-driver=/path/to/{1}/driver.jar</b> ' +
-    '在Ambari Server主机上进行JDBC驱动程序可用，以使测试数据库连接。',
+    '在套件 Server主机上进行JDBC驱动程序可用，以使测试数据库连接。',
 
   'services.service.config.configHistory.configGroup': '配置组',
   'services.service.config.configHistory.rightArrow.tooltip': '显示早期版本',
@@ -1533,7 +1533,7 @@ Em.I18n.translations = {
   'services.service.config_groups.rename_config_group_popup.header':'重命名配置组',
   'services.service.config_groups.switchGroupTextFull':'切换到\'{0}\' 主机配置组',
   'services.service.config_groups.switchGroupTextShort':'切换到 \'{0}\'',
-  'services.reassign.closePopup':'移动{0}向导正在进行中。你必须让向导来完成的Ambari是在可用状态。如果选择退出，则必须按照说明书的指示完成或恢复移动{0}向导，如记录的Ambari用户指南中。你确定要退出向导？',
+  'services.reassign.closePopup':'移动{0}向导正在进行中。你必须让向导来完成的套件是在可用状态。如果选择退出，则必须按照说明书的指示完成或恢复移动{0}向导，如记录的套件用户指南中。你确定要退出向导？',
   'services.reassign.error.fewHosts':'你必须至少有2台主机在集群中运行移动向导。',
 
   'services.reassign.step1.header':'入门',
@@ -1781,7 +1781,7 @@ Em.I18n.translations = {
   'hosts.host.addComponent.deleteHostWithZooKeeper':'删除Zookeeper服务器需要重新配置如下参数:<ul><li>ha.zookeeper.quorum</li><li>hbase.zookeeper.quorum</li><li>templeton.zookeeper.hosts</li><li>yarn.resourcemanager.zk-address</li><li>hive.zookeeper.quorum</li><li>hive.cluster.delegation.token.store.zookeeper.connectString</li></ul>',
   'host.host.addComponent.popup.dependedComponents.body': '{0}的安装需要在同一台机器上安装{1}. 请先安装{1}后再尝试安装{0}',
   'host.host.addComponent.popup.dependedComponents.header': '组件依赖',
-  'hosts.host.zooKeeper.configs.save.note': '这个配置由ambari在一台机器上安装和删除zookeeper组件时创建',
+  'hosts.host.zooKeeper.configs.save.note': '这个配置由套件在一台机器上安装和删除zookeeper组件时创建',
   'hosts.host.addComponent.note':'<b>重要:</b> 在<i>{0}</i>安装之后，请跳转至<i>Services -> Nagios</i>重启Nagios服务，这是为了保证告警和通知能够正常工作。',
   'hosts.host.addComponent.securityNote':'您的集群当前运行在安全模式下，在您继续操作之前必须为在{1}上运行的{0}设置秘钥表，否则该组件将无法正常启动.',
   'hosts.host.addComponent.popup.confirm':'确认添加',
@@ -1825,11 +1825,11 @@ Em.I18n.translations = {
   'hosts.decommission.popup.header':'确认',
   'hosts.decommission.tooltip.warning':'因为{1}没有运行导致无法执行{0}操作',
   'hosts.delete.popup.body':'您确认删除机器<i>{0}</i>吗?',
-  'hosts.delete.popup.body.msg1':'如果将该台机器移除，Ambari将不会再与该机器进行通信。安装包不会从该机器移除，但不应尝试重新启动该机器上的组件，如果您想将该机器重新加入集群，请先清理该机器.',
+  'hosts.delete.popup.body.msg1':'如果将该台机器移除，套件将不会再与该机器进行通信。安装包不会从该机器移除，但不应尝试重新启动该机器上的组件，如果您想将该机器重新加入集群，请先清理该机器.',
   'hosts.delete.popup.body.msg2':'删除这台机器后，Nagios需要重启以将机器从监控列表移除，请跳转至<i>Services</i>页面重启Nagios.',
   'hosts.delete.popup.body.msg3':'如果该机器已安装了Zookeeper服务器，那么Zookeeper服务需要重启，请转至<i>Services</i>页面.',
   'hosts.delete.popup.body.msg4':'<b>警告!</b> 删除集群的最后<i>{0}</i>个组件?</br>删除这些组件可能会导致服务数据的永久性丢失.',
-  'hosts.delete.popup.body.msg.unknownComponents':'该机器与ambari的通信已丢失，状态变更为不在线.',
+  'hosts.delete.popup.body.msg.unknownComponents':'该机器与套件的通信已丢失，状态变更为不在线.',
   'hosts.delete.popup.header':'确认',
   'hosts.delete.popup.title':'删除机器',
   'hosts.delete.popup.unknownComponents':'下述组件处于未知状态:',
@@ -2201,7 +2201,7 @@ Em.I18n.translations = {
   'mirroring.dataset.dataset.loading.error':'无法导入数据集',
   'mirroring.dataset.dataset.loading.instances':'无法导入实例',
 
-  'mirroring.manageClusters.ambariServer':'Ambari Server',
+  'mirroring.manageClusters.ambariServer':'套件 Server',
   'mirroring.manageClusters.interfaces':'接口',
   'mirroring.manageClusters.locations':'地点',
   'mirroring.manageClusters.specifyName':'设定新目标集群名字:',
@@ -2398,17 +2398,17 @@ Em.I18n.translations = {
     'titlebar.alerts.noAlerts': '没有告警',
     'services.storm.configs.range-plugin-enable.dialog.title': '启用STORM的Ranger',
     'services.storm.configs.range-plugin-enable.dialog.message': '启用STORM的Ranger插件，只对处于安全模式的集群有效',
-    'installer.controls.checkConnection.popover':'该操作会在Ambari Server检查{0}主机和端口的可访问性',
+    'installer.controls.checkConnection.popover':'该操作会在套件 Server检查{0}主机和端口的可访问性',
     'installer.step0.clusterName.error.whitespace':'集群名字不能有空格',
-    'installer.step2.agentUser':'Ambari Agent用户帐号',
-    'installer.step2.agentUser.toolTip':'在目标主机上运行着Ambari Agent守护进程的用户帐号，必须为所有目标主机添加该帐号的sudo权限和无密码访问',
+    'installer.step2.agentUser':'套件 Agent用户帐号',
+    'installer.step2.agentUser.toolTip':'在目标主机上运行着套件 Agent守护进程的用户帐号，必须为所有目标主机添加该帐号的sudo权限和无密码访问',
     'installer.step4.ambariMetricsCheck.popup.header':'功能有限警告',
-    'installer.step4.ambariMetricsCheck.popup.body':'Ambari可以用Ambari Metrics收集集群指标。如果您没有安装Ambari Metrics服务，Ambari将无法使用集群指标，您确定不安装Ambari Metrics么?',
+    'installer.step4.ambariMetricsCheck.popup.body':'套件可以用套件 Metrics收集集群指标。如果您没有安装套件 Metrics服务，套件将无法使用集群指标，您确定不安装套件 Metrics么?',
     'installer.step4.rangerRequirements.popup.header': 'Ranger应具备的条件',
     'installer.step4.rangerRequirements.popup.body.requirements': '<ol><li>您必须有一个<strong>正在运行的MySQL Server或Oracle Server</strong>数据库实例，该实例将会被Ranger使用。</li>' +
       '<li>在向导分配Masters的步骤中，将提示您选择一台主机做Ranger Admin.在该主机上，为了Ranger可以访问数据库，您<strong>必须安装MySQL客户端或Oracle客户端</strong></li>' +
       '<li>所有主机的数据库，必须确保DB管理用户可以访问(MySQL中的<strong>root</strong>或Oracle中的<strong>SYS</strong>)</li>' +
-      '<li>在Ambari Server主机上执行下面的操作。替换<code>database-type</code>为<strong>mysql</strong>或<strong>oracle</strong>，并且基于MySQL或Oracle JDBC驱动所在路径<code>/jdbc/driver/path</code>执行:' +
+      '<li>在套件 Server主机上执行下面的操作。替换<code>database-type</code>为<strong>mysql</strong>或<strong>oracle</strong>，并且基于MySQL或Oracle JDBC驱动所在路径<code>/jdbc/driver/path</code>执行:' +
       '<pre>tbds-server setup --jdbc-db={database-type} --jdbc-driver={/jdbc/driver/path}</pre></li></ol>',
     'installer.step4.rangerRequirements.popup.body.confirmation': '我已经满足上述所有要求',
     'installer.step4.sparkWarning.popup.body': 'Spark需要HDP2.2.2或更高的版本。尝试在HDP 2.2.0集群上安装Spark将会失败，确定您正在使用的是HDP 2.2.2或更高版本的安装包. 您确定要继续么?',
@@ -2487,19 +2487,19 @@ Em.I18n.translations = {
     'admin.kerberos.wizard.step5.header': '停止服务',
     'admin.kerberos.wizard.step6.header': 'Kerberize集群',
     'admin.kerberos.wizard.step7.header': '开始和测试服务',
-    'admin.kerberos.wizard.step1.info.body': '欢迎使用Ambari Security安装向导，您可以通过该向导为集群配置kerberos security。</br>我们开始吧！',
+    'admin.kerberos.wizard.step1.info.body': '欢迎使用套件 Security安装向导，您可以通过该向导为集群配置kerberos security。</br>我们开始吧！',
     'admin.kerberos.wizard.step1.alert.body': '注意: 这一步需要重启服务和集群宕机。同时，根据您的选择，可能需要安全管理员的支持，请做相应的计划！',
     'admin.kerberos.wizard.step1.body.text': '您计划使用什么类型的KDC?',
     'admin.kerberos.wizard.step1.option.kdc': '正在退出MIT KDC',
-    'admin.kerberos.wizard.step1.option.kdc.condition.1': 'Ambari Server和集群主机能够通过网络连接到KDC和KDC admin主机',
+    'admin.kerberos.wizard.step1.option.kdc.condition.1': '套件 Server和集群主机能够通过网络连接到KDC和KDC admin主机',
     'admin.kerberos.wizard.step1.option.kdc.condition.2': 'KDC管理认证可用',
-    'admin.kerberos.wizard.step1.option.kdc.condition.3': '已在Ambari Server和集群主机部署Java加密扩展(JCE)',
+    'admin.kerberos.wizard.step1.option.kdc.condition.3': '已在套件 Server和集群主机部署Java加密扩展(JCE)',
     'admin.kerberos.wizard.step1.option.ad': '目前的活动目录',
-    'admin.kerberos.wizard.step1.option.ad.condition.1': 'Ambari Server和集群主机能够通过网络连接到Domain控制节点',
+    'admin.kerberos.wizard.step1.option.ad.condition.1': '套件 Server和集群主机能够通过网络连接到Domain控制节点',
     'admin.kerberos.wizard.step1.option.ad.condition.2': '已经配置活动目录secure LDAP(LDAPS)的连接性',
     'admin.kerberos.wizard.step1.option.ad.condition.3': '已经创建principals用户组的活动目录并可用(e.g. OU=Hadoop,OU=People,dc=apache,dc=org)',
     'admin.kerberos.wizard.step1.option.ad.condition.4': '活动目录的管理员被授予“创建、删除和管理用户”的权限，这些用户是之前提到的用户组并已经存在。',
-    'admin.kerberos.wizard.step1.option.ad.condition.5': '已在Ambari Server和集群主机部署Java加密扩展(JCE)',
+    'admin.kerberos.wizard.step1.option.ad.condition.5': '已在套件 Server和集群主机部署Java加密扩展(JCE)',
     'admin.kerberos.wizard.step1.prerequisites.label': '执行安装向导前，必须检查下面的条件是否满足',
     'admin.kerberos.wizard.step2.info.body': '请配置kerberos相关的属性',
     'admin.kerberos.wizard.step3.task0.title': '安装Kerberos客户端',
@@ -2545,7 +2545,7 @@ Em.I18n.translations = {
     'admin.stackVersions.version.emptyHostsTooltip': '没有可显示的主机',
     'admin.stackVersions.version.notInstalled': "未安装",
     'admin.stackVersions.manageVersions': "版本管理",
-    'admin.stackVersions.manageVersions.popup.body': '您将从<b>集群管理</b>接口跳转到<b>Ambari管理</b>接口。您可以从Ambari管理>集群管理里面的“”链接回到集群管理',
+    'admin.stackVersions.manageVersions.popup.body': '您将从<b>集群管理</b>接口跳转到<b>套件管理</b>接口。您可以从套件管理>集群管理里面的“”链接回到集群管理',
     'admin.stackVersions.version.installNow': "安装软件包",
     'admin.stackVersions.version.performUpgrade': "执行升级",
     'admin.stackVersions.version.upgrade.pause': "升级: 待完成",
@@ -2733,7 +2733,7 @@ Em.I18n.translations = {
     'hosts.host.addComponent.ZOOKEEPER_SERVER':'正在添加的ZooKeeper Server可能会重新配置这些属性：<ul><li>ha.zookeeper.quorum</li><li>hbase.zookeeper.quorum</li><li>templeton.zookeeper.hosts</li><li>yarn.resourcemanager.zk-address</li><li>hive.zookeeper.quorum</li><li>hive.cluster.delegation.token.store.zookeeper.connectString</li></ul>',
     'hosts.host.addComponent.HIVE_METASTORE':'正在添加的<i>Hive Metastore</i>将会重新配置这些属性：<ul><li>hive.metastore.uris</li><li>templeton.hive.properties</li></ul>',
     'hosts.host.deleteComponent.popup.deleteHiveMetastore':'正在删除的<i>Hive Metastore</i>将会重新配置这些属性：<ul><li>hive.metastore.uris</li><li>templeton.hive.properties</li></ul>',
-    'hosts.host.hive.configs.save.note': '在主机上安装/删除hive组件时，ambari会创建这个配置文件',
+    'hosts.host.hive.configs.save.note': '在主机上安装/删除hive组件时，套件会创建这个配置文件',
     'dashboard.widgets.YARNLinks': 'YARN Links',
     'dashboard.widgets.error.invalid': '无效！请输入0 - {0}的数字',
     'dashboard.widgets.error.smaller': '临界值1应该比临界值2小！',

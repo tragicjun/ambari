@@ -176,7 +176,7 @@ DEFAULT_DB_NAME = "ambari"
 class ServerConfigDefaults(object):
   def __init__(self):
     self.JAVA_SHARE_PATH = "/usr/share/java"
-    self.OUT_DIR = os.sep + os.path.join("var", "log", "ambari-server")
+    self.OUT_DIR = os.sep + os.path.join("var", "log", "tbds-server")
     self.SERVER_OUT_FILE = os.path.join(self.OUT_DIR, "tbds-server.out")
     self.SERVER_LOG_FILE = os.path.join(self.OUT_DIR, "tbds-server.log")
     self.ROOT_FS_PATH = os.sep
@@ -189,7 +189,7 @@ class ServerConfigDefaults(object):
 
     # Configuration defaults
     self.DEFAULT_CONF_DIR = ""
-    self.PID_DIR = os.sep + os.path.join("var", "run", "ambari-server")
+    self.PID_DIR = os.sep + os.path.join("var", "run", "tbds-server")
     self.DEFAULT_LIBS_DIR = ""
 
     self.AMBARI_PROPERTIES_BACKUP_FILE = ""

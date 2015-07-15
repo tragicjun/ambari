@@ -583,6 +583,20 @@
           }
         }
       }
+    ],
+    HDFS_CLIENT:[
+	    {
+	        "name": "hdfs_service_check",
+	        "label": "Hdfs Service Check",
+	        "description": "hadoop service check。",
+	        "interval": 1,
+	        "scope": "ANY",
+	        "enabled": true,
+	        "source": {
+	          "type": "SCRIPT",
+	          "path": "HDFS/2.1.0.2.0/package/alerts/hdfs_service_check.py"
+	        }
+	      }
     ]
   }
 }

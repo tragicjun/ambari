@@ -97,7 +97,7 @@ SERVER_PING_ATTEMPTS_WINDOWS = 4
 
 SERVER_SEARCH_PATTERN = "org.apache.ambari.server.controller.AmbariServer"
 
-EXITCODE_NAME = "ambari-server.exitcode"
+EXITCODE_NAME = "tbds-server.exitcode"
 
 AMBARI_SERVER_DIE_MSG = "TBDS Server java process died with exitcode {0}. Check {1} for more information."
 
@@ -355,9 +355,9 @@ def server_process_main(options, scmStatus=None):
   else:
     pidfile = os.path.join(configDefaults.PID_DIR, PID_NAME)
     save_pid(pidJava, pidfile)
-    # print "Server PID at: "+pidfile
-    # print "Server out at: "+configDefaults.SERVER_OUT_FILE
-    # print "Server log at: "+configDefaults.SERVER_LOG_FILE
+    print "Server PID at: "+pidfile
+    print "Server out at: "+configDefaults.SERVER_OUT_FILE
+    print "Server log at: "+configDefaults.SERVER_LOG_FILE
 
     wait_for_server_start(pidfile, scmStatus)
 

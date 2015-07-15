@@ -21,18 +21,19 @@ limitations under the License.
 import commands
 import json
 import datetime
+import uuid
 
 LABEL = 'Last Checkpoint: [{h} hours, {m} minutes, {tx} transactions]'
 
-LHOTSE_SERVICE_PORT = '{{lhotse-service/listen.port}}'
-LHOTSE_DEFAULT_TASKID = '{{lhotse-service/lhotse.default.taskId}}'
+THIVE_USER = '{{thive-config-env/hive.plc.user}}'
+THIVE_PASSWORD = '{{thive-config-env/hive.plc.password}}'
 
 def get_tokens():
   """
   Returns a tuple of tokens in the format {{site/property}} that will be used
   to build the dictionary passed into execute
   """
-  return (LHOTSE_SERVICE_PORT, LHOTSE_DEFAULT_TASKID)
+  return (THIVE_USER, THIVE_USER)
   
 
 def execute(parameters=None, host_name=None):
@@ -47,37 +48,28 @@ def execute(parameters=None, host_name=None):
   if parameters is None:
     return (('UNKNOWN', ['There were no parameters supplied to the script.']))
 
-  host = host_name
-  port = 9010
-  taskId = parameters[LHOTSE_DEFAULT_TASKID]
+  thive_user = "thive"
+  thive_password = "thive"
+  hdfs_user = "hdfs"
 
-  if LHOTSE_SERVICE_PORT in parameters:
-    port = parameters[LHOTSE_SERVICE_PORT]
+  if THIVE_USER in parameters:
+    thive_user = parameters[THIVE_USER]
     
-  if taskId == "{{lhotse-service/lhotse.default.taskId}}":
-    taskId = "20150602143023086"
-  
-  today = datetime.date.today()
-  yestory = today - datetime.timedelta(days=1)
-  today = today.strftime("%Y%m%d000000")
-  yestory = yestory.strftime("%Y%m%d000000")
-  cmd = 'curl "' + host + ':' + str(port) + '/LService/QueryTaskRun_new?taskId=' + str(taskId) + '&dateFrom='+yestory+'&dateTo='+today+'" 2>/dev/null'
+  if THIVE_PASSWORD in parameters:
+    thive_password = parameters[THIVE_PASSWORD]
+    
+  unique = str(uuid.uuid1()).replace("-","")
+  tmp_table = "tmp_table_"+unique;
+  ddl_cmd = "create table {0}(id int); drop table {1};".format(tmp_table, tmp_table)
+  #ddl_cmd = "show tables;"
+  cmd = 'su -c \"/usr/local/thive/dist/bin/hive -u {0} -p {1} -e \\\"{2}\\\"\" {3}'.format(thive_user, thive_password,  ddl_cmd, hdfs_user)
   (ret, out) = commands.getstatusoutput(cmd)
   
   if ret == 0:
-    label = 'lhotse service is running.'
+    label = 'thive service is running.'
     result_code = 'OK'
-    try:
-      lhotseResult = json.loads(out)
-      serviceState = lhotseResult['state']
-      if serviceState.strip() != "success":
-        result_code = "CRITICAL"
-        label = "lhotse service runs failed, state["+serviceState+"]"
-    except Exception,e:
-      result_code = "CRITICAL"
-      label = 'lhotse service is down[{0}]:{1}'.format(cmd, str(e))
   else:
+    label = 'thive service runs failed:'+out
     result_code = 'CRITICAL'
-    label = 'lhotse service is down[{0}].'.format(cmd)
 
   return ((result_code, [label]))
