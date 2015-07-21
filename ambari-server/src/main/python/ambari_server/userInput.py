@@ -31,6 +31,20 @@ from ambari_commons.os_utils import get_password
 #
 # return True if 'y' or False if 'n'
 #
+def get_YN_input_optional(prompt, default, usedefault):
+  if usedefault:
+    print(prompt)
+    defaultstr = str(default)
+    if defaultstr=="True":
+      print("y")
+    elif defaultstr == "False":
+      print("n")
+    else:
+      print(default)
+    return default
+  else:
+    return get_YN_input(prompt, default)
+
 def get_YN_input(prompt, default):
   yes = set(['yes', 'ye', 'y'])
   no = set(['no', 'n'])
@@ -59,6 +73,23 @@ def get_choice_string_input(prompt, default, firstChoice, secondChoice):
       print "input not recognized, please try again: "
 
   return result
+
+def get_validated_string_input_optional(prompt, default, pattern, description,
+                               is_pass, allowEmpty=True, validatorFunction=None,usedefault=True):
+  if usedefault:
+    print(prompt)
+    defaultstr = str(default)
+    if defaultstr=="True":
+      print("y")
+    elif defaultstr == "False":
+      print("n")
+    else:
+      print(default)
+    return default
+  else:
+    return get_validated_string_input(prompt, default, pattern, description,
+                                      is_pass, allowEmpty=True, validatorFunction=None)
+
 
 
 def get_validated_string_input(prompt, default, pattern, description,

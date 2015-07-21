@@ -21,7 +21,8 @@
   <packaging>${packagingFormat}</packaging>
   <name>Ambari Server</name>
   <version>2.0.0.0</version>
-  <description>Ambari Server</description>
+  <description>Ambari Se
+      rver</description>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <python.ver>python &gt;= 2.6</python.ver>
@@ -387,6 +388,17 @@
                 </source>
                 <source>
                   <location>conf/unix/krb5JAASLogin.conf</location>
+                </source>
+              </sources>
+            </mapping>
+            <mapping>
+              <directory>/var/lib/tbds-server/</directory>
+              <filemode>700</filemode>
+              <username>root</username>
+              <groupname>root</groupname>
+              <sources>
+                <source>
+                  <location>conf/unix/ambari-sudo.sh</location>
                 </source>
               </sources>
             </mapping>
@@ -775,6 +787,17 @@
               </mapper>
             </data>
              <!-- /q001 -->
+            <data>
+              <src>conf/unix/ambari-sudo.sh</src>
+              <type>file</type>
+              <mapper>
+                <type>perm</type>
+                <prefix>/var/lib/tbds-server/</prefix>
+                <user>root</user>
+                <group>root</group>
+                <filemode>700</filemode>
+              </mapper>
+            </data>
             <data>
               <src>conf/unix/ambari-env.sh</src>
               <type>file</type>
