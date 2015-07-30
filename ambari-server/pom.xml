@@ -21,8 +21,7 @@
   <packaging>${packagingFormat}</packaging>
   <name>Ambari Server</name>
   <version>2.0.0.0</version>
-  <description>Ambari Se
-      rver</description>
+  <description>Ambari Server</description>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <python.ver>python &gt;= 2.6</python.ver>
