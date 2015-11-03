@@ -24,6 +24,7 @@ import uuid
 import shlex
 import subprocess
 import time
+from resource_management import *
 
 
 LABEL = 'Last Checkpoint: [{h} hours, {m} minutes, {tx} transactions]'
@@ -38,26 +39,6 @@ def get_tokens():
   to build the dictionary passed into execute
   """
   return (THIVE_USER, THIVE_PASSWORD, THIVE_PORT)
-  
-
-def execute_command(cmdstring, timeout=None, shell=True):
-    if shell:
-      cmdstring_list = cmdstring
-    else:   
-      cmdstring_list = shlex.split(cmdstring)
-    if timeout:
-      end_time = datetime.datetime.now() + datetime.timedelta(seconds=timeout)
-    
-    sub = subprocess.Popen(cmdstring_list, stdout=subprocess.PIPE,stderr=subprocess.PIPE, stdin=subprocess.PIPE,shell=shell)
-    
-    while sub.poll() is None:
-      time.sleep(0.1)
-      if timeout:
-        if end_time <= datetime.datetime.now():
-          return 1,"Timeout:%s"%cmdstring
-        
-    stdout,stderr = sub.communicate()
-    return sub.returncode,stdout+stderr
 
 def execute(parameters=None, host_name=None):
   """
@@ -73,7 +54,6 @@ def execute(parameters=None, host_name=None):
 
   thive_user = "thive"
   thive_password = "thive"
-  hdfs_user = "hdfs"
   thive_port = "10002"
 
   if THIVE_USER in parameters:
@@ -89,14 +69,14 @@ def execute(parameters=None, host_name=None):
   tmp_table = "tmp_table_"+unique;
   ddl_cmd = "create table {0}(id int); drop table {1};".format(tmp_table, tmp_table)
   #ddl_cmd = "show tables;"
-  cmd = 'export PLCLIENT_PATH=/usr/local/thive/dist/PLClient; su -c \"/usr/local/thive/dist/PLClient/PLC {0} {1} {2} {3} \\\"{4}\\\"\" {5}'.format(thive_user, thive_password, host_name, thive_port,  ddl_cmd, hdfs_user)
-  (ret, out) = execute_command(cmd,60)
+  cmd = 'export PLCLIENT_PATH=/usr/local/thive/dist/PLClient; /usr/local/thive/dist/PLClient/PLC {0} {1} {2} {3} \"{4}\"'.format(thive_user, thive_password, host_name, thive_port,  ddl_cmd)
   
-  if ret == 0:
-    label = 'thive service is running.'
-    result_code = 'OK'
-  else:
-    label = 'thive service runs failed:'+out
-    result_code = 'CRITICAL'
-
+  result_code = 'OK'
+  label = 'thive service is running.'
+  try:
+    Toolkit.execute_shell(cmd,timeout=120)
+  except Exception,e:
+    result_code = "CRITICAL"
+    label = 'thive service runs failed'
+    
   return ((result_code, [label]))

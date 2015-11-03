@@ -443,6 +443,9 @@ App.MainServiceItemController = Em.Controller.extend({
   },
 
   restartAllHostComponents : function(serviceName) {
+	if (this.get('content.healthStatus') == 'yellow') {
+		return App.showAlertPopup(Em.I18n.t('common.error'), '该server不可重启');
+	}
     var serviceDisplayName = this.get('content.displayName');
     var bodyMessage = Em.Object.create({
       putInMaintenance: this.get('content.passiveState') === 'OFF',
@@ -454,6 +457,99 @@ App.MainServiceItemController = Em.Controller.extend({
     return App.showConfirmationFeedBackPopup(function(query, runMmOperation) {
       batchUtils.restartAllServiceHostComponents(serviceName, false, query, runMmOperation);
     }, bodyMessage);
+  },
+
+  // get services depend on service
+  getDependedServices : function (serviceName) {
+    var dependedServices = [];
+
+    App.Service.find().forEach(function(service){
+      if(App.StackService.find(service.get('serviceName')).get('requiredServices').contains(serviceName)) {
+        dependedServices.push(service);
+      }
+    });
+
+    return dependedServices;
+  },
+  
+  // 卸载
+  uninstallComponents : function(serviceName) {
+	if (this.get('content.healthStatus') == 'yellow') {
+		return App.showAlertPopup(Em.I18n.t('common.error'), '正在卸载中...');
+		return;
+	}
+	else if (this.get('content.healthStatus') != 'red') {
+		return App.showAlertPopup(Em.I18n.t('common.error'), '请先停止该服务！');
+	}
+
+  var serviceDisplayName = this.get('content.displayName');
+
+  var dependedServices = this.getDependedServices(serviceName).mapProperty('displayName');
+  if(dependedServices.length != 0) {
+    var serviceNames = dependedServices.reduce(function (previous, current) {
+      return previous + ", " + current;
+    });
+    return App.showAlertPopup(Em.I18n.t('common.error'), serviceDisplayName + '因为被服务' + serviceNames + '依赖而不能卸载！', null);
+  }
+
+	var bodyMessage = Em.Object.create({
+      confirmMsg: serviceDisplayName + '服务的数据和日志将会在卸载时清除，是否确认卸载？',
+      confirmButton: '确定'
+    });	
+	var _self = this;
+    return App.showConfirmationFeedBackPopup(function(query) {
+		_self.uninstallUpdate(query);
+    }, bodyMessage);
+  },
+  
+  // 先update
+  uninstallUpdate : function (query) {
+	var data = {
+	  'context': '卸载 '+this.get('content.displayName'),
+	  'serviceName': this.get('content.serviceName').toUpperCase(),
+	  'ServiceInfo': {
+		 'state': 'UNINSTALLED'
+	   },
+	  'query': query
+	};
+
+	return App.ajax.send({
+	  'name': 'common.service.update',
+	  'sender': this,
+	  'success': 'uninstallDeleteCallback',
+	  'error': 'uninstallFail',
+	  'data': data
+	});
+  },
+  
+  // 后delete
+  uninstallUpdateCallback : function (data, ajaxOptions, params) {
+	return App.ajax.send({
+	  'name': 'common.service.delete',
+	  'serviceName': this.get('content.serviceName').toUpperCase(),
+	  'sender': this,
+	  'success': 'uninstallDeleteCallback',
+	  'error': 'uninstallFail',
+	  'data' : {
+		'serviceName': this.get('content.serviceName').toUpperCase()
+	  }
+	});	
+  },
+  
+  // 成功
+  uninstallDeleteCallback : function(data, ajaxOptions, params) {
+	App.router.get('applicationController').dataLoading().done(function (initValue) {
+        if (initValue) {
+          App.router.get('backgroundOperationsController').showPopup();
+        }
+		//location.reload();
+	});
+  },
+  
+  // 失败
+  uninstallFail : function(request, ajaxOptions, error, opt, params) {
+	//debugger;
+	return App.showAlertPopup(Em.I18n.t('common.error'), '操作失败');
   },
 
   turnOnOffPassive: function(label) {
@@ -685,6 +781,7 @@ App.MainServiceItemController = Em.Controller.extend({
   }.property('content.healthStatus','isPending'),
 
   isStopDisabled: function () {
+    return false;
     if(this.get('isPending')) return true;
     if (App.get('isHaEnabled') && this.get('content.serviceName') == 'HDFS' && this.get('content.hostComponents').filterProperty('componentName', 'NAMENODE').someProperty('workStatus', App.HostComponentStatus.started)) {
       return false;

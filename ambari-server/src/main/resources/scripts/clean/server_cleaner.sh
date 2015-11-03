@@ -1,33 +1,37 @@
 #!/bin/bash
-echo "step 1: server stop"
-sudo tbds-server stop
+echo "----------   CLEAN TBDS SERVER  ----------"
+echo "stop tbds server ..."
+tbds-server stop
+ps aux | grep AmbariServer | grep -v grep | awk '{print "kill -9 "$2}' | sh
 
-echo "step 2: reset db"
-sudo tbds-server reset
+echo "stop postgresql ..."
+service postgresql stop
+for x in `ps aux | grep "/usr/pgsql-9.3/bin/postmaster" | grep -v grep | awk '{print $2}'`; do kill -9 $x; done
+for x in `ipcs -m | grep postgres | awk '{print $2}'`; do ipcrm -m $x; done
+for x in `ipcs -s | grep postgres | awk '{print $2}'`; do ipcrm -s $x; done
 
-echo "step3: yum erase tbds-server"
-sudo yum erase tbds-server
+echo "uninstall tbds-server ..."
+yum remove -y postgresql*
+yum clean all
 
-echo "step4: rm dir"
-sudo rm -R /var/lib/tbds*
-sudo rm -R /usr/lib/tbds*
-sudo rm -R /var/log/tbds*
-sudo rm -R /var/run/tbds*
-sudo rm -R /usr/bin/tbds*
-sudo rm -R /usr/sbin/tbds*
-sudo rm -R /usr/lib/python2.6/site-packages/tbds*
-sudo rm -R /usr/lib/python2.6/site-packages/resource_management
-sudo rm -R /etc/tbds*
+echo "remove postgresql data files ..."
+rm -rf /var/lib/pgsql/
+rm -rf /var/run/post*
+rm -rf /var/lock/subsys/postgresql*
 
-sudo rm -R /var/lib/ambari*
-sudo rm -R /usr/lib/ambari*
-sudo rm -R /var/log/ambari*
-sudo rm -R /var/run/ambari*
-sudo rm -R /usr/bin/ambari*
-sudo rm -R /usr/sbin/ambari*
-sudo rm -R /usr/lib/python2.6/site-packages/ambari*
-sudo rm -R /usr/lib/python2.6/site-packages/resource_management
-sudo rm -R /etc/ambari*
+echo "remove residual files on server ..."
+rm -rf /var/lib/tbds-server
+rm -rf /usr/lib/tbds-server
+rm -rf /var/log/tbds-server
+rm -rf /var/run/tbds-server
+rm -rf /usr/sbin/tbds-server
+rm -rf /usr/sbin/tbds-server.py
+rm -rf /etc/tbds-server
 
-echo "step5: yum clean all"
-sudo yum clean all
+rm -rf /usr/bin/ambari-python-wrap
+rm -rf /usr/lib/python2.6/site-packages/ambari_server
+rm -rf /usr/lib/python2.6/site-packages/ambari_commons
+rm -rf /usr/lib/python2.6/site-packages/ambari_jinja2
+rm -rf /usr/lib/python2.6/site-packages/resource_management
+
+echo "server cleaned success !!!"

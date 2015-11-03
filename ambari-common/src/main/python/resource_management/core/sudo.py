@@ -23,6 +23,9 @@ import os
 import tempfile
 from resource_management.core import shell
 from resource_management.core.logger import Logger
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 # os.chown replacement
 def chown(path, owner, group):

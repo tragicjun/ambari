@@ -39,6 +39,8 @@ import hdfs_rebalance
 from utils import failover_namenode
 from setup_ranger_hdfs import setup_ranger_hdfs
 
+from hive_dir_init import HiveDirInit  
+
 # hashlib is supplied as of Python 2.5 as the replacement interface for md5
 # and other secure hashes.  In 2.6, md5 is deprecated.  Import hashlib if
 # available, avoiding a deprecation warning under 2.6.  Import md5 otherwise,
@@ -63,6 +65,12 @@ class NameNode(Script):
     #TODO we need this for HA because of manual steps
     self.configure(env)
 
+    Links(params.new_hdfs_install_path, params.hdfs_install_path)
+    Links(params.new_hdfs_config_path, params.hdfs_config_path)
+
+  def uninstall(self, env):
+    Toolkit.uninstall_service("hdfs")
+
   def prepare_rolling_upgrade(self, env):
     namenode_upgrade.prepare_rolling_upgrade()
 
@@ -84,6 +92,11 @@ class NameNode(Script):
     self.configure(env)
     setup_ranger_hdfs()
     namenode(action="start", rolling_restart=rolling_restart, env=env)
+    
+    HiveDirInit().createHiveDir()
+
+    Links(params.new_hdfs_namenode_data_path, params.hdfs_namenode_data_paths)
+    Links(params.new_hdfs_log_path, params.hdfs_log_path)
 
   def post_rolling_restart(self, env):
     Logger.info("Executing Rolling Upgrade post-restart")

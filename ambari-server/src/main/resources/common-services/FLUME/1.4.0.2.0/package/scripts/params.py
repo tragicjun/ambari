@@ -88,3 +88,19 @@ if has_metric_collector:
   if metric_collector_port and metric_collector_port.find(':') != -1:
     metric_collector_port = metric_collector_port.split(':')[1]
   pass
+
+
+ams_collector_hosts = default("/configurations/flume-env/flume_log_dir", [])
+ams_collector_hosts = default("/configurations/flume-env/flume_log_dir", [])
+
+# refractor service path
+
+flume_install_path = "/usr/hdp/2.2.0.0-2041/flume"
+flume_config_path = default("/configurations/flume-env/flume_conf_dir", "/etc/flume/conf")
+flume_log_path = default("/configurations/flume-env/flume_log_dir", "/data/var/log/flume")
+flume_state_path="/var/run/flume"
+
+new_flume_install_path = "/opt/tbds/flume"
+new_flume_config_path = "/etc/tbds/flume"
+new_flume_log_path = "/var/log/tbds/flume"
+

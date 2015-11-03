@@ -94,3 +94,22 @@ if has_metric_collector:
 
 # Security-related params
 security_enabled = config['configurations']['cluster-env']['security_enabled']
+
+# Added by junz for integrating kafka-manager
+zookeeper_connect = config['configurations']['kafka-broker']['zookeeper.connect']
+kafka_manager_dir = '/usr/local/kafka-manager'
+kafka_manager_pid_file = kafka_manager_dir + "/RUNNING_PID"
+kafka_manager_http_port = config['configurations']['kafka-manager']['http.port']
+
+# refractor service path
+
+kafka_install_path = "/usr/hdp/2.2.0.0-2041/kafka"
+kafka_config_path = "/etc/kafka/conf"
+kafka_data_path = default("/configurations/kafka-broker/log.dirs", "/data/kafka-logs")
+kafka_log_path = default("/configurations/kafka-env/kafka_log_dir", "/data/var/log/kafka")
+
+new_kafka_install_path = "/opt/tbds/kafka"
+new_kafka_config_path = "/etc/tbds/kafka"
+new_kafka_data_path = "/data/tbds/kafka/data"
+new_kafka_log_path = "/var/log/tbds/kafka/server"
+

@@ -1074,6 +1074,27 @@ public class HostImpl implements Host {
                     itr.remove();
                 }
             }
+        }else{
+            //Added by junz: keep the maximum mountpoint only
+            if(r.getDisksInfo().size() > 0) {
+                DiskInfo maxDiskInfo = r.getDisksInfo().get(0);
+                for (DiskInfo diskInfo : r.getDisksInfo()) {
+                    if (Long.valueOf(diskInfo.getSize()) > Long.valueOf(maxDiskInfo.getSize())) {
+                        maxDiskInfo = diskInfo;
+                    }
+                }
+
+                Iterator<DiskInfo> itr = r.getDisksInfo().iterator();
+                List<DiskInfo> disks = new ArrayList<DiskInfo>();
+                while (itr.hasNext()) {
+                    DiskInfo disk = itr.next();
+                    if (maxDiskInfo.getMountPoint().equals(disk.getMountPoint())) {
+                        disks.add(disk);
+                        r.setDisksInfo(disks);
+                        break;
+                    }
+                }
+            }
         }
         //Ended
 

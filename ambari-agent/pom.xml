@@ -19,14 +19,14 @@
   <parent>
     <groupId>org.apache.ambari</groupId>
     <artifactId>ambari-project</artifactId>
-    <version>2.0.0.0</version>
+    <version>2.4.0.0</version>
     <relativePath>../ambari-project</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.ambari</groupId>
   <artifactId>ambari-agent</artifactId>
   <packaging>pom</packaging>
-  <version>2.0.0.0</version>
+  <version>2.4.0.0</version>
   <name>Ambari Agent</name>
   <description>Ambari Agent</description>
   <properties>
@@ -382,16 +382,6 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>${sudoers.d.dir}</directory>
-              <username>root</username>
-              <groupname>root</groupname>
-              <sources>
-                <source>
-                  <location>etc/sudoers.d</location>
-                </source>
-              </sources>
-            </mapping>
-            <mapping>
               <directory>/var/lib/${project.artifactId}/data</directory>
               <filemode>755</filemode>
               <username>root</username>
@@ -415,7 +405,7 @@
               </sources>
             </mapping>
             <mapping>
-              <directory>/usr/lib/python2.6/site-packages/ambari_agent</directory>
+              <directory>${agent.install.dir}</directory>
               <filemode>755</filemode>
               <username>root</username>
               <groupname>root</groupname>
@@ -424,10 +414,7 @@
                   <location>src/main/python/ambari_agent/AmbariCleaner.py</location>
                 </source>
                 <source>
-                  <location>src/main/python/ambari_agent/HostCleanupManually.py</location>
-                </source>
-                <source>
-                  <location>src/main/python/ambari_agent/service_info.json</location>
+                  <location>src/main/python/ambari_agent/service_remove.txt</location>
                 </source>
               </sources>
             </mapping>
@@ -492,16 +479,6 @@
                   <user>root</user>
                   <group>root</group>
                   <filemode>755</filemode>
-              </mapper>
-            </data>
-           <data>
-              <src>etc/sudoers.d/ambari-agent</src>
-              <type>file</type>
-              <mapper>
-                <type>perm</type>
-                <prefix>${sudoers.d.dir}</prefix>
-                  <user>root</user>
-                  <group>root</group>
               </mapper>
             </data>
             <data>

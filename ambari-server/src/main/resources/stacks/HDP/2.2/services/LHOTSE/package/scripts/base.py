@@ -13,17 +13,44 @@ class Base(Script):
     self.install_packages(env,excludePackage)
     self.start(env)
 
+    import params
+    Links(params.new_lhotse_install_path_base, params.lhotse_install_path_base)
+    Links(params.new_lhotse_log_path_base, params.lhotse_log_path_base)
+    Links(params.new_lhotse_config_path_base, params.lhotse_config_path_base)
+
+  def uninstall(self, env):
+    Toolkit.uninstall_service("lhotse")
+
   def start(self, env):
     import params
     print 'call self.config'
     self.configure(env)
-    
 
-    print 'start the base';
+    print 'mkdir log path'
+    print params.lhotse_base_logpath_coredump
+    Directory(params.lhotse_base_logpath_coredump,
+         mode=0777,
+         owner="lhotse",
+         group="lhotse",
+         recursive=True
+    )
+
+    print params.lhotse_base_logpath_gclog
+    Directory(params.lhotse_base_logpath_gclog,
+         mode=0777,
+         owner="lhotse",
+         group="lhotse",
+         recursive=True
+    )
+
+    print 'start the base'
     print params.java_home
-    val= os.system("su lhotse -c '/usr/local/lhotse_base/start_base.sh " + params.java_home + "'")
+    val= os.system("su lhotse -c '/usr/local/lhotse_base/start_base.sh " + params.java_home +" " + params.lhotse_base_logpath_coredump + " " + params.lhotse_base_logpath_gclog +  "'")
     print val
-     
+
+    Links(params.new_lhotse_log_base_coredump, params.lhotse_log_base_coredump)
+    Links(params.new_lhotse_log_base_gclog, params.lhotse_log_base_gclog)
+
 
   def configure(self, env):
     print 'create the config file call configinit()';

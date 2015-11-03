@@ -2,97 +2,132 @@
 import os
 import sys
 import commands
+import socket
+import fileinput
+import time
 
-from resource_management import *
-from ambari_agent.HostInfo import HostInfo, HostInfoLinux
-sys.path.append("/var/lib/ambari-agent/cache/custom_actions/scripts/")
-from check_host import CheckHost
 
-class AmbariCleaner(Script):
+class AmbariCleaner:
 
-  def hostcheck(self):
-    h = HostInfo()
-    struct = {}
-    h.register(struct,False,False)
-    print struct
+  repo_name_key = "repo_name"
+  directory_key = "directory"
 
-  def servicecheck(self):
-    cmd = "sudo python /var/lib/ambari-agent/cache/custom_actions/scripts/check_host.py ACTIONEXECUTE /usr/lib/python2.6/site-packages/ambari_agent/service_info.json /var/lib/ambari-agent/cache/common-services/HDFS/2.1.0.2.0/package /tmp/my.txt INFO /var/lib/ambari-agent/data/tmp"
+  def __init__(self):
+    self.logfile = open("/tmp/clean_agent.log", "a")
+    self.onServer = self.isServerHost()
+    self.dirs = self.readServiceInfo(self.directory_key)
+    self.repos = self.readServiceInfo(self.repo_name_key)
+
+  def __del__(self):
+    self.logfile.close()
+
+  def log(self, str):
+    now = time.strftime("%H:%M:%S", time.localtime())
+    self.logfile.write("[{0}] {1}\n".format(now, str))
+
+  def isServerHost(self):
+    cmd = "cat /etc/ambari-agent/conf/ambari-agent.ini | grep hostname | awk -F '=' '{print $2}'"
+    (ret, serverhost) = self.run_cmd(cmd)
+
+    localhost = socket.gethostname()
+    self.log("localhost is '{0}', serverhost is '{1}'".format(localhost,serverhost))
+
+    if localhost == serverhost:
+      return True
+    else:
+      return False
+
+  def readServiceInfo(self,key):
+    res = []
+    findkey = False
+
+    for line in fileinput.input("/usr/lib/python2.6/site-packages/ambari_agent/service_remove.txt"):
+      line = line.strip()
+      if (line == ""):
+        continue
+
+      if (findkey):
+        if(line.find("[") < 0):
+          self.log("get value: {0}".format(line))
+          res.append(line)
+        else:
+          break
+
+      elif (line.find(key)>=0) :
+        findkey = True
+
+    fileinput.close()
+    return res
+
+  def run_cmd(self,cmd):
+    self.log("Running commmand: " + cmd)
+    (ret, output) = commands.getstatusoutput(cmd)
+    self.log(output)
+    return (ret == 0,output)
+
+  def stop_agent(self):
+    cmd = "ambari-agent stop"
     self.run_cmd(cmd)
 
-  def cleaner_services(self):
-    self.hostcheck()
-    self.servicecheck()
 
-    cmd = "sudo python /usr/lib/python2.6/site-packages/ambari_agent/HostCleanupManually.py --skip \"users\" 1>/tmp/ambari_clean.log"
-    self.run_cmd(cmd)
+  def remove_services_installed_rpm(self):
+    if not self.onServer:
+      for repo in self.repos:
+        cmd = "yum list installed 2>/dev/null | grep " + repo + " | awk '{print $1}' | xargs yum remove -y"
+        (ok, output) = self.run_cmd(cmd)
 
-  def eraseagent(self):
-    print "ambari-agent stop"
-    cmd = "sudo ambari-agent stop"
-    self.run_cmd(cmd)
+        if not ok:
+          cmd = "for x in `yum list installed 2>/dev/null | grep " + repo + " | awk '{print $1}'`; do echo \"removing $x ...\"; yum remove -y $x 2>&1 >/dev/null | grep -i error; done"
+          self.run_cmd(cmd)
+    else:
+      for repo in self.repos:
+        cmd = "yum list installed 2>/dev/null | grep " + repo + " | awk '{print $1}' | grep -v tbds-server | grep -v postgresql | xargs yum remove -y"
+        (ok, output) = self.run_cmd(cmd)
 
-    print "yum erase agent"
-    cmd = "sudo yum erase -y ambari-agent*"
-    self.run_cmd(cmd)
+        if not ok:
+          cmd = "for x in `yum list installed 2>/dev/null | grep " + repo + " | awk '{print $1}' | grep -v tbds-server | grep -v postgresql`; do echo \"removing $x ...\"; yum remove -y $x 2>&1 >/dev/null | grep -i error; done"
+          self.run_cmd(cmd)
 
-  def erasemetrics(self):
-    print "yum erase metrics"
-    cmd = "sudo yum erase -y ambari-metrics*"
-    self.run_cmd(cmd)
 
-  def remove_dir(self):
-    cmd = "sudo rm -rf /var/lib/ambari*"
-    self.run_cmd(cmd)
-
-    cmd = "sudo rm -rf /usr/lib/ambari*"
-    self.run_cmd(cmd)
-
-    cmd = "sudo rm -rf /var/log/ambari*"
-    self.run_cmd(cmd)
-
-    cmd = "sudo rm -rf /var/run/ambari*"
-    self.run_cmd(cmd)
-
-    cmd = "sudo rm -rf /usr/bin/ambari*"
-    self.run_cmd(cmd)
-
-    cmd = "sudo rm -rf /usr/sbin/ambari*"
-    self.run_cmd(cmd)
-
-    cmd = "sudo rm -rf /usr/lib/python2.6/site-packages/ambari*"
-    self.run_cmd(cmd)
-
-    cmd = "sudo rm -rf /usr/lib/python2.6/site-packages/resource_management"
-    self.run_cmd(cmd)
-
-    cmd = "sudo rm -rf /etc/ambari*"
-    self.run_cmd(cmd)
 
   def yum_clean(self):
-    print "yum clean all"
-    cmd = "sudo yum clean all"
-    (ret, output) = commands.getstatusoutput(cmd)
-    print output
-    print ret
-  
-  def run_cmd(self,cmd):
-    print cmd
-    (ret, output) = commands.getstatusoutput(cmd)
-    print output
-    print ret
+    cmd = "yum clean all"
+    self.run_cmd(cmd)
+
+  def release_resources(self):
+    self.run_cmd("umount /gaia/docker/var/lib/docker/devicemapper")
+
+  def remove_dir(self):
+    self.release_resources()
+
+    if not self.onServer:
+      self.run_cmd("rm -rf /usr/bin/ambari-python-wrap")
+      self.run_cmd("rm -rf /usr/lib/python2.6/site-packages/ambari_commons")
+      self.run_cmd("rm -rf /usr/lib/python2.6/site-packages/ambari_jinja2")
+      self.run_cmd("rm -rf /usr/lib/python2.6/site-packages/resource_management")
+
+    for dir in self.dirs:
+      cmd = "rm -rf {0}".format(dir)
+      self.run_cmd(cmd)
+
+    self.run_cmd("DIR=/opt/tbds; for x in $(find $DIR -type l); do rm -rf $(readlink -f $x); done; rm -rf $DIR")
+    self.run_cmd("DIR=/etc/tbds; for x in $(find $DIR -type l); do rm -rf $(readlink -f $x); done; rm -rf $DIR")
+    self.run_cmd("DIR=/var/log/tbds; for x in $(find $DIR -type l); do rm -rf $(readlink -f $x); done; rm -rf $DIR")
+    self.run_cmd("DIR=/data/tbds; for x in $(find $DIR -type l); do rm -rf $(readlink -f $x); done; rm -rf $DIR")
 
   def main(self):
-    self.cleaner_services()
+    # stop agent first
+    self.stop_agent()
 
-    self.erasemetrics()
-
-    self.eraseagent()
-
+    # remove yum rpms
+    self.remove_services_installed_rpm()
     self.yum_clean()
 
+    # remove user defined dirs
     self.remove_dir()
 
+    self.log("Agent clean success !")
+
 if __name__ == '__main__':
-   obj = AmbariCleaner()
-   obj.main()
+  obj = AmbariCleaner()
+  obj.main()

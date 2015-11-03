@@ -319,8 +319,11 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
                 if "//" in propertyValue:
                   i = propertyValue.index("//")
                   propertyValue = propertyValue[i+2:]
-                i = propertyValue.index(":")
-                usedPort = propertyValue[i+1:]
+                if ":" in propertyValue:
+                  i = propertyValue.index(":")
+                  usedPort = propertyValue[i+1:]
+                else:
+                  usedPort = propertyValue
           else:
               configType = "NA"
               propertyKey = "NA"
@@ -512,7 +515,7 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
     if not mountPoints:
       return self.getErrorItem("No disk info found on host {0}", hostInfo["host_name"])
 
-    if mountPoints[mountPoint] < reqiuredDiskSpace:
+    if mountPoint is not None and mountPoints[mountPoint] < reqiuredDiskSpace:
       msg = "Ambari Metrics disk space requirements not met. \n" \
             "Recommended disk space for partition {0} is {1}G"
       return self.getWarnItem(msg.format(mountPoint, reqiuredDiskSpace/1048576)) # in Gb

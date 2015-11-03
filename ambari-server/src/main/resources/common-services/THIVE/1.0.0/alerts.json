@@ -26,19 +26,7 @@
             }
           }
         }
-      },
-      {
-	        "name": "thive_service_check",
-	        "label": "Thive Service Check",
-	        "description": "thive service check。",
-	        "interval": 2,
-	        "scope": "ANY",
-	        "enabled": true,
-	        "source": {
-	          "type": "SCRIPT",
-	          "path": "HDP/2.2/services/THIVE/package/alerts/thive_service_check.py"
-	        }
-	   }
+      }
     ],
     "THIVE_METADATA_DATABASE": [
       {

@@ -36,7 +36,14 @@ class HbaseMaster(Script):
 
   def install(self, env):
     self.install_packages(env)
-    
+
+    import params
+    Links(params.new_hbase_install_path, params.hbase_install_path)
+    Links(params.new_hbase_config_path, params.hbase_config_path)
+
+  def uninstall(self, env):
+    Toolkit.uninstall_service("hbase")
+
   def configure(self, env):
     import params
     env.set_params(params)
@@ -56,6 +63,8 @@ class HbaseMaster(Script):
     hbase_service( 'master',
       action = 'start'
     )
+
+    Links(params.new_hbase_log_path, params.hbase_log_path)
     
   def stop(self, env, rolling_restart=False):
     import params

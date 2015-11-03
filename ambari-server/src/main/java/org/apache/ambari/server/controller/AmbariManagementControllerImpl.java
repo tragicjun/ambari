@@ -132,10 +132,7 @@ import org.apache.ambari.server.state.StackInfo;
 import org.apache.ambari.server.state.State;
 import org.apache.ambari.server.state.configgroup.ConfigGroupFactory;
 import org.apache.ambari.server.state.scheduler.RequestExecutionFactory;
-import org.apache.ambari.server.state.svccomphost.ServiceComponentHostInstallEvent;
-import org.apache.ambari.server.state.svccomphost.ServiceComponentHostStartEvent;
-import org.apache.ambari.server.state.svccomphost.ServiceComponentHostStopEvent;
-import org.apache.ambari.server.state.svccomphost.ServiceComponentHostUpgradeEvent;
+import org.apache.ambari.server.state.svccomphost.*;
 import org.apache.ambari.server.utils.StageUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
@@ -391,6 +388,8 @@ public class AmbariManagementControllerImpl implements AmbariManagementControlle
     Map<String, Map<String, Map<String, Set<String>>>> hostComponentNames =
         new HashMap<String, Map<String, Map<String, Set<String>>>>();
     Set<String> duplicates = new HashSet<String>();
+    // store request removed duplicated, by florian
+    Set<ServiceComponentHostRequest> filtedRequests = new HashSet<ServiceComponentHostRequest>(requests.size());
     for (ServiceComponentHostRequest request : requests) {
       validateServiceComponentHostRequest(request);
 
@@ -506,10 +505,13 @@ public class AmbariManagementControllerImpl implements AmbariManagementControlle
         if (sch != null) {
           duplicates.add("[clusterName=" + request.getClusterName() + ", hostName=" + request.getHostname() +
               ", componentName=" +request.getComponentName() +']');
+          continue;
         }
       } catch (AmbariException e) {
         // Expected
       }
+
+      filtedRequests.add(request);
     }
 
     // ensure only a single cluster update
@@ -518,24 +520,26 @@ public class AmbariManagementControllerImpl implements AmbariManagementControlle
           + " on only one cluster at a time");
     }
 
-    if (!duplicates.isEmpty()) {
-      StringBuilder names = new StringBuilder();
-      boolean first = true;
-      for (String hName : duplicates) {
-        if (!first) {
-          names.append(",");
-        }
-        first = false;
-        names.append(hName);
-      }
-      String msg;
-      if (duplicates.size() == 1) {
-        msg = "Attempted to create a host_component which already exists: ";
-      } else {
-        msg = "Attempted to create host_component's which already exist: ";
-      }
-      throw new DuplicateResourceException(msg + names.toString());
-    }
+    requests = filtedRequests;
+
+//    if (!duplicates.isEmpty()) {
+//      StringBuilder names = new StringBuilder();
+//      boolean first = true;
+//      for (String hName : duplicates) {
+//        if (!first) {
+//          names.append(",");
+//        }
+//        first = false;
+//        names.append(hName);
+//      }
+//      String msg;
+//      if (duplicates.size() == 1) {
+//        msg = "Attempted to create a host_component which already exists: ";
+//      } else {
+//        msg = "Attempted to create host_component's which already exist: ";
+//      }
+//      throw new DuplicateResourceException(msg + names.toString());
+//    }
 
     // set restartRequired flag for  monitoring services
     setMonitoringServicesRestartRequired(requests);
@@ -2047,7 +2051,7 @@ public class AmbariManagementControllerImpl implements AmbariManagementControlle
                 if (oldSchState == State.INSTALLED
                     || oldSchState == State.UNINSTALLING) {
                   roleCommand = RoleCommand.UNINSTALL;
-                  event = new ServiceComponentHostStartEvent(
+                  event = new ServiceComponentHostUninstallEvent(
                       scHost.getServiceComponentName(), scHost.getHostName(),
                       nowTimestamp);
                 } else {
@@ -2473,8 +2477,7 @@ public class AmbariManagementControllerImpl implements AmbariManagementControlle
           //Clear exclud file or draining list except HBASE
           if (!serviceName.equals(Service.Type.HBASE.toString())) {
             HashMap<String, String> requestProperties = new HashMap<String, String>();
-            requestProperties.put("context", "Remove host " +
-                    included_hostname + " from exclude file");
+            requestProperties.put("context", "删除主机" + included_hostname);
             requestProperties.put("exclusive", "true");
             HashMap<String, String> params = new HashMap<String, String>();
             params.put("included_hosts", included_hostname);

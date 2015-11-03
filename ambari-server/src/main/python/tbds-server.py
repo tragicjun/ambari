@@ -148,7 +148,7 @@ def stop(args):
 
   if status:
     try:
-      os.killpg(os.getpgid(pid), signal.SIGKILL)
+      os.kill(pid, signal.SIGKILL)
     except OSError, e:
       print_info_msg("Unable to stop TBDS Server - " + str(e))
       return
@@ -307,7 +307,7 @@ def init_parser_options(parser):
   parser.add_option('--hostname', default=None, dest="hostname",
                     help="Specifies the hostname")
 
-  parser.add_option('--use_default', default="yes", dest="use_default",
+  parser.add_option('--use-default', default="yes", dest="use_default",
                       help="use default value to setup yes, no")
 
   # -b, -i, -k and -x the remaining available short options
@@ -375,7 +375,7 @@ def init_parser_options(parser):
   parser.add_option('--hostname', default=None, dest="hostname",
                     help="Specifies the hostname")
 
-  parser.add_option('--use_default', default="yes", dest="use_default",
+  parser.add_option('--use-default', default="yes", dest="use_default",
                       help="use default value to setup yes, no")
 
 
@@ -556,6 +556,9 @@ def main(options, args, parser):
   action_map = create_user_action_map(args, options)
 
   action = args[0]
+
+  if action == "setup" and options.repo_url is None:
+      parser.error("--repo-url must be given")
 
   try:
     action_obj = action_map[action]

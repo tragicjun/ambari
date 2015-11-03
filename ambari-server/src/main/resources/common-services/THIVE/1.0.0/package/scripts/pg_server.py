@@ -30,7 +30,6 @@ class PgMaster(Script):
     env.set_params(env)
 
     excludePackage = ['plclient*','thive']
-
     self.install_packages(env,excludePackage)
   
 
@@ -62,7 +61,14 @@ class PgMaster(Script):
 #    
 #    if ret != 0 :
 #       sys.exit(1)
-    
+
+    Links(params.new_thive_conf_path_pgsql, params.thive_conf_path_pgsql)
+    Links(params.new_thive_log_path_pgsql, params.thive_log_path_pgsql)
+    Links(params.new_thive_data_path_pgsql, params.thive_data_path_pgsql)
+
+
+  def uninstall(self, env):
+    Toolkit.uninstall_service("thive")
 
   def start(self, env):
     import params

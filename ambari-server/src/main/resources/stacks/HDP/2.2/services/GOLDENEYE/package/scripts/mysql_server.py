@@ -38,6 +38,12 @@ class MysqlServer(Script):
     print 'update configs'
     self.configure(env)
 
+    Links(params.new_goldeneye_conf_path_metadb, params.goldeneye_conf_path_metadb)
+    Links(params.new_goldeneye_log_path_metadb, params.goldeneye_log_path_metadb)
+
+  def uninstall(self, env):
+    Toolkit.uninstall_service("goldeneye")
+
   def configure(self, env):
     import params
     env.set_params(params)
@@ -53,6 +59,8 @@ class MysqlServer(Script):
     env.set_params(params)
     mysql_service(daemon_name=params.daemon_name, action = 'start')
     print "ok"
+
+    Links(params.new_goldeneye_data_path_metadb, params.goldeneye_data_path_metadb)
 
   def stop(self, env):
     import params

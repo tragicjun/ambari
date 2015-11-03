@@ -21,7 +21,7 @@ DEFAULT_SLEEP_SECONDS=5
 echo "Stop and clean mysql first"
 
 # Stop the mysql and clear the data if it's running before
-IS_RUNNING=`service mysqld status | grep running | wc -l`
+IS_RUNNING=`service mysqld status | grep pid | wc -l`
 if [ "$IS_RUNNING" == 1 ]; then
     service mysqld stop
 fi
@@ -53,7 +53,7 @@ echo "Customize the configuration successfully"
 
 # Start mysql
 service mysqld start
-IS_RUNNING=`service mysqld status | grep running | wc -l`
+IS_RUNNING=`service mysqld status | grep pid | wc -l`
 if [ "$IS_RUNNING" == 0 ]; then
    echo "Start mysql failed, just exit"
    exit 1
@@ -87,7 +87,7 @@ mysql -uroot -e "GRANT ALL PRIVILEGES ON $LHOTSE_DATABASE_NAME.* TO '$LHOTSE_DB_
 echo "Grant privileges for $MYSQL_DB_HOST with result $?"
 
 # Grant the database can be accessed from local machine
-mysql -uroot -e "GRANT ALL PRIVILEGES ON $LHOTSE_DATABASE_NAME.* TO '$LHOTSE_DB_USER'@'localhost' IDENTIFIED BY '$LHOTSE_DB_PASSWORD'"
+mysql -uroot -e "GRANT ALL PRIVILEGES ON $LHOTSE_DATABASE_NAME.* TO '$LHOTSE_DB_USER' @'localhost' IDENTIFIED BY '$LHOTSE_DB_PASSWORD'"
 
 echo "Grant privileges for locallhost with result $?"
 mysql -uroot -e "use test;create table test_table(user_name varchar(50), city varchar(50)) ENGINE=InnoDB DEFAULT CHARSET=utf8"

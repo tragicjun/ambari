@@ -210,8 +210,8 @@ def get_postgre_hba_dir(OS_FAMILY):
     # Like: /etc/postgresql/9.1/main/
     return os.path.join(PG_HBA_INIT_FILES[OS_FAMILY], get_ubuntu_pg_version(),
                         "main")
-  elif OSCheck.is_redhat7():
-    return PG_HBA_ROOT_DEFAULT
+  # elif OSCheck.is_redhat7():
+  #   return PG_HBA_ROOT_DEFAULT
   else:
     if not os.path.isfile(PG_HBA_INIT_FILES[OS_FAMILY]):
       # Link: /etc/init.d/postgresql --> /etc/init.d/postgresql-9.1
@@ -238,6 +238,8 @@ def get_postgre_running_status(OS_FAMILY):
   """Return postgre running status indicator"""
   if OS_FAMILY == OSConst.UBUNTU_FAMILY:
     return os.path.join(get_ubuntu_pg_version(), "main")
+  elif OSCheck.is_redhat7():
+    return "active"
   else:
     return PG_STATUS_RUNNING_DEFAULT
 

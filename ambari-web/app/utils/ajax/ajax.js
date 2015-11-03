@@ -86,6 +86,18 @@ var urls = {
       };
     }
   },
+  
+
+  'common.service.delete' : {
+    'real': '/clusters/{clusterName}/services/{serviceName}',
+    'mock': '/data/wizard/deploy/poll_1.json',
+    'format': function (data) {
+      return {
+        type: 'DELETE',
+        data: ''
+      };
+    }
+  },
 
   'common.service_component.info' : {
     'real': '/clusters/{clusterName}/services/{serviceName}/components/{componentName}?{urlParams}',
@@ -1146,6 +1158,21 @@ var urls = {
   'host.metrics.processes': {
     'real': '/clusters/{clusterName}/hosts/{hostName}?fields=metrics/process/proc_total[{fromSeconds},{toSeconds},{stepSeconds}],metrics/process/proc_run[{fromSeconds},{toSeconds},{stepSeconds}]',
     'mock': '/data/hosts/metrics/processes.json',
+    'testInProduction': true
+  },
+  'host.network.closewait': {
+    'real': '/clusters/{clusterName}/hosts/{hostName}?fields=metrics/network/tcp_closewait[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/hosts/metrics/closewait.json',
+    'testInProduction': true
+  },
+  'host.network.connect': {
+    'real': '/clusters/{clusterName}/hosts/{hostName}?fields=metrics/network/tcp_connect[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/hosts/metrics/connect.json',
+    'testInProduction': true
+  },
+  'host.network.process': {
+    'real': '/clusters/{clusterName}/hosts/{hostName}?fields=metrics/network/http_process[{fromSeconds},{toSeconds},{stepSeconds}]',
+    'mock': '/data/hosts/metrics/process.json',
     'testInProduction': true
   },
   'admin.security_status': {

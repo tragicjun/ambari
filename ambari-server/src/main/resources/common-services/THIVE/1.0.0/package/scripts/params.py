@@ -46,7 +46,7 @@ pg_server_port = '5432'
 pg_server_user = default("/configurations/pg-config-env/pg.user","pgmeta")
 pg_server_password = default("/configurations/pg-config-env/pg.password","pgmeta")
 
-pg_authorized_ip = default("/configurations/pg-config-env/authorized.ip","host    all             all             10.151.135.1/24         trust")
+pg_authorized_ip = default("/configurations/pg-hba-env/content","host    all             all             0.0.0.0/0         trust")
 
 pg_postgresql_conf = default("/configurations/pg-config-env/content","")
 
@@ -68,3 +68,26 @@ tdw_meta_segment_db_script = format("{tmp_dir}/tdw_meta_segment_db.sql")
 
 checkstatus_script = format("{tmp_dir}/thive_check_status.sh")
 
+
+# refractor service path
+
+thive_install_path = "/usr/local/thive"
+
+thive_conf_path_server = "/usr/local/thive/dist/conf"
+thive_conf_path_pgsql = "/var/lib/pgsql/9.3/data"
+
+thive_log_path_server = "/usr/local/thive/log"
+thive_log_path_pgsql = "/var/lib/pgsql/9.3/data/pg_log"
+
+thive_data_path_pgsql = "/var/lib/pgsql/9.3/data"
+
+
+new_thive_install_path = "/opt/tbds/thive"
+
+new_thive_conf_path_server = "/etc/tbds/thive/server"
+new_thive_conf_path_pgsql = "/etc/tbds/thive/metadb"
+
+new_thive_log_path_server = "/var/log/tbds/thive/server"
+new_thive_log_path_pgsql = "/var/log/tbds/thive/metadb"
+
+new_thive_data_path_pgsql = "/data/tbds/thive/metadb"

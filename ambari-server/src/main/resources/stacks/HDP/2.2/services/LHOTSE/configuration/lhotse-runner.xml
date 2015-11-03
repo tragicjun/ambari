@@ -4,7 +4,11 @@
   <property>
     <name>cgi.port</name>
     <value>80</value>
-    <description>cgi port for log</description>
+    <description>cgi端口</description>
   </property>
-
+  <property>
+    <name>type.list</name>
+    <value>50,66,67,68,69,70,71,72,75,92,118,119,120</value>
+    <description>task type id list</description>
+  </property>
 </configuration>

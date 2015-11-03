@@ -38,6 +38,12 @@ class HiveServer(Script):
     import params
     self.install_packages(env, exclude_packages=params.hive_exclude_packages)
 
+    import params
+    Links(params.new_hive_install_path, params.hive_install_path)
+    Links(params.new_hive_config_path, params.hive_config_path)
+
+  def uninstall(self, env):
+    Toolkit.uninstall_service("hive")
 
   def configure(self, env):
     import params
@@ -59,7 +65,20 @@ class HiveServer(Script):
     setup_ranger_hive()    
     hive_service( 'hiveserver2', action = 'start',
       rolling_restart=rolling_restart )
+    
+    self._createHiveDatabase(env)
 
+    Links(params.new_hive_log_path, params.hive_log_path)
+
+
+  def _createHiveDatabase(self,env):
+    import params
+    env.set_params(params)
+    host_name = params.hive_server_host
+    hive_port = params.hive_server_port
+    ddl_create_database_cmd = "create database if not exists tdw_inter_db"
+    cmd = "/usr/hdp/2.2.0.0-2041/hive/bin/beeline -n hive -p hive -u jdbc:hive2://{0}:{1} -e \"{2}\" ".format(host_name, hive_port, ddl_create_database_cmd)
+    Toolkit.execute_shell(cmd,3,30)
 
   def stop(self, env, rolling_restart=False):
     import params

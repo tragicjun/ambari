@@ -37,6 +37,13 @@ class HiveMetastore(Script):
 
     self.install_packages(env, exclude_packages = params.hive_exclude_packages)
 
+    import params
+    Links(params.new_hive_install_path, params.hive_install_path)
+    Links(params.new_hive_config_path, params.hive_config_path)
+
+
+  def uninstall(self, env):
+    Toolkit.uninstall_service("hive")
 
   def configure(self, env):
     import params
@@ -52,6 +59,9 @@ class HiveMetastore(Script):
     env.set_params(params)
     self.configure(env)  # FOR SECURITY
     hive_service('metastore', action = 'start')
+
+    Links(params.new_hive_log_path_hcat, params.hive_log_path_hcat)
+    Links(params.new_hive_log_path, params.hive_log_path)
 
 
   def stop(self, env, rolling_restart = False):

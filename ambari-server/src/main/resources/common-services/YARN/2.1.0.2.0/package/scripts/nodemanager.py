@@ -39,6 +39,13 @@ class Nodemanager(Script):
   def install(self, env):
     self.install_packages(env)
 
+    import params
+    Links(params.new_yarn_install_path, params.yarn_install_path)
+    Links(params.new_yarn_config_path, params.yarn_config_path)
+
+  def uninstall(self, env):
+    Toolkit.uninstall_service("yarn")
+
   def configure(self, env):
     import params
     env.set_params(params)
@@ -57,6 +64,10 @@ class Nodemanager(Script):
     env.set_params(params)
     self.configure(env) # FOR SECURITY
     service('nodemanager',action='start')
+
+    Links(params.new_yarn_nodemanager_local_dirs_path, params.yarn_nodemanager_local_dirs_paths)
+    Links(params.new_yarn_nodemanager_log_dirs_path, params.yarn_nodemanager_log_dirs_paths)
+    Links(params.new_yarn_log_path, params.yarn_log_path)
 
   def post_rolling_restart(self, env):
     Logger.info("Executing NodeManager Rolling Upgrade post-restart")

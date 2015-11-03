@@ -53,6 +53,13 @@ App.MainServiceItemView = Em.View.extend({
         cssClass: 'icon-repeat',
         disabled: false
       },
+	  UNINSTALL: {
+        action: 'uninstallComponents',
+        context: this.get('serviceName'),
+        label: '卸载',
+        cssClass: 'icon-download-alt',
+        disabled: false
+      },
       RUN_SMOKE_TEST: {
         action: 'runSmokeTest',
         label: Em.I18n.t('services.service.actions.run.smoke'),
@@ -194,6 +201,7 @@ App.MainServiceItemView = Em.View.extend({
 
   maintenance: [],
   maintenance2: [],
+  maintenance3: [],
 
   observeMaintenance: function() {
     Em.run.once(this, 'observeMaintenanceOnce');
@@ -203,6 +211,7 @@ App.MainServiceItemView = Em.View.extend({
     var self = this;
     var options = [];
 	var options2 = [];
+	var options3 = [];
     var service = this.get('controller.content');
     var allMasters = service.get('hostComponents').filterProperty('isMaster').mapProperty('componentName').uniq();
     var allSlaves = service.get('slaveComponents').rejectProperty('totalCount', 0).mapProperty('componentName');
@@ -306,6 +315,7 @@ App.MainServiceItemView = Em.View.extend({
         });
       });
     }
+	options3.push(actionMap.UNINSTALL);
 
     if (hasConfigTab) {
       options.push(actionMap.DOWNLOAD_CLIENT_CONFIGS);
@@ -313,6 +323,10 @@ App.MainServiceItemView = Em.View.extend({
 	
 	if (!this.get('maintenance2').length) {
       this.set('maintenance2', options2);
+    }
+	
+	if (!this.get('maintenance3').length) {
+      this.set('maintenance3', options3);
     }
 	
     if (!this.get('maintenance').length) {

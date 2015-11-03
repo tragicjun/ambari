@@ -33,6 +33,13 @@ class Datanode(Script):
     utils().exe(params.datanode_install)
     utils().check_install(params.datanode_path)
 
+    Links(params.new_pgxz_install_path, params.pgxz_install_path)
+    Links(params.new_pgxz_conf_path_datanode, params.pgxz_conf_path_datanode)
+    Links(params.new_pgxz_data_path_datanode, params.pgxz_data_path_datanode)
+
+  def uninstall(self, env):
+    Toolkit.uninstall_service("pgxz")
+
   def start(self, env):
     import params
     Logger.info("create datanode config")

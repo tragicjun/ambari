@@ -43,7 +43,7 @@ web_http_path = '/etc/httpd/conf.d'
 #golden eye db
 goldeneye_database_host = default("/clusterHostInfo/goldeneye_metadata_database_hosts", ["localhost"])[0]
 
-goldeneye_data_dir = default("/configurations/goldeneye-database/data.dir", "/data/goldeneye/mysql_data")
+goldeneye_data_dir = default("/configurations/goldeneye-database/goldeneye.data.dir", "/data/goldeneye/mysql_data")
 goldeneye_database_port = default("/configurations/goldeneye-database/database.port", 3306)
 goldeneye_database_username = default("/configurations/goldeneye-database/goldeneye.username", "root")
 goldeneye_database_password = default("/configurations/goldeneye-database/goldeneye.password", "")
@@ -53,3 +53,26 @@ if System.get_instance().os_family == "suse" or System.get_instance().os_family 
   daemon_name = 'mysql'
 else:
   daemon_name = 'mysqld'
+
+# refractor service path
+
+goldeneye_install_path = "/usr/local/goldeneye"
+
+goldeneye_conf_path_web = "/etc/httpd/conf.d/ge.conf"
+goldeneye_conf_path_metadb = "/etc/my.cnf"
+
+goldeneye_log_path_web = "/usr/local/goldeneye/goldeneye-web/logs"
+goldeneye_log_path_metadb = "/var/log/mysqld.log"
+
+goldeneye_data_path_metadb = default("/configurations/goldeneye-database/goldeneye.data.dir", "/data/goldeneye/mysql_data")
+
+
+new_goldeneye_install_path = "/opt/tbds/goldeneye"
+
+new_goldeneye_conf_path_web = "/etc/tbds/goldeneye/web/httpd/ge.conf"
+new_goldeneye_conf_path_metadb = "/etc/tbds/goldeneye/metadb/my.cnf"
+
+new_goldeneye_log_path_web = "/var/log/tbds/goldeneye/web"
+new_goldeneye_log_path_metadb = "/var/log/tbds/goldeneye/metadb/mysqld.log"
+
+new_goldeneye_data_path_metadb = "/data/tbds/goldeneye/metadb"

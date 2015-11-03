@@ -313,8 +313,15 @@ App.ServiceConfigProperty = Em.Object.extend({
         this.setDefaultValue(hostWithPrefix,'://' + nnHost);
         break;
       case 'hbase.rootdir':
-        var nnHost = masterComponentHostsInDB.filterProperty('component', 'NAMENODE').mapProperty('hostName');
-        this.setDefaultValue(hostWithPrefix,'://' + nnHost);
+        if (this.get('filename') == 'ams-hbase-site.xml') {
+          var nnHost = masterComponentHostsInDB.filterProperty('component', 'METRICS_COLLECTOR').mapProperty('hostName');
+          this.setDefaultValue(hostWithPrefix,'://' + nnHost);
+          this.unionAllMountPoints(isOnlyFirstOneNeeded, localDB);
+        } else {
+          var nnHost = masterComponentHostsInDB.filterProperty('component', 'NAMENODE').mapProperty('hostName');
+          this.setDefaultValue(hostWithPrefix,'://' + nnHost);
+        }
+
         break;
       case 'snamenode_host':
         // Secondary NameNode does not exist when NameNode HA is enabled
@@ -589,7 +596,7 @@ App.ServiceConfigProperty = Em.Object.extend({
         this.unionAllMountPoints(!isOnlyFirstOneNeeded, localDB);
         break;
       case 'hbase.tmp.dir':
-        if (this.get('filename') == 'hbase-site.xml') {
+        if (this.get('filename') == 'hbase-site.xml' || this.get('filename') == 'ams-hbase-site.xml') {
           this.unionAllMountPoints(isOnlyFirstOneNeeded, localDB);
         }
         break;
@@ -601,6 +608,30 @@ App.ServiceConfigProperty = Em.Object.extend({
       case 'storm.local.dir':
       case '*.falcon.graph.storage.directory':
       case '*.falcon.graph.serialize.path':
+        this.unionAllMountPoints(isOnlyFirstOneNeeded, localDB);
+        break;
+      //Added by junz for union log/data dirs
+      case 'zk_log_dir':
+      case 'hdfs_log_dir_prefix':
+      case 'mapred_log_dir_prefix':
+      case 'yarn_log_dir_prefix':
+      case 'hbase_log_dir':
+      case 'hive_log_dir':
+      case 'hcat_log_dir':
+      case 'storm_log_dir':
+      case 'flume_log_dir':
+      case 'kafka_log_dir':
+      case 'redis_log_file':
+      case 'data.dir':
+      case 'root.path':
+      case 'metrics_monitor_log_dir':
+      case 'timeline.metrics.aggregator.checkpoint.dir':
+      case 'metrics_collector_log_dir':
+      case 'mysql.data.dir':
+      case 'goldeneye.data.dir':
+      case 'coredump.dir':
+      case 'gclog.dir':
+      case 'nginx.log.path':
         this.unionAllMountPoints(isOnlyFirstOneNeeded, localDB);
         break;
       case '*.broker.url':
@@ -692,12 +723,14 @@ App.ServiceConfigProperty = Em.Object.extend({
         break;
       case 'dfs.data.dir':
       case 'dfs.datanode.data.dir':
+      case 'hdfs_log_dir_prefix':
         temp = slaveComponentHostsInDB.findProperty('componentName', 'DATANODE');
         temp.hosts.forEach(function (host) {
           setOfHostNames.push(host.hostName);
         }, this);
         break;
       case 'mapred.local.dir':
+      case 'mapred_log_dir_prefix':
         temp = slaveComponentHostsInDB.findProperty('componentName', 'TASKTRACKER') || slaveComponentHostsInDB.findProperty('componentName', 'NODEMANAGER');
         temp.hosts.forEach(function (host) {
           setOfHostNames.push(host.hostName);
@@ -705,6 +738,7 @@ App.ServiceConfigProperty = Em.Object.extend({
         break;
       case 'yarn.nodemanager.log-dirs':
       case 'yarn.nodemanager.local-dirs':
+      case 'yarn_log_dir_prefix':
         temp = slaveComponentHostsInDB.findProperty('componentName', 'NODEMANAGER');
         temp.hosts.forEach(function (host) {
           setOfHostNames.push(host.hostName);
@@ -717,6 +751,7 @@ App.ServiceConfigProperty = Em.Object.extend({
         }, this);
         break;
       case 'dataDir':
+      case 'zk_log_dir':
         components = masterComponentHostsInDB.filterProperty('component', 'ZOOKEEPER_SERVER');
         components.forEach(function (component) {
           setOfHostNames.push(component.hostName);
@@ -730,11 +765,17 @@ App.ServiceConfigProperty = Em.Object.extend({
         break;
       case 'hbase.tmp.dir':
         temp = slaveComponentHostsInDB.findProperty('componentName', 'HBASE_REGIONSERVER');
-        temp.hosts.forEach(function (host) {
-          setOfHostNames.push(host.hostName);
-        }, this);
+        if(temp) {
+          temp.hosts.forEach(function (host) {
+            setOfHostNames.push(host.hostName);
+          }, this);
+        } else {
+          temp = masterComponentHostsInDB.findProperty('component', 'METRICS_COLLECTOR');
+          setOfHostNames.push(temp.hostName);
+        }
         break;
       case 'storm.local.dir':
+      case 'storm_log_dir':
         temp = slaveComponentHostsInDB.findProperty('componentName', 'SUPERVISOR');
         temp.hosts.forEach(function (host) {
           setOfHostNames.push(host.hostName);
@@ -752,7 +793,80 @@ App.ServiceConfigProperty = Em.Object.extend({
         }, this);
         break;
       case 'log.dirs':
+      case 'kafka_log_dir':
         components = masterComponentHostsInDB.filterProperty('component', 'KAFKA_BROKER');
+        components.forEach(function (component) {
+          setOfHostNames.push(component.hostName);
+        }, this);
+        break;
+      case 'hive_log_dir':
+      case 'hcat_log_dir':
+        components = masterComponentHostsInDB.filterProperty('component', 'HIVE_SERVER');
+        components.forEach(function (component) {
+          setOfHostNames.push(component.hostName);
+        }, this);
+        break;
+      case 'flume_log_dir':
+        components = masterComponentHostsInDB.filterProperty('component', 'FLUME_HANDLER');
+        components.forEach(function (component) {
+          setOfHostNames.push(component.hostName);
+        }, this);
+        break;
+      case 'hbase.rootdir':
+      case 'timeline.metrics.aggregator.checkpoint.dir':
+      case 'metrics_collector_log_dir':
+      case 'hbase_log_dir':
+      case 'metrics_monitor_log_dir':
+        components = masterComponentHostsInDB.filterProperty('component', 'METRICS_COLLECTOR');
+        components.forEach(function (component) {
+          setOfHostNames.push(component.hostName);
+        }, this);
+        break;
+      case 'metrics_monitor_log_dir':
+        components = masterComponentHostsInDB.filterProperty('component', 'METRICS_MONITOR');
+        components.forEach(function (component) {
+          setOfHostNames.push(component.hostName);
+        }, this);
+        break;
+      case 'redis_log_file':
+        components = masterComponentHostsInDB.filterProperty('component', 'REDIS_SERVER');
+        components.forEach(function (component) {
+          setOfHostNames.push(component.hostName);
+        }, this);
+        break;
+      case 'mysql.data.dir':
+        components = masterComponentHostsInDB.filterProperty('component', 'DSE_DATABASE');
+        components.forEach(function (component) {
+          setOfHostNames.push(component.hostName);
+        }, this);
+        break;
+      case 'data.dir':
+        components = masterComponentHostsInDB.filterProperty('component', 'LHOTSE_DATABASE');
+        components.forEach(function (component) {
+          setOfHostNames.push(component.hostName);
+        }, this);
+        break;
+      case 'root.path':
+        components = masterComponentHostsInDB.filterProperty('component', 'LHOTSE_FTP');
+        components.forEach(function (component) {
+          setOfHostNames.push(component.hostName);
+        }, this);
+        break;
+      case 'goldeneye.data.dir':
+        components = masterComponentHostsInDB.filterProperty('component', 'GOLDENEYE_METADATA_DATABASE');
+        components.forEach(function (component) {
+          setOfHostNames.push(component.hostName);
+        }, this);
+        break;
+      case 'coredump.dir':
+      case 'gclog.dir':
+        components = masterComponentHostsInDB.filterProperty('component', 'LHOTSE_BASE');
+        components.forEach(function (component) {
+          setOfHostNames.push(component.hostName);
+        }, this);
+        break;
+      case 'nginx.log.path':
+        components = masterComponentHostsInDB.filterProperty('component', 'NGINX_SERVER');
         components.forEach(function (component) {
           setOfHostNames.push(component.hostName);
         }, this);
@@ -847,7 +961,11 @@ App.ServiceConfigProperty = Em.Object.extend({
             mPoint = winDrive + winDir + "\n";
         }
       } else {
-        mPoint = mPoint + this.get('defaultDirectory');
+        if (this.get('name') == 'hbase.rootdir') {
+          mPoint = this.get('defaultDirectory').replace("file:///", "file://" + mPoint + "/");
+        } else {
+          mPoint = mPoint + this.get('defaultDirectory');
+        }
       }
       this.set('value', mPoint);
       this.set('defaultValue', mPoint);

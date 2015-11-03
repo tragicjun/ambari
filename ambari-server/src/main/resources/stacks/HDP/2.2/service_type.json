@@ -1,0 +1,32 @@
+{
+  "LOADER":[
+     "DSE",
+     "FLUME"
+  ],
+  "PROCESS":[
+     "HIVE",
+     "JSTORM",
+     "TEZ",
+     "THIVE",
+     "MAPREDUCE2"
+  ],
+  "SCHEDULE":[
+     "LHOTSE",
+     "YARN"
+  ],
+  "STORE":[
+     "HBASE",
+     "HDFS",
+     "PGXZ",
+     "REDIS"
+  ],
+  "APPLY":[
+     "GOLDENEYE"
+    ],
+  "OTHER":[
+     "KAFKA",
+     "NGINX",
+     "ZOOKEEPER",
+     "AMBARI_METRICS"
+  ]
+}

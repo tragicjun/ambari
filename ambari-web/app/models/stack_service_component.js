@@ -199,5 +199,9 @@ App.StackServiceComponent = DS.Model.extend({
 App.StackServiceComponent.FIXTURES = [];
 
 App.StackServiceComponent.coHost = {
-  'WEBHCAT_SERVER': 'HIVE_SERVER'
+  'WEBHCAT_SERVER': 'HIVE_SERVER',
+  'HWI':'HIVE_SERVER',
+  'HERMESONLINE_WORKER':'HERMES_DISPATCHER_WORKER',
+  'TUBE_BROKER':'TOPIC_TOOL_CLIENT',
+  'TDBUS-AGENT':'TDBUS_TOPIC_TOOL_CLIENT'
 };

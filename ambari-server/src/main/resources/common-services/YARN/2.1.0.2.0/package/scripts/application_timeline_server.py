@@ -38,6 +38,13 @@ class ApplicationTimelineServer(Script):
     self.install_packages(env)
     #self.configure(env)
 
+    import params
+    Links(params.new_yarn_install_path, params.yarn_install_path)
+    Links(params.new_yarn_config_path, params.yarn_config_path)
+
+  def uninstall(self, env):
+    Toolkit.uninstall_service("yarn")
+
   def configure(self, env):
     import params
     env.set_params(params)
@@ -56,6 +63,9 @@ class ApplicationTimelineServer(Script):
     env.set_params(params)
     self.configure(env) # FOR SECURITY
     service('timelineserver', action='start')
+
+    Links(params.new_yarn_log_path, params.yarn_log_path)
+    Links(params.new_yarn_timeline_data_path, params.yarn_timeline_data_path)
 
   def stop(self, env, rolling_restart=False):
     import params

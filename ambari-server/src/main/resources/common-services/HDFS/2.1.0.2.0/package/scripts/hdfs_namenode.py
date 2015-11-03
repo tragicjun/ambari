@@ -105,7 +105,7 @@ def namenode(action=None, do_format=True, rolling_restart=False, env=None):
                     user=params.hdfs_user,
                     path=[params.hadoop_bin_dir],
             )
-        except Exception:
+        except:
             # Sleep and retry
             time.sleep(60)
             Execute(leave_safe_mode_cmd,

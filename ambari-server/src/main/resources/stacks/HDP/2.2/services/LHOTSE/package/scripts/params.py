@@ -23,6 +23,7 @@ lhotse_runner_hadoop_env = '/etc/hadoop/conf/hadoop-env.sh'
 lhotse_runner_proc_name = 'lhotse_task_loader.jar'
 lhotse_runner_cgi_port = default("/configurations/lhotse-runner/cgi.port", 80)
 lhotse_runner_hosts = default("/clusterHostInfo/lhotse_runner_hosts", ["127.0.0.1"])
+lhotse_runner_type_list =  default("/configurations/lhotse-runner/type.list", "50,66,67,68,69,70,71,72,75,92,118,119,120")
 
 #lhotse base config
 lhotse_base_hosts = default("/clusterHostInfo/lhotse_base_hosts", ["127.0.0.1"])[0]
@@ -32,7 +33,8 @@ lhotse_base_debug_mode = default("/configurations/lhotse-base-env/debug.mode", "
 lhotse_base_issuer_logging_level = default("/configurations/lhotse-base-env/issuer.logging.level", "DEBUG")
 lhotse_base_thrift_server_port = default("/configurations/lhotse-base-env/thrift.server.port", 8183)
 lhotse_base_proc_name = 'lhotse_base.jar'
-
+lhotse_base_logpath_coredump = default("/configurations/lhotse-base-env/coredump.dir", "/data/tbds/lhotse/base/coredumps/")
+lhotse_base_logpath_gclog = default("/configurations/lhotse-base-env/gclog.dir", "/data/tbds/lhotse/base/gclogs/")
 
 #lhotse database config
 lhotse_database_hosts = default("/clusterHostInfo/lhotse_database_hosts", ["127.0.0.1"])[0]
@@ -87,7 +89,7 @@ hive_server_port = default("/configurations/hive-site/hive.server2.thrift.port",
 namenode_info = default("/configurations/core-site/fs.defaultFS", 'hdfs://127.0.0.1:8020')
 print namenode_info
 if namenode_info.startswith('hdfs'):
-    namenode_info = namenode_info[7:]
+  namenode_info = namenode_info[7:]
 default_hdfs_host = namenode_info.split(':')[0]
 print "default hdfs host:" + default_hdfs_host
 default_hdfs_port = namenode_info.split(':')[1]
@@ -114,3 +116,60 @@ else:
 lhotse_schema_path = format("{tmp_dir}/lhotse_schema.sql")
 start_mysql_script = format("{tmp_dir}/startMySql.sh")
 check_status_script = format("{tmp_dir}/checkStatus.sh")
+
+
+# refractor service path
+
+lhotse_install_path_base = "/usr/local/lhotse_base"
+lhotse_install_path_runner = "/usr/local/lhotse_runners"
+lhotse_install_path_service = "/usr/local/lhotse_service"
+lhotse_install_path_web = "/usr/local/lhotse_web"
+lhotse_install_path_ftp = "/usr/sbin/vsftpd"
+
+lhotse_log_path_base = "/usr/local/lhotse_base/logs"
+lhotse_log_path_runner = "/usr/local/lhotse_runners/log"
+lhotse_log_path_service = "/usr/local/lhotse_service/logs"
+lhotse_log_path_web = "/usr/local/lhotse_web/logs"
+lhotse_log_path_ftp = "/usr/sbin/vsftpd/logs"
+lhotse_log_path_mysql = "/var/log/mysqld.log"
+
+lhotse_log_base_coredump = default("/configurations/lhotse-base-env/coredump.dir", "/data/tbds/lhotse/base/coredumps/")
+lhotse_log_base_gclog = default("/configurations/lhotse-base-env/gclog.dir", "/data/tbds/lhotse/base/gclogs/")
+
+lhotse_config_path_base = "/usr/local/lhotse_base/cfg"
+lhotse_config_path_runner = "/usr/local/lhotse_runners/cfg"
+lhotse_config_path_runner_cgi = "/etc/httpd/conf.d/runner.conf"
+lhotse_config_path_service = "/usr/local/lhotse_service/conf"
+lhotse_config_path_web = "/etc/httpd/conf.d/lhotse_web.conf"
+lhotse_config_path_ftp = "/etc/vsftpd"
+lhotse_config_path_mysql = "/etc/my.cnf"
+
+lhotse_data_path_mysql = default("/configurations/lhotse-database/data.dir", "/data/mysql_data")
+lhotse_data_path_ftp = default("/configurations/lhotse-ftp/data.dir", "/data/ftp_data")
+
+new_lhotse_install_path_base = "/opt/tbds/lhotse/lhotse_base"
+new_lhotse_install_path_runner = "/opt/tbds/lhotse/lhotse_runner"
+new_lhotse_install_path_service = "/opt/tbds/lhotse/lhotse_service"
+new_lhotse_install_path_web = "/opt/tbds/lhotse/lhotse_web"
+new_lhotse_install_path_ftp = "/opt/tbds/lhotse/lhotse_ftp"
+
+new_lhotse_log_path_base = "/var/log/tbds/lhotse/lhotse_base"
+new_lhotse_log_path_runner = "/var/log/tbds/lhotse/lhotse_runner"
+new_lhotse_log_path_service = "/var/log/tbds/lhotse/lhotse_service"
+new_lhotse_log_path_web = "/var/log/tbds/lhotse/lhotse_web"
+new_lhotse_log_path_ftp = "/var/log/tbds/lhotse/lhotse_ftp"
+new_lhotse_log_path_mysql = "/var/log/tbds/lhotse/lhotse_mysql"
+
+new_lhotse_log_base_coredump = "/var/log/tbds/lhotse/lhotse_base/coredumps"
+new_lhotse_log_base_gclog = "/var/log/tbds/lhotse/lhotse_base/gclogs"
+
+new_lhotse_config_path_base = "/etc/tbds/lhotse/lhotse_base"
+new_lhotse_config_path_runner = "/etc/tbds/lhotse/lhotse_runner"
+new_lhotse_config_path_runner_cgi = "/etc/tbds/lhotse/lhotse_runner/httpd/runner.conf"
+new_lhotse_config_path_service = "/etc/tbds/lhotse/lhotse_service"
+new_lhotse_config_path_web = "/etc/tbds/lhotse/lhotse_web/httpd/lhotse_web.conf"
+new_lhotse_config_path_ftp = "/etc/tbds/lhotse/lhotse_ftp"
+new_lhotse_config_path_mysql = "/etc/tbds/lhotse/lhotse_database/my.cnf"
+
+new_lhotse_data_path_mysql = "/data/tbds/lhotse/lhoste_database"
+new_lhotse_data_path_ftp = "/data/tbds/lhotse/lhoste_ftp"

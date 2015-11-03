@@ -39,6 +39,14 @@ class TezClient(Script):
     self.install_packages(env)
     self.configure(env)
 
+
+    import params
+    Links(params.new_tez_install_path, params.tez_install_path)
+    Links(params.new_tez_config_path, params.tez_config_path)
+
+  def uninstall(self, env):
+    Toolkit.uninstall_service("tez")
+
   def configure(self, env):
     import params
     env.set_params(params)
