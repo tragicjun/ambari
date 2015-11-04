@@ -239,7 +239,7 @@
   },
   "NIFI":{
     "NIFI_SERVER":[
-      "8080"
+      "nifi-site/nifi.http.port"
     ]
   }
 }

@@ -48,6 +48,7 @@ nifi_user = config['configurations']['nifi-env']['nifi_user']
 hostname = config['hostname']
 user_group = config['configurations']['cluster-env']['user_group']
 java64_home = config['hostLevelParams']['java_home']
+web_http_port = config['configurations']['nifi-site']['nifi.http.port']
 
 # Security-related params
 security_enabled = config['configurations']['cluster-env']['security_enabled']

@@ -19,10 +19,8 @@ limitations under the License.
 
 from resource_management import *
 from resource_management.core import shell
-from resource_management.core import sudo
 from resource_management.core.logger import Logger
 import os
-import time
 
 class NiFi(Script):
   def install(self, env):
@@ -39,6 +37,12 @@ class NiFi(Script):
   def configure(self, env):
     import params
     env.set_params(params)
+    File(os.path.join(params.nifi_conf_dir, 'nifi.properties'),
+         owner=params.nifi_user,
+         group='hadoop',
+         mode=0644,
+         content=Template("nifi.properties.j2")
+         )
 
   #def pre_rolling_restart(self, env):
     #import params
@@ -64,23 +68,17 @@ class NiFi(Script):
     import params
     env.set_params(params)
     self.configure(env)
-    try:
-        pid = int(sudo.read_file(params.nifi_pid_file))
-        code, out = shell.call(["kill","-15", str(pid)])
-    except:
-        Logger.warning("Pid file {0} does not exist".format(params.nifi_pid_file))
-        return
-
-    if code:
-       Logger.warning("Process with pid {0} is not running. Stale pid file"
-                 " at {1}".format(pid, params.nifi_pid_file))
+    daemon_cmd = "{0} stop".format(params.nifi_bin)
+    Execute(daemon_cmd,
+            user=params.nifi_user,
+            )
 
   def status(self, env):
     import status_params
     env.set_params(status_params)
-    check_nifi_process_status(status_params.nifi_pid_file)
+    self.check_nifi_process_status(status_params.nifi_pid_file)
 
-  def check_nifi_process_status(pid_file):
+  def check_nifi_process_status(self, pid_file):
     """
     Function checks whether process is running.
     Process is considered running, if pid file exists, and process with
@@ -94,9 +92,9 @@ class NiFi(Script):
 
     try:
         lines = [line.rstrip('\n') for line in open(pid_file)]
-        pid = int(lines[1].split('=')[1]);
+        pid = int(lines[2].split('=')[1]);
     except:
-        Logger.debug("Pid file {0} does not exist".format(pid_file))
+        Logger.warn("Pid file {0} does not exist".format(pid_file))
         raise ComponentIsNotRunning()
 
     code, out = shell.call(["ps","-p", str(pid)])
