@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE files distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this files to 
+	You under the Apache License, Version 2.0 (the "License"); you may not use 
+	this files except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+<metainfo>
+	<schemaVersion>2.0</schemaVersion>
+	<services>
+		<service>
+			<name>WEBIDE</name>
+			<displayName>Web IDE</displayName>
+			<comment>web版集成开发环境</comment>
+			<!--deleted>true</deleted-->
+			<version>1.0.0</version>
+
+			<components>
+				<component>
+					<name>WEB_IDE_WEB</name>
+					<displayName>Web IDE WEB</displayName>
+					<category>MASTER</category>
+					<cardinality>1-2</cardinality>
+					<commandScript>
+						<script>scripts/web.py</script>
+						<scriptType>PYTHON</scriptType>
+						<timeout>600</timeout>
+					</commandScript>
+				</component>
+
+				<component>
+					<name>WEB_IDE_APP</name>
+					<displayName>Web IDE APP</displayName>
+					<category>MASTER</category>
+					<cardinality>1-2</cardinality>
+					<commandScript>
+						<script>scripts/app.py</script>
+						<scriptType>PYTHON</scriptType>
+						<timeout>600</timeout>
+					</commandScript>
+				</component>
+
+			</components>
+
+			<osSpecifics>
+				<osSpecific>
+					<osFamily>redhat5,redhat6,suse11</osFamily>
+					<packages>
+						<package>
+							<name>webide</name>
+						</package>
+						<package>
+							<name>php</name>
+						</package>
+					</packages>
+				</osSpecific>
+			</osSpecifics>
+
+			<requiredServices>
+				<!--<service>THIVE</service> -->
+				<service>POSTGRESQL</service>
+			</requiredServices>
+
+			<configuration-dependencies>
+				<config-type>webide</config-type>
+			</configuration-dependencies>
+
+		</service>
+	</services>
+</metainfo>

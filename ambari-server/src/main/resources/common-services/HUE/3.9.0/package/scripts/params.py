@@ -34,23 +34,32 @@ version = default("/commandParams/version", None)
 stack_version_unformatted = str(config['hostLevelParams']['stack_version'])
 hdp_stack_version = format_hdp_stack_version(stack_version_unformatted)
 
-nifi_bootstrap_conf_template = config['configurations']['nifi-env']['content']
+hue_install_dir = '/opt/tbds/hue'
+hue_install_tar = 'hue-3.9.0-bin.tgz'
+hue_bin = '/opt/tbds/hue/build/env/bin/supervisor'
+hue_conf_dir = "/opt/tbds/hue/desktop/conf"
+hue_log_dir = "/opt/tbds/hue/logs"
+hue_pid_file = "/opt/tbds/hue/hue.pid"
 
-nifi_install_dir = '/opt/tbds/nifi/'
-nifi_bin = '/opt/tbds/nifi/bin/nifi.sh'
-nifi_conf_dir = "/opt/tbds/nifi/conf"
-nifi_log_dir = "/opt/tbds/nifi/logs"
-nifi_pid_file = "/opt/tbds/nifi/bin/nifi.pid"
+new_hue_config_path = "/etc/tbds/hue"
+new_hue_data_path = "/data/tbds/hue"
+new_hue_log_path = "/var/log/tbds/hue"
 
-new_nifi_config_path = "/etc/tbds/nifi"
-new_nifi_data_path = "/data/tbds/nifi"
-new_nifi_log_path = "/var/log/tbds/nifi"
-
-nifi_user = config['configurations']['nifi-env']['nifi_user']
+hue_user = config['configurations']['hue-env']['hue_user']
 hostname = config['hostname']
 user_group = config['configurations']['cluster-env']['user_group']
 java64_home = config['hostLevelParams']['java_home']
-web_http_port = config['configurations']['nifi-site']['nifi.http.port']
+http_port = config['configurations']['hue-site']['http.port']
+
+#hadoop services' addresses
+namenode_http_address = config['configurations']['hdfs-site']['dfs.namenode.http-address']
+fs_defaultFS = config['configurations']['core-site']['fs.defaultFS']
+hive_host = config['clusterHostInfo']['hive_server_host'][0]
+hive_port = default('/configurations/hive-site/hive.server2.thrift.port',"10000")
+yarn_rm_url = default('/configurations/yarn-site/yarn.resourcemanager.webapp.address', "http://localhost:8088")
+
+zookeeper_host = default('/clusterHostInfo/zookeeper_hosts', ['localhost'])
+zk_address = zookeeper_host[0] + ":" + default('/configurations/zoo-cfg/clientPort', "2181")
 
 # Security-related params
 security_enabled = config['configurations']['cluster-env']['security_enabled']

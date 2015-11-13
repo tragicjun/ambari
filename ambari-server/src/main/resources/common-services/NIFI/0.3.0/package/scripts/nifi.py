@@ -43,6 +43,12 @@ class NiFi(Script):
          mode=0644,
          content=Template("nifi.properties.j2")
          )
+    File(os.path.join(params.nifi_conf_dir, 'bootstrap.conf'),
+         owner=params.nifi_user,
+         group='hadoop',
+         mode=0644,
+         content=InlineTemplate(params.nifi_bootstrap_conf_template)
+         )
 
   #def pre_rolling_restart(self, env):
     #import params

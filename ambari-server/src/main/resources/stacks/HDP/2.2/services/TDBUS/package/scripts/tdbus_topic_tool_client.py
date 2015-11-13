@@ -42,6 +42,7 @@ class TdbusTopicToolClient(Script):
     def start(self, env):
         import params
         env.set_params(params)
+        self.configure(env)
 
         topic_tool_client = format("(nohup  python {tube_topic_tool_client}&) &> {new_tdbus_install_path}/topic_client.log")
         (ret, output) = commands.getstatusoutput(topic_tool_client)

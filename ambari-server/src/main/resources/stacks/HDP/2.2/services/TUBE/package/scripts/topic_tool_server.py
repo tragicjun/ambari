@@ -37,11 +37,14 @@ class TubeMaster(Script):
         Toolkit.uninstall_service("tube")
 
     def configure(self, env):
+        import params
+        File(params.topic_tool_server, mode=0755, content=StaticFile('topic_tool.py'))
         util.init_config(env)
 
     def start(self, env):
         import params
         env.set_params(params)
+        self.configure(env)
 
         start_topic_tool = format("bash +x {start_tool_server}")
         (ret, output) = commands.getstatusoutput(start_topic_tool)
@@ -57,7 +60,7 @@ class TubeMaster(Script):
         import status_params
         env.set_params(status_params)
         # warring defalut port is 9002
-        port_check_command = "sudo netstat -tlnp|grep 9002|awk  '{print $7}'|awk -F '/' '{print $1}'"
+        port_check_command = format("sudo ps aux | grep 'topic_tool.py'  | grep -v 'grep' ")
         output = util.exe_command(port_check_command)
         if not output:
             Logger.warning("{0} did not started!".format("Topic Tool Server"))

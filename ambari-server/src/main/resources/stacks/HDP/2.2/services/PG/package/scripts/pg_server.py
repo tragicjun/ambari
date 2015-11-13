@@ -56,10 +56,13 @@ class PgMaster(Script):
         self.start(env)
         self.createdbsuperuser()
 
-
         change_passwd_cmd = format("psql -h {pg_host_name} -p {pgxx_postgre_port} -U postgres -c \"ALTER USER postgres WITH PASSWORD '{pgxx_db_passwd}';\"")
         print 'alter postgres password:{0}'.format(change_passwd_cmd)
         utils().exe(change_passwd_cmd)
+
+        create_demo_table_cmd = format("psql -h {pg_host_name} -p {pgxx_postgre_port} -U postgres -d postgres -c \"create table demo (time varchar(255),pv integer);\"")
+        print 'create demo table:{0}'.format(create_demo_table_cmd)
+        utils().exe(create_demo_table_cmd)
 
         Links(params.new_postgresql_install_path, params.postgresql_install_path)
 
@@ -76,7 +79,6 @@ class PgMaster(Script):
                                        "-c \"ALTER USER postgres WITH PASSWORD '{pgxx_db_passwd}';\"")
         utils().exe(change_passwd_command)
 
-
     def start(self, env):
         Logger.info("start the pg")
         import params
@@ -87,7 +89,6 @@ class PgMaster(Script):
 
         Links(params.new_postgresql_data_path, params.postgresql_data_path)
         Links(params.new_postgresql_log_path, params.postgresql_log_path)
-
 
     def stop(self, env):
         Logger.info("Stop the pg")
@@ -101,17 +102,15 @@ class PgMaster(Script):
         Logger.info("update pg configs")
         configinit().update_pg(env)
 
-
-
     def status(self, env):
         Logger.info("check pg server running status---")
-        #	import params
-        #	utils().exe_status(params.pg_status)
-        import params
-        #Toolkit1.check_service(params.pg_status)
-        Toolkit.check_command(params.pg_status, keyword = "PID")
-        #	import params
-        #	utils.check_postgre_running(params.pg_status)
+        import status_params
+        cmd = "{0} | grep -E '{1}'".format(status_params.pg_status, "PID")
+        Logger.info("check command: {0}".format(status_params.pg_status))
+        output = Toolkit.exe(cmd)
+        if output == "":
+            Logger.error("command {0} not running".format(status_params.pg_status))
+            raise ComponentIsNotRunning()
 
 if __name__ == "__main__":
     PgMaster().execute()
