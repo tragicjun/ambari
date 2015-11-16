@@ -22,13 +22,17 @@
                     http://www.springframework.org/schema/security
                     http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+    <!--
   <http use-expressions="true"
         disable-url-rewriting="true" entry-point-ref="ambariEntryPoint">
     <http-basic entry-point-ref="ambariEntryPoint"/>
     <intercept-url pattern="/**" access="permitAll"/>
+    -->
     <!--<custom-filter ref="ambariAuthorizationFilter" after="BASIC_AUTH_FILTER"/>-->
-  </http>
 
+    <!--
+  </http>
+-->
   <!--<ldap-server id="ldapServer" root="dc=ambari,dc=apache,dc=org"/>-->
 
   <authentication-manager>
