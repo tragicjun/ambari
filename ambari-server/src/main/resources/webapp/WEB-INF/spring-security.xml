@@ -31,6 +31,18 @@
 
   <!--<ldap-server id="ldapServer" root="dc=ambari,dc=apache,dc=org"/>-->
 
+  <authentication-manager>
+
+    <authentication-provider user-service-ref="ambariLocalUserService">
+      <password-encoder ref="passwordEncoder"/>
+    </authentication-provider>
+
+    <authentication-provider ref="ambariLdapAuthenticationProvider"/>
+
+    <authentication-provider ref="ambariInternalAuthenticationProvider"/>
+
+  </authentication-manager>
+
   <beans:bean id="ambariEntryPoint" class="org.apache.ambari.server.security.AmbariEntryPoint">
   </beans:bean>
 </beans:beans>
