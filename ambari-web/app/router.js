@@ -492,8 +492,7 @@ App.Router = Em.Router.extend({
     adminView: Em.Route.extend({
       route: '/adminView',
       enter: function (router) {
-        //Modified by junz: Bypass login page
-        if (!App.isAccessible('upgrade_ADMIN') || App.isAccessible('upgrade_OPERATOR')) {
+        if (!router.get('loggedIn') || !App.isAccessible('upgrade_ADMIN') || App.isAccessible('upgrade_OPERATOR')) {
           Em.run.next(function () {
             router.transitionTo('login');
           });
