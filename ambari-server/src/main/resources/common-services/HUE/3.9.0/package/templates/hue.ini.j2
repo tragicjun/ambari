@@ -118,7 +118,7 @@
 
   # Comma separated list of apps to not load at server startup.
   # e.g.: pig,zookeeper
-  ## app_blacklist=
+  app_blacklist=pig,zookeeper,hbase,impala,search,sqoop,jobsub,rdbms
 
   # The directory where to store the auditing logs. Auditing is disable if the value is empty.
   # e.g. /var/log/hue/audit.log
@@ -727,7 +727,7 @@
       ## security_enabled=false
 
       # URL of the ResourceManager API
-      ## resourcemanager_api_url= {{ yarn_rm_url }}
+      resourcemanager_api_url={{ yarn_rm_url }}
 
       # URL of the ProxyServer API
       ## proxy_api_url=http://localhost:8088
@@ -843,7 +843,7 @@
 
   # Choose whether to use the old GetLog() thrift call from before Hive 0.14 to retrieve the logs.
   # If false, use the FetchResults() thrift call from Hive 1.0 or more instead.
-  ## use_get_log_api=false
+  use_get_log_api=true
 
   # Set a LIMIT clause when browsing a partitioned table.
   # A positive value will be set as the LIMIT. If 0 or negative, do not set any limit.
@@ -1058,10 +1058,10 @@
 
 [spark]
   # Host address of the Livy Server.
-  ## livy_server_host=localhost
+  livy_server_host={{livy_server_host}}
 
   # Port of the Livy Server.
-  ## livy_server_port=8998
+  livy_server_port={{livy_server_port}}
 
   # Configure livy to start with 'process', 'thread', or 'yarn' workers.
   ## livy_server_session_kind=process

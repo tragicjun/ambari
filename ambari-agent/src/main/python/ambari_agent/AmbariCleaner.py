@@ -22,7 +22,7 @@ class AmbariCleaner:
     self.logfile.close()
 
   def log(self, str):
-    now = time.strftime("%H:%M:%S", time.localtime())
+    now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     self.logfile.write("[{0}] {1}\n".format(now, str))
 
   def isServerHost(self):
@@ -66,52 +66,66 @@ class AmbariCleaner:
     return (ret == 0,output)
 
   def stop_agent(self):
-    cmd = "ambari-agent stop"
-    self.run_cmd(cmd)
-
+    self.run_cmd("ambari-agent stop")
+    self.run_cmd("ps aux | grep -E \"(AmbariAgent\.py|main\.py) start\"  | grep -v grep | awk '{print \"kill -9 \"$2}' | sh")
 
   def remove_services_installed_rpm(self):
-    if not self.onServer:
-      for repo in self.repos:
-        cmd = "yum list installed 2>/dev/null | grep " + repo + " | awk '{print $1}' | xargs yum remove -y"
-        (ok, output) = self.run_cmd(cmd)
+    repoNames = ''
+    for repo in self.repos:
+      repoNames += repo + "|"
+    repoNames = repoNames[:-1]
+    rpmsCmd = "yum list installed 2>/dev/null | grep -E '" + repoNames + "' | awk '{print $1}' | grep -vE '^(expect|expat|curl|glib2|zlib|openssl)\.x86_64$'"
 
-        if not ok:
-          cmd = "for x in `yum list installed 2>/dev/null | grep " + repo + " | awk '{print $1}'`; do echo \"removing $x ...\"; yum remove -y $x 2>&1 >/dev/null | grep -i error; done"
-          self.run_cmd(cmd)
-    else:
-      for repo in self.repos:
-        cmd = "yum list installed 2>/dev/null | grep " + repo + " | awk '{print $1}' | grep -v tbds-server | grep -v postgresql | xargs yum remove -y"
-        (ok, output) = self.run_cmd(cmd)
+    if self.onServer:
+      rpmsCmd += " | grep -vE 'tbds-server|postgresql'"
 
-        if not ok:
-          cmd = "for x in `yum list installed 2>/dev/null | grep " + repo + " | awk '{print $1}' | grep -v tbds-server | grep -v postgresql`; do echo \"removing $x ...\"; yum remove -y $x 2>&1 >/dev/null | grep -i error; done"
-          self.run_cmd(cmd)
+    cmd = rpmsCmd + " | xargs yum remove -y"
+    (ok, output) = self.run_cmd(cmd)
+    if not ok:
+      cmd = "for x in `" + rpmsCmd + "`; do echo \"removing $x ...\"; yum remove -y $x 2>&1 >/dev/null | grep -i error; done"
+      self.run_cmd(cmd)
 
-
-
-  def yum_clean(self):
-    cmd = "yum clean all"
-    self.run_cmd(cmd)
+    self.run_cmd("yum clean all")
 
   def release_resources(self):
+    # kill httpd
+    self.run_cmd("service httpd stop")
+    self.run_cmd("ps aux | grep httpd | grep -v grep | awk '{print \"kill -9 \"$2}' | sh")
+    self.run_cmd("ipcs -m | grep apache | awk '{print \"ipcrm -m \"$2}' | sh")
+    self.run_cmd("ipcs -s | grep apache | awk '{print \"ipcrm -s \"$2}' | sh")
+    self.run_cmd("ipcs -q | grep apache | awk '{print \"ipcrm -q \"$2}' | sh")
+
+    # gaia docker
     self.run_cmd("umount /gaia/docker/var/lib/docker/devicemapper")
 
-  def delete_user(self):
-    self.run_cmd("/usr/sbin/userdel -r tencent")
+    # kill pg
+    if not self.onServer:
+      self.run_cmd("service postgresql stop")
+      self.run_cmd("ps aux | grep '/usr/pgsql-9.3/bin' | grep -v grep | awk '{print \"kill -9 \"$2}' | sh")
+      self.run_cmd("ipcs -m | grep postgres | awk '{print \"ipcrm -m \"$2}' | sh")
+      self.run_cmd("ipcs -s | grep postgres | awk '{print \"ipcrm -s \"$2}' | sh")
+      self.run_cmd("ipcs -q | grep postgres | awk '{print \"ipcrm -q \"$2}' | sh")
 
   def remove_dir(self):
-    self.release_resources()
-
     if not self.onServer:
       self.run_cmd("rm -rf /usr/bin/ambari-python-wrap")
       self.run_cmd("rm -rf /usr/lib/python2.6/site-packages/ambari_commons")
       self.run_cmd("rm -rf /usr/lib/python2.6/site-packages/ambari_jinja2")
       self.run_cmd("rm -rf /usr/lib/python2.6/site-packages/resource_management")
 
+      self.run_cmd("rm -rf /var/lib/pgsql/")
+      self.run_cmd("rm -rf /var/run/post*")
+      self.run_cmd("rm -rf /var/lock/subsys/postgresql*")
+      self.run_cmd("rm -f /tmp/.s.PGSQL.*")
+
+      self.log("remove ssh files on agent")
+      self.run_cmd("rm -f /home/tencent/.ssh/*")
+
+    dirNames = ""
     for dir in self.dirs:
-      cmd = "rm -rf {0}".format(dir)
-      self.run_cmd(cmd)
+      dirNames += dir + " "
+    dirNames = dirNames[:-1]
+    self.run_cmd("rm -rf {0}".format(dirNames))
 
     self.run_cmd("DIR=/opt/tbds; for x in $(find $DIR -type l); do rm -rf $(readlink -f $x); done; rm -rf $DIR")
     self.run_cmd("DIR=/etc/tbds; for x in $(find $DIR -type l); do rm -rf $(readlink -f $x); done; rm -rf $DIR")
@@ -122,16 +136,17 @@ class AmbariCleaner:
     # stop agent first
     self.stop_agent()
 
+    # release resources
+    self.release_resources()
+
     # remove yum rpms
     self.remove_services_installed_rpm()
-    self.yum_clean()
 
     # remove user defined dirs
     self.remove_dir()
 
-    # self.delete_user()
-
     self.log("Agent clean success !")
+    self.log("================================================================================")
 
 if __name__ == '__main__':
   obj = AmbariCleaner()

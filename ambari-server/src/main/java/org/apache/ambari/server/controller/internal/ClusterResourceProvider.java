@@ -992,6 +992,10 @@ public class ClusterResourceProvider extends BaseBlueprintProcessor {
     processBlueprintClusterConfigAttributes(blueprintAttributes);
 
     BlueprintConfigurationProcessor configurationProcessor = new BlueprintConfigurationProcessor(mapClusterConfigurations);
+    /**
+     * comment by florian
+     * 该函数会根据已有规则刷新配置的value，针对zk地址重复问题，可以修改MultipleHostTopologyUpdater的updateForClusterCreate函数
+    **/
     configurationProcessor.doUpdateForClusterCreate(blueprintHostGroups, stack);
     setMissingConfigurations(blueprintHostGroups);
   }

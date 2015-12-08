@@ -56,8 +56,7 @@
     ],
     "HIVE_SERVER":[
       "hive-site/hive.server2.thrift.port",
-      "hive-site/hive.server2.thrift.http.port",
-      "3306"
+      "hive-site/hive.server2.thrift.http.port"
     ],
     "WEBHCAT_SERVER":[
       "webhcat-site/templeton.port",
@@ -65,9 +64,6 @@
     ],
     "MYSQL_SERVER":[
       "3306"
-    ],
-    "HWI":[
-      "hive-site/hive.hwi.listen.port"
     ]
   },
   "HBASE":{
@@ -105,13 +101,15 @@
       "3306"
     ],
     "LHOTSE_SERVICE":[
-      "lhotse-service/listen.port"
+      "lhotse-service/listen.port",
+      "8005",
+      "8009"
     ],
     "LHOTSE_FTP":[
       "lhotse-ftp/lhotse.ftp.port"
     ],
     "LHOTSE_WEB":[
-      "80"
+      "lhotse-web/listen.port"
     ]
   },
   "PGXZ":{
@@ -218,6 +216,33 @@
       "3306"
     ]
   },
+  "POSTGRESQL":{
+    "POSTGRESQL_SERVER":[
+      "5432"
+    ]
+  },
+  "TUBE":{
+    "TUBE_MASTER":[
+      "master-ini/master.listen.port",
+      "master-ini/master.web.port"
+    ],
+    "TUBE_BROKER":[
+      "broker-ini/broker.listen.port"
+    ],
+    "TOPIC_TOOL_SERVER":[
+      "master-ini/topic.tool.port"
+    ]
+  },
+  "WEBIDE":{
+    "WEB_IDE_WEB":[
+      "webide/web.listen.port"
+    ],
+    "WEB_IDE_APP":[
+      "webide/app.listen.port",
+      "8005",
+      "8009"
+    ]
+  },
   "HERMESOFFLINE":{
     "HERMESOFFLINE_SERVER":[
       "hermes-properties/hermes.server.port",
@@ -241,6 +266,34 @@
   "NIFI":{
     "NIFI_SERVER":[
       "nifi-site/nifi.http.port"
+    ]
+  },
+  "WEBIDE":{
+    "WEB_IDE_APP":[
+      "webide/app.listen.port"
+    ],
+    "WEB_IDE_WEB":[
+      "webide/web.listen.port"
+    ]
+  },
+  "SPARK":{
+    "SPARK_HISTORY_SERVER":[
+      "spark-defaults/spark.history.ui.port"
+    ],
+    "SPARK_JDBC_SERVER":[
+      "spark-defaults/spark.hive.server2.thrift.port"
+    ],
+    "SPARK_LIVY_SERVER":[
+      "livy-defaults/livy.server.port"
+    ]
+  },
+  "GREENPLUM": {
+    "GP_MASTER": [
+      "gp-site/master.port",
+      "gp-site/segment.base.port"
+    ],
+    "GP_SEGMENT": [
+      "gp-site/segment.base.port"
     ]
   }
 }

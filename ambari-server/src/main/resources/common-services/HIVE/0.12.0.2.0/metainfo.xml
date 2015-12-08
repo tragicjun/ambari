@@ -226,7 +226,7 @@
             </configFile>
           </configFiles>
         </component>
-        
+        <!--
         <component>
 			<name>HWI</name>
 			<displayName>Hive Web Interface</displayName>
@@ -240,6 +240,7 @@
 				<config-type>hive-site</config-type>
 			</configuration-dependencies>
 		</component>
+		-->
         
         <configuration-dependencies>
           <config-type>hive-site</config-type>
@@ -265,9 +266,9 @@
             <package>
               <name>mysql-connector-java</name>
             </package>
-            <package>
-              <name>hive-hwi</name>
-            </package>
+            <!--<package>-->
+              <!--<name>hive-hwi</name>-->
+            <!--</package>-->
           </packages>
         </osSpecific>
         <osSpecific>
