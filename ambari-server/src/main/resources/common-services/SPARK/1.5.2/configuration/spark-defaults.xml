@@ -35,4 +35,56 @@
       Spark thrift JDBC Serve Port.
     </description>
   </property>
+
+  <property>
+    <name>spark.driver.memory</name>
+    <value>1g</value>
+    <description>
+      Amount of memory to use for the YARN Application Master.
+    </description>
+  </property>
+
+  <property>
+    <name>spark.yarn.executor.memoryOverhead</name>
+    <value>384</value>
+    <description>
+      The amount of off heap memory (in megabytes) to be allocated per executor.
+      This is memory that accounts for things like VM overheads, interned strings,
+      other native overheads, etc.
+    </description>
+  </property>
+
+  <property>
+    <name>spark.yarn.driver.memoryOverhead</name>
+    <value>384</value>
+    <description>
+      The amount of off heap memory (in megabytes) to be allocated per driver.
+      This is memory that accounts for things like VM overheads, interned strings,
+      other native overheads, etc.
+    </description>
+  </property>
+
+  <property>
+    <name>spark.yarn.queue</name>
+    <value>default</value>
+    <description>
+      The name of the YARN queue to which the application is submitted.
+    </description>
+  </property>
+
+  <property>
+    <name>spark.driver.extraJavaOptions</name>
+    <value>-Dhdp.version=2.2.0.0-2041  -XX:MaxPermSize=512m</value>
+    <description>
+      Specifies parameters that are passed to the JVM of the Spark driver.
+    </description>
+  </property>
+
+  <property>
+    <name>spark.yarn.am.extraJavaOptions</name>
+    <value>-Dhdp.version=2.2.0.0-2041  -XX:MaxPermSize=512m</value>
+    <description>
+      Specifies the parameters that are passed to the JVM of the Spark Application Master.
+    </description>
+  </property>
 </configuration>

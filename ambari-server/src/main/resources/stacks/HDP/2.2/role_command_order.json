@@ -165,6 +165,9 @@
       "DATANODE-INSTALL",
       "HIVE_CLIENT-INSTALL",
       "TEZ_CLIENT-INSTALL"
+    ],
+    "GP_SEGMENT-INSTALL": [
+      "GP_MASTER-INSTALL"
     ]
   }
 }

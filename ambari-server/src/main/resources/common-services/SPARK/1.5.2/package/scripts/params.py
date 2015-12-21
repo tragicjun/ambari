@@ -25,8 +25,11 @@ config = Script.get_config()
 java_home = config['hostLevelParams']['java_home']
 fs_default_fs = config['configurations']['core-site']['fs.defaultFS']
 hadoop_conf_dir = "/etc/hadoop/conf"
-hive_site_file = "/etc/hive/conf/hive-site.xml"
-tez_site_file = "/etc/tez/conf/tez-site.xml"
+hadoop_home = "/usr/hdp/current/hadoop-client"
+hive_conf_dir = "/etc/hive/conf"
+hive_site_file = hive_conf_dir + "/hive-site.xml"
+tez_conf_dir = "/etc/tez/conf"
+tez_site_file = tez_conf_dir + "/tez-site.xml"
 
 # spark common
 hdfs_user = "hdfs"
@@ -37,9 +40,21 @@ spark_submit_cmd = spark_home + "/bin/spark-submit"
 spark_conf_dir = spark_home + "/conf"
 spark_defaults_conf_file = spark_home + "/conf/spark-defaults.conf"
 spark_log_home = "/data/log/tbds/spark"
+spark_env_file = spark_conf_dir + "/spark-env.sh"
+
+# spark configurations
+spark_history_ui_port = config['configurations']['spark-defaults']['spark.history.ui.port']
+spark_jdbc_server_port = config['configurations']['spark-defaults']['spark.hive.server2.thrift.port']
+spark_driver_memory = config['configurations']['spark-defaults']['spark.driver.memory']
+yarn_executor_memoryOverhead = config['configurations']['spark-defaults']['spark.yarn.executor.memoryOverhead']
+yarn_driver_memoryOverhead = config['configurations']['spark-defaults']['spark.yarn.driver.memoryOverhead']
+spark_yarn_queue = config['configurations']['spark-defaults']['spark.yarn.queue']
+spark_driver_extraJavaOptions = config['configurations']['spark-defaults']['spark.driver.extraJavaOptions']
+spark_yarn_am_extraJavaOptions = config['configurations']['spark-defaults']['spark.yarn.am.extraJavaOptions']
+
+hive_metastore_uris = config['configurations']['hive-site']['hive.metastore.uris']
 
 # spark history server
-spark_history_ui_port = config['configurations']['spark-defaults']['spark.history.ui.port']
 spark_eventLog_dir = spark_log_home + "/eventlog"
 spark_history_fs_logDirectory =  spark_log_home +"/history"
 
@@ -49,10 +64,10 @@ history_stop_script = spark_home + "/sbin/stop-history-server.sh"
 
 # spark jdbc server
 spark_jdbc_server_host = default("/clusterHostInfo/spark_jdbc_server_hosts", ["localhost"])[0]
-spark_jdbc_server_port = config['configurations']['spark-defaults']['spark.hive.server2.thrift.port']
 spark_jdbc_server_home = "/opt/tbds/spark-jdbc-server"
 jdbc_start_script = spark_home + "/sbin/start-thriftserver.sh --master yarn --driver-java-options -Dhdp.version=2.2.0.0-2041" + " --hiveconf hive.server2.thrift.bind.host=" + spark_jdbc_server_host + " --hiveconf hive.server2.thrift.port=" + str(spark_jdbc_server_port)
 jdbc_stop_script = spark_home + "/sbin/stop-thriftserver.sh"
+hive_conf_file = spark_conf_dir + "/hive-site.xml"
 
 # spark client
 spark_client_home = "/opt/tbds/spark-client"

@@ -62,3 +62,7 @@ nginx_log_path = default("/configurations/nginx-config/nginx.log.path", "/data/n
 new_nginx_install_path = "/opt/tbds/nginx"
 new_nginx_config_path = "/etc/tbds/nginx"
 new_nginx_log_path = "/var/log/tbds/nginx/server"
+
+
+cpu_cores = Toolkit.get_cpu_cores()
+worker_connections = default("/configurations/nginx-config/nginx.worker.connections", "1024")

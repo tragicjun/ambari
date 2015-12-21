@@ -70,6 +70,10 @@ class AmbariCleaner:
     self.run_cmd("ps aux | grep -E \"(AmbariAgent\.py|main\.py) start\"  | grep -v grep | awk '{print \"kill -9 \"$2}' | sh")
 
   def remove_services_installed_rpm(self):
+
+    # confirm rpm db is clean
+    self.run_cmd("rm -fr /var/lib/rpm/__db.*")
+
     repoNames = ''
     for repo in self.repos:
       repoNames += repo + "|"

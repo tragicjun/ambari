@@ -150,6 +150,8 @@ case "$1" in
           exit 1
         fi
 
+        cd /
+
         user="admin"
         password="admin"
         # while [[ -z "$password" ]]; do

@@ -62,11 +62,9 @@ class KafkaBroker(Script):
             user=params.kafka_user,
     )
 
-    time.sleep(15)
+    time.sleep(10)
     cmd = "curl -d 'name=tbds_kafka&zkHosts={0}&kafkaVersion=0.8.1.1' http://127.0.0.1:{1}/clusters".format(params.zookeeper_connect, str(params.kafka_manager_http_port))
-    Execute(cmd,
-            user=params.kafka_user,
-            )
+    Toolkit.execute_shell(cmd,10,30)
 
   def stop(self, env, rolling_restart=False):
     import params

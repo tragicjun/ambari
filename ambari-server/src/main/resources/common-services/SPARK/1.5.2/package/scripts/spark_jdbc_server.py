@@ -28,7 +28,7 @@ class SparkJDBCServer(Script):
         import params
         env.set_params(params)
     
-        excludePackage = ['livy-server*']
+        excludePackage = ['livy-server']
         self.install_packages(env, excludePackage)
         
         rm_command = format("rm -rf {spark_jdbc_server_home}")
@@ -36,6 +36,10 @@ class SparkJDBCServer(Script):
         self.command_exe(rm_command)
         
         Links(params.spark_jdbc_server_home, params.spark_home)
+        
+        create_log_path = format("mkdir -p {spark_log_home}; chown {spark_user}:{user_group} {spark_log_home} -R")
+        Logger.info(create_log_path)
+        self.command_exe(create_log_path)
         
         self.configure(env)
 
@@ -63,7 +67,10 @@ class SparkJDBCServer(Script):
         
         # add template files
         File(params.spark_defaults_conf_file, mode=0644, content=Template("spark-defaults.conf.j2"))
-        
+        File(params.spark_env_file, mode=0644, content=Template("spark-env.j2"))
+        File(params.hive_conf_file, mode=0644, content=Template("hive-site.j2"))
+
+        """
         copy_cmd = format("cp -arpf {hive_site_file} {spark_conf_dir}")
         Logger.info(copy_cmd)
         self.command_exe(copy_cmd)
@@ -71,7 +78,7 @@ class SparkJDBCServer(Script):
         copy_cmd = format("cp -arpf {tez_site_file} {spark_conf_dir}")
         Logger.info(copy_cmd)
         self.command_exe(copy_cmd)
-
+        """
     def start(self, env):
         import params
         env.set_params(params)

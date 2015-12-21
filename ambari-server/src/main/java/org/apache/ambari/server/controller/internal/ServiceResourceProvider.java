@@ -306,6 +306,10 @@ public class ServiceResourceProvider extends AbstractControllerResourceProvider 
     try {
       LOG.info("Installing all services");
       requestStages = doUpdateResources(null, installRequest, installPredicate);
+      if (requestStages == null) {
+        return null;
+      }
+
       notifyUpdate(Resource.Type.Service, installRequest, installPredicate);
 
       Map<String, Object> startProperties = new HashMap<String, Object>();
@@ -493,7 +497,8 @@ public class ServiceResourceProvider extends AbstractControllerResourceProvider 
         msg = "Attempted to create services which already exist: "
             + ", clusterName=" + clusterName  + " serviceNames=" + svcNames.toString();
       }
-      throw new DuplicateResourceException(msg);
+      LOG.info(msg);
+//      throw new DuplicateResourceException(msg);
     }
 
     ServiceFactory serviceFactory = getManagementController().getServiceFactory();
@@ -502,15 +507,20 @@ public class ServiceResourceProvider extends AbstractControllerResourceProvider 
     for (ServiceRequest request : requests) {
       Cluster cluster = clusters.getCluster(request.getClusterName());
 
-      State state = State.INIT;
+      try {
+        cluster.getService(request.getServiceName());
+      } catch (ServiceNotFoundException e) {
 
-      // Already checked that service does not exist
-      Service s = serviceFactory.createNew(cluster, request.getServiceName());
+        State state = State.INIT;
 
-      s.setDesiredState(state);
-      s.setDesiredStackVersion(cluster.getDesiredStackVersion());
-      cluster.addService(s);
-      s.persist();
+        // Already checked that service does not exist
+        Service s = serviceFactory.createNew(cluster, request.getServiceName());
+
+        s.setDesiredState(state);
+        s.setDesiredStackVersion(cluster.getDesiredStackVersion());
+        cluster.addService(s);
+        s.persist();
+      }
     }
   }
 

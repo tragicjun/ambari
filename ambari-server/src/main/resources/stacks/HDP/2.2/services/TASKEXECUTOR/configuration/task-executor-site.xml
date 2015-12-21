@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_final="false">
+  <property>
+    <name>task.executor.http.port</name>
+    <value>8085</value>
+    <description>task executor http port</description>
+  </property>
+
+</configuration>

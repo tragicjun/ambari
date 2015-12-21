@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.ambari.server.AmbariException;
+import org.apache.ambari.server.ServiceNotFoundException;
 import org.apache.ambari.server.api.services.AmbariMetaInfo;
 import org.apache.ambari.server.controller.*;
 import org.apache.ambari.server.controller.spi.NoSuchParentResourceException;
@@ -47,11 +48,7 @@ import org.apache.ambari.server.orm.dao.BlueprintDAO;
 import org.apache.ambari.server.orm.entities.BlueprintConfigEntity;
 import org.apache.ambari.server.orm.entities.BlueprintEntity;
 import org.apache.ambari.server.orm.entities.HostGroupEntity;
-import org.apache.ambari.server.state.Config;
-import org.apache.ambari.server.state.ConfigHelper;
-import org.apache.ambari.server.state.ConfigImpl;
-import org.apache.ambari.server.state.SecurityType;
-import org.apache.ambari.server.state.StackId;
+import org.apache.ambari.server.state.*;
 
 /**
  * Resource provider for cluster resources.
@@ -498,22 +495,34 @@ public class ClusterResourceProvider extends BaseBlueprintProcessor {
     validatePasswordProperties(blueprint, blueprintHostGroups, (String) properties.get("default_password"));
 
     String clusterName = (String) properties.get(CLUSTER_NAME_PROPERTY_ID);
-    createClusterResource(buildClusterResourceProperties(stack, clusterName));
-    setConfigurationsOnCluster(clusterName, stack, blueprintHostGroups);
+
+    boolean newCluster = false;
+    try {
+      getManagementController().getClusters().getCluster(clusterName);
+    } catch (AmbariException e) {
+      LOG.info("cluster " + clusterName + " not exists, create new cluster");
+      createClusterResource(buildClusterResourceProperties(stack, clusterName));
+      newCluster = true;
+    }
+
+    setConfigurationsOnCluster(clusterName, stack, blueprintHostGroups, newCluster);
 
     Set<String> services = getServicesToDeploy(stack, blueprintHostGroups);
 
     createServiceAndComponentResources(blueprintHostGroups, clusterName, services);
     createHostAndComponentResources(blueprintHostGroups, clusterName);
 
-    registerConfigGroups(clusterName, blueprintHostGroups, stack);
-
-    persistInstallStateForUI(clusterName);
+    if (newCluster) {
+      registerConfigGroups(clusterName, blueprintHostGroups, stack);
+      persistInstallStateForUI(clusterName);
+    }
 
     RequestStatusResponse request = ((ServiceResourceProvider) getResourceProvider(Resource.Type.Service)).
         installAndStart(clusterName);
 
-    request.setMessage(message);
+    if (request != null) {
+      request.setMessage(message);
+    }
 
     return request;
   }
@@ -712,7 +721,7 @@ public class ClusterResourceProvider extends BaseBlueprintProcessor {
    *
    * @throws SystemException an unexpected exception occurred
    */
-  void setConfigurationsOnCluster(String clusterName, Stack stack, Map<String, HostGroupImpl> blueprintHostGroups) throws SystemException {
+  void setConfigurationsOnCluster(String clusterName, Stack stack, Map<String, HostGroupImpl> blueprintHostGroups, boolean newCluster) throws SystemException {
     List<BlueprintServiceConfigRequest> listofConfigRequests =
       new LinkedList<BlueprintServiceConfigRequest>();
 
@@ -744,18 +753,25 @@ public class ClusterResourceProvider extends BaseBlueprintProcessor {
         }
       }
 
-      listofConfigRequests.add(blueprintConfigRequest);
+      // remove duplicated service config
+      try {
+        getManagementController().getClusters().getCluster(clusterName).getService(service);
+      } catch (AmbariException e) {
+        listofConfigRequests.add(blueprintConfigRequest);
+      }
     }
 
-    // since the stack returns "cluster-env" with each service's config
-    // this code needs to ensure that only one ClusterRequest occurs for
-    // the global cluster-env configuration
-    BlueprintServiceConfigRequest globalConfigRequest =
-      new BlueprintServiceConfigRequest("GLOBAL-CONFIG");
-    globalConfigRequest.addConfigElement("cluster-env",
-      mapClusterConfigurations.get("cluster-env"),
-      mapClusterAttributes.get("cluster-env"));
-    listofConfigRequests.add(globalConfigRequest);
+    if (newCluster) {
+      // since the stack returns "cluster-env" with each service's config
+      // this code needs to ensure that only one ClusterRequest occurs for
+      // the global cluster-env configuration
+      BlueprintServiceConfigRequest globalConfigRequest =
+        new BlueprintServiceConfigRequest("GLOBAL-CONFIG");
+      globalConfigRequest.addConfigElement("cluster-env",
+        mapClusterConfigurations.get("cluster-env"),
+        mapClusterAttributes.get("cluster-env"));
+      listofConfigRequests.add(globalConfigRequest);
+    }
 
     try {
       //todo: properly handle non system exceptions

@@ -203,6 +203,12 @@ class Toolkit():
         errorContent = stderr
       index += 1
 
+  # get cpu core number
+  @staticmethod
+  def get_cpu_cores():
+    cmd = r"cat /proc/cpuinfo | egrep 'core id|physical id' | tr -d '\n' | sed s/physical/\\nphysical/g | grep -v ^$ | sort | uniq | wc -l"
+    return Toolkit.exe(cmd)
+
 if __name__ == '__main__':
   # export PYTHONPATH=$PYTHONPATH:/usr/lib/python2.6/site-packages
   from resource_management.core import Environment

@@ -295,5 +295,15 @@
     "GP_SEGMENT": [
       "gp-site/segment.base.port"
     ]
+  },
+  "FTP": {
+    "FTP_SERVER": [
+      "ftp/ftp.port"
+    ]
+  },
+  "TASKEXECUTOR": {
+    "TASKEXECUTOR_SERVER": [
+      "task-executor-site/task.executor.http.port"
+    ]
   }
 }

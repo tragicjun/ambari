@@ -37,4 +37,10 @@
         <description>debug,info,notice,warn,error,crit,alert,emerg 级别</description>
     </property>
 
+    <property>
+      <name>nginx.worker.connections</name>
+      <value>1024</value>
+      <description>Nginx Worker链接数的最大值</description>
+    </property>
+
 </configuration>

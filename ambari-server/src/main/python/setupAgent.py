@@ -217,36 +217,41 @@ def configureHostname(hostName):
     print "hostName can not be none or blank"
     return False
   #set the /etc/hosts
-  # try:
-  #   wHostFile=None
-  #   hostFile=None
-  #   try:
-  #     hostsFile=file("/etc/hosts")
-  #     isFirstLine = True
-  #     firstLine = ""
-  #     lines = []
-  #     for line in hostsFile:
-  #       if(isFirstLine):
-  #         isFirstLine = False
-  #         firstLine = line.strip()
-  #       lines.append(line.strip())
-  #     insertLine = "127.0.0.1 "+hostName.strip()
-  #     newContent=""
-  #     if(firstLine != insertLine):
-  #       lines.insert(0, insertLine+"\n"+hostName.strip()+" "+hostName.strip())
-  #       newContent = '\n'.join(lines)
-  #
-  #       wHostFile=file('/etc/hosts', 'w')
-  #       wHostFile.write(newContent)
-  #   finally:
-  #     if(hostFile != None):
-  #       hostsFile.close()
-  #     if(wHostFile != None):
-  #       wHostFile.close()
-  # except Exception:
-  #   print "errro to set /etc/hosts"
-  #   traceback.print_exc()
-  #   return False
+  try:
+    wHostFile=None
+    hostFile=None
+    try:
+      hostsFile=file("/etc/hosts")
+      flag_start="# tencent tbds config start"
+      flag_end="# tencent tbds config end"
+      isTbds = False
+      lines = []
+      for line in hostsFile:
+        if(line.strip() == flag_start):
+          isTbds = True
+          continue
+        if(line.strip() == flag_end):
+          isTbds = False
+          continue
+        if(isTbds):
+          continue
+        lines.append(line.strip())
+      insertLine = "127.0.0.1 "+hostName.strip()
+      
+      #lines.insert(0, flag_start+"\n"+insertLine+"\n"+hostName.strip()+" "+hostName.strip()+"\n"+flag_end)
+      lines.insert(0, flag_start+"\n"+insertLine+"\n"+flag_end)
+      newContent = '\n'.join(lines)
+      wHostFile=file('/etc/hosts', 'w')
+      wHostFile.write(newContent)
+    finally:
+      if(hostFile != None):
+        hostsFile.close()
+      if(wHostFile != None):
+        wHostFile.close()
+  except Exception:
+    print "errro to set /etc/hosts"
+    traceback.print_exc()
+    return False
   #valid the hostname
   (status, output) = commands.getstatusoutput('sudo hostname '+hostName)
   if (status != 0):

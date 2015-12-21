@@ -53,7 +53,11 @@ gp_master_host = default('/clusterHostInfo/gp_master_hosts', ['localhost'])[0]
 gp_segment_hosts = default('/clusterHostInfo/gp_segment_hosts', ['localhost'])
 gp_master_port = config['configurations']['gp-site']['master.port']
 gp_master_data_dir = config['configurations']['gp-site']['master.data.dir']
+gp_master_seg_dir = gp_master_data_dir + "/gpseg-1"
+gp_master_pg_hba_conf = gp_master_seg_dir + "/pg_hba.conf"
 gp_segment_data_dir = config['configurations']['gp-site']['segment.data.dir']
 gp_segment_base_port = config['configurations']['gp-site']['segment.base.port']
+gp_checkpoint_segments = config['configurations']['gp-site']['checkpoint.segments']
 
 expect_script = gp_install_dir + '/execExpect.sh'
+gp_master_env_pg_hba = config['configurations']['gp-env']['content']

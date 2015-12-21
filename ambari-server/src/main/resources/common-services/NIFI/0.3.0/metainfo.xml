@@ -36,22 +36,6 @@
             <scriptType>PYTHON</scriptType>
             <timeout>1200</timeout>
           </commandScript>
-          <dependencies>
-            <dependency>
-              <name>HDFS/HDFS_CLIENT</name>
-              <scope>host</scope>
-              <auto-deploy>
-                <enabled>true</enabled>
-              </auto-deploy>
-            </dependency>
-            <dependency>
-              <name>YARN/YARN_CLIENT</name>
-              <scope>host</scope>
-              <auto-deploy>
-                <enabled>true</enabled>
-              </auto-deploy>
-            </dependency>
-          </dependencies>
         </component>
       </components>
 
@@ -73,9 +57,7 @@
       </commandScript>
       
       <requiredServices>
-        <service>MAPREDUCE2</service>
-        <service>YARN</service>
-        <service>HDFS</service>
+        <service>TASKEXECUTOR</service>
       </requiredServices>
 
     </service>

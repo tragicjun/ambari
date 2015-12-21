@@ -94,7 +94,7 @@ class Web(Script):
     cmd = "curl -I \"" + params.lhotse_web_url + "\" 2> /dev/null | awk 'NR==1{print}' | awk '{print $2}'"
     Logger.error("run cmd = {0}".format(cmd))
     (ret, output) = commands.getstatusoutput(cmd)
-    if output != "200" :
+    if not(output == "200" or output == "302") :
       Logger.error("lhotse web not exists")
       raise ComponentIsNotRunning()
 

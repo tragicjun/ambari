@@ -23,6 +23,8 @@ from resource_management.libraries.functions.default import default
 from resource_management.core.logger import Logger
 
 import status_params
+import json
+import urllib2
 
 # server configurations
 config = Script.get_config()
@@ -46,6 +48,24 @@ new_nifi_config_path = "/etc/tbds/nifi"
 new_nifi_data_path = "/data/tbds/nifi"
 new_nifi_log_path = "/var/log/tbds/nifi"
 
+nifi_server_ip = default("/clusterHostInfo/nifi_server_hosts", ["localhost"])[0]
+
+portal_server_hostname=default("/configurations/cluster-env/portal_server_hostname", 'localhost')
+portal_server_port=default("/configurations/cluster-env/portal_server_port", 80)
+url='http://' + portal_server_hostname + ':' + str(portal_server_port) + '/openapi/getHostWanIp?localIP=' + nifi_server_ip
+Logger.info(url)
+res = urllib2.urlopen(url)
+res_data=res.read()
+Logger.info(res_data)
+obj = json.loads(res_data)
+code = obj.get("resultCode")
+wanip = obj.get("resultData")
+if '0'==code:
+  nifi_server_wanip = wanip
+else:
+  Logger.warn('get nifi server wanip failed :' + wanip)
+  nifi_server_wanip = nifi_server_ip
+
 nifi_user = config['configurations']['nifi-env']['nifi_user']
 hostname = config['hostname']
 user_group = config['configurations']['cluster-env']['user_group']
@@ -53,4 +73,5 @@ java64_home = config['hostLevelParams']['java_home']
 web_http_port = config['configurations']['nifi-site']['nifi.http.port']
 
 # Security-related params
+sso_url =  default("/configurations/cluster-env/sso_url", "http://localhost:80/")
 security_enabled = config['configurations']['cluster-env']['security_enabled']

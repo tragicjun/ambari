@@ -23,6 +23,9 @@ import subprocess
 
 class GPMaster(Script):
   def install(self, env):
+    if os.path.isfile(params.gp_install_dir + "/greenplum_path.sh"):
+        return
+
     self.install_packages(env)
     import params
     env.set_params(params)
@@ -93,7 +96,7 @@ class GPMaster(Script):
 
     if os.path.isfile(params.gp_install_flag):
         daemon_cmd = "source {0}/greenplum_path.sh;MASTER_DATA_DIRECTORY={1} {2}/gpstart -a" \
-            .format(params.gp_install_dir, params.gp_master_data_dir+"/gpseg-1", params.gp_install_bin)
+            .format(params.gp_install_dir, params.gp_master_seg_dir, params.gp_install_bin)
         print "Start gp: {0}".format(daemon_cmd)
         Execute(daemon_cmd,
             user=params.gp_user,
@@ -102,7 +105,7 @@ class GPMaster(Script):
         gpInit_cmd = "source {3}/greenplum_path.sh;MASTER_DATA_DIRECTORY={2} " \
                     "{0}/gpinitsystem -a -c {1}/gpinitsystem_config -h {1}/hostfile_gpinitsystem " \
                      "> {4} 2>&1" \
-            .format(params.gp_install_bin, params.gp_conf_dir, params.gp_master_data_dir+"/gpseg-1",
+            .format(params.gp_install_bin, params.gp_conf_dir, params.gp_master_seg_dir,
                     params.gp_install_dir, params.gp_log_file)
         daemon_cmd = '{0} 3600 "{1}"'.format(params.expect_script, gpInit_cmd)
         Execute(daemon_cmd,
@@ -121,13 +124,26 @@ class GPMaster(Script):
                 user=params.gp_user,
                 )
 
+    # Add configs to pg_hba.conf
+    for line in params.gp_master_env_pg_hba.split("\n"):
+        daemon_cmd = 'cat {0} >> {1}'.format(line, params.gp_master_pg_hba_conf)
+        Execute(daemon_cmd,
+                user=params.gp_user,
+                )
+    # Ask all pg instances to reload
+    daemon_cmd = 'source {0}/greenplum_path.sh;MASTER_DATA_DIRECTORY={1} {2}/gpstop -u' \
+        .format(params.gp_install_dir, params.gp_master_seg_dir, params.gp_install_bin)
+    Execute(daemon_cmd,
+            user=params.gp_user,
+            )
+
   def stop(self, env, rolling_restart=False):
     import params
     env.set_params(params)
     self.configure(env)
 
     daemon_cmd = "source {0}/greenplum_path.sh;MASTER_DATA_DIRECTORY={1} {2}/gpstop -a"\
-        .format(params.gp_install_dir, params.gp_master_data_dir+"/gpseg-1", params.gp_install_bin)
+        .format(params.gp_install_dir, params.gp_master_seg_dir, params.gp_install_bin)
     print "Stop gp: {0}".format(daemon_cmd)
 
     Execute(daemon_cmd,
