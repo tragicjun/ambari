@@ -55,18 +55,19 @@ class NiFi(Script):
          mode=0644,
          content=Template("cas-nifi-web-security-context.xml.j2")
          )
-  #def pre_rolling_restart(self, env):
-    #import params
-    #env.set_params(params)
-    #upgrade.prestart(env, "kafka-broker")
 
   def start(self, env, rolling_restart=False):
     import params
     env.set_params(params)
     self.configure(env)
 
-    pid_file = params.nifi_pid_file
-    if pid_file and os.path.isfile(pid_file):
+    isComponentRunning = True
+    try:
+        self.check_nifi_process_status(params.nifi_pid_file)
+    except ComponentIsNotRunning:
+        isComponentRunning = False
+
+    if isComponentRunning:
         return
 
     daemon_cmd = "export PATH={0}/bin:$PATH;export JAVA_HOME={0};".format(params.java64_home)

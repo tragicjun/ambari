@@ -289,8 +289,7 @@
   },
   "GREENPLUM": {
     "GP_MASTER": [
-      "gp-site/master.port",
-      "gp-site/segment.base.port"
+      "gp-site/master.port"
     ],
     "GP_SEGMENT": [
       "gp-site/segment.base.port"
@@ -299,6 +298,11 @@
   "FTP": {
     "FTP_SERVER": [
       "ftp/ftp.port"
+    ]
+  },
+  "NGINX": {
+    "NGINX_SERVER": [
+      "nginx-config/nginx.port"
     ]
   },
   "TASKEXECUTOR": {

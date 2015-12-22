@@ -59,8 +59,13 @@ class Hue(Script):
     env.set_params(params)
     self.configure(env)
 
-    pid_file = params.hue_pid_file
-    if pid_file and os.path.isfile(pid_file):
+    isComponentRunning = True
+    try:
+        check_process_status(params.hue_pid_file)
+    except ComponentIsNotRunning:
+        isComponentRunning = False
+
+    if isComponentRunning:
         return
 
     daemon_cmd = "{0} -d -p {1}".format(params.hue_bin, params.hue_pid_file)

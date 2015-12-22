@@ -74,11 +74,24 @@ ftp_server_user = default("/configurations/ftp/ftp.user", 'ftpadmin')
 ftp_server_pwd = default("/configurations/ftp/ftp.password", '123456')
 ftp_server_root_path = default("/configurations/ftp/root.path", '/data/ftp_data/')
 
+#external ftp
+ftp_server_host = default("/clusterHostInfo/ftp_server_hosts", ["127.0.0.1"])[0]
+ftp_server_port = default("/configurations/ftp/ftp.port", 2121)
+ftp_server_user = default("/configurations/ftp/ftp.user", 'ftpadmin')
+ftp_server_pwd = default("/configurations/ftp/ftp.password", '123456')
+#ftp_server_root_path = default("/configurations/ftp/root.path", '/shell/')
+
 #pgxz config
 pg_server_host = default("/clusterHostInfo/pgxz_coordinator_hosts", ["127.0.0.1"])[0]
 pg_server_port = default("/configurations/coordinator-config-env/pgxz.coordinator.port", '5434')
 pg_user = default("/configurations/pgxz-global/pgxz.user", 'pgxz')
 pg_password = default("/configurations/pgxz-global/pgxz.password", 'pgxz')
+
+#pg config
+pg_server_host = default("/clusterHostInfo/postgre_server_hosts", ["127.0.0.1"])[0]
+pg_server_port = default("/configurations/postgre_server/pgxz.coordinator.port", '5434')
+pg_user = default("/configurations/postgresql-main-env/postgresql.superuser", 'postgres')
+pg_password = default("/configurations/postgresql-main-env/superuser.passwd", 'postgres')
 print "ftp server:" + ftp_server_host
 #####################################################################################################################################
 
