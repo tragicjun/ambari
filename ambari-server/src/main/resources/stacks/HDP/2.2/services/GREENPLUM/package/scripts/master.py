@@ -23,11 +23,11 @@ import subprocess
 
 class GPMaster(Script):
   def install(self, env):
+    import params
     if os.path.isfile(params.gp_install_dir + "/greenplum_path.sh"):
         return
 
     self.install_packages(env)
-    import params
     env.set_params(params)
 
     daemon_cmd = "cd {0};unzip {1}".format(params.gp_install_dir, params.gp_install_zip)
@@ -63,14 +63,15 @@ class GPMaster(Script):
          content=Template("gpinitsystem_config.j2")
          )
 
-    hosts = params.gp_master_host + "\n"
+    hosts = [ params.gp_master_host ]
     for host in params.gp_segment_hosts:
-        hosts += host + "\n"
+        if host not in hosts:
+            hosts.append(host)
     File(os.path.join(params.gp_conf_dir, 'hostfile_gpinitsystem'),
          owner=params.gp_user,
          group=params.user_group,
          mode=0644,
-         content=hosts
+         content="\n".join(hosts)
          )
 
     File(params.expect_script,
@@ -126,9 +127,10 @@ class GPMaster(Script):
 
     # Add configs to pg_hba.conf
     for line in params.gp_master_env_pg_hba.split("\n"):
-        daemon_cmd = 'cat {0} >> {1}'.format(line, params.gp_master_pg_hba_conf)
-        Execute(daemon_cmd,
-                user=params.gp_user,
+        if line:
+            daemon_cmd = 'echo "{0}" >> {1}'.format(line, params.gp_master_pg_hba_conf)
+            Execute(daemon_cmd,
+                    user=params.gp_user,
                 )
     # Ask all pg instances to reload
     daemon_cmd = 'source {0}/greenplum_path.sh;MASTER_DATA_DIRECTORY={1} {2}/gpstop -u' \

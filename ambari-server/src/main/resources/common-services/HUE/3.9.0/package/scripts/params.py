@@ -63,6 +63,9 @@ livy_server_port = default('/configurations/livy-defaults/livy.server.port',"899
 spark_jdbc_server_host = default('/clusterHostInfo/spark_jdbc_server_hosts',['localhost'])[0]
 spark_jdbc_server_port = default('/configurations/spark-defaults/spark.hive.server2.thrift.port',"10002")
 
+gp_master_host = default('/clusterHostInfo/gp_master_hosts', ['localhost'])[0]
+gp_master_port = default('/configurations/gp-site/master.port', "5432")
+
 sso_cas_url = default('/configurations/cluster-env/sso_url',"https://127.0.0.1:8080/cas") + "/"
 hue_admin_user = default('/configurations/cluster-env/cluster_manager',"admin")
 

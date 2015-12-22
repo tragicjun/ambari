@@ -119,7 +119,7 @@
 
   # Comma separated list of apps to not load at server startup.
   # e.g.: pig,zookeeper
-  app_blacklist=pig,zookeeper,hbase,impala,search,sqoop,jobsub,rdbms
+  app_blacklist=pig,zookeeper,hbase,impala,search,sqoop,jobsub
 
   # The directory where to store the auditing logs. Auditing is disable if the value is empty.
   # e.g. /var/log/hue/audit.log
@@ -640,36 +640,36 @@
       ## options={}
 
     # mysql, oracle, or postgresql configuration.
-    ## [[[mysql]]]
+    [[[postgresql]]]
       # Name to show in the UI.
-      ## nice_name="My SQL DB"
+      nice_name="PG"
 
       # For MySQL and PostgreSQL, name is the name of the database.
       # For Oracle, Name is instance of the Oracle server. For express edition
       # this is 'xe' by default.
-      ## name=mysqldb
+      name=postgres
 
       # Database backend to use. This can be:
       # 1. mysql
       # 2. postgresql
       # 3. oracle
-      ## engine=mysql
+      engine=postgresql
 
       # IP or hostname of the database to connect to.
-      ## host=localhost
+      host={{ gp_master_host }}
 
       # Port the database server is listening to. Defaults are:
       # 1. MySQL: 3306
       # 2. PostgreSQL: 5432
       # 3. Oracle Express Edition: 1521
-      ## port=3306
+      port={{ gp_master_port }}
 
       # Username to authenticate with when connecting to the database.
-      ## user=example
+      user=tencent
 
       # Password matching the username to authenticate with when
       # connecting to the database.
-      ## password=example
+      password=tencent
 
       # Database options to send to the server when connecting.
       # https://docs.djangoproject.com/en/1.4/ref/databases/
@@ -1072,7 +1072,7 @@
   ## livy_impersonation_enabled=true
 
   # List of available types of snippets
-  languages='[{"name": "Scala Shell", "type": "scala"},{"name": "PySpark Shell", "type": "python"},{"name": "R Shell", "type": "r"},{"name": "Hive SQL", "type": "hive"}]'
+  languages='[{"name": "Scala Shell", "type": "scala"},{"name": "PySpark Shell", "type": "python"},{"name": "Hive SQL", "type": "hive"}]'
 
 
 ###########################################################################

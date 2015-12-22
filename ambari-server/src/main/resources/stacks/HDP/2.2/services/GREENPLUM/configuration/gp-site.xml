@@ -23,7 +23,7 @@
 <configuration>
     <property>
         <name>master.port</name>
-        <value>5432</value>
+        <value>5434</value>
         <description>Port the master runs on</description>
     </property>
     <property>

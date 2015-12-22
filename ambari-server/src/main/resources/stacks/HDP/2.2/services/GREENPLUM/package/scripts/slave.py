@@ -23,11 +23,11 @@ import subprocess
 
 class GPSlave(Script):
   def install(self, env):
+    import params
     if os.path.isfile(params.gp_install_dir + "/greenplum_path.sh"):
         return
 
     self.install_packages(env)
-    import params
     daemon_cmd = "cd {0};unzip {1}".format(params.gp_install_dir, params.gp_install_zip)
     Execute(daemon_cmd,
           user=params.gp_user,
