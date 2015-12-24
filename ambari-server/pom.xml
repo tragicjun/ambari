@@ -255,6 +255,7 @@
         </executions>
         <configuration>
           <name>tbds-server</name>
+          <needarch>x86_64</needarch>
           <copyright>2012, Apache Software Foundation</copyright>
           <group>Development</group>
           <description>Maven Recipe: RPM Package.</description>

@@ -32,6 +32,11 @@
     <description>本地目录，需要存在且有读写权限</description>
   </property>
   <property>
+    <name>nimbus.thrift.port</name>
+    <value>6777</value>
+    <description>nimbus端口</description>
+  </property>
+  <property>
     <name>storm.zookeeper.root</name>
     <value>/jstorm/c_001</value>
     <description>元数据保存在Zookeeper的根路径</description>

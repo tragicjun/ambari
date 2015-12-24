@@ -37,6 +37,7 @@
             <scriptType>PYTHON</scriptType>
             <timeout>1200</timeout>
           </commandScript>
+
           <customCommands>
             <customCommand>
               <name>DECOMMISSION</name>
@@ -58,6 +59,30 @@
           <configuration-dependencies>
             <config-type>capacity-scheduler</config-type>
           </configuration-dependencies>
+        </component>
+
+        <component>
+          <name>YARN_API</name>
+          <displayName>YARN Api</displayName>
+          <category>MASTER</category>
+          <cardinality>1</cardinality>
+          <versionAdvertised>true</versionAdvertised>
+
+          <dependencies>
+            <dependency>
+              <name>YARN/YARN_CLIENT</name>
+              <scope>host</scope>
+              <auto-deploy>
+                <enabled>true</enabled>
+              </auto-deploy>
+            </dependency>
+          </dependencies>
+
+          <commandScript>
+            <script>scripts/task_executor.py</script>
+            <scriptType>PYTHON</scriptType>
+            <timeout>1200</timeout>
+          </commandScript>
         </component>
 
         <component>

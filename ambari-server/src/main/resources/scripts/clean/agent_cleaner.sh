@@ -4,6 +4,7 @@ echo "[$(date "+%F %T")]"
 status=$(tbds-server status | grep "not running" | wc -l)
 if [[ "$status" == "1" ]]; then
   echo "server is stoped, restart it to continue ..."
+  exit 0
 fi
 
 # get server ip

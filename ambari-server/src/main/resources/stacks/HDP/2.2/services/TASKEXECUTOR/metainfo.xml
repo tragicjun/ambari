@@ -23,6 +23,7 @@
       <displayName>TASK EXEXUTOR</displayName>
       <version>0.1.0</version>
       <comment></comment>
+      <deleted>true</deleted>
       <components>
         <component>
           <name>TASKEXECUTOR_SERVER</name>

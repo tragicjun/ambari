@@ -30,7 +30,8 @@ class Nimbus(Script):
   def install(self, env):
     import params
     env.set_params(params)
-    self.install_packages(env)
+    excludePackage = ["task-executor"]
+    self.install_packages(env,excludePackage)
 
     Links(params.new_jstorm_install_path, params.jstorm_install_path)
     Links(params.new_jstorm_config_path, params.jstorm_config_path)

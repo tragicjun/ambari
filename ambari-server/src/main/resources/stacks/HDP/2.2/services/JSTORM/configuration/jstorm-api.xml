@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_final="false">
+  <property>
+    <name>jstorm.api.http.port</name>
+    <value>8085</value>
+    <description>jstorm api executor http port</description>
+  </property>
+
+</configuration>

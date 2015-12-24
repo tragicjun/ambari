@@ -181,7 +181,7 @@ class Toolkit():
   # timeout
   # return code,stdout,stderr
   @staticmethod
-  def execute_shell(cmd, tries=1, timeout=10):
+  def execute_shell(cmd, tries=1, timeout=10, interval=10):
     index = 0
     errorContent = ""
     while True:
@@ -201,6 +201,7 @@ class Toolkit():
         return sub.returncode,stdout
       else:
         errorContent = stderr
+        time.sleep(interval)
       index += 1
 
   # get cpu core number

@@ -88,7 +88,7 @@ pg_user = default("/configurations/pgxz-global/pgxz.user", 'pgxz')
 pg_password = default("/configurations/pgxz-global/pgxz.password", 'pgxz')
 
 #pg config
-pg_server_host = default("/clusterHostInfo/postgre_server_hosts", ["127.0.0.1"])[0]
+pg_server_host = default("/clusterHostInfo/postgresql_server_hosts", ["127.0.0.1"])[0]
 pg_server_port = default("/configurations/postgre_server/pgxz.coordinator.port", '5434')
 pg_user = default("/configurations/postgresql-main-env/postgresql.superuser", 'postgres')
 pg_password = default("/configurations/postgresql-main-env/superuser.passwd", 'postgres')

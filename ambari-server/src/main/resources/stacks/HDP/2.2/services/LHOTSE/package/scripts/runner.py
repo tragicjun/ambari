@@ -60,27 +60,28 @@ class Runner(Script):
     print 'Start the Runner';
     val= os.system("cd /usr/local/lhotse_runners; su hdfs -c '/usr/local/lhotse_runners/start_jar.sh " + params.java_home +"'")
     print val
-	
-	print 'config test tasks if need';
-	print params.ftp_host
-	print params.ftp_port
-	print params.ftp_user
-	print params.ftp_password
-	print params.test_mysql_host
-	print params.test_mysql_port
-	print params.test_mysql_user
-	print params.test_mysql_passwd
-	print params.test_lhotsedb_host
-	print params.test_lhotsedb_port
-	print params.test_lhotsedb_user
-	print params.test_lhotsedb_passwd
-	print params.test_pg_host
-	print params.test_pg_user
-	print params.test_pg_passwd
-	print params.test_local_data_path
-	print params.test_hive_host
-	print params.test_hive_port
-    val= os.system("cd /usr/local/lhotse_runners; su hdfs -c '/usr/local/lhotse_runners/configTasks.sh "  +" "+params.ftp_host+" "+" "+params.ftp_port+" "+" "+params.ftp_user+" "+" "+params.ftp_password+" "+" "+params.test_mysql_host+" "+" "+params.test_mysql_port+" "+" "+params.test_mysql_user+" "+" "+params.test_mysql_passwd+" "+" "+params.test_lhotsedb_host+" "+" "+params.test_lhotsedb_port+" "+" "+params.test_lhotsedb_user+" "+" "+params.test_lhotsedb_passwd+" "+" "+params.test_pg_host+" "+" "+params.test_pg_user+" "+" "+params.test_pg_passwd+" "+" "+params.test_local_data_path+" "+" "+params.test_hive_host+" "+" "+params.test_hive_port+" "+"'")
+    
+    print 'config test tasks if need';
+    print params.ftp_server_host
+    print params.ftp_server_port
+    print params.ftp_server_user
+    print params.ftp_server_pwd
+    print params.lhotse_database_hosts
+    print params.lhotse_database_port
+    print params.lhotse_database_username
+    print params.lhotse_database_password
+    print params.lhotse_database_hosts
+    print params.lhotse_database_port
+    print params.lhotse_database_username
+    print params.lhotse_database_password
+    print params.pg_server_host
+    print params.pg_user
+    print params.pg_password
+    print params.hive_server_host
+    print params.hive_server_port
+    cmd = format("bash -x /usr/local/lhotse_runners/configTasks.sh {ftp_server_host} {ftp_server_port} {ftp_server_user} {ftp_server_pwd} {lhotse_database_hosts}  {lhotse_database_port} {lhotse_database_username} {lhotse_database_password} {lhotse_database_hosts} {lhotse_database_port}   {lhotse_database_username} {lhotse_database_password} {pg_server_host} {pg_user} {pg_password} {hive_server_host} {hive_server_port}")
+    print cmd
+    val= os.system(cmd)
     print val
 
   def status(self, env):

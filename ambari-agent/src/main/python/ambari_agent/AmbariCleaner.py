@@ -11,12 +11,16 @@ class AmbariCleaner:
 
   repo_name_key = "repo_name"
   directory_key = "directory"
+  rpms_reserve_key = "rpms_reserve"
+  rpms_reserve_on_server_key = "rpms_reserve_on_server"
 
   def __init__(self):
     self.logfile = open("/tmp/clean_agent.log", "a")
     self.onServer = self.isServerHost()
     self.dirs = self.readServiceInfo(self.directory_key)
     self.repos = self.readServiceInfo(self.repo_name_key)
+    self.rpmsReserve = self.readServiceInfo(self.rpms_reserve_key)
+    self.rpmsReserveOnServer = self.readServiceInfo(self.rpms_reserve_on_server_key)
 
   def __del__(self):
     self.logfile.close()
@@ -69,19 +73,26 @@ class AmbariCleaner:
     self.run_cmd("ambari-agent stop")
     self.run_cmd("ps aux | grep -E \"(AmbariAgent\.py|main\.py) start\"  | grep -v grep | awk '{print \"kill -9 \"$2}' | sh")
 
+  def join(self, elems, sep = "|"):
+    result = ""
+    for elem in elems:
+      result += elem + sep
+    result = result[:-1]
+    return result
+
   def remove_services_installed_rpm(self):
 
     # confirm rpm db is clean
-    self.run_cmd("rm -fr /var/lib/rpm/__db.*")
+    self.run_cmd("rm -rf /var/lib/rpm/__db.*")
 
-    repoNames = ''
-    for repo in self.repos:
-      repoNames += repo + "|"
-    repoNames = repoNames[:-1]
-    rpmsCmd = "yum list installed 2>/dev/null | grep -E '" + repoNames + "' | awk '{print $1}' | grep -vE '^(expect|expat|curl|glib2|zlib|openssl)\.x86_64$'"
+    repoNames = self.join(self.repos)
+    rpmReserveNames = self.join(self.rpmsReserve)
+    rpmReserveOnServerNames = self.join(self.rpmsReserveOnServer)
+
+    rpmsCmd = "yum list installed 2>/dev/null | grep -E '" + repoNames + "' | awk '{print $1}' | grep -vE '^" + rpmReserveNames + "$'"
 
     if self.onServer:
-      rpmsCmd += " | grep -vE 'tbds-server|postgresql'"
+      rpmsCmd += " | grep -vE '" + rpmReserveOnServerNames + "'"
 
     cmd = rpmsCmd + " | xargs yum remove -y"
     (ok, output) = self.run_cmd(cmd)

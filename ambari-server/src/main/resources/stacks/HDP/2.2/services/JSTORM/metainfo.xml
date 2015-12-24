@@ -53,6 +53,20 @@
             <timeout>1200</timeout>
           </commandScript>
         </component>
+
+        <component>
+          <name>JSTORM_API</name>
+          <displayName>Jstorm Api</displayName>
+          <category>MASTER</category>
+          <cardinality>1</cardinality>
+          <versionAdvertised>true</versionAdvertised>
+          <commandScript>
+            <script>scripts/task_executor.py</script>
+            <scriptType>PYTHON</scriptType>
+            <timeout>1200</timeout>
+          </commandScript>
+        </component>
+
       </components>
 
       <osSpecifics>
@@ -61,6 +75,9 @@
           <packages>
             <package>
               <name>jstorm-1.0.3*</name>
+            </package>
+            <package>
+              <name>task-executor</name>
             </package>
           </packages>
         </osSpecific>
@@ -79,6 +96,7 @@
       <configuration-dependencies>
         <config-type>jstorm-yaml</config-type>
         <config-type>jstorm-env</config-type>
+        <config-type>jstorm-api</config-type>
       </configuration-dependencies>
 
     </service>

@@ -30,7 +30,8 @@ class UiServer(Script):
   def install(self, env):
     import params
     env.set_params(params)
-    self.install_packages(env)
+    excludePackage = ["task-executor"]
+    self.install_packages(env,excludePackage)
 
   def uninstall(self, env):
     Toolkit.uninstall_service("jstorm")

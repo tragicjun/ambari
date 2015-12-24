@@ -44,6 +44,9 @@
             <package>
               <name>hadoop_2_2_*-hdfs</name>
             </package>
+            <package>
+              <name>task-executor</name>
+            </package>
           </packages>
         </osSpecific>
         <osSpecific>

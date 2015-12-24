@@ -34,6 +34,9 @@
       "yarn-site/yarn.timeline-service.address",
       "yarn-site/yarn.timeline-service.webapp.address",
       "yarn-site/yarn.timeline-service.webapp.https.address"
+    ],
+    "YARN_API":[
+      "yarn-api/yarn.api.http.port"
     ]
   },
   "MAPREDUCE2":{
@@ -146,8 +149,18 @@
     ]
   },
   "JSTORM":{
+    "JSTORM_NIMBUS":[
+      "jstorm-yaml/nimbus.thrift.port"
+    ],
+    "JSTORM_SUPERVISOR":[
+      "jstorm-yaml/supervisor.slots.ports"
+    ],
     "JSTORM_UI_SERVER":[
-      "jstorm-yaml/ui.port"
+      "jstorm-yaml/ui.port",
+      "jstorm-yaml/logviewer.port"
+    ],
+    "JSTORM_API":[
+      "jstorm-api/jstorm.api.http.port"
     ]
   },
 
@@ -305,9 +318,9 @@
       "nginx-config/nginx.port"
     ]
   },
-  "TASKEXECUTOR": {
-    "TASKEXECUTOR_SERVER": [
-      "task-executor-site/task.executor.http.port"
+  "HUE": {
+    "HUE_SERVER": [
+      "hue-site/http.port"
     ]
   }
 }

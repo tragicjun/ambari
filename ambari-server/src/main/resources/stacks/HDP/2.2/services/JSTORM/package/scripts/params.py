@@ -70,6 +70,7 @@ storm_zookeeper_servers = formatArray(config['clusterHostInfo']['zookeeper_hosts
 #storm_zookeeper_port = config['configurations']['jstorm-yaml']['jstorm.zookeeper.port']
 storm_zookeeper_port = config['configurations']['zoo.cfg']['clientPort']
 storm_zookeeper_root = config['configurations']['jstorm-yaml']['storm.zookeeper.root']
+nimbus_thrift_port = config['configurations']['jstorm-yaml']['nimbus.thrift.port']
 ui_port = config['configurations']['jstorm-yaml']['ui.port']
 logviewer_port = config['configurations']['jstorm-yaml']['logviewer.port']
 

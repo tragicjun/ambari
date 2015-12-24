@@ -33,12 +33,12 @@
     </property>
     <property>
         <name>master.data.dir</name>
-        <value>/data/master</value>
+        <value>/data/tbds/greenplum/master</value>
         <description>Data directory of the master</description>
     </property>
     <property>
         <name>segment.data.dir</name>
-        <value>/data/primary</value>
+        <value>/data/tbds/greenplum/primary</value>
         <description>Data directories of the segments</description>
     </property>
     <property>

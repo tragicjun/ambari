@@ -166,6 +166,63 @@ case "$1" in
           exit $ret
         fi
         ;;
+  clean-server)
+        me=`whoami`
+        if [[ "$me" != "root" ]]; then
+          echo "You need to be root privilege"
+          exit 1
+        fi
+
+        cd /
+
+        user="admin"
+        password="admin"
+
+        status=$(tbds-server status | grep -c "not running")
+        api_ok=$(curl --user $user:$password http://0.0.0.0:8080/api/v1/hosts -I 2>/dev/null | grep -c 200)
+        hosts=$(curl --user $user:$password http://0.0.0.0:8080/api/v1/hosts 2>/dev/null | grep -c host_name)
+
+        # server is running
+        if [[ $status -eq 0 ]]; then
+
+          # api request failed
+          if [[ $api_ok -eq 0 ]]; then
+            echo "bad user name or password"
+            exit 1
+          fi
+
+          # host number not zero
+          if [[ $hosts -gt 0 ]]; then
+            echo "you should clean agents first, run command: tbds-server clean-agent"
+            exit 1
+          fi
+        fi
+
+        /var/lib/tbds-server/resources/scripts/clean/server_cleaner.sh 2>&1 | tee -a /tmp/clean_server.log; ret=${PIPESTATUS[0]}
+        exit $ret
+        ;;
+  clean-agent)
+        me=`whoami`
+        if [[ "$me" != "root" ]]; then
+          echo "You need to be root privilege"
+          exit 1
+        fi
+
+        cd /
+
+        user="admin"
+        password="admin"
+
+        /var/lib/tbds-server/resources/scripts/clean/agent_cleaner.sh $user $password 2>&1 | tee -a /tmp/clean_server.log; ret=${PIPESTATUS[0]}
+
+        # reset tbds server
+        if [[ $ret -eq 0 ]]; then
+          tbds-server stop 2>&1 | tee -a /tmp/clean_server.log
+          tbds-server reset -s 2>&1 | tee -a /tmp/clean_server.log
+          tbds-server start 2>&1 | tee -a /tmp/clean_server.log
+        fi
+        exit $ret
+        ;;
   *)
         echo "Usage: /usr/sbin/tbds-server
         {start|stop|restart|setup|setup-jce|upgrade|status|upgradestack|setup-ldap|sync-ldap|set-current|setup-security|refresh-stack-hash|backup|restore} [options]

@@ -56,10 +56,6 @@
         <timeout>300</timeout>
       </commandScript>
       
-      <requiredServices>
-        <service>TASKEXECUTOR</service>
-      </requiredServices>
-
     </service>
   </services>
 </metainfo>

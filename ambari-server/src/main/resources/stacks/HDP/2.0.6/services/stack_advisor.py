@@ -331,15 +331,18 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
               propertyKey = "NA"
               usedPort = port
 
-          if usedPort is not None:
-            print "configType={0} propertyKey={1} usedPort={2}".format(configType,propertyKey,usedPort)
-            for host in component["StackServiceComponents"]["hostnames"]:
-              if host not in hostsPortsForComponent:
-                hostsPortsForComponent[host] = {}
-              if usedPort not in hostsPortsForComponent[host]:
-                hostsPortsForComponent[host][usedPort] = []
-              citem = {"config-type": configType, "config-name": propertyKey, "component": component["StackServiceComponents"]["component_name"]}
-              hostsPortsForComponent[host][usedPort].append(citem)
+          usedPorts = re.findall("\d+", usedPort)
+          for usedPortsElem in usedPorts:
+            usedPortsElem
+            if usedPortsElem is not None:
+              print "configType={0} propertyKey={1} usedPorts={2}".format(configType,propertyKey,usedPortsElem)
+              for host in component["StackServiceComponents"]["hostnames"]:
+                if host not in hostsPortsForComponent:
+                  hostsPortsForComponent[host] = {}
+                if usedPortsElem not in hostsPortsForComponent[host]:
+                  hostsPortsForComponent[host][usedPortsElem] = []
+                citem = {"config-type": configType, "config-name": propertyKey, "component": component["StackServiceComponents"]["component_name"]}
+                hostsPortsForComponent[host][usedPortsElem].append(citem)
 
     #Added by junz for detecting port conflicts among services
     for host in hostsPortsForComponent.keys():

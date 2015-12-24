@@ -1,6 +1,12 @@
 #!/bin/bash
 echo "[$(date "+%F %T")]"
 
+portal=$(yum list installed | grep -c deploy-portal)
+if [[ $portal -gt 0 ]]; then
+  echo "deploy-portal was installed, use command instead: deploy clean"
+  exit 1
+fi
+
 echo "----------   CLEAN TBDS SERVER  ----------"
 echo "stop tbds server ..."
 tbds-server stop
