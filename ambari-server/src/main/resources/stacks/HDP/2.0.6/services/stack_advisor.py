@@ -331,9 +331,11 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
               propertyKey = "NA"
               usedPort = port
 
-          usedPorts = re.findall("\d+", usedPort)
+          usedPorts = []
+          if usedPort != None:
+            usedPorts = re.findall("\d+", usedPort)
+
           for usedPortsElem in usedPorts:
-            usedPortsElem
             if usedPortsElem is not None:
               print "configType={0} propertyKey={1} usedPorts={2}".format(configType,propertyKey,usedPortsElem)
               for host in component["StackServiceComponents"]["hostnames"]:

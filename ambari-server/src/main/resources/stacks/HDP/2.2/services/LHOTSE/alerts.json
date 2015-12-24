@@ -136,34 +136,6 @@
         }
       }
     ],
-    "LHOTSE_FTP": [
-      {
-        "name": "lhotse_ftp_process",
-        "label": "Lhotse FTP Process",
-        "description": "当Lhotse FTP的端口未开放或连接超时时，触发该告警。",
-        "interval": 1,
-        "scope": "ANY",
-        "enabled": true,
-        "source": {
-          "type": "PORT",
-          "uri": "0.0.0.0:{{lhotse-ftp/lhotse.ftp.port}}",
-          "default_port": "2121",
-          "reporting": {
-            "ok": {
-              "text": "TCP OK - {0:.3f}s response on port {1}"
-            },
-            "warning": {
-              "text": "TCP OK - {0:.3f}s response on port {1}",
-              "value": 1.5
-            },
-            "critical": {
-              "text": "Connection failed: {0} to {1}:{2}",
-              "value": 5.0
-            }
-          }
-        }
-      }
-    ],
     "LHOTSE_RUNNER": [
       {
         "name": "lhotse_runner_cgi_process",

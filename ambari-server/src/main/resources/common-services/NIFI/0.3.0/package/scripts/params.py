@@ -79,7 +79,7 @@ yarn_api_port= default('/configurations/yarn-api/yarn.api.http.port', 8089)
 yarn_api_url='http://' + yarn_api_ip + ':' + str(yarn_api_port) + '/task'
 
 jstorm_api_ip=  default("/clusterHostInfo/jstorm_api_hosts", ["localhost"])[0]
-jstorm_api_port= default("/configurations/cluster-env/portal_server_hostname", 'localhost')
+jstorm_api_port= default("/configurations/jstorm-api/jstorm.api.http.port", 'localhost')
 jstorm_api_url='http://' + jstorm_api_ip + ':' + str(jstorm_api_port) + '/task'
 
 # Security-related params

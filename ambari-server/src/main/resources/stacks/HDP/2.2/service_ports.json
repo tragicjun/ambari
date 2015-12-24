@@ -108,9 +108,6 @@
       "8005",
       "8009"
     ],
-    "LHOTSE_FTP":[
-      "lhotse-ftp/lhotse.ftp.port"
-    ],
     "LHOTSE_WEB":[
       "lhotse-web/listen.port"
     ]
@@ -246,16 +243,6 @@
       "master-ini/topic.tool.port"
     ]
   },
-  "WEBIDE":{
-    "WEB_IDE_WEB":[
-      "webide/web.listen.port"
-    ],
-    "WEB_IDE_APP":[
-      "webide/app.listen.port",
-      "8005",
-      "8009"
-    ]
-  },
   "HERMESOFFLINE":{
     "HERMESOFFLINE_SERVER":[
       "hermes-properties/hermes.server.port",
@@ -279,14 +266,6 @@
   "NIFI":{
     "NIFI_SERVER":[
       "nifi-site/nifi.http.port"
-    ]
-  },
-  "WEBIDE":{
-    "WEB_IDE_APP":[
-      "webide/app.listen.port"
-    ],
-    "WEB_IDE_WEB":[
-      "webide/web.listen.port"
     ]
   },
   "SPARK":{

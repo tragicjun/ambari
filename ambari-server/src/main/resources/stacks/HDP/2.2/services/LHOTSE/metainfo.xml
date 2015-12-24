@@ -159,7 +159,6 @@
       <configuration-dependencies>
         <config-type>lhotse-base-env</config-type>
         <config-type>lhotse-database</config-type>
-        <config-type>lhotse-ftp</config-type>
         <config-type>lhotse-runner</config-type>
         <config-type>lhotse-service</config-type>
         <config-type>lhotse-web</config-type>

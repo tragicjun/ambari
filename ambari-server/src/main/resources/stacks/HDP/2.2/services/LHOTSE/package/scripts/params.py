@@ -89,7 +89,7 @@ pg_password = default("/configurations/pgxz-global/pgxz.password", 'pgxz')
 
 #pg config
 pg_server_host = default("/clusterHostInfo/postgresql_server_hosts", ["127.0.0.1"])[0]
-pg_server_port = default("/configurations/postgre_server/pgxz.coordinator.port", '5434')
+pg_server_port = default("/configurations/postgre_server/pgxz.coordinator.port", '5432')
 pg_user = default("/configurations/postgresql-main-env/postgresql.superuser", 'postgres')
 pg_password = default("/configurations/postgresql-main-env/superuser.passwd", 'postgres')
 print "ftp server:" + ftp_server_host
@@ -158,7 +158,6 @@ lhotse_config_path_ftp = "/etc/vsftpd"
 lhotse_config_path_mysql = "/etc/my.cnf"
 
 lhotse_data_path_mysql = default("/configurations/lhotse-database/data.dir", "/data/mysql_data")
-lhotse_data_path_ftp = default("/configurations/lhotse-ftp/data.dir", "/data/ftp_data")
 
 new_lhotse_install_path_base = "/opt/tbds/lhotse/lhotse_base"
 new_lhotse_install_path_runner = "/opt/tbds/lhotse/lhotse_runner"

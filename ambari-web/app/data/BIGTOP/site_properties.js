@@ -60,43 +60,43 @@ module.exports =
       "filename": "lhotse-database.xml",
       "category": "Advanced lhotse-database"
     },
-	{
+    {
       "id": "site property",
-      "name": "lhotse.ftp.password",
+      "name": "ftp.password",
       "displayName": "密码",
-      "defaultValue": "ftpadmin",
+      "defaultValue": "123456",
       "isReconfigurable": false,
       "isOverridable": false,
       "isVisible": true,
-      "serviceName": "LHOTSE",
-      "filename": "lhotse-ftp.xml",
-      "category": "Advanced lhotse-ftp"
+      "serviceName": "FTP",
+      "filename": "ftp.xml",
+      "category": "Advanced ftp"
     },
-	{
+    {
       "id": "site property",
-      "name": "lhotse.ftp.port",
+      "name": "ftp.port",
       "displayName": "端口",
       "defaultValue": "2121",
       "isReconfigurable": false,
       "isOverridable": false,
       "isVisible": true,
-      "serviceName": "LHOTSE",
-      "filename": "lhotse-ftp.xml",
-      "category": "Advanced lhotse-ftp"
+      "serviceName": "FTP",
+      "filename": "ftp.xml",
+      "category": "Advanced ftp"
     },
-	{
+    {
       "id": "site property",
-      "name": "lhotse.ftp.user",
+      "name": "ftp.user",
       "displayName": "用户名",
       "defaultValue": "ftpadmin",
       "isReconfigurable": false,
       "isOverridable": false,
       "isVisible": true,
-      "serviceName": "LHOTSE",
-      "filename": "lhotse-ftp.xml",
-      "category": "Advanced lhotse-ftp"
+      "serviceName": "FTP",
+      "filename": "ftp.xml",
+      "category": "Advanced ftp"
     },
-	{
+    {
       "id": "site property",
       "name": "root.path",
       "displayName": "根目录",
@@ -105,9 +105,9 @@ module.exports =
       "displayType": "directory",
       "isOverridable": false,
       "isVisible": true,
-      "serviceName": "LHOTSE",
-      "filename": "lhotse-ftp.xml",
-      "category": "Advanced lhotse-ftp"
+      "serviceName": "FTP",
+      "filename": "ftp.xml",
+      "category": "Advanced ftp"
     },
     /**********************************************GOLDENEYE***************************************/
     {
