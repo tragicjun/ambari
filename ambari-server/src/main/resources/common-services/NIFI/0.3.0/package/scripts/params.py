@@ -79,9 +79,17 @@ yarn_api_port= default('/configurations/yarn-api/yarn.api.http.port', 8089)
 yarn_api_url='http://' + yarn_api_ip + ':' + str(yarn_api_port) + '/task'
 
 jstorm_api_ip=  default("/clusterHostInfo/jstorm_api_hosts", ["localhost"])[0]
-jstorm_api_port= default("/configurations/jstorm-api/jstorm.api.http.port", 'localhost')
+jstorm_api_port= default("/configurations/jstorm-api/jstorm.api.http.port", 8085)
 jstorm_api_url='http://' + jstorm_api_ip + ':' + str(jstorm_api_port) + '/task'
 
 # Security-related params
 sso_url =  default("/configurations/cluster-env/sso_url", "http://localhost:80/")
 security_enabled = config['configurations']['cluster-env']['security_enabled']
+
+#nifi-site
+content_repository_directory = default('/configurations/nifi-site/content.repository.directory', './content_repository')
+content_repository_period = default('/configurations/nifi-site/content.repository.period', '12 hours')
+content_repository_max_usage_percentage = default('/configurations/nifi-site/content.repository.max.usage.percentage', '%50')
+
+flowfile_repository_directory = default('/configurations/nifi-site/flowfile.repository.directory', './flowfile_repository')
+provenance_repository_directory = default('/configurations/nifi-site/provenance.repository.directory', './provenance_repository')

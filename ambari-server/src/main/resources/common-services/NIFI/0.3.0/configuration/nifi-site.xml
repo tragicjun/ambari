@@ -26,4 +26,35 @@
     <value>8080</value>
     <description>HTTP Port of the NiFi Server</description>
   </property>
+
+  <property>
+    <name>content.repository.directory</name>
+    <value>./content_repository</value>
+    <description>nifi.content.repository.directory.default</description>
+  </property>
+
+  <property>
+    <name>content.repository.period</name>
+    <value>12 hours</value>
+    <description>nifi.content.repository.archive.max.retention.period</description>
+  </property>
+
+  <property>
+    <name>content.repository.max.usage.percentage</name>
+    <value>50%</value>
+    <description>nif.content.repository.archive.max.usage.percentage</description>
+  </property>
+
+
+  <property>
+    <name>flowfile.repository.directory</name>
+    <value>./flowfile_repository</value>
+    <description>nifi.flowfile.repository.directory</description>
+  </property>
+
+  <property>
+    <name>provenance.repository.directory</name>
+    <value>./provenance_repository</value>
+    <description>nif.provenance.repository.directory.default</description>
+  </property>
 </configuration>

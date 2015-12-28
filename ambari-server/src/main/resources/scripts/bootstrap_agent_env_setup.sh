@@ -21,7 +21,7 @@ fi
 cp ${homePath}/.ssh/id_rsa.pub ${currentPath}
 cp ${homePath}/.ssh/id_rsa ${currentPath}
 cp /etc/yum.repos.d/ambari.repo ${currentPath}
-tar -czvf ${currentPath}/bootstrap_agent_setup.tar.gz ./id_rsa.pub ./id_rsa ./bootstrap_agent_env_script.sh ./ambari.repo
+tar -czvf ${currentPath}/bootstrap_agent_setup.tar.gz ./id_rsa.pub ./id_rsa ./bootstrap_agent_env_script.sh ./ambari.repo ./softLink.conf
 ${currentPath}/uploadFile.exp ${hostIP} ${sshUser} ${sshPass} ${currentPath}/bootstrap_agent_setup.tar.gz /tmp 150
 if [ $? -ne 0 ];then
   echo "[===== BOOTSTRAP-ERROR =====]copy the bootstrap_agent_setup.tar.gz to ${hostIP} failed"

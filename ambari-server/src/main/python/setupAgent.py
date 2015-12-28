@@ -258,6 +258,85 @@ def configureHostname(hostName):
       print output
       return False
   return True
+  
+def getMaxOsDisk():
+    df = subprocess.Popen(["df", "-kPT"], stdout=subprocess.PIPE)
+    dfdata = df.communicate()[0]
+    lines = dfdata.splitlines()
+    maxAvaible = 0
+    maxDisk = ""
+    for l in lines:
+      mountinfo = extractMountInfo(l)
+      if mountinfo != None and _chk_mount(mountinfo['mountpoint']):
+        avaible = mountinfo['available']
+        if (avaible > maxAvaible):
+          maxAvaible = avaible
+          maxDisk = mountinfo['mountpoint']
+      pass
+    pass
+    return maxDisk
+
+def _chk_mount(mountpoint):
+    if subprocess.call("sudo test -w '{0}'".format(mountpoint), shell=True) == 0:
+      return True
+    else:
+      return False
+
+def extractMountInfo(outputLine):
+    if outputLine == None or len(outputLine) == 0:
+      return None
+
+      """ this ignores any spaces in the filesystemname and mounts """
+    split = outputLine.split()
+    if (len(split)) == 7:
+      device, type, size, used, available, percent, mountpoint = split
+      mountinfo = {
+        'size': size,
+        'used': used,
+        'available': available,
+        'percent': percent,
+        'mountpoint': mountpoint,
+        'type': type,
+        'device': device}
+      return mountinfo
+    else:
+      return None
+
+def initSoftLink(config):
+  if not os.path.exists(config):
+    print "[WARN]file is not exist:"+config
+    return
+  try:
+    try:
+      fileObj = file(config)
+      jsonobj = json.load(fileObj)
+      for item in jsonobj:
+        if item=="":
+          print "[WARN]the softLink item is blank:"
+          continue
+        if os.path.exists(item):
+          print "[WARN]directory has existed:"+item
+          continue
+        maxDisk = getMaxOsDisk()+"/tbds-base"
+        softLink = maxDisk+item
+        if not os.path.exists(softLink):
+          createCmd = "mkdir -p "+softLink+";chmod -R 755 "+softLink
+          (status, output) = commands.getstatusoutput(createCmd)	
+          if (status != 0):
+            print "[ERROR]create directory failed, command:"+createCmd  
+            continue    
+        softLinkCmd = "ln -s "+softLink+" "+item
+        (status, output) = commands.getstatusoutput(softLinkCmd)
+        if (status != 0):
+          print "[ERROR]create softLink failed, command:"+softLinkCmd 
+        else:
+          print "[SUCCESS] create softLink, command:"+softLinkCmd
+    finally:
+      fileObj.close
+  except Exception:
+    print "[ERROR]init softLink error";
+  
+  
 
 def run_setup(argv=None):
   # Parse passed arguments
@@ -270,7 +349,7 @@ def run_setup(argv=None):
   # configureHostname
   if(configureHostname(expected_hostname) == False):
     print "[ERROR]configure hostname failed"
-  
+    
   retcode = checkServerReachability(hostname, server_port)
   if (retcode["exitstatus"] != 0):
     return retcode
@@ -296,6 +375,10 @@ def run_setup(argv=None):
   retcode = configureAgent(hostname, user_run_as)
   if retcode['exitstatus'] != 0:
     return retcode
+    
+  #init soft link
+  initSoftLink("/tmp/softLink.conf");
+  
   return runAgent(passPhrase, expected_hostname, user_run_as, verbose)
 
 def main(argv=None):
