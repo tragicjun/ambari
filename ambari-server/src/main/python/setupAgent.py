@@ -25,6 +25,7 @@ import logging
 import os
 import subprocess
 import commands
+import json
 
 from ambari_commons import OSCheck
 
@@ -248,9 +249,9 @@ def configureHostname(hostName):
         hostsFile.close()
       if(wHostFile != None):
         wHostFile.close()
-  except Exception:
+  except Exception,e:
+    print str(e)
     print "errro to set /etc/hosts"
-    traceback.print_exc()
     return False
   #valid the hostname
   (status, output) = commands.getstatusoutput('sudo hostname '+hostName)
@@ -268,7 +269,7 @@ def getMaxOsDisk():
     for l in lines:
       mountinfo = extractMountInfo(l)
       if mountinfo != None and _chk_mount(mountinfo['mountpoint']):
-        avaible = mountinfo['available']
+        avaible = long(mountinfo['available'])
         if (avaible > maxAvaible):
           maxAvaible = avaible
           maxDisk = mountinfo['mountpoint']
@@ -333,7 +334,8 @@ def initSoftLink(config):
           print "[SUCCESS] create softLink, command:"+softLinkCmd
     finally:
       fileObj.close
-  except Exception:
+  except Exception,e:
+    print str(e)
     print "[ERROR]init softLink error";
   
   
