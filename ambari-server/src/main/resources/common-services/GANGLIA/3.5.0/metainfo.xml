@@ -23,6 +23,7 @@
       <displayName>Ganglia</displayName>
       <comment>Ganglia Metrics Collection system (&lt;a href=&quot;http://oss.oetiker.ch/rrdtool/&quot; target=&quot;_blank&quot;&gt;RRDTool&lt;/a&gt; will be installed too)</comment>
       <version>3.5.0</version>
+      <deleted>true</deleted>
       <components>
         <component>
           <name>GANGLIA_SERVER</name>

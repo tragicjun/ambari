@@ -239,8 +239,8 @@ def configureHostname(hostName):
         lines.append(line.strip())
       insertLine = "127.0.0.1 "+hostName.strip()
       
-      #lines.insert(0, flag_start+"\n"+insertLine+"\n"+hostName.strip()+" "+hostName.strip()+"\n"+flag_end)
-      lines.insert(0, flag_start+"\n"+insertLine+"\n"+flag_end)
+      lines.insert(0, flag_start+"\n"+insertLine+"\n"+hostName.strip()+" "+hostName.strip()+"\n"+flag_end)
+      #lines.insert(0, flag_start+"\n"+insertLine+"\n"+flag_end)
       newContent = '\n'.join(lines)
       wHostFile=file('/etc/hosts', 'w')
       wHostFile.write(newContent)
