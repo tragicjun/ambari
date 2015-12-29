@@ -18,15 +18,11 @@ limitations under the License.
 
 """
 import os
-import sys
 
 from resource_management.core.logger import Logger
-from ambari_commons import OSConst
 from resource_management import *
-from utils import utils
 
 class nginx(Script):
-
 
     def install(self, env):
         Logger.info("installed nginx")
@@ -35,7 +31,6 @@ class nginx(Script):
         import params
         Links(params.new_nginx_install_path, params.nginx_install_path)
         Links(params.new_nginx_config_path, params.nginx_config_path)
-        Links(params.new_nginx_log_path, params.nginx_log_path)
 
     def uninstall(self, env):
         Toolkit.uninstall_service("nginx")
@@ -60,30 +55,28 @@ class nginx(Script):
         File(os.path.join(params.default_conf_path, 'default.conf'),
          mode=0644,
          content=Template("default.conf.j2")
-         )        
+         )
 
     def start(self, env):
-        import os
         import params
 
         env.set_params(params)
         self.configure(env)
 
         Logger.info("start nginx")
-        utils().exe(params.nginx_start_command)
+        Toolkit.exe(params.nginx_start_command)
 
         Links(params.new_nginx_log_path, params.nginx_log_path)
 
     def stop(self, env):
-        import os
         import params
         Logger.info("stop nginx")
-        utils().exe(params.nginx_stop_command)
+        Toolkit.exe(params.nginx_stop_command)
 
     def status(self, env):
         import params
         Logger.info("check status of nginx")
-        utils().check_service_status(params.nginx_service, params.nginx_status_key)
+        Toolkit.check_service(params.nginx_service)
 
 
 

@@ -23,6 +23,7 @@
       <displayName>Redis</displayName>
       <comment>高性能键值存储系统</comment>
       <version>3.0.3</version>
+      <deleted>true</deleted>
       <components>
         <component>
           <name>REDIS_SERVER</name>

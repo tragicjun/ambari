@@ -23,6 +23,7 @@
       <displayName>Flume</displayName>
       <comment>A distributed service for collecting, aggregating, and moving large amounts of streaming data into HDFS</comment>
       <version>1.4.0.2.0</version>
+      <deleted>true</deleted>
       <components>
         <component>
           <name>FLUME_HANDLER</name>

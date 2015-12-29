@@ -24,7 +24,7 @@ http {
 
     error_log {{nginx_log_errorlog}} {{nginx_errorlog_level}};
 
-    sendfile        on;
+    sendfile        off;
     #tcp_nopush     on;
 
     keepalive_requests 8192;

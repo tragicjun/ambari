@@ -23,6 +23,7 @@
       <displayName>RealtimeDataLoader</displayName>
       <version>0.1.0</version>
       <comment>实时数据接入服务：高性能、多协议、分布式数据接入服务</comment>
+      <deleted>true</deleted>
       <components>
         <component>
           <name>DSE_SERVER</name>

@@ -1,21 +1,22 @@
 
-upstream mysvr{
-    {{dse_server_host_port}}
-    keepalive 2000;
+{% for item in servers %}
+upstream {{ item["name"] }} {
+    server {{ item["host"] }}:{{ item["port"] }};
+    keepalive {{upstream_keepalive}};
 }
+{% endfor %}
 
 server {
     listen       {{nginx_server_port}};
     server_name  {{nginx_server_host}};
 
-    #charset koi8-r;
-    #access_log  /var/log/nginx/log/host.access.log  main;
-    
+    # charset koi8-r;
+    # access_log  /var/log/nginx/log/host.access.log  main;
 
-    location / {
-        proxy_pass  http://mysvr;
-
+{% for item in locations %}
+    location {{ item["location"] }}/ {
+        proxy_pass http://{{ item["name"] }}{{ item["path"] }}/;
+        proxy_set_header Host $host:$server_port;
     }
-
-
+{% endfor %}
 }

@@ -21,7 +21,7 @@
 <configuration supports_final="false">
     <property>
         <name>nginx.port</name>
-        <value>8086</value>
+        <value>8080</value>
         <description>nginx.port</description>
     </property>
 
@@ -41,6 +41,12 @@
       <name>nginx.worker.connections</name>
       <value>1024</value>
       <description>Nginx Worker链接数的最大值</description>
+    </property>
+
+    <property>
+      <name>nginx.upstream.keepalive</name>
+      <value>2000</value>
+      <description>Nginx upstream keepalive配置</description>
     </property>
 
 </configuration>

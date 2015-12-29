@@ -23,6 +23,7 @@
             <displayName>EasyCount</displayName>
             <comment>EasyCount使用SQL描述业务的实时计算的需求，并将SQL转化为基于storm/jstorm的topology</comment>
             <version>1.0.0</version>
+            <deleted>true</deleted>
 
             <components>
                 <component>
