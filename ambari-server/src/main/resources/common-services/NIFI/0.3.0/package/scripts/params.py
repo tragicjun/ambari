@@ -52,6 +52,8 @@ nifi_server_ip = default("/clusterHostInfo/nifi_server_hosts", ["localhost"])[0]
 
 portal_server_hostname=default("/configurations/cluster-env/portal_server_hostname", 'localhost')
 portal_server_port=default("/configurations/cluster-env/portal_server_port", 80)
+jar_path_url='http://' + portal_server_hostname + ':' + str(portal_server_port) + '/openapi/findFiles'
+
 url='http://' + portal_server_hostname + ':' + str(portal_server_port) + '/openapi/getHostWanIp?localIP=' + nifi_server_ip
 Logger.info(url)
 res = urllib2.urlopen(url)

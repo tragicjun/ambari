@@ -51,10 +51,13 @@ class GPMaster(Script):
               owner=params.gp_user,
               recursive=True
               )
-    Directory(params.gp_segment_data_dir,
-              owner=params.gp_user,
-              recursive=True
-              )
+
+    dataDirs = params.gp_segment_data_dir
+    for dir in dataDirs.split(" "):
+      Directory(dir,
+                owner=params.gp_user,
+                recursive=True
+                )
 
     File(os.path.join(params.gp_conf_dir, 'gpinitsystem_config'),
          owner=params.gp_user,
@@ -86,9 +89,31 @@ class GPMaster(Script):
   def uninstall(self, env):
     Toolkit.uninstall_service("greenplum")
 
+    import params
+    Directory(params.gp_master_data_dir,
+              action="delete",
+              owner=params.gp_user,
+              recursive=True
+              )
+    dataDirs = params.gp_segment_data_dir
+    for dir in dataDirs.split(" "):
+        Directory(dir,
+                action="delete",
+                owner=params.gp_user,
+                recursive=True
+                )
+
   def configure(self, env):
     import params
     env.set_params(params)
+    daemon_cmd = "echo {0} > /proc/sys/kernel/shmmax".format(params.gp_sys_shmmax)
+    Execute(daemon_cmd,
+          user="root",
+          )
+    daemon_cmd = "echo {0} > /proc/sys/kernel/shmall".format(params.gp_sys_shmall)
+    Execute(daemon_cmd,
+            user="root",
+            )
 
   def start(self, env, rolling_restart=False):
     import params
@@ -105,9 +130,10 @@ class GPMaster(Script):
     else:
         gpInit_cmd = "source {3}/greenplum_path.sh;MASTER_DATA_DIRECTORY={2} " \
                     "{0}/gpinitsystem -a -c {1}/gpinitsystem_config -h {1}/hostfile_gpinitsystem " \
-                     "> {4} 2>&1" \
+                     "--max_connections={5} --shared_buffers={6} > {4} 2>&1" \
             .format(params.gp_install_bin, params.gp_conf_dir, params.gp_master_seg_dir,
-                    params.gp_install_dir, params.gp_log_file)
+                    params.gp_install_dir, params.gp_log_file,
+                    params.gp_max_connections, params.gp_shared_buffers)
         daemon_cmd = '{0} 3600 "{1}"'.format(params.expect_script, gpInit_cmd)
         Execute(daemon_cmd,
                 user=params.gp_user,

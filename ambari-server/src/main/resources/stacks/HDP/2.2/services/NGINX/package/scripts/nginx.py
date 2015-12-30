@@ -21,6 +21,7 @@ import os
 
 from resource_management.core.logger import Logger
 from resource_management import *
+from nginx_config import nginx_config
 
 class nginx(Script):
 

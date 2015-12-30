@@ -38,7 +38,7 @@ class GPSlave(Script):
             )
 
     dataDirs = params.gp_segment_data_dir
-    for dir in dataDirs.split(","):
+    for dir in dataDirs.split(" "):
         Directory(dir,
                   owner=params.gp_user,
                   recursive=True
@@ -48,6 +48,15 @@ class GPSlave(Script):
 
   def uninstall(self, env):
     Toolkit.uninstall_service("greenplum")
+
+    import params
+    dataDirs = params.gp_segment_data_dir
+    for dir in dataDirs.split(" "):
+        Directory(dir,
+                action="delete",
+                owner=params.gp_user,
+                recursive=True
+                )
 
   def configure(self, env):
     import params

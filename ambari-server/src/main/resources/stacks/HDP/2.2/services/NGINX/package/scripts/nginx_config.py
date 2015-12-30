@@ -17,104 +17,64 @@ limitations under the License.
 
 """
 
-import json
 from resource_management import *
-config = Script.get_config()
 
 class nginx_config:
-
   def generate_default(self):
-    jsonStr = """{
-    "resultCode": "0",
-    "message": null,
-    "resultData": [
-      {
-        "componentName": "GOLDENEYE_WEB",
-        "configKey": "listen.port",
-        "configName": "goldeneye-web",
-        "ngxPath": "/ge",
-        "serviceName": "GOLDENEYE",
-        "servicePath": "/ge"
-      },
-      {
-        "componentName": "NIFI_SERVER",
-        "configKey": "nifi.http.port",
-        "configName": "nifi-site",
-        "ngxPath": "/nifi",
-        "serviceName": "NIFI",
-        "servicePath": "/nifi"
-      },
-      {
-        "componentName": "LHOTSE_WEB",
-        "configKey": "listen.port",
-        "configName": "lhotse-web",
-        "ngxPath": "/lhotse",
-        "serviceName": "LHOTSE",
-        "servicePath": "/lhotse"
-      },
-      {
-        "componentName": "HUE_SERVER",
-        "configKey": "http.port",
-        "configName": "hue-site",
-        "ngxPath": "/beeswax",
-        "serviceName": "HUE",
-        "servicePath": "/beeswax",
-        "suffix": "/"
-      },
-      {
-        "componentName": "HUE_SERVER",
-        "configKey": "http.port",
-        "configName": "hue-site",
-        "ngxPath": "/spark",
-        "serviceName": "HUE",
-        "servicePath": "/spark",
-        "suffix": "/"
-      },
-      {
-        "componentName": "HUE_SERVER",
-        "configKey": "http.port",
-        "configName": "hue-site",
-        "ngxPath": "/filebrowser",
-        "serviceName": "HUE",
-        "servicePath": "/filebrowser",
-        "suffix": "/"
-      },
-      {
-        "componentName": "HUE_SERVER",
-        "configKey": "http.port",
-        "configName": "hue-site",
-        "ngxPath": "/metastore",
-        "serviceName": "HUE",
-        "servicePath": "/metastore",
-        "suffix": "/"
-      }
-    ]
-  }"""
 
-    locations = map(
-      lambda item:
-      {
-        "name": item["componentName"].lower(),
-        "host": default("/clusterHostInfo/{0}".format(item["componentName"].lower() + "_hosts"), None)[0],
-        "port": default("/configurations/{0}/{1}".format(item["configName"], item["configKey"]), None),
-        "location": item["ngxPath"],
-        "path": item["servicePath"]
-      },
-      filter(
-        lambda item: default("/clusterHostInfo/{0}".format(item["componentName"].lower() + "_hosts"), None),
-        json.loads(jsonStr)["resultData"]
-      )
+    # basic functions
+    get_name = lambda key: key.lower()
+    get_host = lambda key: default("/clusterHostInfo/{0}".format(key.lower() + "_hosts"), None)[0]
+    get_port = lambda key: default("/configurations/{0}".format(key), None)
+    check_duplicated = lambda objects, getKey: len(reduce(
+      lambda result, elem: result if getKey(elem) in result else result + [getKey(elem)],
+      objects,
+      []
+    )) != len(objects)
+
+    # get json object
+    items = eval(StaticFile('map.json').get_content())
+
+    # remove uninstalled
+    items = filter(
+      lambda item: default("/clusterHostInfo/{0}".format(item["host"].lower() + "_hosts"), None),
+      items
     )
 
-    servers = reduce(
-      lambda uniq, item: uniq if item["name"] in map(
-        lambda uniq_item: uniq_item["name"],
-        uniq
-      ) else uniq + [item],
-      [[], ] + locations
+    # get upstream configs
+    upstreams = map(
+      lambda item: {
+        "name": get_name(item["host"]),
+        "host": get_host(item["host"]),
+        "port": get_port(item["port"])
+      },
+      items
     )
 
-    return servers, locations
+    # get location configs
+    locations = reduce(
+      lambda result, item: result + map(
+        lambda key_value: {
+          "name": get_name(item["host"]),
+          "location": key_value[0],
+          "path": key_value[1]
+        },
+        item["locations"].items()
+      ),
+      items,
+      []
+    )
+
+    # check upstream duplicated
+    if check_duplicated(upstreams, lambda server: server["name"]):
+      raise Fail("duplicated upstream configs in map.json")
+
+    # check location duplicated
+    if check_duplicated(locations, lambda location: location["location"]):
+      raise Fail("duplicated location configs in map.json")
+
+    return upstreams, locations
+
 
 if __name__ == "__main__":
-    print nginx_config().generate_default()
+  pass

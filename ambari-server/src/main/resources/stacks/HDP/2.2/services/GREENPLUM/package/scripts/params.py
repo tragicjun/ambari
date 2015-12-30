@@ -58,6 +58,10 @@ gp_master_pg_hba_conf = gp_master_seg_dir + "/pg_hba.conf"
 gp_segment_data_dir = config['configurations']['gp-site']['segment.data.dir']
 gp_segment_base_port = config['configurations']['gp-site']['segment.base.port']
 gp_checkpoint_segments = config['configurations']['gp-site']['checkpoint.segments']
+gp_max_connections = config['configurations']['gp-env']['gp.max.connections']
+gp_shared_buffers = config['configurations']['gp-env']['gp.shared.buffers']
+gp_sys_shmmax = config['configurations']['gp-env']['gp.sys.shmmax']
+gp_sys_shmall = config['configurations']['gp-env']['gp.sys.shmall']
 
 expect_script = gp_install_dir + '/execExpect.sh'
 gp_master_env_pg_hba = config['configurations']['gp-env']['content']

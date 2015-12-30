@@ -1,0 +1,36 @@
+[
+  {
+    "host": "GOLDENEYE_WEB",
+    "port": "goldeneye-web/listen.port",
+    "locations": {
+      "/ge/": ""
+    }
+  },
+  {
+    "host": "NIFI_SERVER",
+    "port": "nifi-site/nifi.http.port",
+    "locations":  {
+      "/nifi": ""
+    }
+  },
+  {
+    "host": "LHOTSE_WEB",
+    "port": "lhotse-web/listen.port",
+    "locations": {
+      "/lhotse/": ""
+    }
+  },
+  {
+    "host": "HUE_SERVER",
+    "port": "hue-site/http.port",
+    "locations": {
+      "/beeswax/": "/beeswax/",
+      "/spark/": "/spark/",
+      "/filebrowser/": "/filebrowser/",
+      "/metastore/": "/metastore/",
+      "/static/": "/static/",
+      "/accounts/": "/accounts/",
+      "/jobbrowser/": "/jobbrowser/"
+    }
+  }
+]

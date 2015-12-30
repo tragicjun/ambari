@@ -1,5 +1,5 @@
 
-{% for item in servers %}
+{% for item in upstreams %}
 upstream {{ item["name"] }} {
     server {{ item["host"] }}:{{ item["port"] }};
     keepalive {{upstream_keepalive}};
@@ -14,8 +14,8 @@ server {
     # access_log  /var/log/nginx/log/host.access.log  main;
 
 {% for item in locations %}
-    location {{ item["location"] }}/ {
-        proxy_pass http://{{ item["name"] }}{{ item["path"] }}/;
+    location {{ item["location"] }} {
+        proxy_pass http://{{ item["name"] }}{{ item["path"] }};
         proxy_set_header Host $host:$server_port;
     }
 {% endfor %}

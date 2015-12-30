@@ -54,4 +54,4 @@ new_nginx_log_path = "/var/log/tbds/nginx/server"
 cpu_cores = Toolkit.get_cpu_cores()
 worker_connections = default("/configurations/nginx-config/nginx.worker.connections", "1024")
 upstream_keepalive = default("/configurations/nginx-config/nginx.upstream.keepalive", "2000")
-(servers, locations) = nginx_config().generate_default()
+(upstreams, locations) = nginx_config().generate_default()

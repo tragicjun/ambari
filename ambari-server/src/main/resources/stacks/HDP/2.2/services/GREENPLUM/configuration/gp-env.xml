@@ -33,4 +33,20 @@
 host     all         tencent         0.0.0.0/0    trust
         </value>
     </property>
+    <property>
+        <name>gp.shared.buffers</name>
+        <value>125MB</value>
+    </property>
+    <property>
+        <name>gp.max.connections</name>
+        <value>250</value>
+    </property>
+    <property>
+        <name>gp.sys.shmmax</name>
+        <value>268435456</value>
+    </property>
+    <property>
+        <name>gp.sys.shmall</name>
+        <value>2684354560</value>
+    </property>
 </configuration>
