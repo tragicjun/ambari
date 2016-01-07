@@ -428,4 +428,12 @@
     </description>
   </property>
 
+  <property>
+    <name>dfs.namenode.acls.enabled</name>
+    <value>true</value>
+    <description>
+      Decide if HDFS ACL(Access Control Lists) is enabled
+    </description>
+  </property>
+
 </configuration>
