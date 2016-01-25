@@ -28,7 +28,7 @@ from resource_management.libraries.functions.security_commons import build_expec
 from utils import service
 from hdfs import hdfs
 import journalnode_upgrade
-
+from hack_hadoop import hack_hadoop
 
 class JournalNode(Script):
 
@@ -40,6 +40,9 @@ class JournalNode(Script):
 
     self.install_packages(env, params.exclude_packages)
     env.set_params(params)
+
+    # replace new hadoop jars
+    hack_hadoop().hack()
 
   def uninstall(self, env):
     Toolkit.uninstall_service("hdfs")

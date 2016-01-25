@@ -23,6 +23,7 @@ import sys
 from resource_management import *
 
 from yarn import yarn
+from hack_hadoop import hack_hadoop
 
 class MapReduce2Client(Script):
 
@@ -39,6 +40,9 @@ class MapReduce2Client(Script):
   def install(self, env):
     self.install_packages(env)
     self.configure(env)
+
+    # replace new hadoop jars
+    hack_hadoop().hack()
 
   def uninstall(self, env):
     Toolkit.uninstall_service("mapreduce")

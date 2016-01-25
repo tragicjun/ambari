@@ -24,7 +24,7 @@ from resource_management.libraries.functions.security_commons import build_expec
   FILE_TYPE_XML
 import utils  # this is needed to avoid a circular dependency since utils.py calls this class
 from hdfs import hdfs
-
+from hack_hadoop import hack_hadoop
 
 class ZkfcSlave(Script):
   def install(self, env):
@@ -32,6 +32,9 @@ class ZkfcSlave(Script):
 
     self.install_packages(env, params.exclude_packages)
     env.set_params(params)
+
+    # replace new hadoop jars
+    hack_hadoop().hack()
 
   def uninstall(self, env):
     Toolkit.uninstall_service("hdfs")

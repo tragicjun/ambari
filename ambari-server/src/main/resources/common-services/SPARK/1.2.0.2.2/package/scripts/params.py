@@ -35,7 +35,7 @@ hdp_stack_version = format_hdp_stack_version(stack_version_unformatted)
 version = default("/commandParams/version", None)
 
 # TODO! FIXME! Version check is not working as of today :
-#   $ yum list installed | grep hdp-select
+#   $ unbuffer yum list installed | grep hdp-select
 #   hdp-select.noarch                            2.2.1.0-2340.el6           @HDP-2.2
 # And hdp_stack_version returned from hostLevelParams/stack_version is : 2.2.0.0
 # Commenting out for time being

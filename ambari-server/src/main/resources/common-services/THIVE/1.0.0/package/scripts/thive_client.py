@@ -32,5 +32,10 @@ class SampleClient(Script):
 
   def configure(self, env):
     print 'Configure the Sample Srv Client';
+
+
+  def status(self, env):
+    raise ClientComponentHasNoStatus()
+
 if __name__ == "__main__":
   SampleClient().execute()

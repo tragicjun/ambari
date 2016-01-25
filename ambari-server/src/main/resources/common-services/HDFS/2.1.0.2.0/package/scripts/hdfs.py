@@ -65,9 +65,13 @@ def hdfs(name=None):
             group=params.user_group
   )
 
+  # Added by junz for sync user-group from LDAP
+  core_site_content = dict(params.config['configurations']['core-site'])
+  core_site_content['hadoop.security.group.mapping.ldap.url'] = params.ldap_url
+  core_site_content['hadoop.security.group.mapping'] = params.hdfs_mapping_impl
   XmlConfig("core-site.xml",
             conf_dir=params.hadoop_conf_dir,
-            configurations=params.config['configurations']['core-site'],
+            configurations=core_site_content,
             configuration_attributes=params.config['configuration_attributes']['core-site'],
             owner=params.hdfs_user,
             group=params.user_group,

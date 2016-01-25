@@ -221,13 +221,15 @@ App.ServerValidatorMixin = Em.Mixin.create({
           });
           // check if error or warn message detected for property that absent in step configs
           if (["ERROR", "WARN"].contains(item.level) && !checkedProperties.contains(item['config-type'] + '/' + item['config-name'])) {
+            services = App.StackService.find().filter(function(service) {
+              return !!service.get('configTypes')[item['config-type']];
+            })
+
             var message = {
               propertyName: item['config-name'],
               filename: item['config-type'],
               warnMessage: item.message,
-              serviceName: App.StackService.find().filter(function(service) {
-                return !!service.get('configTypes')[item['config-type']];
-              })[0].get('displayName')
+              serviceName:services.length ? services[0].get('displayName') : "NA"
             };
             self.set(item.level == 'WARN' ? 'configValidationWarning' : 'configValidationError', true);
             globalWarning.push(message);

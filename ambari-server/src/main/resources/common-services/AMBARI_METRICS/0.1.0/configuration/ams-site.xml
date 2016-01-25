@@ -248,4 +248,11 @@
       different mount point from the one for hbase.rootdir in embedded mode.
     </description>
   </property>
+  <property>
+    <name>influxdb.host</name>
+    <value>127.0.0.1</value>
+    <description>
+      Set the influxdb host
+    </description>
+  </property>
 </configuration>

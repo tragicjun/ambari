@@ -128,6 +128,11 @@ public class TimelineMetricConfiguration {
   public static final String TIMELINE_SERVICE_RPC_ADDRESS =
     "timeline.metrics.service.rpc.address";
 
+  public static final String INFLUXDB_HOST =
+          "influxdb.host";
+  public static final String INFLUXDB_HTTP_PORT =
+          "influxdb.http.port";
+
   private Configuration hbaseConf;
   private Configuration metricsConf;
   private volatile boolean isInitialized = false;
@@ -187,5 +192,16 @@ public class TimelineMetricConfiguration {
       return metricsConf.get(TIMELINE_SERVICE_RPC_ADDRESS, defaultRpcAddress);
     }
     return defaultRpcAddress;
+  }
+
+  public String getInfluxDBHttpURL(){
+    String defaultHost = "127.0.0.1";
+    String defaultPort = "8086";
+    if(metricsConf != null){
+      String host= metricsConf.get(INFLUXDB_HOST, defaultHost);
+      String port = metricsConf.get(INFLUXDB_HTTP_PORT, defaultPort);
+      return "http://" + host + ":" + port;
+    }
+    return "http://" + defaultHost + ":" + defaultPort;
   }
 }

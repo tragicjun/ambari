@@ -81,6 +81,18 @@ class Toolkit():
       Logger.error("service {0} not running".format(service))
       raise ComponentIsNotRunning()
 
+  # check url status
+  # url
+  # return : None
+  @staticmethod
+  def check_url(url):
+    cmd = "curl -I \"" + url + "\" 2> /dev/null | awk 'NR==1{print}' | awk '{print $2}'"
+    Logger.info("check url: {0}".format(url))
+    output = Toolkit.exe(cmd)
+    if not(output == "200" or output == "302"):
+      Logger.error("url {0} not reacheable".format(url))
+      raise ComponentIsNotRunning()
+
   # check command process status
   # command : command line
   # keyword : checking key

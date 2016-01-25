@@ -77,6 +77,24 @@ if (( $numversion < 26 )); then
 fi
 echo "Using python " $PYTHON
 
+me=$(whoami)
+if [[ "$me" != "root" ]]; then
+  echo "You need to be root privilege"
+  exit 1
+fi
+
+user=$1
+password=$2
+port=$(cat /etc/tbds-server/conf/tbds.properties | grep client.api.port | cut -d '=' -f 2)
+
+if [[ -z $user || -z $password ]]; then
+  user=admin
+  password=admin
+fi
+if [[ -z $port ]]; then
+  port=8080
+fi
+
 case "$1" in
   start)
         echo -e "Starting tbds-server"
@@ -144,43 +162,20 @@ case "$1" in
         $PYTHON /usr/sbin/tbds-server.py $@
         ;;
   clean)
-        me=`whoami`
-        if [[ "$me" != "root" ]]; then
-          echo "You need to be root privilege"
-          exit 1
-        fi
-
         cd /
 
-        user="admin"
-        password="admin"
-        # while [[ -z "$password" ]]; do
-        #   echo -n "Clean the whole cluster, input admin's password: "; read password
-        # done
-
-        if [[ -n "$password" ]]; then
-          /var/lib/tbds-server/resources/scripts/clean/agent_cleaner.sh $user $password 2>&1 | tee -a /tmp/clean_server.log; ret=${PIPESTATUS[0]}
-          if [[ $ret -eq 0 ]]; then
-            /var/lib/tbds-server/resources/scripts/clean/server_cleaner.sh 2>&1 | tee -a /tmp/clean_server.log
-          fi
-          exit $ret
+        /var/lib/tbds-server/resources/scripts/clean/agent_cleaner.sh $user $password 2>&1 | tee -a /tmp/clean_server.log; ret=${PIPESTATUS[0]}
+        if [[ $ret -eq 0 ]]; then
+          /var/lib/tbds-server/resources/scripts/clean/server_cleaner.sh 2>&1 | tee -a /tmp/clean_server.log
         fi
+        exit $ret
         ;;
   clean-server)
-        me=`whoami`
-        if [[ "$me" != "root" ]]; then
-          echo "You need to be root privilege"
-          exit 1
-        fi
-
         cd /
 
-        user="admin"
-        password="admin"
-
         status=$(tbds-server status | grep -c "not running")
-        api_ok=$(curl --user $user:$password http://0.0.0.0:8080/api/v1/hosts -I 2>/dev/null | grep -c 200)
-        hosts=$(curl --user $user:$password http://0.0.0.0:8080/api/v1/hosts 2>/dev/null | grep -c host_name)
+        api_ok=$(curl --user $user:$password http://0.0.0.0:$port/api/v1/hosts -I 2>/dev/null | grep -c 200)
+        hosts=$(curl --user $user:$password http://0.0.0.0:$port/api/v1/hosts 2>/dev/null | grep -c host_name)
 
         # server is running
         if [[ $status -eq 0 ]]; then
@@ -202,16 +197,7 @@ case "$1" in
         exit $ret
         ;;
   clean-agent)
-        me=`whoami`
-        if [[ "$me" != "root" ]]; then
-          echo "You need to be root privilege"
-          exit 1
-        fi
-
         cd /
-
-        user="admin"
-        password="admin"
 
         /var/lib/tbds-server/resources/scripts/clean/agent_cleaner.sh $user $password 2>&1 | tee -a /tmp/clean_server.log; ret=${PIPESTATUS[0]}
 
@@ -223,9 +209,17 @@ case "$1" in
         fi
         exit $ret
         ;;
+  start-agent)
+       echo -e 'Starting agents...'
+       $PYTHON /usr/sbin/tbds-server.py $@
+       ;;
+  stop-agent)
+       echo -e 'Stoping agent...'
+       $PYTHON /usr/sbin/tbds-server.py $@
+       ;;
   *)
         echo "Usage: /usr/sbin/tbds-server
-        {start|stop|restart|setup|setup-jce|upgrade|status|upgradestack|setup-ldap|sync-ldap|set-current|setup-security|refresh-stack-hash|backup|restore} [options]
+        {start|stop|restart|setup|clean|clean-agent|clean-server|setup-jce|upgrade|status|upgradestack|setup-ldap|sync-ldap|set-current|setup-security|refresh-stack-hash|backup|restore} [options]
         Use usr/sbin/tbds-server <action> --help to get details on options available.
         Or, simply invoke tbds-server.py --help to print the options."
         exit 1

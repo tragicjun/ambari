@@ -10,6 +10,12 @@ def init_config(env):
     # tube conf directory
     tube_conf_path = os.path.join(params.tube_install_path, 'conf')
 
+    # zk.properties
+    master_ini = os.path.join(tube_conf_path, 'zk.properties')
+    File(master_ini,
+         content=Template('zk.properties.j2'),
+         mode=0644)
+
     # tube master ini file
     master_ini = os.path.join(tube_conf_path, 'master.ini')
     File(master_ini,

@@ -49,6 +49,8 @@ class NiFi(Script):
          mode=0644,
          content=InlineTemplate(params.nifi_bootstrap_conf_template)
          )
+
+
     File(os.path.join(params.nifi_conf_dir, 'cas-nifi-web-security-context.xml'),
          owner=params.nifi_user,
          group='hadoop',

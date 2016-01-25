@@ -417,3 +417,13 @@ new_hdfs_log_path = "/var/log/tbds/hdfs"
 new_hdfs_namenode_data_path = "/data/tbds/hdfs/namenode/data"
 new_hdfs_snamenode_data_path = "/data/tbds/hdfs/snamenode/data"
 new_hdfs_datanode_data_path = "/data/tbds/hdfs/datanode/data"
+
+# Added by junz for sync user-group from LDAP
+ldap_url = config['configurations']['core-site']['hadoop.security.group.mapping.ldap.url']
+if ldap_url == "{{ldap_url}}":  # if user doesn't fill ldap url, try default ldap url
+  ldap_url = config['configurations']['cluster-env']['ldap_url']
+if ldap_url:
+  hdfs_mapping_impl = 'org.apache.hadoop.security.LdapGroupsMapping'
+else:
+  ldap_url = ''
+  hdfs_mapping_impl = 'org.apache.hadoop.security.ShellBasedUnixGroupsMapping'

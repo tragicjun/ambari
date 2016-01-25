@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property>
+    <name>listen.port</name>
+    <value>80</value>
+    <description>Portal Service 服务端口</description>
+  </property>
+
+  <property>
+    <name>portal.database.name</name>
+    <value>tbds</value>
+    <description>Portal 数据库名</description>
+  </property>
+  <property>
+    <name>portal.database.user</name>
+    <value>tbds</value>
+    <description>Portal 数据库用户</description>
+  </property>
+  <property>
+    <name>portal.database.password</name>
+    <value>tbds</value>
+    <description>Portal 数据库密码</description>
+  </property>
+</configuration>

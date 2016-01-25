@@ -23,7 +23,7 @@ from resource_management.libraries.functions.security_commons import build_expec
   FILE_TYPE_XML
 from hdfs_snamenode import snamenode
 from hdfs import hdfs
-
+from hack_hadoop import hack_hadoop
 
 class SNameNode(Script):
 
@@ -36,6 +36,9 @@ class SNameNode(Script):
     env.set_params(params)
 
     self.install_packages(env, params.exclude_packages)
+
+    # replace new hadoop jars
+    hack_hadoop().hack()
 
     Links(params.new_hdfs_install_path, params.hdfs_install_path)
     Links(params.new_hdfs_config_path, params.hdfs_config_path)

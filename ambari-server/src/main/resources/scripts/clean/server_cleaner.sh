@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "[$(date "+%F %T")]"
 
-portal=$(yum list installed | grep -c deploy-portal)
+portal=$(unbuffer yum list installed | grep -c deploy-portal)
 if [[ $portal -gt 0 ]]; then
   echo "deploy-portal was installed, use command instead: deploy clean"
   exit 1
@@ -43,6 +43,7 @@ rm -rf /usr/lib/python2.6/site-packages/ambari_server
 rm -rf /usr/lib/python2.6/site-packages/ambari_commons
 rm -rf /usr/lib/python2.6/site-packages/ambari_jinja2
 rm -rf /usr/lib/python2.6/site-packages/resource_management
+rm -rf /usr/lib/python2.6/site-packages/resource_monitoring
 
 echo "remove ssh files on server ..."
 rm -f /home/tencent/.ssh/*

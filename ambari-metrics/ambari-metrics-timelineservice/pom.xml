@@ -102,11 +102,13 @@
             <configuration>
               <target name="Download HBase">
                 <mkdir dir="${project.build.directory}/embedded" />
+                <!--
                 <get
                   src="${hbase.tar}"
                   dest="${project.build.directory}/embedded/hbase.tar.gz"
                   usetimestamp="true"
                   />
+                  -->
                 <untar
                   src="${project.build.directory}/embedded/hbase.tar.gz"
                   dest="${project.build.directory}/embedded"
@@ -537,7 +539,11 @@
       <version>1.4.9</version>
       <scope>test</scope>
     </dependency>
-
+    <dependency>
+      <groupId>org.influxdb</groupId>
+      <artifactId>influxdb-java</artifactId>
+      <version>2.1</version>
+    </dependency>
   </dependencies>
 
   <profiles>

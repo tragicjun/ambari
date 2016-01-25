@@ -33,7 +33,13 @@
       ],
       "components": [
         {
-          "name": "SPARK_JOBHISTORYSERVER"
+          "name": "SPARK_HISTORY_SERVER"
+        },
+        {
+          "name": "SPARK_JDBC_SERVER"
+        },
+        {
+          "name": "SPARK_LIVY_SERVER"
         },
         {
           "name": "SPARK_CLIENT"

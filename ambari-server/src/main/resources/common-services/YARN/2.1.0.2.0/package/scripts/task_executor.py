@@ -22,14 +22,18 @@ from ambari_commons import OSConst
 from resource_management import *
 from resource_management.core.logger import Logger
 import sys
+from hack_hadoop import hack_hadoop
 
 
 class taskExecutor(Script):
 
 
     def install(self, env):
-        excludePackage = ["hadoop-yarn","hadoop-hdfs","hadoop-mapreduce"]
+        excludePackage = ["hadoop-yarn","hadoop-hdfs","hadoop-mapreduce","spark"]
         self.install_packages(env,excludePackage)
+
+        # replace new hadoop jars
+        hack_hadoop().hack()
 
         print 'installed task executor'
 

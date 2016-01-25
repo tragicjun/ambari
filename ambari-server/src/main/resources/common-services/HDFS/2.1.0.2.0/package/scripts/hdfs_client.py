@@ -23,7 +23,7 @@ from resource_management.libraries.functions.security_commons import build_expec
   FILE_TYPE_XML
 from hdfs import hdfs
 from utils import service
-
+from hack_hadoop import hack_hadoop
 
 class HdfsClient(Script):
 
@@ -36,6 +36,9 @@ class HdfsClient(Script):
     self.install_packages(env, params.exclude_packages)
     env.set_params(params)
     self.config(env)
+
+    # replace new hadoop jars
+    hack_hadoop().hack()
 
   def uninstall(self, env):
     Toolkit.uninstall_service("hdfs")

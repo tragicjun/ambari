@@ -19,6 +19,7 @@ limitations under the License.
 
 import re
 import os
+import socket
 from math import ceil
 
 from stack_advisor import DefaultStackAdvisor
@@ -279,6 +280,23 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
 
     return cluster
 
+  def addComponentPort(self, portComponentMap, host, component, port, configType = "NA", configName = "NA"):
+    port = str(port)
+
+    if host not in portComponentMap:
+      portComponentMap[host] = {}
+
+    if port not in portComponentMap[host]:
+      portComponentMap[host][port] = []
+
+    portComponentMap[host][port].append({
+      "config-type": configType,
+      "config-name": configName,
+      "component": component
+    })
+
+    return portComponentMap
+
   def getConfigurationsValidationItems(self, services, hosts):
     """Returns array of Validation objects about issues with configuration values provided in services"""
     items = []
@@ -346,13 +364,36 @@ class HDP206StackAdvisor(DefaultStackAdvisor):
                 citem = {"config-type": configType, "config-name": propertyKey, "component": component["StackServiceComponents"]["component_name"]}
                 hostsPortsForComponent[host][usedPortsElem].append(citem)
 
+
+    # add portal's port
+    localhost = socket.gethostbyname(socket.getfqdn())
+    self.addComponentPort(hostsPortsForComponent, localhost, "Deploy Portal", 80, "application.properties", "server.port")
+    self.addComponentPort(hostsPortsForComponent, localhost, "Deploy Portal", 9527, "application.properties", "management.port")
+    self.addComponentPort(hostsPortsForComponent, localhost, "Deploy Portal", 3306, "custom.properties", "spring.datasource.url")
+    self.addComponentPort(hostsPortsForComponent, localhost, "Deploy Portal", 8081, "custom.properties", "sso.server.default.port")
+    self.addComponentPort(hostsPortsForComponent, localhost, "Deploy Portal", 8005, "portal", "sso.tomcat")
+    self.addComponentPort(hostsPortsForComponent, localhost, "Deploy Portal", 8009, "portal", "sso.tomcat")
+    self.addComponentPort(hostsPortsForComponent, localhost, "Deploy Portal", 8085, "portal", "sso.tomcat")
+    self.addComponentPort(hostsPortsForComponent, localhost, "Deploy Portal", 389, "custom.properties", "ldap.provider_url")
+
+    self.addComponentPort(hostsPortsForComponent, localhost, "TBDS Server", 8088, "tbds.properties", "client.api.port")
+    self.addComponentPort(hostsPortsForComponent, localhost, "TBDS Server", 8040, "server", "ssl.port")
+    self.addComponentPort(hostsPortsForComponent, localhost, "TBDS Server", 8041, "server", "ssl.port")
+    self.addComponentPort(hostsPortsForComponent, localhost, "TBDS Server", 5432, "postgresql", "PGPORT")
+
+    # add agents' port
+    for host in hosts["items"]:
+      hostname = host["Hosts"]["host_name"]
+      self.addComponentPort(hostsPortsForComponent, hostname, "TBDS Agent", 8670, "ambari-agent.ini", "ping_port")
+
+
     #Added by junz for detecting port conflicts among services
     for host in hostsPortsForComponent.keys():
       for port in hostsPortsForComponent[host].keys():
         citems = hostsPortsForComponent[host][port]
         if len(citems) > 1:
             for citem in citems:
-              if citem["config-type"] is not None and citem["config-type"] != "NA":
+              if citem["config-type"] is not None:
                 message = "Port {0} on host {1} is required by multiple components: ".format(port, host)
                 for c in citems:
                   message += "{0}({1}/{2})".format(c["component"],c["config-type"],c["config-name"])

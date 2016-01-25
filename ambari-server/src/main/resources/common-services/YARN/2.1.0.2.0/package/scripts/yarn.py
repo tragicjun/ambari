@@ -61,7 +61,8 @@ def yarn(name = None):
     params.HdfsDirectory(None, action="create")
 
   if name == "nodemanager":
-    Directory(params.nm_local_dirs.split(',') + params.nm_log_dirs.split(','),
+    filecache=[ dir+"/filecache" for dir in params.nm_local_dirs.split(',') ]
+    Directory(filecache + params.nm_log_dirs.split(','),
               owner=params.yarn_user,
               group=params.user_group,
               recursive=True,

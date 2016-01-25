@@ -49,6 +49,9 @@
             <package>
               <name>libxslt</name>
             </package>
+            <package>
+              <name>mysql-libs-*</name>
+            </package>
           </packages>
         </osSpecific>
       </osSpecifics>

@@ -36,6 +36,14 @@ class nginx(Script):
     def uninstall(self, env):
         Toolkit.uninstall_service("nginx")
 
+    def restart(self, env):
+        Logger.info("reload nginx")
+
+        import params
+
+        env.set_params(params)
+        self.configure(env)
+        Toolkit.exe("service nginx reload -s")
 
     def configure(self, env):
         import params

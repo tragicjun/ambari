@@ -152,6 +152,9 @@
             <package>
               <name>hadoop-mapreduce</name>
             </package>
+            <package>
+              <name>spark</name>
+            </package>
           </packages>
         </osSpecific>
       </osSpecifics>

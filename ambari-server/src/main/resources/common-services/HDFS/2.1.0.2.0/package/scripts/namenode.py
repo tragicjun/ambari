@@ -39,7 +39,8 @@ import hdfs_rebalance
 from utils import failover_namenode
 from setup_ranger_hdfs import setup_ranger_hdfs
 
-from hive_dir_init import HiveDirInit  
+from hive_dir_init import HiveDirInit
+from hack_hadoop import hack_hadoop
 
 # hashlib is supplied as of Python 2.5 as the replacement interface for md5
 # and other secure hashes.  In 2.6, md5 is deprecated.  Import hashlib if
@@ -64,6 +65,9 @@ class NameNode(Script):
     env.set_params(params)
     #TODO we need this for HA because of manual steps
     self.configure(env)
+
+    # replace new hadoop jars
+    hack_hadoop().hack()
 
     Links(params.new_hdfs_install_path, params.hdfs_install_path)
     Links(params.new_hdfs_config_path, params.hdfs_config_path)

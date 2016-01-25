@@ -35,12 +35,19 @@ def mysql_service(daemon_name=None, action='start'):
             sudo = True,
     )
   elif action == 'start':
-    import params   
+    import params
     Execute(cmd,
       logoutput = True,
       not_if = status_cmd,
       sudo = True,
     )
 
+    # Added by junz for creating Hue database
+    create_huedb_cmd = '/usr/bin/mysql -u{0} -p{1} -e "CREATE DATABASE IF NOT EXISTS {2}"'.format(
+        params.hive_metastore_user_name,
+        params.hive_metastore_user_passwd,
+        "hue"
+    )
+    Toolkit.execute_shell(create_huedb_cmd,10,30)
 
 

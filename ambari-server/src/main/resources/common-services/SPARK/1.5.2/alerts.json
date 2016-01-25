@@ -3,7 +3,7 @@
     "service": [],
     "SPARK_HISTORY_SERVER": [
       {
-        "name": "SPARK_JOBHISTORYSERVER_PROCESS",
+        "name": "SPARK_HISTORY_SERVER_PROCESS",
         "label": "Spark History Server",
         "description": "This host-level alert is triggered if the Spark History Server cannot be determined to be up.",
         "interval": 1,

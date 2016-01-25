@@ -22,7 +22,7 @@
       <name>FTP</name>
       <displayName>FTP</displayName>
       <version>0.1.0</version>
-      <comment>ftp server</comment>
+      <comment>FTP 是File Transfer Protocol（文件传输协议）的英文简称，而中文简称为“文传协议”。用于Internet上的控制文件的双向传输。系统中使用其作为用户上传文件存储与共各子系统进行文件对接</comment>
       <components>
         <component>
           <name>FTP_SERVER</name>

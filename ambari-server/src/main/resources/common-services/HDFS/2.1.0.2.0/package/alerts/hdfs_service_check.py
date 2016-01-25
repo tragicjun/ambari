@@ -24,6 +24,7 @@ import uuid
 import shlex
 import subprocess
 import time
+from resource_management import *
 
 LABEL = 'Last Checkpoint: [{h} hours, {m} minutes, {tx} transactions]'
 

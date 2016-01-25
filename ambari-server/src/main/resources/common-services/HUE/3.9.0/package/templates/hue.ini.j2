@@ -102,7 +102,7 @@
 
   # Help improve Hue with anonymous usage analytics.
   # Use Google Analytics to see how many times an application or specific section of an application is used, nothing more.
-  ## collect_usage=true
+  collect_usage=false
 
   # Support for HTTPS termination at the load-balancer level with SECURE_PROXY_SSL_HEADER.
   ## secure_proxy_ssl_header=false
@@ -110,6 +110,7 @@
   # Comma-separated list of Django middleware classes to use.
   # See https://docs.djangoproject.com/en/1.4/ref/middleware/ for more details on middlewares in Django.
   ## middleware=desktop.auth.backend.LdapSynchronizationBackend
+  middleware={{ hue_middleware }}
 
   # Comma-separated list of regular expressions, which match the redirect URL.
   # For example, to restrict to your local domain and FQDN, the following value can be used:
@@ -251,10 +252,10 @@
   [[ldap]]
 
     # The search base for finding users and groups
-    ## base_dn="DC=mycompany,DC=com"
+    base_dn="DC=tbds,DC=com"
 
     # URL of the LDAP server
-    ## ldap_url=ldap://auth.mycompany.com
+    ldap_url={{ ldap_url }}
 
     # A PEM-format file containing certificates for the CA's that
     # Hue will trust for authentication over TLS.
@@ -266,11 +267,11 @@
 
     # Distinguished name of the user to bind as -- not necessary if the LDAP server
     # supports anonymous searches
-    ## bind_dn="CN=ServiceAccount,DC=mycompany,DC=com"
+    bind_dn="cn=admin,dc=tbds,dc=com"
 
     # Password of the bind user -- not necessary if the LDAP server supports
     # anonymous searches
-    ## bind_password=
+    bind_password=admin
 
     # Execute this script to produce the bind user password. This will be used
     # when `bind_password` is not set.
@@ -278,14 +279,14 @@
 
     # Pattern for searching for usernames -- Use <username> for the parameter
     # For use when using LdapBackend for Hue authentication
-    ## ldap_username_pattern="uid=<username>,ou=People,dc=mycompany,dc=com"
+    ldap_username_pattern="uid=<username>,ou=People,dc=tbds,dc=com"
 
     # Create users in Hue when they try to login with their LDAP credentials
     # For use when using LdapBackend for Hue authentication
     ## create_users_on_login = true
 
     # Synchronize a users groups when they login
-    ## sync_groups_on_login=false
+    sync_groups_on_login=true
 
     # Ignore the case of usernames when searching for existing users in Hue.
     ## ignore_username_case=true
@@ -318,21 +319,21 @@
     [[[users]]]
 
       # Base filter for searching for users
-      ## user_filter="objectclass=*"
+      user_filter="objectclass=inetOrgPerson"
 
       # The username attribute in the LDAP schema
-      ## user_name_attr=sAMAccountName
+      user_name_attr=cn
 
     [[[groups]]]
 
       # Base filter for searching for groups
-      ## group_filter="objectclass=*"
+      group_filter="objectclass=groupOfNames"
 
       # The group name attribute in the LDAP schema
-      ## group_name_attr=cn
+      group_name_attr=cn
 
       # The attribute of the group object which identifies the members of the group
-      ## group_member_attr=members
+      group_member_attr=member
 
     [[[ldap_servers]]]
 
@@ -411,12 +412,12 @@
     # Note for Oracle, options={"threaded":true} must be set in order to avoid crashes.
     # Note for Oracle, you can use the Oracle Service Name by setting "port=0" and then "name=<host>:<port>/<service_name>".
     # Note for MariaDB use the 'mysql' engine.
-    ## engine=sqlite3
-    ## host=
-    ## port=
-    ## user=
-    ## password=
-    ## name=desktop/desktop.db
+    engine=mysql
+    host={{ hive_metastore_host }}
+    port=3306
+    user={{ hive_metastore_user_name }}
+    password={{ hive_metastore_user_passwd }}
+    name=hue
     ## options={}
 
   # Configuration options for specifying the Desktop session.
@@ -863,6 +864,8 @@
   # Thrift version to use when communicating with HiveServer2.
   # New column format is from version 7.
   ## thrift_version=7
+  
+  hive_metastore_warehouse_dir = {{ hive_metastore_warehouse_dir }}
 
   [[ssl]]
     # Path to Certificate Authority certificates.
@@ -870,7 +873,19 @@
 
     # Choose whether Hue should validate certificates received from the server.
     ## validate=true
+    
+###########################################################################
+# Settings to configure THive
+###########################################################################
+[thive]
+  # Host where thive is running.
+  thive_server_host={{ thive_host }}
 
+  # Port where HiveServer2 Thrift server runs on.
+  thive_server_port={{ thive_port }}
+  
+  thive_plc_user={{thive_plc_user}}
+  thive_plc_password={{thive_plc_password}}
 
 ###########################################################################
 # Settings to configure Impala

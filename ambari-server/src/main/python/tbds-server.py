@@ -18,6 +18,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 '''
 
+import commands
 import optparse
 import sys
 import os
@@ -39,7 +40,8 @@ from ambari_server.setupHttps import setup_https
 
 from ambari_server.setupActions import BACKUP_ACTION, LDAP_SETUP_ACTION, LDAP_SYNC_ACTION, PSTART_ACTION, \
   REFRESH_STACK_HASH_ACTION, RESET_ACTION, RESTORE_ACTION, SETUP_ACTION, SETUP_SECURITY_ACTION, START_ACTION, \
-  STATUS_ACTION, STOP_ACTION, UPGRADE_ACTION, UPGRADE_STACK_ACTION, SETUP_JCE_ACTION, SET_CURRENT
+  STATUS_ACTION, STOP_ACTION, UPGRADE_ACTION, UPGRADE_STACK_ACTION, SETUP_JCE_ACTION, SET_CURRENT, \
+    START_AGENT_ACTION, STOP_AGENT_ACTION
 from ambari_server.setupSecurity import setup_ldap, sync_ldap, setup_master_key, setup_ambari_krb5_jaas
 from ambari_server.userInput import get_validated_string_input
 
@@ -113,6 +115,42 @@ def start(args):
 
   server_process_main(args)
 
+#
+# Start Ambari Agent.
+#
+@OsFamilyFuncImpl(OsFamilyImpl.DEFAULT)
+def start_agent(args):
+    """Start specified ambari-agent or all ambari-agents
+
+    Command Format:
+    1. tbds-server start-agent -nall or tbds-server start-agent --name=all
+    2. tbds-server start-agent -n192.168.1.1 or tbds-server start-agent --name=192.168.1.1
+    3. tbds-server start-agent -n192.168.1.1,192.168.1.2 or tbds-server start-agent --name=192.168.1.1,192.168.1.2
+    """
+    host = args.name
+    local_user = "tencent"
+    login_user = "tencent"
+    login_pwd = "tencent"
+    remote_cmd = "/usr/sbin/ambari-agent restart 2>/dev/null"
+    all_hosts = ""
+    # format all_hosts
+    if host == 'all':
+        print "get all ambari agents's hosts..."
+        get_all_agents_rest_api_cmd = "curl --user admin:admin \"http://0.0.0.0:8080/api/v1/hosts?minimal_response=true\" 2> /dev/null | grep host_name | awk -F':' '{print $2}' | sed \"s/[ \\\"]//g\""
+        (status, output) = commands.getstatusoutput(get_all_agents_rest_api_cmd)
+        if status != 0:
+            print "ERROR: get all ambari agents's hosts failed based on rest api."
+            err = "ERROR: get all ambari agents's hosts failed based on rest api."
+            raise FatalException(1, err)
+        all_hosts = output.split('\n')
+    else:
+        all_hosts = host.split(',')
+    # start all_hosts's ambari-agent
+    for h in all_hosts:
+        print "restart {0}'s ambari-agent...".format(h)
+        exec_cmd = "sudo su {0} -c '/var/lib/tbds-server/resources/scripts/execRemoteCmd.exp {1} {2} {3} 3600 \"{4}\"'".format(local_user, h, login_user, login_pwd, remote_cmd)
+        os.system(exec_cmd)
+        print "restart {0}'s ambari-agent succeed!".format(h)
 
 #
 # Starts the TBDS Server as a service.
@@ -158,6 +196,42 @@ def stop(args):
   else:
     print "TBDS Server is not running"
 
+#
+# Stop Ambari Agent.
+#
+@OsFamilyFuncImpl(OsFamilyImpl.DEFAULT)
+def stop_agent(args):
+    """Stop specified ambari-agent or all ambari-agents
+
+    Command Format:
+    1. tbds-server stop-agent -nall or tbds-server stop-agent --name=all
+    2. tbds-server stop-agent -n192.168.1.1 or tbds-server stop-agent --name=192.168.1.1
+    3. tbds-server stop-agent -n192.168.1.1,192.168.1.2 or tbds-server stop-agent --name=192.168.1.1,192.168.1.2
+    """
+    host = args.name
+    local_user = "tencent"
+    login_user = "tencent"
+    login_pwd = "tencent"
+    remote_cmd = "/usr/sbin/ambari-agent stop 2>/dev/null"
+    all_hosts = ""
+    # format all_hosts
+    if host == 'all':
+        print "get all ambari agents's hosts..."
+        get_all_agents_rest_api_cmd = "curl --user admin:admin \"http://0.0.0.0:8080/api/v1/hosts?minimal_response=true\" 2> /dev/null | grep host_name | awk -F':' '{print $2}' | sed \"s/[ \\\"]//g\""
+        (status, output) = commands.getstatusoutput(get_all_agents_rest_api_cmd)
+        if status != 0:
+            print "ERROR: get all ambari agents's hosts failed based on rest api."
+            err = "ERROR: get all ambari agents's hosts failed based on rest api."
+            raise FatalException(1, err)
+        all_hosts = output.split('\n')
+    else:
+        all_hosts = host.split(',')
+    # stop all_hosts's ambari-agent
+    for h in all_hosts:
+        print "stop {0}'s ambari-agent...".format(h)
+        exec_cmd = "sudo su {0} -c '/var/lib/tbds-server/resources/scripts/execRemoteCmd.exp {1} {2} {3} 3600 \"{4}\"'".format(local_user, h, login_user, login_pwd, remote_cmd)
+        os.system(exec_cmd)
+        print "stop {0}'s ambari-agent succeed!".format(h)
 
 #
 # The TBDS Server status.
@@ -377,6 +451,7 @@ def init_parser_options(parser):
 
   parser.add_option('--use-default', default="yes", dest="use_default",
                       help="use default value to setup yes, no")
+  parser.add_option("-n", "--name", dest="name", help="Specifies the ambari-agent to start or stop. Used with tbds-server [start-agent|stop-agent")
 
 
 @OsFamilyFuncImpl(OSConst.WINSRV_FAMILY)
@@ -519,7 +594,9 @@ def create_user_action_map(args, options):
         SETUP_SECURITY_ACTION: UserActionRestart(setup_security, options),
         REFRESH_STACK_HASH_ACTION: UserAction(refresh_stack_hash_action),
         BACKUP_ACTION: UserActionPossibleArgs(backup, [1, 2], args),
-        RESTORE_ACTION: UserActionPossibleArgs(restore, [1, 2], args)
+        RESTORE_ACTION: UserActionPossibleArgs(restore, [1, 2], args),
+        START_AGENT_ACTION: UserAction(start_agent, options),
+        STOP_AGENT_ACTION: UserAction(stop_agent, options)
       }
   return action_map
 

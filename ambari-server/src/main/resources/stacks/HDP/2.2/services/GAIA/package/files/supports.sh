@@ -160,7 +160,7 @@ ac_package_installed()
     $as_echo_n "(cache) " >&6
   else
     eval $3=no
-    if [[ -n "$(yum list installed|egrep ^"$2")" ]]; then
+    if [[ -n "$(unbuffer yum list installed|egrep ^"$2")" ]]; then
       eval $3=yes
     fi
   fi

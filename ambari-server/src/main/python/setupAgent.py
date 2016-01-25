@@ -311,6 +311,7 @@ def initSoftLink(config):
     try:
       fileObj = file(config)
       jsonobj = json.load(fileObj)
+      maxDisk = getMaxOsDisk()+"/tbds-base"
       for item in jsonobj:
         if item=="":
           print "[WARN]the softLink item is blank:"
@@ -318,7 +319,6 @@ def initSoftLink(config):
         if os.path.exists(item):
           print "[WARN]directory has existed:"+item
           continue
-        maxDisk = getMaxOsDisk()+"/tbds-base"
         softLink = maxDisk+item
         if not os.path.exists(softLink):
           createCmd = "mkdir -p "+softLink+";chmod -R 755 "+softLink

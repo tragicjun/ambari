@@ -9,7 +9,7 @@
   {
     "host": "NIFI_SERVER",
     "port": "nifi-site/nifi.http.port",
-    "locations":  {
+    "locations": {
       "/nifi": ""
     }
   },
@@ -24,13 +24,17 @@
     "host": "HUE_SERVER",
     "port": "hue-site/http.port",
     "locations": {
+      "/thive/": "/thive/",
+      "/rdbms/": "/rdbms/",
       "/beeswax/": "/beeswax/",
       "/spark/": "/spark/",
       "/filebrowser/": "/filebrowser/",
       "/metastore/": "/metastore/",
+      "/security/": "/security/",
       "/static/": "/static/",
       "/accounts/": "/accounts/",
-      "/jobbrowser/": "/jobbrowser/"
+      "/jobbrowser/": "/jobbrowser/",
+      "/desktop/": "/desktop/"
     }
   }
 ]

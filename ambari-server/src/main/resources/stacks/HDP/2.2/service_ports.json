@@ -301,5 +301,10 @@
     "HUE_SERVER": [
       "hue-site/http.port"
     ]
+  },
+  "PORTAL": {
+    "PORTAL_SERVICE": [
+      "portal-service/listen.port"
+    ]
   }
 }

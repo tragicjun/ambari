@@ -129,9 +129,12 @@ def ams(name=None):
               recursive=True
     )
 
+    # Added by junz for injecting influxdb config to collector ams-site
+    ams_site_config = dict(params.config['configurations']['ams-site'])
+    ams_site_config['influxdb.http.port'] = params.influxdb_http_port
     XmlConfig("ams-site.xml",
               conf_dir=params.ams_collector_conf_dir,
-              configurations=params.config['configurations']['ams-site'],
+              configurations=ams_site_config,
               configuration_attributes=params.config['configuration_attributes']['ams-site'],
               owner=params.ams_user,
               group=params.user_group

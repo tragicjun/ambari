@@ -1,0 +1,22 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * @author hillliu
+ */
+ 
+// 单点登陆
+$config['sso_url'] = '{{sso_server_hostname}}';
+$config['sso_port'] = {{sso_server_port}};
+$config['sso_application'] = '{{sso_server_application}}';
+
+// portal Java接口地址
+$config['portal_api'] = 'http://{{portal_server_hostname}}:{{portal_server_port}}/';
+
+//业务图标相关配置
+$config["icon"] = array(
+    //默认使用图标的名字
+    "default_name" => "default.png",
+    //图标保存的文件夹地址
+    "upload_addr" => dirname(APPPATH) . "/logo",
+    //图标页面显示地址
+    "img_addr" => "http://10.151.135.220:8080/logo/"
+);

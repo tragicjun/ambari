@@ -49,12 +49,14 @@ new_nifi_data_path = "/data/tbds/nifi"
 new_nifi_log_path = "/var/log/tbds/nifi"
 
 nifi_server_ip = default("/clusterHostInfo/nifi_server_hosts", ["localhost"])[0]
+nginx_server_ip = default("/clusterHostInfo/nginx_server_hosts", [None])[0]
+nifi_or_nginx_server_ip = nginx_server_ip if nginx_server_ip else nifi_server_ip
 
 portal_server_hostname=default("/configurations/cluster-env/portal_server_hostname", 'localhost')
 portal_server_port=default("/configurations/cluster-env/portal_server_port", 80)
 jar_path_url='http://' + portal_server_hostname + ':' + str(portal_server_port) + '/openapi/findFiles'
 
-url='http://' + portal_server_hostname + ':' + str(portal_server_port) + '/openapi/getHostWanIp?localIP=' + nifi_server_ip
+url='http://' + portal_server_hostname + ':' + str(portal_server_port) + '/openapi/getHostWanIp?localIP=' + nifi_or_nginx_server_ip
 Logger.info(url)
 res = urllib2.urlopen(url)
 res_data=res.read()
@@ -63,10 +65,9 @@ obj = json.loads(res_data)
 code = obj.get("resultCode")
 wanip = obj.get("resultData")
 if '0'==code:
-  nifi_server_wanip = wanip
+  nifi_or_nginx_server_ip = wanip
 else:
   Logger.warn('get nifi server wanip failed :' + wanip)
-  nifi_server_wanip = nifi_server_ip
 
 nifi_user = config['configurations']['nifi-env']['nifi_user']
 hostname = config['hostname']

@@ -166,6 +166,16 @@ hdfs_user = config['configurations']['hadoop-env']['hdfs_user']
 hdfs_principal_name = config['configurations']['hadoop-env']['hdfs_principal_name']
 kinit_path_local = functions.get_kinit_path()
 
+#influxdb properties
+influxdb_meta_dir = config['configurations']['ams-influxdb']['influxdb.meta.dir']
+influxdb_data_dir = config['configurations']['ams-influxdb']['influxdb.data.dir']
+influxdb_handoff_dir = config['configurations']['ams-influxdb']['influxdb.handoff.dir']
+influxdb_admin_port = config['configurations']['ams-influxdb']['influxdb.admin.port']
+influxdb_http_port = config['configurations']['ams-influxdb']['influxdb.http.port']
+
+influxdb_user = "influxdb"
+influxdb_group = "root"
+
 import functools
 # create partial functions with common arguments for every HdfsDirectory call
 # to create hdfs directory we need to call params.HdfsDirectory in code
@@ -213,5 +223,16 @@ new_metrics_log_path_monitor = "/var/log/tbds/metrics/monitor"
 new_metrics_data_path_collector_hbase = "/data/tbds/metrics/hbase"
 new_metrics_data_path_collector_checkpoint = "/data/tbds/metrics/checkpoint"
 new_metrics_data_path_collector_hbasetmp = "/data/tbds/metrics/hbase-tmp"
+# unify the influxdb directory for cleaning
+influxdb_usr_lib = "/usr/lib/influxdb"
+influxdb_var_run = "/var/run/influxdb"
+influxdb_var_lib = "/var/lib/influxdb"
+influxdb_var_log = "/var/log/influxdb"
+influxdb_config_dir = "/etc/influxdb"
 
+new_influxdb_usr_lib = "/opt/tbds/metrics/influxdb/usr/lib"
+new_influxdb_var_run = "/opt/tbds/metrics/influxdb/var/run"
+new_influxdb_var_lib = "/data/tbds/metrics/influxdb/var/lib"
+new_influxdb_var_log = "/var/log/tdbs/metrics/influxdb"
+new_influxdb_config_dir = "/etc/tbds/metrics/influxdb"
 

@@ -1,0 +1,25 @@
+"""
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+"""
+
+from resource_management import *
+
+portal_service_host = default("/clusterHostInfo/portal_service_hosts", ["127.0.0.1"])[0]
+portal_service_port = default("/configurations/portal-service/listen.port", 80)
+
+portal_service_url = "http://{0}:{1}/tbds-portal/index.php".format(portal_service_host, portal_service_port)

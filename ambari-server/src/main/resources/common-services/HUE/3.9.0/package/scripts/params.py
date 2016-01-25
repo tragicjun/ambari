@@ -40,6 +40,7 @@ hue_admin_bin = hue_install_dir + '/build/env/bin/hue'
 hue_conf_dir = "/opt/tbds/hue/desktop/conf"
 hue_log_dir = "/opt/tbds/hue/logs"
 hue_pid_file = "/opt/tbds/hue/hue.pid"
+hue_init_flag = hue_install_dir + "/initialized"
 hue_django_settings = hue_install_dir + "/desktop/core/src/desktop/settings.py"
 
 new_hue_config_path = "/etc/tbds/hue"
@@ -57,11 +58,16 @@ namenode_http_address = config['configurations']['hdfs-site']['dfs.namenode.http
 fs_defaultFS = config['configurations']['core-site']['fs.defaultFS']
 hive_host = default('/clusterHostInfo/hive_server_host',['localhost'])[0]
 hive_port = default('/configurations/hive-site/hive.server2.thrift.port',"10000")
+thive_host = default('/clusterHostInfo/thive_server_hosts',['localhost'])[0]
+thive_port = default('/configurations/thive-config-env/thive.server.port',"10002")
+thive_plc_user = default('/configurations/thive-config-env/hive.plc.user',"thive")
+thive_plc_password = default('/configurations/thive-config-env/hive.plc.password',"thive")
 yarn_rm_url = 'http://' + default('/configurations/yarn-site/yarn.resourcemanager.webapp.address', "localhost:8088")
 livy_server_host = default('/clusterHostInfo/spark_livy_server_hosts', ['localhost'])[0]
 livy_server_port = default('/configurations/livy-defaults/livy.server.port',"8998")
 spark_jdbc_server_host = default('/clusterHostInfo/spark_jdbc_server_hosts',['localhost'])[0]
 spark_jdbc_server_port = default('/configurations/spark-defaults/spark.hive.server2.thrift.port',"10002")
+hive_metastore_warehouse_dir = default('/configurations/hive-site/hive.metastore.warehouse.dir',"/apps/hive/warehouse")
 
 gp_master_host = default('/clusterHostInfo/gp_master_hosts', ['localhost'])[0]
 gp_master_port = default('/configurations/gp-site/master.port', "5432")
@@ -69,8 +75,21 @@ gp_master_port = default('/configurations/gp-site/master.port', "5432")
 sso_cas_url = default('/configurations/cluster-env/sso_url',"https://127.0.0.1:8080/cas") + "/"
 hue_admin_user = default('/configurations/cluster-env/cluster_manager',"admin")
 
+# Added by junz for sync user-group from LDAP
+ldap_url = config['configurations']['cluster-env']['ldap_url']
+if ldap_url:
+    hue_middleware = 'useradmin.middleware.LdapSynchronizationMiddleware'
+else:
+    ldap_url = 'ldap://127.0.0.1:389'
+    hue_middleware = ''
+
 zookeeper_host = default('/clusterHostInfo/zookeeper_hosts', ['localhost'])
 zk_address = zookeeper_host[0] + ":" + default('/configurations/zoo-cfg/clientPort', "2181")
 
 # Security-related params
 security_enabled = config['configurations']['cluster-env']['security_enabled']
+
+# We temporarily use the mysql instance of Hive
+hive_metastore_user_name = config['configurations']['hive-site']['javax.jdo.option.ConnectionUserName']
+hive_metastore_user_passwd = config['configurations']['hive-site']['javax.jdo.option.ConnectionPassword']
+hive_metastore_host = default('/clusterHostInfo/hive_mysql_host', ['localhost'])[0]

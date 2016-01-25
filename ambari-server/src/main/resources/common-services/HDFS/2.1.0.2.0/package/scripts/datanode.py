@@ -23,7 +23,7 @@ from resource_management.libraries.functions.version import compare_versions, fo
 from resource_management.libraries.functions.security_commons import build_expectations, \
   cached_kinit_executor, get_params_from_filesystem, validate_security_config_properties, FILE_TYPE_XML
 from hdfs import hdfs
-
+from hack_hadoop import hack_hadoop
 
 class DataNode(Script):
 
@@ -35,6 +35,9 @@ class DataNode(Script):
 
     self.install_packages(env, params.exclude_packages)
     env.set_params(params)
+
+    # replace new hadoop jars
+    hack_hadoop().hack()
 
     Links(params.new_hdfs_install_path, params.hdfs_install_path)
     Links(params.new_hdfs_config_path, params.hdfs_config_path)

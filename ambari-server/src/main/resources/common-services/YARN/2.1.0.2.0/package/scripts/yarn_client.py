@@ -23,6 +23,7 @@ import sys
 from resource_management import *
 
 from yarn import yarn
+from hack_hadoop import hack_hadoop
 
 class YarnClient(Script):
 
@@ -37,8 +38,12 @@ class YarnClient(Script):
       Execute(format("hdp-select set hadoop-client {version}"))
 
   def install(self, env):
-    self.install_packages(env)
+    exclude_packages = ["spark"]
+    self.install_packages(env, exclude_packages)
     self.configure(env)
+
+    # replace new hadoop jars
+    hack_hadoop().hack()
 
   def uninstall(self, env):
     Toolkit.uninstall_service("yarn")

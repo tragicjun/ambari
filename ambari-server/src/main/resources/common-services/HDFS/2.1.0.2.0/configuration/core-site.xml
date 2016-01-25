@@ -188,4 +188,46 @@ DEFAULT
         <value>*</value>
         <description></description>
     </property>
+
+    <!-- Added by junz for sync user-group from LDAP -->
+    <property>
+        <name>hadoop.security.group.mapping.ldap.url</name>
+        <value>{{ldap_url}}</value>
+    </property>
+
+    <property>
+        <name>hadoop.security.group.mapping.ldap.bind.user</name>
+        <value>cn=admin,dc=tbds,dc=com</value>
+    </property>
+
+    <property>
+        <name>hadoop.security.group.mapping.ldap.bind.password</name>
+        <value>admin</value>
+    </property>
+
+    <property>
+        <name>hadoop.security.group.mapping.ldap.base</name>
+        <value>dc=tbds,dc=com</value>
+    </property>
+
+    <property>
+        <name>hadoop.security.group.mapping.ldap.search.filter.user</name>
+        <value>(&amp;(objectClass=inetOrgPerson)(cn={0}))</value>
+    </property>
+
+    <property>
+        <name>hadoop.security.group.mapping.ldap.search.filter.group</name>
+        <value>(objectClass=groupOfNames)</value>
+    </property>
+
+    <property>
+        <name>hadoop.security.group.mapping.ldap.search.attr.member</name>
+        <value>member</value>
+    </property>
+
+    <property>
+        <name>hadoop.security.group.mapping.ldap.search.attr.group.name</name>
+        <value>cn</value>
+    </property>
+    <!-- Ended by junz for sync user-group from LDAP -->
 </configuration>

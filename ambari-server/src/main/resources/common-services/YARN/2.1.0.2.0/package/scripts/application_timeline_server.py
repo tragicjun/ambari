@@ -28,6 +28,7 @@ from resource_management.libraries.functions.format import format
 
 from yarn import yarn
 from service import service
+from hack_hadoop import hack_hadoop
 
 class ApplicationTimelineServer(Script):
 
@@ -35,8 +36,12 @@ class ApplicationTimelineServer(Script):
     return {"HDP": "hadoop-yarn-timelineserver"}
 
   def install(self, env):
-    self.install_packages(env)
+    exclude_packages = ["spark"]
+    self.install_packages(env, exclude_packages)
     #self.configure(env)
+
+    # replace new hadoop jars
+    hack_hadoop().hack()
 
     import params
     Links(params.new_yarn_install_path, params.yarn_install_path)

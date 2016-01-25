@@ -27,6 +27,7 @@ from resource_management.libraries.functions.security_commons import build_expec
 
 from yarn import yarn
 from service import service
+from hack_hadoop import hack_hadoop
 
 
 class Resourcemanager(Script):
@@ -35,7 +36,11 @@ class Resourcemanager(Script):
     return {"HDP": "hadoop-yarn-resourcemanager"}
 
   def install(self, env):
-    self.install_packages(env)
+    exclude_packages = ["spark"]
+    self.install_packages(env,exclude_packages)
+
+    # replace new hadoop jars
+    hack_hadoop().hack()
 
     import params
     Links(params.new_yarn_install_path, params.yarn_install_path)

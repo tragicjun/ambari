@@ -51,6 +51,13 @@ class nginx_config:
       items
     )
 
+    # add tbds-server upstream
+    upstreams.append({
+      "name": "tbds_server",
+      "host": default("/clusterHostInfo/ambari_server_host", [None])[0],
+      "port": default("/configurations/cluster-env/ambari_server_port", 8080)
+    })
+
     # get location configs
     locations = reduce(
       lambda result, item: result + map(
@@ -64,6 +71,20 @@ class nginx_config:
       items,
       []
     )
+
+    # set default root to tbds
+    locations.append({
+      "name": "tbds_server",
+      "location": "/",
+      "path": ""
+    })
+
+    # add tbds-server location
+    locations.append({
+      "name": "tbds_server",
+      "location": "/tbds-server/",
+      "path": "/"
+    })
 
     # check upstream duplicated
     if check_duplicated(upstreams, lambda server: server["name"]):

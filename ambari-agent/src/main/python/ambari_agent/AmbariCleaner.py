@@ -89,7 +89,7 @@ class AmbariCleaner:
     rpmReserveNames = self.join(self.rpmsReserve)
     rpmReserveOnServerNames = self.join(self.rpmsReserveOnServer)
 
-    rpmsCmd = "yum list installed 2>/dev/null | grep -E '" + repoNames + "' | awk '{print $1}' | grep -vE '^" + rpmReserveNames + "$'"
+    rpmsCmd = "unbuffer yum list installed 2>/dev/null | grep -E '" + repoNames + "' | awk '{print $1}' | grep -vE '^" + rpmReserveNames + "$'"
 
     if self.onServer:
       rpmsCmd += " | grep -vE '" + rpmReserveOnServerNames + "'"
@@ -127,7 +127,9 @@ class AmbariCleaner:
       self.run_cmd("rm -rf /usr/lib/python2.6/site-packages/ambari_commons")
       self.run_cmd("rm -rf /usr/lib/python2.6/site-packages/ambari_jinja2")
       self.run_cmd("rm -rf /usr/lib/python2.6/site-packages/resource_management")
+      self.run_cmd("rm -rf /usr/lib/python2.6/site-packages/resource_monitoring")
 
+      self.run_cmd("rm -f /var/lib/mysql")
       self.run_cmd("rm -rf /var/lib/pgsql/")
       self.run_cmd("rm -rf /var/run/post*")
       self.run_cmd("rm -rf /var/lock/subsys/postgresql*")

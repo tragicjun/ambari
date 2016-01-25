@@ -12,15 +12,24 @@ HDP
 /usr/lib/python2.6/site-packages/ambari_agent
 /gaia/*
 /usr/hdp
-/var/lib/mysql
 
 [rpms_reserve]
+tcl.x86_64
 expect.x86_64
 expat.x86_64
 curl.x86_64
 glib2.x86_64
 zlib.x86_64
 openssl.x86_64
+nspr.x86_64
+nss.x86_64
+nss-softokn.x86_64
+nss-softokn-freebl.x86_64
+nss-sysinit.x86_64
+nss-tools.x86_64
+nss-util.x86_64
+openldap.x86_64
+cyrus-sasl-lib.x86_64
 
 [rpms_reserve_on_server]
 cas.x86_64

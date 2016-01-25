@@ -6,7 +6,7 @@
       <name>JSTORM</name>
       <displayName>JStorm</displayName>
       <comment> 实时计算系统：使用Java实现的基于社区STORM的分布式、容错实时计算系统 </comment>
-      <version>1.0.3</version>
+      <version>1.0.2</version>
       <components>
         <component>
           <name>JSTORM_NIMBUS</name>
@@ -74,7 +74,7 @@
           <osFamily>redhat5,redhat6,suse11</osFamily>
           <packages>
             <package>
-              <name>jstorm-1.0.3*</name>
+              <name>jstorm-1.*</name>
             </package>
             <package>
               <name>task-executor</name>

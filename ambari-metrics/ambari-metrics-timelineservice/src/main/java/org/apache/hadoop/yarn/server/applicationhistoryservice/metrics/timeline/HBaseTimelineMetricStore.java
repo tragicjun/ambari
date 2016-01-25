@@ -25,6 +25,10 @@ import org.apache.hadoop.metrics2.sink.timeline.TimelineMetric;
 import org.apache.hadoop.metrics2.sink.timeline.TimelineMetrics;
 import org.apache.hadoop.service.AbstractService;
 import org.apache.hadoop.yarn.api.records.timeline.TimelinePutResponse;
+import org.influxdb.InfluxDB;
+import org.influxdb.InfluxDBFactory;
+import org.influxdb.dto.Point;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,6 +37,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
+
 import static org.apache.hadoop.yarn.server.applicationhistoryservice.metrics.timeline.PhoenixTransactSQL.Condition;
 import static org.apache.hadoop.yarn.server.applicationhistoryservice.metrics.timeline.PhoenixTransactSQL.DefaultCondition;
 
@@ -42,6 +48,7 @@ public class HBaseTimelineMetricStore extends AbstractService
   static final Log LOG = LogFactory.getLog(HBaseTimelineMetricStore.class);
   private final TimelineMetricConfiguration configuration;
   private PhoenixHBaseAccessor hBaseAccessor;
+  private InfluxDB influxDB;
 
   /**
    * Construct the service.
@@ -265,8 +272,39 @@ public class HBaseTimelineMetricStore extends AbstractService
     // Error indicated by the Sql exception
     TimelinePutResponse response = new TimelinePutResponse();
 
+    forwardToInfluxDB(metrics);
+
     hBaseAccessor.insertMetricRecords(metrics);
 
     return response;
+  }
+
+  public void forwardToInfluxDB(TimelineMetrics metrics){
+    if(influxDB == null){
+      String influxdb_url = configuration.getInfluxDBHttpURL();
+      LOG.debug("Creating influxdb database to " + influxdb_url);
+      if(influxdb_url != null && influxdb_url.length() > 0) {
+        influxDB = InfluxDBFactory.connect(influxdb_url, "root", "root");
+        influxDB.createDatabase("tbds");
+        influxDB.enableBatch(100, 100, TimeUnit.MILLISECONDS);
+        LOG.debug("Created influxdb database");
+      }
+    }
+
+    if(influxDB != null) {
+      for (TimelineMetric metric : metrics.getMetrics()) {
+        for (Map.Entry<Long, Double> metricEntry : metric.getMetricValues().entrySet()) {
+          Point point = Point.measurement(metric.getMetricName().replaceAll("\\.", "_"))
+                  .time(metricEntry.getKey(), TimeUnit.MILLISECONDS)
+                  .tag("app_id", metric.getAppId())
+                  .tag("host_name", metric.getHostName())
+                  .tag("type", metric.getType())
+                  .field("value", metricEntry.getValue())
+                  .build();
+          influxDB.write("tbds", "default", point);
+          LOG.debug("Written influxdb metrics:" + point);
+        }
+      }
+    }
   }
 }

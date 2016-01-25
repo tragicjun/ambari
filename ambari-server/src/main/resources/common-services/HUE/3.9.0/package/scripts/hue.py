@@ -30,14 +30,6 @@ class Hue(Script):
     Execute(daemon_cmd,
             user=params.hue_user,
             )
-    # create default admin user
-    if "admin" != params.hue_admin_user:
-        daemon_cmd = '{0} createsuperuser --username {1} --email {1}@tencent.com --noinput'.format(
-            params.hue_admin_bin, params.hue_admin_user)
-        print daemon_cmd
-        Execute(daemon_cmd,
-            user=params.hue_user,
-            )
     self.configure(env)
 
   def uninstall(self, env):
@@ -68,6 +60,27 @@ class Hue(Script):
     if isComponentRunning:
         return
 
+    # Initialize Hue tables
+    if not os.path.isfile(params.hue_init_flag):
+        cmd = "{0} syncdb --noinput".format(params.hue_admin_bin)
+        print cmd
+        Toolkit.execute_shell(cmd,5,30)
+        cmd = "{0} migrate".format(params.hue_admin_bin)
+        print cmd
+        Toolkit.execute_shell(cmd,5,30)
+        # create default admin user
+        daemon_cmd = '{0} createsuperuser --username {1} --email {1}@tencent.com --noinput'.format(
+            params.hue_admin_bin, params.hue_admin_user)
+        print daemon_cmd
+        Execute(daemon_cmd,
+                user=params.hue_user,
+                )
+        daemon_cmd = 'touch {0}'.format(params.hue_init_flag)
+        print daemon_cmd
+        Execute(daemon_cmd,
+                user=params.hue_user,
+                )
+
     daemon_cmd = "{0} -d -p {1}".format(params.hue_bin, params.hue_pid_file)
     Execute(daemon_cmd,
             user=params.hue_user,
@@ -78,10 +91,21 @@ class Hue(Script):
     env.set_params(params)
     self.configure(env)
 
+    isComponentRunning = True
+    try:
+        check_process_status(params.hue_pid_file)
+    except ComponentIsNotRunning:
+        isComponentRunning = False
+
+    if not isComponentRunning:
+        return
+
     daemon_cmd = 'kill -15 $(cat {0})'.format(params.hue_pid_file)
     Execute(daemon_cmd,
             user=params.hue_user,
             )
+    # Sleep for a while in case restart
+    Toolkit.execute_shell("sleep 5")
 
   def status(self, env):
     import status_params

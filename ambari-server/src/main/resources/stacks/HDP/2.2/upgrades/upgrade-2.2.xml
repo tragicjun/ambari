@@ -148,7 +148,9 @@
     <group name="SPARK" title="Spark">
       <skippable>true</skippable>
       <service name="SPARK">
-        <component>SPARK_JOBHISTORYSERVER</component>
+        <component>SPARK_HISTORY_SERVER</component>
+        <component>SPARK_JDBC_SERVER</component>
+        <component>SPARK_LIVY_SERVER</component>
         <component>SPARK_CLIENT</component>
       </service>
     </group>
@@ -513,7 +515,17 @@
     </service>
 
     <service name="SPARK">
-      <component name="SPARK_JOBHISTORYSERVER">
+      <component name="SPARK_HISTORY_SERVER">
+        <upgrade>
+          <task xsi:type="restart" />
+        </upgrade>
+      </component>
+      <component name="SPARK_JDBC_SERVER">
+        <upgrade>
+          <task xsi:type="restart" />
+        </upgrade>
+      </component>
+      <component name="SPARK_LIVY_SERVER">
         <upgrade>
           <task xsi:type="restart" />
         </upgrade>
