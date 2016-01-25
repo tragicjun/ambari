@@ -25,12 +25,6 @@ cp -r /root/tbds/ambari-shell/ambari-python-shell/src/main/python/ambari_shell /
 
 chmod +x /root/tbds/ambari-agent/../ambari-common/src/main/unix/ambari-python-wrap
 
-mvn versions:set -DnewVersion=$distVersion -o
-pushd ambari-metrics
-mvn versions:set -DnewVersion=$distVersion -o
-mvn install package rpm:rpm -o -Dfindbugs.skip -DskipTests -Drat.skip -Dmaven.test.skip -DskipAssembly -DnewVersion=$distVersion
-popd
-
 mvn install package rpm:rpm -o -pl '!ambari-admin' -Dfindbugs.skip -DskipTests -Drat.skip -Dmaven.test.skip -DskipAssembly -DnewVersion=$distVersion -Dpython.ver="python >= 2.6"
 
 #svn delete tbds-server-$rpmVersion.noarch.rpm ambari-agent-$rpmVersion.x86_64.rpm
