@@ -49,4 +49,10 @@
       <description>Nginx upstream keepalive配置</description>
     </property>
 
+    <property>
+      <name>client_max_body_size</name>
+      <value>1024M</value>
+      <description>Nginx 数据包大小限制</description>
+    </property>
+
 </configuration>

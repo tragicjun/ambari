@@ -62,7 +62,7 @@ class init_pg(Script):
     cmd = format("psql -h {pg_server_hosts} -p {pg_server_port} -u postgres -d global -c \"update seg_split set seg_addr='jdbc:postgresql://{pg_server_port}:5432/seg_1';\"")
 
 
-  def create_pg_user(self,env) 
+  def create_pg_user(self,env):
 
     print 'create new pg user'
     cmd = format("psql -h {pg_server_hosts} -p {pg_server_port} -u postgres -d global -c \"insert into tdwuser(user_name,passwd,dba_priv) values('{hive_plc_user}','{hive_plc_password}',true);\"")

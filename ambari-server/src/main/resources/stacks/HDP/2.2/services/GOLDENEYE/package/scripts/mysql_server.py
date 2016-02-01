@@ -48,7 +48,7 @@ class MysqlServer(Script):
     import params
     env.set_params(params)
 
-    cmd = format("bash -x {start_mysql_script} {goldeneye_database_host} {goldeneye_database_port} {goldeneye_data_dir} {goldeneye_database_username} {goldeneye_database_password} {gri_ge_script} {gri_monitor_script} {goldeneye_web_host}")
+    cmd = format("bash -x {start_mysql_script} {goldeneye_database_host} {goldeneye_database_port} {goldeneye_data_dir} {goldeneye_database_username} {goldeneye_database_password} {gri_ge_script} {gri_monitor_script} {goldeneye_web_host} {mysqlserver_root_password}")
 
     val= os.system(cmd)
     print val

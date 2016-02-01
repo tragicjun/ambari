@@ -34,7 +34,7 @@ process_name = 'mysqld'
 if System.get_instance().os_family == "suse" or System.get_instance().os_family == "ubuntu":
   daemon_name = 'mysql'
 else:
-  daemon_name = 'mysqld'
+  daemon_name = 'mysql'
 
 
 # Security related/required params

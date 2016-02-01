@@ -50,7 +50,12 @@ class NiFi(Script):
          content=InlineTemplate(params.nifi_bootstrap_conf_template)
          )
 
-
+    # filter ip by portal to get wan ip
+    params.nifi_or_nginx_server_ip = Toolkit.get_wan_ip(
+        params.portal_server_hostname,
+        params.portal_server_port,
+        params.nifi_or_nginx_server_ip
+      )
     File(os.path.join(params.nifi_conf_dir, 'cas-nifi-web-security-context.xml'),
          owner=params.nifi_user,
          group='hadoop',

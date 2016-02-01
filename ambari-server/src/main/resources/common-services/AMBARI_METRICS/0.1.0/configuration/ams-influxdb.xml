@@ -44,7 +44,7 @@
   </property>
   <property>
     <name>influxdb.admin.port</name>
-    <value>8083</value>
+    <value>8081</value>
     <description>
       the port of web-based admin interface
     </description>

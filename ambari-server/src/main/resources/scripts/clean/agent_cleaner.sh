@@ -31,7 +31,7 @@ fi
 echo "----------   STOP ALL THE SERVICES   ----------"
 # get cluster name
 cluster=$(curl --user $user:$password http://$server:$port/api/v1/clusters 2> /dev/null | grep cluster_name | awk -F '"' '{print $4}')
-started=$(curl --user $user:$password http://$server:$port/api/v1/clusters/tdw/components?fields=ServiceComponentInfo/state 2>/dev/null | grep -c "\"STARTED\"")
+started=$(curl --user $user:$password http://$server:$port/api/v1/clusters/$cluster/host_components?fields=HostRoles/state 2>/dev/null | grep -c "\"STARTED\"")
 if [[ "$cluster" == "" ]]; then
   echo "no cluster exists, needn't to stop services."
 elif [[ $started -gt 0 ]]; then
@@ -66,7 +66,7 @@ elif [[ $started -gt 0 ]]; then
       fi
     done
   fi
-else:
+else
   echo "all components not started, need not to stop all the services."
 fi
 

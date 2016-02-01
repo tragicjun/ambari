@@ -371,20 +371,6 @@
           }
         }
       }
-    ],
-    "YARN_CLIENT":[
-	    {
-	        "name": "yarn_service_check",
-	        "label": "Yarn Service Check",
-	        "description": "yarn service check。",
-	        "interval": 10,
-	        "scope": "ANY",
-	        "enabled": true,
-	        "source": {
-	          "type": "SCRIPT",
-	          "path": "YARN/2.1.0.2.0/package/alerts/yarn_service_check.py"
-	        }
-	      }
     ]
   }
 }

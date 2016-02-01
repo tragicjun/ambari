@@ -62,12 +62,9 @@ class Hue(Script):
 
     # Initialize Hue tables
     if not os.path.isfile(params.hue_init_flag):
-        cmd = "{0} syncdb --noinput".format(params.hue_admin_bin)
-        print cmd
-        Toolkit.execute_shell(cmd,5,30)
-        cmd = "{0} migrate".format(params.hue_admin_bin)
-        print cmd
-        Toolkit.execute_shell(cmd,5,30)
+        self.initDatabase(env)
+        self.createDatabaseSchema(env)
+
         # create default admin user
         daemon_cmd = '{0} createsuperuser --username {1} --email {1}@tencent.com --noinput'.format(
             params.hue_admin_bin, params.hue_admin_user)
@@ -75,6 +72,7 @@ class Hue(Script):
         Execute(daemon_cmd,
                 user=params.hue_user,
                 )
+
         daemon_cmd = 'touch {0}'.format(params.hue_init_flag)
         print daemon_cmd
         Execute(daemon_cmd,
@@ -85,6 +83,31 @@ class Hue(Script):
     Execute(daemon_cmd,
             user=params.hue_user,
     )
+
+  def createDatabaseSchema(self, env):
+      import params
+      cmd = "{0} syncdb --noinput".format(params.hue_admin_bin)
+      print cmd
+      Toolkit.execute_shell(cmd,5,30)
+      cmd = "{0} migrate".format(params.hue_admin_bin)
+      print cmd
+      Toolkit.execute_shell(cmd,5,30)
+
+  def initDatabase(self, env):
+      import params
+      env.set_params(params)
+
+      File(params.hue_database_config_script,
+           mode=0755,
+           encoding='UTF-8',
+           content=StaticFile('startMySql.sh')
+           )
+
+      cmd = format("bash -x {hue_database_config_script} {hue_database_host} "
+                   "{hue_database_schema_path} {hue_database_username} {hue_database_password} "
+                   "{hue_database_rootusername} {hue_database_rootuserpassword} {hue_database_port}")
+      print cmd
+      Toolkit.execute_shell(cmd,5,30)
 
   def stop(self, env, rolling_restart=False):
     import params

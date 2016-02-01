@@ -10,7 +10,7 @@ class Runner(Script):
     import params
 
     print 'Install the Runner Slave'
-    excludePackage = ['lhotse-base*','mysql-server*','mysql','lhotse-service*','lhotse-web*','vsftpd*']
+    excludePackage = ['lhotse-base*','mysql-server','mysql-client','lhotse-service*','lhotse-web*','vsftpd*']
     self.install_packages(env,excludePackage)
 
     self.configure(env)

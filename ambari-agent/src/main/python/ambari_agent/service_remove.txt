@@ -1,4 +1,5 @@
 [repo_name]
+TBDS
 TDP
 HDP
 
@@ -30,15 +31,13 @@ nss-tools.x86_64
 nss-util.x86_64
 openldap.x86_64
 cyrus-sasl-lib.x86_64
+mysql-libs.x86_64
 
 [rpms_reserve_on_server]
 cas.x86_64
 deploy-portal.x86_64
-mysql.x86_64
-mysql-libs.x86_64
+mysql-client.x86_64
 mysql-server.x86_64
-perl-DBD-MySQL.x86_64
-perl-DBI.x86_64
 postgresql93.x86_64
 postgresql93-libs.x86_64
 postgresql93-server.x86_64

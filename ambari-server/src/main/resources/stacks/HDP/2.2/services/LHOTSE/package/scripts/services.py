@@ -28,7 +28,7 @@ class Services(Script):
   def install(self, env):
     import params
 
-    excludePackage = ['lhotse-base*','mysql-server*','mysql','lhotse-runner*','lhotse-web*','vsftpd*']
+    excludePackage = ['lhotse-base*','mysql-server','mysql-client','lhotse-runner*','lhotse-web*','vsftpd*']
     self.install_packages(env,excludePackage)
     self.configure(env)
 

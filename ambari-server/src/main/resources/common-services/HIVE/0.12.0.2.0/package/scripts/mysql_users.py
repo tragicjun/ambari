@@ -31,8 +31,10 @@ def mysql_adduser():
   hive_server_host = format("{hive_server_host}")
   hive_metastore_host = format("{hive_metastore_host}")
 
-  add_metastore_cmd = "bash -x {mysql_adduser_path} {daemon_name} {hive_metastore_user_name} {hive_metastore_user_passwd!p} {hive_metastore_host}"
-  add_hiveserver_cmd = "bash -x {mysql_adduser_path} {daemon_name} {hive_metastore_user_name} {hive_metastore_user_passwd!p} {hive_server_host}"
+  add_metastore_cmd = "bash -x {mysql_adduser_path} {daemon_name} {hive_metastore_user_name} {hive_metastore_user_passwd!p} {hive_metastore_host} " \
+                      "{mysql_server_host} {mysql_server_port} {mysql_server_root_password}"
+  add_hiveserver_cmd = "bash -x {mysql_adduser_path} {daemon_name} {hive_metastore_user_name} {hive_metastore_user_passwd!p} {hive_server_host} " \
+                       "{mysql_server_host} {mysql_server_port} {mysql_server_root_password}"
   if (hive_server_host == hive_metastore_host):
     cmd = format(add_hiveserver_cmd)
   else:
@@ -57,8 +59,10 @@ def mysql_deluser():
   hive_server_host = format("{hive_server_host}")
   hive_metastore_host = format("{hive_metastore_host}")
 
-  del_hiveserver_cmd = "bash -x {mysql_deluser_path} {daemon_name} {hive_metastore_user_name} {hive_server_host}"
-  del_metastore_cmd = "bash -x {mysql_deluser_path} {daemon_name} {hive_metastore_user_name} {hive_metastore_host}"
+  del_hiveserver_cmd = "bash -x {mysql_deluser_path} {daemon_name} {hive_metastore_user_name} {hive_server_host}" \
+                       "{mysql_server_host} {mysql_server_port} {mysql_server_root_password}"
+  del_metastore_cmd = "bash -x {mysql_deluser_path} {daemon_name} {hive_metastore_user_name} {hive_metastore_host}" \
+                      "{mysql_server_host} {mysql_server_port} {mysql_server_root_password}"
   if (hive_server_host == hive_metastore_host):
     cmd = format(del_hiveserver_cmd)
   else:

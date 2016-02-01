@@ -25,6 +25,7 @@ from resource_management.libraries.functions.security_commons import build_expec
   FILE_TYPE_XML
 from hive import hive
 from hive_service import hive_service
+from mysql_utils import mysql_configure
 
 
 class HiveMetastore(Script):
@@ -49,6 +50,8 @@ class HiveMetastore(Script):
     import params
 
     env.set_params(params)
+
+    mysql_configure()
 
     hive(name = 'metastore')
 

@@ -48,4 +48,9 @@ portal_database_password = default('/configurations/portal-service/portal.databa
 
 # command
 start_service = "service httpd restart"
-stop_service = "rm {0} && service httpd restart".format(portal_conf_path_web)
+stop_service = "rm -rf {0} && service httpd restart".format(portal_conf_path_web)
+
+portal_service_host = default("/clusterHostInfo/portal_service_hosts", ["127.0.0.1"])[0]
+portal_service_port = default("/configurations/portal-service/listen.port", 80)
+
+portal_service_url = "http://{0}:{1}/tbds-portal/index.php".format(portal_service_host, portal_service_port)

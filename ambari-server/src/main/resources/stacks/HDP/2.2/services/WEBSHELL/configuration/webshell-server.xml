@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property>
+    <name>server.url.prefix</name>
+    <value>/ssh</value>
+    <description>WebShell Server默认url前缀</description>
+  </property>
+  <property>
+    <name>server.port</name>
+    <value>80</value>
+    <description>WebShell Server服务端口</description>
+  </property>
+
+  <property>
+    <name>server.users</name>
+    <value>/opt/gateone/users</value>
+    <description>WebShell Server用户配置目录</description>
+  </property>
+  <property>
+    <name>server.session.dir</name>
+    <value>/tmp/gateone</value>
+    <description>WebShell Server用户会话缓存目录</description>
+  </property>
+
+  <property>
+    <name>server.logfile.maxsize</name>
+    <value>104857600</value>
+    <description>WebShell Server日志文件最大大小</description>
+  </property>
+  <property>
+    <name>server.logfile.dir</name>
+    <value>/opt/gateone/logs</value>
+    <description>WebShell Server日志文件路径</description>
+  </property>
+</configuration>

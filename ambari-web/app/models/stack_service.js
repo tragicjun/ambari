@@ -101,7 +101,8 @@ App.StackService = DS.Model.extend({
 
   // Is the service required for reporting host metrics
   isHostMetricsService: function () {
-      var services = ['GANGLIA'];
+      //Modified by junz as GANGLIA is no longer used
+      var services = ['AMBARI_METRICS'];
       return services.contains(this.get('serviceName'));
   }.property('serviceName'),
 

@@ -30,6 +30,11 @@ config = Script.get_config()
 tmp_dir = Script.get_tmp_dir()
 sudo = AMBARI_SUDO_BINARY
 
+# remote mysql
+mysql_server_host = default('/clusterHostInfo/mysqlserver_hosts',["127.0.0.1"])[0]
+mysql_server_port = default('/configurations/mysql-server/mysql.server.port',"3306")
+mysql_server_root_password = default('/configurations/mysql-server/mysql.server.root.password',"root")
+
 stack_name = default("/hostLevelParams/stack_name", None)
 
 # node hostname
@@ -105,6 +110,7 @@ else:
 execute_path = os.environ['PATH'] + os.pathsep + hive_bin + os.pathsep + hadoop_bin_dir
 hive_metastore_user_name = config['configurations']['hive-site']['javax.jdo.option.ConnectionUserName']
 hive_jdbc_connection_url = config['configurations']['hive-site']['javax.jdo.option.ConnectionURL']
+hive_jdbc_connection_url = "jdbc:mysql://{0}:{1}/hive?createDatabaseIfNotExist=true".format(mysql_server_host, mysql_server_port)
 
 webhcat_conf_dir = status_params.webhcat_conf_dir
 hive_metastore_user_passwd = config['configurations']['hive-site']['javax.jdo.option.ConnectionPassword']
@@ -136,9 +142,11 @@ hive_jdbc_drivers_list = ["com.microsoft.sqlserver.jdbc.SQLServerDriver","com.my
 downloaded_custom_connector = format("{tmp_dir}/{jdbc_jar_name}")
 prepackaged_ojdbc_symlink = format("{hive_lib}/ojdbc6.jar")
 
+
 #common
 hive_metastore_hosts = config['clusterHostInfo']['hive_metastore_host']
 hive_metastore_host = hive_metastore_hosts[0]
+get_port_from_url = lambda url: url.split(":")[-1] if url.split(":")[-1].isdigit() else 9083
 hive_metastore_port = get_port_from_url(config['configurations']['hive-site']['hive.metastore.uris']) #"9083"
 hive_var_lib = '/var/lib/hive'
 ambari_server_hostname = config['clusterHostInfo']['ambari_server_host'][0]
@@ -216,7 +224,7 @@ java64_home = config['hostLevelParams']['java_home']
 
 db_name = config['configurations']['hive-env']['hive_database_name']
 mysql_group = 'mysql'
-mysql_host = config['clusterHostInfo']['hive_mysql_host']
+mysql_host = config['clusterHostInfo']['mysqlserver_hosts'][0]
 
 mysql_adduser_path = format("{tmp_dir}/addMysqlUser.sh")
 mysql_deluser_path = format("{tmp_dir}/removeMysqlUser.sh")
@@ -278,10 +286,7 @@ app_dir_files = {tez_local_api_jars:None}
 # Tez libraries
 tez_lib_uris = default("/configurations/tez-site/tez.lib.uris", None)
 
-if System.get_instance().os_family == "ubuntu":
-  mysql_configname = '/etc/mysql/my.cnf'
-else:
-  mysql_configname = '/etc/my.cnf'
+mysql_configname = '/etc/my.cnf'
   
 mysql_user = 'mysql'
 
@@ -298,7 +303,7 @@ if hive_use_existing_db:
   hive_exclude_packages = ['mysql-connector-java', 'mysql', 'mysql-server']
 else:
   if 'role' in config and config['role'] != "MYSQL_SERVER":
-    hive_exclude_packages = ['mysql', 'mysql-server']
+    hive_exclude_packages = ['mysql-client', 'mysql-server']
   if os.path.exists(mysql_jdbc_driver_jar):
     hive_exclude_packages.append('mysql-connector-java')
 
@@ -423,15 +428,15 @@ hive_config_path = "/etc/hive"
 hive_log_path = default("/configurations/hive-env/hive_log_dir", "/data/var/log/hive")
 hive_log_path_hcat = default("/configurations/hive-env/hcat_log_dir", "/data/var/log/webhcat")
 
-hive_config_path_mysql = "/etc/my.cnf"
-hive_log_path_mysql = "/var/log/mysqld.log"
-hive_data_path_mysql = "/data/mysql_data"
+# hive_config_path_mysql = "/etc/my.cnf"
+# hive_log_path_mysql = "/var/log/mysqld.log"
+# hive_data_path_mysql = "/data/mysql_data"
 
 new_hive_install_path = "/opt/tbds/hive"
 new_hive_config_path = "/etc/tbds/hive"
 new_hive_log_path = "/var/log/tbds/hive/server"
 new_hive_log_path_hcat = "/var/log/tbds/hive/webhcat"
 
-new_hive_config_path_mysql = "/etc/tbds/hive/mysql/my.cnf"
-new_hive_log_path_mysql = "/var/log/tbds/hive/mysql/mysqld.log"
-new_hive_data_path_mysql = "/data/tbds/hive/mysql"
+# new_hive_config_path_mysql = "/etc/tbds/hive/mysql/my.cnf"
+# new_hive_log_path_mysql = "/var/log/tbds/hive/mysql/mysqld.log"
+# new_hive_data_path_mysql = "/data/tbds/hive/mysql"

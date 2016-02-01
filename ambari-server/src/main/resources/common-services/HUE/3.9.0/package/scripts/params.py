@@ -20,12 +20,11 @@ limitations under the License.
 from resource_management.libraries.script.script import Script
 from resource_management.libraries.functions.version import format_hdp_stack_version, compare_versions
 from resource_management.libraries.functions.default import default
-from resource_management.core.logger import Logger
-
-import status_params
+from resource_management import *
 
 # server configurations
 config = Script.get_config()
+tmp_dir = Script.get_tmp_dir()
 
 stack_name = default("/hostLevelParams/stack_name", None)
 
@@ -93,3 +92,14 @@ security_enabled = config['configurations']['cluster-env']['security_enabled']
 hive_metastore_user_name = config['configurations']['hive-site']['javax.jdo.option.ConnectionUserName']
 hive_metastore_user_passwd = config['configurations']['hive-site']['javax.jdo.option.ConnectionPassword']
 hive_metastore_host = default('/clusterHostInfo/hive_mysql_host', ['localhost'])[0]
+
+hue_database_config_script = format("{tmp_dir}/startMySql.sh")
+hue_database_host = default("/clusterHostInfo/mysqlserver_hosts", ["127.0.0.1"])[0]
+hue_database_port = default("/configurations/mysql-server/mysql.server.port", "3306")
+hue_database_schema_path = "NA"
+hue_database_rootusername = "root"
+hue_database_rootuserpassword = default("/configurations/mysql-server/mysql.server.root.password", "root")
+hue_database_username = "hue"
+hue_database_password = "hue"
+hue_database_name = "hue"
+hue_database_engine = "mysql"

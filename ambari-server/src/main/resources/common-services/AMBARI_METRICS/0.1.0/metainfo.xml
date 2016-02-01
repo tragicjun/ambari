@@ -47,7 +47,7 @@
         </component>
         <component>
           <name>METRICS_INFLUXDB</name>
-          <displayName>Metrics influxdb</displayName>
+          <displayName>Metrics Influxdb</displayName>
           <category>MASTER</category>
           <cardinality>1</cardinality>
           <versionAdvertised>false</versionAdvertised>

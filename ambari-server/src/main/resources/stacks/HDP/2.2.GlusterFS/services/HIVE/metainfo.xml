@@ -43,7 +43,7 @@
               <name>hive_2_2_*-webhcat</name>
             </package>
             <package>
-              <name>mysql</name>
+              <name>mysql-client</name>
             </package>
           </packages>
         </osSpecific>

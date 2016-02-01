@@ -9,6 +9,7 @@ upstream {{ item["name"] }} {
 server {
     listen       {{nginx_server_port}};
     server_name  {{nginx_server_host}};
+    client_max_body_size {{client_max_body_size}};
 
     # charset koi8-r;
     # access_log  /var/log/nginx/log/host.access.log  main;

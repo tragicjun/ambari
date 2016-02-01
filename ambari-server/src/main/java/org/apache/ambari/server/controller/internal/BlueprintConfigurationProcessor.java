@@ -814,8 +814,9 @@ public class BlueprintConfigurationProcessor {
      */
     private boolean isDatabaseManaged(Map<String, Map<String, String>> properties) {
       // conditional property should always exist since it is required to be specified in the stack
-      return properties.get(configPropertyType).
-          get(conditionalPropertyName).startsWith("New");
+      return false;
+//      return properties.get(configPropertyType).
+//          get(conditionalPropertyName).startsWith("New");
     }
   }
 

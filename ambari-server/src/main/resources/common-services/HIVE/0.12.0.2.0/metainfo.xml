@@ -32,6 +32,15 @@
           <cardinality>1</cardinality>
           <versionAdvertised>true</versionAdvertised>
           <clientsToUpdateConfigs></clientsToUpdateConfigs>
+          <dependencies>
+            <dependency>
+              <name>MYSQL/MYSQLCLIENT</name>
+              <scope>host</scope>
+              <auto-deploy>
+                <enabled>true</enabled>
+              </auto-deploy>
+            </dependency>
+          </dependencies>
           <auto-deploy>
             <enabled>true</enabled>
             <co-locate>HIVE/HIVE_SERVER</co-locate>
@@ -150,7 +159,7 @@
             <config-type>hive-site</config-type>
           </configuration-dependencies>
         </component>
-        <component>
+        <!-- <component>
           <name>MYSQL_SERVER</name>
           <displayName>MySQL Server</displayName>
           <category>MASTER</category>
@@ -171,7 +180,7 @@
             </commandScript>
                 </customCommand>
           </customCommands>
-        </component>
+        </component> -->
 
         <component>
           <name>HIVE_CLIENT</name>
@@ -275,7 +284,7 @@
           <osFamily>redhat5,redhat6,suse11</osFamily>
           <packages>
             <package>
-              <name>mysql</name>
+              <name>mysql-client</name>
             </package>
           </packages>
         </osSpecific>

@@ -37,11 +37,20 @@ lhotse_base_logpath_coredump = default("/configurations/lhotse-base-env/coredump
 lhotse_base_logpath_gclog = default("/configurations/lhotse-base-env/gclog.dir", "/data/tbds/lhotse/base/gclogs/")
 
 #lhotse database config
-lhotse_database_hosts = default("/clusterHostInfo/lhotse_database_hosts", ["127.0.0.1"])[0]
-lhotse_database_port = 3306
+#start_mysql_script = default("/clusterHostInfo/lhotse_database_hosts", ["127.0.0.1"])[0]
+#lhotse_database_port = 3306
+#lhotse_database_username = default("/configurations/lhotse-database/lhotse.db.username", "lhotse")
+#lhotse_database_password = default("/configurations/lhotse-database/lhotse.db.password", "lhotse")
+#lhotse_database_rootusername = default("/configurations/lhotse-database/lhotse.db.username", "lhotse")
+lhotse_database_hosts = default("/clusterHostInfo/mysqlserver_hosts", ["127.0.0.1"])[0]
+lhotse_database_port = default("/configurations/mysql-server/mysql.server.port", "3306")
 lhotse_database_username = default("/configurations/lhotse-database/lhotse.db.username", "lhotse")
 lhotse_database_password = default("/configurations/lhotse-database/lhotse.db.password", "lhotse")
-lhotse_database_data_dir = default("/configurations/lhotse-database/data.dir", "/data/mysql_data")
+lhotse_database_rootusername = "root"
+lhotse_database_rootuserpassword = default("/configurations/mysql-server/mysql.server.root.password", "root")
+
+#data dir is not used any more
+#lhotse_database_data_dir = default("/configurations/lhotse-database/data.dir", "/data/mysql_data")
 
 #lhotse service config
 lhotse_service_hosts = default("/clusterHostInfo/lhotse_service_hosts", ["127.0.0.1"])[0]
@@ -158,6 +167,7 @@ lhotse_config_path_ftp = "/etc/vsftpd"
 lhotse_config_path_mysql = "/etc/my.cnf"
 
 lhotse_data_path_mysql = default("/configurations/lhotse-database/data.dir", "/data/mysql_data")
+lhotse_data_path_ftp = default("/configurations/lhotse-ftp/data.dir", "/data/ftp_data")
 
 new_lhotse_install_path_base = "/opt/tbds/lhotse/lhotse_base"
 new_lhotse_install_path_runner = "/opt/tbds/lhotse/lhotse_runner"

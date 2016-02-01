@@ -23,19 +23,6 @@ module.exports =
   "configProperties": [
   //***************************************** BIGTOP stack **************************************
  /**********************************************LHOTSE***************************************/
-    {
-      "id": "site property",
-      "name": "data.dir",
-      "displayName": "data目录",
-      "defaultValue": "/data/mysql_data",
-      "isReconfigurable": false,
-      "displayType": "directory",
-      "isOverridable": false,
-      "isVisible": true,
-      "serviceName": "LHOTSE",
-      "filename": "lhotse-database.xml",
-      "category": "Advanced lhotse-database"
-    },
 	{
       "id": "site property",
       "name": "lhotse.db.password",
@@ -110,19 +97,6 @@ module.exports =
       "category": "Advanced ftp"
     },
     /**********************************************GOLDENEYE***************************************/
-    {
-      "id": "site property",
-      "name": "data.dir",
-      "displayName": "data目录",
-      "defaultValue": "/data/goldeneye/mysql_data",
-      "isReconfigurable": false,
-      "displayType": "directory",
-      "isOverridable": false,
-      "isVisible": true,
-      "serviceName": "GOLDENEYE",
-      "filename": "goldeneye-database.xml",
-      "category": "Advanced goldeneye-database"
-    },	
 	{
       "id": "site property",
       "name": "goldeneye.password",

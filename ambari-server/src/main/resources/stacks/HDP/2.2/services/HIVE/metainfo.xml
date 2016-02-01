@@ -73,7 +73,7 @@
               <name>hive_2_2_*-webhcat</name>
             </package>
             <package>
-              <name>mysql</name>
+              <name>mysql-client</name>
             </package>
           </packages>
         </osSpecific>
@@ -110,6 +110,7 @@
       </osSpecifics>
 
       <requiredServices>
+        <service>MYSQL</service>
         <service>TEZ</service>
         <service>PIG</service>
         <service>MAPREDUCE2</service>

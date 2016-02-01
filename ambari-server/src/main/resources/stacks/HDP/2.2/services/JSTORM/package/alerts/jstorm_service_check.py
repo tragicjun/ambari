@@ -63,9 +63,6 @@ def execute(parameters=None, host_name=None):
     try:
       summary = json.loads(out)
       freeSlots = summary['slotsFree']
-      if freeSlots <= slots_num:
-        result_code = "WARNING"
-        label = "jstorm is busy now, free slots:{0}".format(freeSlots)
     except Exception,e:
       result_code = "CRITICAL"
       label = '{0} parse error:{1}'.format(out,str(e))

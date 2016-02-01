@@ -47,19 +47,6 @@ var hdp2properties = [
        "filename": "lhotse-base-env.xml",
        "category": "Advanced lhotse-base-env"
     },
-    {
-      "id": "site property",
-      "name": "data.dir",
-      "displayName": "data目录",
-      "defaultDirectory": "/lhotse/mysql_data",
-      "isReconfigurable": false,
-      "displayType": "directory",
-      "isOverridable": false,
-      "isVisible": true,
-      "serviceName": "LHOTSE",
-      "filename": "lhotse-database.xml",
-      "category": "Advanced lhotse-database"
-    },
 	{
       "id": "site property",
       "name": "lhotse.db.username",
@@ -134,19 +121,6 @@ var hdp2properties = [
       "category": "Advanced ftp"
     },
     /**********************************************GOLDENEYE***************************************/
-    {
-      "id": "puppet var",
-      "name": "goldeneye.data.dir",
-      "displayName": "data目录",
-      "defaultDirectory": "/goldeneye/mysql_data",
-      "isReconfigurable": false,
-      "displayType": "directory",
-      "isOverridable": false,
-      "isVisible": true,
-      "serviceName": "GOLDENEYE",
-      "filename": "goldeneye-database.xml",
-      "category": "Advanced goldeneye-database"
-    },	
 	{
       "id": "site property",
       "name": "goldeneye.username",

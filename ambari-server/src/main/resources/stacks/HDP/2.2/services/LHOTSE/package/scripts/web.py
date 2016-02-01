@@ -32,7 +32,7 @@ class Web(Script):
   def install(self, env):
     import params
 
-    excludePackage = ['lhotse-base*','mysql-server*','mysql','lhotse-service*','lhotse-runner*','vsftpd*']
+    excludePackage = ['lhotse-base*','mysql-server','mysql-client','lhotse-service*','lhotse-runner*','vsftpd*']
     self.install_packages(env,excludePackage)
 
     self.configure(env)

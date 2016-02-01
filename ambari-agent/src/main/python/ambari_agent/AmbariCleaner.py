@@ -89,10 +89,10 @@ class AmbariCleaner:
     rpmReserveNames = self.join(self.rpmsReserve)
     rpmReserveOnServerNames = self.join(self.rpmsReserveOnServer)
 
-    rpmsCmd = "unbuffer yum list installed 2>/dev/null | grep -E '" + repoNames + "' | awk '{print $1}' | grep -vE '^" + rpmReserveNames + "$'"
+    rpmsCmd = "unbuffer yum list installed 2>/dev/null | grep -E '" + repoNames + "' | awk '{print $1}' | grep -viE '^" + rpmReserveNames + "$'"
 
     if self.onServer:
-      rpmsCmd += " | grep -vE '" + rpmReserveOnServerNames + "'"
+      rpmsCmd += " | grep -viE '" + rpmReserveOnServerNames + "'"
 
     cmd = rpmsCmd + " | xargs yum remove -y"
     (ok, output) = self.run_cmd(cmd)
@@ -121,6 +121,9 @@ class AmbariCleaner:
       self.run_cmd("ipcs -s | grep postgres | awk '{print \"ipcrm -s \"$2}' | sh")
       self.run_cmd("ipcs -q | grep postgres | awk '{print \"ipcrm -q \"$2}' | sh")
 
+      # kill mysql process if it's started
+      self.run_cmd("ps aux | grep mysql | grep -v grep | awk '{print \"kill -9 \"$2}' | sh")
+
   def remove_dir(self):
     if not self.onServer:
       self.run_cmd("rm -rf /usr/bin/ambari-python-wrap")
@@ -129,7 +132,8 @@ class AmbariCleaner:
       self.run_cmd("rm -rf /usr/lib/python2.6/site-packages/resource_management")
       self.run_cmd("rm -rf /usr/lib/python2.6/site-packages/resource_monitoring")
 
-      self.run_cmd("rm -f /var/lib/mysql")
+      self.run_cmd("rm -rf /var/lib/mysql")
+      self.run_cmd("rm -f /etc/my.cnf*")
       self.run_cmd("rm -rf /var/lib/pgsql/")
       self.run_cmd("rm -rf /var/run/post*")
       self.run_cmd("rm -rf /var/lock/subsys/postgresql*")

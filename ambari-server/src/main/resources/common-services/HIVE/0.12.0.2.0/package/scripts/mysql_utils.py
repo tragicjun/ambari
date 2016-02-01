@@ -25,10 +25,10 @@ def mysql_configure():
   import params
 
   # required for running hive
-  replace_bind_address = ('sed','-i','s|^bind-address[ \t]*=.*|bind-address = 0.0.0.0|',params.mysql_configname)
-  Execute(replace_bind_address,
-          sudo = True,
-  )
+  # replace_bind_address = ('sed','-i','s|^bind-address[ \t]*=.*|bind-address = 0.0.0.0|',params.mysql_configname)
+  # Execute(replace_bind_address,
+  #         sudo = True,
+  # )
   
   # this also will start mysql-server
   mysql_users.mysql_adduser()

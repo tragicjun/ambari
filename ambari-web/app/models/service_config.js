@@ -448,7 +448,7 @@ App.ServiceConfigProperty = Em.Object.extend({
         this.set('value', masterComponentHostsInDB.filterProperty('component', 'HIVE_METASTORE').mapProperty('hostName'));
         break;
       case 'hive_ambari_host':
-        this.set('value', masterComponentHostsInDB.findProperty('component', 'HIVE_SERVER').hostName);
+        this.set('value', masterComponentHostsInDB.findProperty('component', 'MYSQLSERVER').hostName);
         break;
       case 'hive_master_hosts':
         var hostNames = masterComponentHostsInDB.filter(function (masterComponent) {
@@ -645,6 +645,14 @@ App.ServiceConfigProperty = Em.Object.extend({
         } else {
           this.set('isVisible', 'false');
           this.set('isRequired', 'false');
+        }
+        break;
+      case 'javax.jdo.option.ConnectionURL':
+        if (this.get('filename') == 'hive-site.xml') {
+          var nnHost = masterComponentHostsInDB.filterProperty('component', 'MYSQLSERVER').mapProperty('hostName');
+          this.setDefaultValue("localhost", nnHost);
+          localDB.serviceConfigs;
+          this.get('stepConfigs');
         }
         break;
     }

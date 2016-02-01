@@ -230,7 +230,7 @@
           <osFamily>redhat5,redhat6,suse11</osFamily>
           <packages>
             <package>
-              <name>mysql</name>
+              <name>mysql-client</name>
             </package>
           </packages>
         </osSpecific>

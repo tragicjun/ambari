@@ -82,7 +82,7 @@
               <name>mysql-connector-java</name>
             </package>
             <package>
-              <name>mysql</name>
+              <name>mysql-client</name>
             </package>
           </packages>
         </osSpecific>

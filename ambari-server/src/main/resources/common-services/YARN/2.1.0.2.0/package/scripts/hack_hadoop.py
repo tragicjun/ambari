@@ -43,21 +43,17 @@ class hack_hadoop:
       remote_jar_name = jar_replacement[1]
       local_jar_name = jar_replacement[2]
 
-      local_backup_jar = "{0}/{1}.bak".format(local_dir, local_jar_name)
-
-      # local_dir exists and jar is not hacked
-      if os.path.exists(local_dir) and not os.path.exists(local_backup_jar):
+      # local_dir exists and hack jar anyway
+      if os.path.exists(local_dir):
         remote_jar = "{0}/hadoop-2.6.0/{1}".format(yum_repo_url, remote_jar_name)
         download_jar = "{0}/{1}".format(local_dir, remote_jar_name)
         local_jar = "{0}/{1}".format(local_dir, local_jar_name)
 
         wget_jar_cmd = "cd {0}; wget {1} 2>/dev/null".format(local_dir, remote_jar)
-        backup_jar_cmd = "cp {0} {1}".format(local_jar, local_backup_jar)
         replace_jar_cmd = "mv {0} {1}".format(download_jar, local_jar)
 
         # download and replace
         Toolkit.exe(wget_jar_cmd)
-        Toolkit.exe(backup_jar_cmd)
         Toolkit.exe(replace_jar_cmd)
 
 

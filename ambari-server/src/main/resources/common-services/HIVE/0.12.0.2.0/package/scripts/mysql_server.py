@@ -34,9 +34,9 @@ class MysqlServer(Script):
     self.configure(env)
 
     import params
-    Links(params.new_hive_config_path_mysql, params.hive_config_path_mysql)
-    Links(params.new_hive_log_path_mysql, params.hive_log_path_mysql)
-    Links(params.new_hive_data_path_mysql, params.hive_data_path_mysql)
+    # Links(params.new_hive_config_path_mysql, params.hive_config_path_mysql)
+    # Links(params.new_hive_log_path_mysql, params.hive_log_path_mysql)
+    # Links(params.new_hive_data_path_mysql, params.hive_data_path_mysql)
 
   def uninstall(self, env):
     Toolkit.uninstall_service("hive")

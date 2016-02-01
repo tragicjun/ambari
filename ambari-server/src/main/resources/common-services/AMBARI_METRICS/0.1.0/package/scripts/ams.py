@@ -131,7 +131,7 @@ def ams(name=None):
 
     # Added by junz for injecting influxdb config to collector ams-site
     ams_site_config = dict(params.config['configurations']['ams-site'])
-    ams_site_config['influxdb.http.port'] = params.influxdb_http_port
+    ams_site_config['influxdb.http.port'] = str(params.influxdb_http_port)
     XmlConfig("ams-site.xml",
               conf_dir=params.ams_collector_conf_dir,
               configurations=ams_site_config,

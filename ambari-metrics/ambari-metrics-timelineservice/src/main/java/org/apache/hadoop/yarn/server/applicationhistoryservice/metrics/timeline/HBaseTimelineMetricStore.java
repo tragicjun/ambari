@@ -294,13 +294,18 @@ public class HBaseTimelineMetricStore extends AbstractService
     if(influxDB != null) {
       for (TimelineMetric metric : metrics.getMetrics()) {
         for (Map.Entry<Long, Double> metricEntry : metric.getMetricValues().entrySet()) {
-          Point point = Point.measurement(metric.getMetricName().replaceAll("\\.", "_"))
+          Point.Builder builder = Point.measurement(metric.getMetricName().replaceAll("\\.", "_"))
                   .time(metricEntry.getKey(), TimeUnit.MILLISECONDS)
                   .tag("app_id", metric.getAppId())
                   .tag("host_name", metric.getHostName())
-                  .tag("type", metric.getType())
-                  .field("value", metricEntry.getValue())
-                  .build();
+                  .field("value", metricEntry.getValue());
+          if(metric.getType() != null){
+            builder.tag("type", metric.getType());
+          }
+          if(metric.getInstanceId() != null && metric.getInstanceId().length() > 0){
+            builder.tag("instance_id", metric.getType());
+          }
+          Point point = builder.build();
           influxDB.write("tbds", "default", point);
           LOG.debug("Written influxdb metrics:" + point);
         }

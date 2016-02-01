@@ -51,7 +51,7 @@ class mysqlServer(Script):
         import os
         import params
         Logger.info("start mysql")
-        cmd = "sudo service mysqld start"
+        cmd = "sudo service mysql start"
         utils().exe(cmd)
         
 
@@ -60,7 +60,7 @@ class mysqlServer(Script):
         import params
 
         Logger.info("stop mysql")
-        cmd = "sudo service mysqld stop"
+        cmd = "sudo service mysql stop"
 
         utils().exe(cmd)
 

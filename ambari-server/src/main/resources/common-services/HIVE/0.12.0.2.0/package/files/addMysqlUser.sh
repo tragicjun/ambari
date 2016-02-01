@@ -25,13 +25,17 @@ mysqldbuser=$2
 mysqldbpasswd=$3
 userhost=$4
 
+remote_mysql_host=$5
+remote_mysql_port=$6
+remote_mysql_root_password=$7
+
 # The restart (not start) is required to pick up mysql configuration changes made by sed
 # during install, in case mysql is already started. The changes are required by Hive later on.
-/var/lib/ambari-agent/ambari-sudo.sh service $mysqldservice restart
+# /var/lib/ambari-agent/ambari-sudo.sh service $mysqldservice restart
   
 echo "Adding user $mysqldbuser@% and removing users with empty name"
-/var/lib/ambari-agent/ambari-sudo.sh su mysql -s /bin/bash - -c "mysql -u root -e \"CREATE USER '$mysqldbuser'@'%' IDENTIFIED BY '$mysqldbpasswd';\""
-/var/lib/ambari-agent/ambari-sudo.sh su mysql -s /bin/bash - -c "mysql -u root -e \"GRANT ALL PRIVILEGES ON *.* TO '$mysqldbuser'@'%';\""
-/var/lib/ambari-agent/ambari-sudo.sh su mysql -s /bin/bash - -c "mysql -u root -e \"DELETE FROM mysql.user WHERE user='';\""
-/var/lib/ambari-agent/ambari-sudo.sh su mysql -s /bin/bash - -c "mysql -u root -e \"flush privileges;\""
-/var/lib/ambari-agent/ambari-sudo.sh su mysql -s /bin/bash - -c "mysql -u root -e \"GRANT ALL PRIVILEGES ON *.* TO '$mysqldbuser'@'$userhost' IDENTIFIED BY '$mysqldbpasswd';\""
+/var/lib/ambari-agent/ambari-sudo.sh mysql -h $remote_mysql_host -P $remote_mysql_port -u root -p$remote_mysql_root_password -e "CREATE USER '$mysqldbuser'@'%' IDENTIFIED BY '$mysqldbpasswd';"
+/var/lib/ambari-agent/ambari-sudo.sh mysql -h $remote_mysql_host -P $remote_mysql_port -u root -p$remote_mysql_root_password -e "GRANT ALL PRIVILEGES ON hive.* TO '$mysqldbuser'@'%' IDENTIFIED BY '$mysqldbpasswd';"
+/var/lib/ambari-agent/ambari-sudo.sh mysql -h $remote_mysql_host -P $remote_mysql_port -u root -p$remote_mysql_root_password -e "DELETE FROM mysql.user WHERE user='';"
+/var/lib/ambari-agent/ambari-sudo.sh mysql -h $remote_mysql_host -P $remote_mysql_port -u root -p$remote_mysql_root_password -e "flush privileges;"
+/var/lib/ambari-agent/ambari-sudo.sh mysql -h $remote_mysql_host -P $remote_mysql_port -u root -p$remote_mysql_root_password -e "GRANT ALL PRIVILEGES ON hive.* TO '$mysqldbuser'@'$userhost' IDENTIFIED BY '$mysqldbpasswd';"

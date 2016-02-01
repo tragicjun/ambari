@@ -31,8 +31,18 @@ class Web(Script):
 
   def install(self, env):
     import params
-    excludePackage = ['mysql-server*','mysql']
+    env.set_params(params)
+
+    excludePackage = ['mysql-server','mysql-client']
     self.install_packages(env,excludePackage)
+
+    print 'init database scripts'
+    configinit().init_mysql_scripts()
+    Toolkit.exe(format("bash -x {start_mysql_script} {goldeneye_database_host} {goldeneye_database_port} "
+                       "{goldeneye_data_dir} {goldeneye_database_username} {goldeneye_database_password} "
+                       "{gri_ge_script} {gri_monitor_script} {goldeneye_web_host} {mysqlserver_root_password}"))
+
+
     self.configure(env)
 
     Links(params.new_goldeneye_install_path, params.goldeneye_install_path)

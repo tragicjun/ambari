@@ -141,6 +141,7 @@
           <requires>
             <require>${python.ver}</require>
           </requires>
+          <needarch>x86_64</needarch>
 
           <defaultFilemode>644</defaultFilemode>
           <defaultDirmode>755</defaultDirmode>
@@ -191,6 +192,14 @@
                     <include>phoenix*.jar</include>
                     <include>antlr*.jar</include>
                   </includes>
+                </source>
+              </sources>
+            </mapping>
+            <mapping>
+              <directory>/usr/lib/ams-hbase/lib/hadoop-native/</directory>
+              <sources>
+                <source>
+                  <location>../ambari-metrics-assembly/target/embedded/${hadoop.folder}/lib/native</location>
                 </source>
               </sources>
             </mapping>
@@ -540,7 +549,7 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.influxdb</groupId>
+      <groupId>com.tencent.tbds</groupId>
       <artifactId>influxdb-java</artifactId>
       <version>2.1</version>
     </dependency>

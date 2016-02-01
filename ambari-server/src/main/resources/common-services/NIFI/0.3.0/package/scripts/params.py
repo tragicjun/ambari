@@ -56,19 +56,6 @@ portal_server_hostname=default("/configurations/cluster-env/portal_server_hostna
 portal_server_port=default("/configurations/cluster-env/portal_server_port", 80)
 jar_path_url='http://' + portal_server_hostname + ':' + str(portal_server_port) + '/openapi/findFiles'
 
-url='http://' + portal_server_hostname + ':' + str(portal_server_port) + '/openapi/getHostWanIp?localIP=' + nifi_or_nginx_server_ip
-Logger.info(url)
-res = urllib2.urlopen(url)
-res_data=res.read()
-Logger.info(res_data)
-obj = json.loads(res_data)
-code = obj.get("resultCode")
-wanip = obj.get("resultData")
-if '0'==code:
-  nifi_or_nginx_server_ip = wanip
-else:
-  Logger.warn('get nifi server wanip failed :' + wanip)
-
 nifi_user = config['configurations']['nifi-env']['nifi_user']
 hostname = config['hostname']
 user_group = config['configurations']['cluster-env']['user_group']

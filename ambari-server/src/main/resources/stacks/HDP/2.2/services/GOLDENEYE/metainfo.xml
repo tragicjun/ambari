@@ -34,20 +34,29 @@
             <scriptType>PYTHON</scriptType>
             <timeout>600</timeout>
           </commandScript>
+          <dependencies>
+            <dependency>
+              <name>MYSQL/MYSQLCLIENT</name>
+              <scope>host</scope>
+              <auto-deploy>
+                <enabled>true</enabled>
+              </auto-deploy>
+            </dependency>
+          </dependencies>
         </component>
 
 
-        <component>
-          <name>GOLDENEYE_METADATA_DATABASE</name>
-          <displayName>GoldenEye MetaDB</displayName>
-          <category>MASTER</category>
-          <cardinality>1</cardinality>
-          <commandScript>
-            <script>scripts/mysql_server.py</script>
-            <scriptType>PYTHON</scriptType>
-            <timeout>600</timeout>
-          </commandScript>
-        </component>
+        <!--<component>-->
+          <!--<name>GOLDENEYE_METADATA_DATABASE</name>-->
+          <!--<displayName>GoldenEye MetaDB</displayName>-->
+          <!--<category>MASTER</category>-->
+          <!--<cardinality>1</cardinality>-->
+          <!--<commandScript>-->
+            <!--<script>scripts/mysql_server.py</script>-->
+            <!--<scriptType>PYTHON</scriptType>-->
+            <!--<timeout>600</timeout>-->
+          <!--</commandScript>-->
+        <!--</component>-->
 
       </components>
 
@@ -60,14 +69,18 @@
             </package>
 
             <package>
-              <name>mysql-server*</name>
+              <name>mysql-server</name>
             </package>
             <package>
-              <name>mysql</name>
+              <name>mysql-client</name>
             </package>
           </packages>
         </osSpecific>
       </osSpecifics>
+
+      <requiredServices>
+        <service>MYSQL</service>
+      </requiredServices>
 
       <configuration-dependencies>
         <config-type>goldeneye-database</config-type>

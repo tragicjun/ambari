@@ -60,7 +60,7 @@
               <name>dse</name>
             </package>
             <package>
-              <name>mysql-server*</name>
+              <name>mysql-server</name>
             </package>
 
           </packages>

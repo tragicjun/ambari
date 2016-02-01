@@ -18,9 +18,18 @@
             <scriptType>PYTHON</scriptType>
             <timeout>600</timeout>
           </commandScript>
+          <dependencies>
+            <dependency>
+              <name>MYSQL/MYSQLCLIENT</name>
+              <scope>host</scope>
+              <auto-deploy>
+                <enabled>true</enabled>
+              </auto-deploy>
+            </dependency>
+          </dependencies>
         </component>
 
-        <component>
+      <!--   <component>
           <name>LHOTSE_DATABASE</name>
           <displayName>Lhotse Database</displayName>
           <category>MASTER</category>
@@ -30,7 +39,7 @@
             <scriptType>PYTHON</scriptType>
             <timeout>1200</timeout>
           </commandScript>
-        </component>
+        </component>-->
 
         <component>
           <name>LHOTSE_SERVICE</name>
@@ -131,10 +140,10 @@
               <name>lhotse-runner*</name>
             </package>
             <package>
-              <name>mysql-server*</name>
+              <name>mysql-server</name>
             </package>
             <package>
-              <name>mysql</name>
+              <name>mysql-client</name>
             </package>
 
             <package>
@@ -154,6 +163,7 @@
       <requiredServices>
         <service>HIVE</service>
         <service>FTP</service>
+        <service>MYSQL</service>
       </requiredServices>
 
       <configuration-dependencies>

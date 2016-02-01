@@ -348,7 +348,7 @@ class ActionQueue(threading.Thread):
 
         result['extra'] = component_extra
 
-      logger.debug("Got live status for component " + component + \
+      logger.debug("Got live status " + result['status'] + " for component " + component + \
                    " of service " + str(service) + \
                    " of cluster " + str(cluster))
 

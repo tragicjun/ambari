@@ -36,6 +36,7 @@ nginx_server_host = socket.gethostbyname(socket.gethostname())
 nginx_server_port = default('/configurations/nginx-config/nginx.port',8080)
 nginx_log_path = default('/configurations/nginx-config/nginx.log.path','/data/nginx/log/')
 nginx_errorlog_level = default('/configurations/nginx-config/nginx.errorlog.level','crit')
+client_max_body_size = default('/configurations/nginx-config/client_max_body_size','1024M')
 
 nginx_log_accesslog = format("{nginx_log_path}/access.log")
 nginx_log_errorlog = format("{nginx_log_path}/error.log")

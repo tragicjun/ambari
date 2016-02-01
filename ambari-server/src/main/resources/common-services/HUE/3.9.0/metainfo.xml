@@ -50,7 +50,10 @@
               <name>libxslt</name>
             </package>
             <package>
-              <name>mysql-libs-*</name>
+              <name>MySQL-client-*</name>
+            </package>
+            <package>
+              <name>mysql-shared-tbds-*</name>
             </package>
           </packages>
         </osSpecific>
@@ -76,6 +79,7 @@
       </commandScript>
       
       <requiredServices>
+        <service>MYSQL</service>
         <service>HDFS</service>
         <service>HIVE</service>
       </requiredServices>

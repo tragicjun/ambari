@@ -5,13 +5,13 @@ from configinit import configinit
 
 class Base(Script):
 
-  
-
   def install(self, env):
     print 'install lhotse'
     excludePackage = ['lhotse-runner*','mysql-server*','mysql','lhotse-service*','lhotse-web*','vsftpd*']
     self.install_packages(env,excludePackage)
     self.start(env)
+
+    self.initLhotseDB(env)
 
     import params
     Links(params.new_lhotse_install_path_base, params.lhotse_install_path_base)
@@ -50,8 +50,23 @@ class Base(Script):
 
     Links(params.new_lhotse_log_base_coredump, params.lhotse_log_base_coredump)
     Links(params.new_lhotse_log_base_gclog, params.lhotse_log_base_gclog)
+    
 
+  def initLhotseDB(self, env):
+    import params
+    env.set_params(params)
+    
+    File(params.start_mysql_script,
+         mode=0755,
+         encoding='UTF-8',
+         content=StaticFile('startMySql.sh')
+    )
+    configinit().update_db_config()
+    cmd = format("bash -x {start_mysql_script} {lhotse_database_hosts} {lhotse_schema_path} {lhotse_database_username} {lhotse_database_password} {lhotse_database_rootusername} {lhotse_database_rootuserpassword} {lhotse_database_port}")
 
+    val= os.system(cmd)
+    print val	
+	
   def configure(self, env):
     print 'create the config file call configinit()';
     import params

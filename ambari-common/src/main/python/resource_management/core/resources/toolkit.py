@@ -30,6 +30,8 @@ import re
 import datetime
 import time
 import subprocess
+import urllib2
+import json
 from resource_management.core.exceptions import Fail, ComponentIsNotRunning
 from resource_management.core.logger import Logger
 from resource_management.core.resources import Package
@@ -85,8 +87,8 @@ class Toolkit():
   # url
   # return : None
   @staticmethod
-  def check_url(url):
-    cmd = "curl -I \"" + url + "\" 2> /dev/null | awk 'NR==1{print}' | awk '{print $2}'"
+  def check_url(url, options = ""):
+    cmd = "curl -I " + options + " \"" + url + "\" 2> /dev/null | awk 'NR==1{print}' | awk '{print $2}'"
     Logger.info("check url: {0}".format(url))
     output = Toolkit.exe(cmd)
     if not(output == "200" or output == "302"):
@@ -221,6 +223,27 @@ class Toolkit():
   def get_cpu_cores():
     cmd = r"cat /proc/cpuinfo | egrep 'core id|physical id' | tr -d '\n' | sed s/physical/\\nphysical/g | grep -v ^$ | sort | uniq | wc -l"
     return Toolkit.exe(cmd)
+
+  # get wan ip from portal
+  @staticmethod
+  def get_wan_ip(portal_host, portal_port, ip):
+    try:
+      url = 'http://' + portal_host + ':' + str(portal_port) + '/openapi/getHostWanIp?localIP=' + ip
+      Logger.info("request wan ip from url: " + url)
+
+      data = urllib2.urlopen(url).read()
+      Logger.info("get url data: " + data)
+
+      obj = json.loads(data)
+      code = obj.get("resultCode")
+      if '0' == code:
+        ip = obj.get("resultData")
+      else:
+        Logger.warn('get wanip failed, code = ' + code)
+    except Exception, e:
+      Logger.error("get wanip failed, exception: " + str(e))
+
+    return ip
 
 if __name__ == '__main__':
   # export PYTHONPATH=$PYTHONPATH:/usr/lib/python2.6/site-packages

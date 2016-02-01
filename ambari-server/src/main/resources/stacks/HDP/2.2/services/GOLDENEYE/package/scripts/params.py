@@ -41,10 +41,11 @@ service_daemon = 'httpd'
 goldeneye_web_root_path = '/usr/local/goldeneye/goldeneye-web'
 web_http_path = '/etc/httpd/conf.d'
 #golden eye db
-goldeneye_database_host = default("/clusterHostInfo/goldeneye_metadata_database_hosts", ["localhost"])[0]
+goldeneye_database_host = default("/clusterHostInfo/mysqlserver_hosts", ["127.0.0.1"])[0]
+mysqlserver_root_password = default('/configurations/mysql-server/mysql.server.root.password',"root")
 
 goldeneye_data_dir = default("/configurations/goldeneye-database/goldeneye.data.dir", "/data/goldeneye/mysql_data")
-goldeneye_database_port = default("/configurations/goldeneye-database/database.port", 3306)
+goldeneye_database_port = default("/configurations/mysql-server/mysql.server.port", 3306)
 goldeneye_database_username = default("/configurations/goldeneye-database/goldeneye.username", "root")
 goldeneye_database_password = default("/configurations/goldeneye-database/goldeneye.password", "")
 
@@ -52,7 +53,7 @@ goldeneye_database_password = default("/configurations/goldeneye-database/golden
 if System.get_instance().os_family == "suse" or System.get_instance().os_family == "ubuntu":
   daemon_name = 'mysql'
 else:
-  daemon_name = 'mysqld'
+  daemon_name = 'mysql'
 
 # refractor service path
 

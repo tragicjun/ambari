@@ -23,6 +23,7 @@
       <displayName>Portal</displayName>
       <comment>Deploy Portal API</comment>
       <version>1.0.0</version>
+      <deleted>true</deleted>
       <components>
         <component>
           <name>PORTAL_SERVICE</name>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property>
+    <name>mysql.server.port</name>
+    <value>3306</value>
+    <description>MySQL Server端口号（禁止使用80端口）</description>
+  </property>
+
+  <property>
+    <name>mysql.server.package.maxsize</name>
+    <value>20971520</value>
+    <description>MySQL Server 数据包最大大小（字节）</description>
+  </property>
+
+  <property>
+    <name>mysql.server.root.password</name>
+    <value>root</value>
+    <description>MySQL Server root用户密码</description>
+  </property>
+
+</configuration>

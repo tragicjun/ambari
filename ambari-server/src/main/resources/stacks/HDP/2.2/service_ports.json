@@ -64,9 +64,6 @@
     "WEBHCAT_SERVER":[
       "webhcat-site/templeton.port",
       "9999"
-    ],
-    "MYSQL_SERVER":[
-      "3306"
     ]
   },
   "HBASE":{
@@ -90,6 +87,10 @@
       "ams-hbase-site/hbase.zookeeper.leaderport",
       "ams-hbase-site/hbase.zookeeper.property.clientPort",
       "ams-hbase-site/hbase.zookeeper.peerport"
+    ],
+    "METRICS_INFLUXDB": [
+      "ams-influxdb/influxdb.http.port",
+      "ams-influxdb/influxdb.admin.port"
     ]
   },
   "LHOTSE":{
@@ -99,9 +100,6 @@
     ],
     "LHOTSE_RUNNER":[
       "lhotse-runner/cgi.port"
-    ],
-    "LHOTSE_DATABASE":[
-      "3306"
     ],
     "LHOTSE_SERVICE":[
       "lhotse-service/listen.port",
@@ -135,9 +133,6 @@
   "GOLDENEYE":{
     "GOLDENEYE_WEB":[
       "goldeneye-web/listen.port"
-    ],
-    "GOLDENEYE_METADATA_DATABASE":[
-      "3306"
     ]
   },
   "KAFKA": {
@@ -302,9 +297,19 @@
       "hue-site/http.port"
     ]
   },
-  "PORTAL": {
-    "PORTAL_SERVICE": [
-      "portal-service/listen.port"
+  "WEBSHELL": {
+    "WEBSHELL_SERVER": [
+      "webshell-server/server.port"
+    ]
+  },
+  "MYSQL": {
+    "MYSQLSERVER": [
+      "mysql-server/mysql.server.port"
+    ]
+  },
+  "GRAFANA": {
+    "GRAFANA_SERVER": [
+      "defaults/http.port"
     ]
   }
 }

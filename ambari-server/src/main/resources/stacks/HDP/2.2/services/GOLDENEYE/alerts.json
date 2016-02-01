@@ -27,20 +27,6 @@
           }
         }
       }
-    ],
-    "GOLDENEYE_METADATA_DATABASE": [
-      {
-        "name": "goldeneye_metadb_process",
-        "label": "GoldenEye MetaDB Process",
-        "description": "当GoldenEye MetaDB的端口未开放或连接超时时，触发该告警。",
-        "interval": 1,
-        "scope": "ANY",
-        "enabled": true,
-        "source": {
-          "type": "SCRIPT",
-          "path": "HDP/2.2/services/GOLDENEYE/package/alerts/check_goldeneye_database.py"
-        }
-      }
     ]
   }
 }

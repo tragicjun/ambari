@@ -34,9 +34,12 @@ class Influxdb(Script):
     env.set_params(params)
     Links(params.new_influxdb_usr_lib, params.influxdb_usr_lib)
     Links(params.new_influxdb_var_run, params.influxdb_var_run)
-    Links(params.new_influxdb_var_lib, params.influxdb_var_lib)
     Links(params.new_influxdb_var_log, params.influxdb_var_log)
     Links(params.new_influxdb_config_dir, params.influxdb_config_dir)
+    
+    Links(params.new_influxdb_meta_dir, params.influxdb_meta_dir)
+    Links(params.new_influxdb_data_dir, params.influxdb_data_dir)
+    Links(params.new_influxdb_handoff_dir, params.influxdb_handoff_dir)
 
   def uninstall(self, env):
     Toolkit.uninstall_service("influxdb")
@@ -47,13 +50,13 @@ class Influxdb(Script):
     configinit().update_influxdb_config()
 
   def start(self, env):
-  	import params
+    import params
     import status_params
     env.set_params(params)
     
     self.configure(env) # for security
 
-    cmd = "su {0} -c 'service influxdb start'".format(params.influxdb_user)
+    cmd = "service influxdb start"
     Logger.info("start influxdb")
     utils().exe(cmd)
     check_process_status(status_params.influxdb_pid_file)
@@ -64,7 +67,7 @@ class Influxdb(Script):
     # Sometimes, stop() may be called before start(), in case restart() is initiated right after installation
     self.configure(env) # for security
     
-    cmd = "su {0} -c 'service influxdb stop'".format(params.influxdb_user)
+    cmd = "service influxdb stop"
     Logger.info("stop influxdb")
     utils().exe(cmd)
 

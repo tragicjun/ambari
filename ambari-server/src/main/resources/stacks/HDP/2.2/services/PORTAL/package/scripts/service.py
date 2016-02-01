@@ -60,9 +60,9 @@ class Service(Script):
     Toolkit.exe(params.stop_service)
 
   def status(self, env):
-    import status_params
+    import params
 
-    Toolkit.check_url(status_params.portal_service_url)
+    Toolkit.check_url(params.portal_service_url)
 
 
 if __name__ == "__main__":

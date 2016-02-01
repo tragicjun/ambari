@@ -29,7 +29,7 @@ class dse(Script):
 
     def install(self, env):
         Logger.info("install dse")
-        excludePackage = ['mysql-server*']
+        excludePackage = ['mysql-server']
 
         self.install_packages(env,excludePackage)
         import params
